@@ -1,0 +1,28 @@
+/* 5.features */
+.features{
+    &__icon{
+        min-height: 167px;
+    }
+    &__caption{
+        & h2{
+            font-size: 28px;
+            letter-spacing: -.5px;
+        }
+        & p{
+            font-size: 16px;
+            line-height: 28px;
+            margin: 0;
+        }
+    }
+}
+
+.intro-title{
+    & h2{
+        font-size: 39px;
+    }
+}
+.intro-desc{
+    & p{
+
+    }
+}

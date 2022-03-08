@@ -1,0 +1,103 @@
+/* 12.contact */
+.contact-area{
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+.contact{
+    & i{
+        background: $theme-color;
+        font-size: 40px;
+        height: 150px;
+        width: 150px;
+        color: $white;
+        border-radius: 50%;
+        line-height: 135px;
+        border: 10px solid #fff;
+        box-shadow: 0px 16px 32px 0px rgba(206, 226, 255, 0.4);
+        margin-bottom: 30px;
+    }
+    & h3{
+        font-size: 30px;
+        margin-bottom: 15px;
+    }
+    & p{
+        margin: 0;
+        padding: 0 50px;
+        @media #{$lg}{
+            padding: 0 10px;
+        }
+        @media #{$md}{
+            padding: 0 0px;
+        }
+    }
+}
+
+.form-wrapper{
+    padding: 100px;
+    margin-bottom: -90px;
+    position: relative;
+    z-index: 999;
+    @media #{$md}{
+        padding: 40px;
+    }
+    @media #{$xs}{
+        padding: 20px;
+    }
+}
+
+.contact-form{
+    & input{
+        background: $white;
+        height: 80px;
+        width: 100%;
+        padding: 0 80px;
+        padding-right: 30px;
+        border: 0;
+        color: #aab5ca;
+        font-weight: 500;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+    }
+    & textarea{
+        color: #aab5ca;
+        font-weight: 500;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        height: 300px;
+        width: 100%;
+        padding:30px 80px;
+        border: 0;
+    }
+}
+.form-box::before {
+	position: absolute;
+	content: "\f0e0";
+	font-family: "Font Awesome 5 Free";
+	font-weight: 700;
+	display: inline-block;
+	font-size: 14px;
+	text-align: center;
+	left: 45px;
+	color: $theme-color;
+    top: 29px;
+    z-index: 99;
+}
+.user-icon::before{
+    content: "\f007";
+}
+.email-icon::before{
+    content: "\f0e0";
+}
+.phone-icon::before{
+    content: "\f095";
+}
+.subject-icon::before{
+    content: "\f0a6";
+}
+.contact-form input::-moz-placeholder, .contact-form input::placeholder{color: #aab5ca;}
+.contact-form textarea::-moz-placeholder, .contact-form textarea::placeholder{color: #aab5ca;}
+
+.contact-map{
+    height: 670px;
+    width: 100%;
+}

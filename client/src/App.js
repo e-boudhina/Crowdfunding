@@ -1,11 +1,17 @@
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
-import Dashboard from "./pages/Dashboard";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
+import Dashboard from "./pages/User/Dashboard";
+import Login from "./pages/User/Login";
+import Register from "./pages/User/Register";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+
 
 function App() {
   return (
          <>
+   <Header></Header>
+<Footer></Footer>
           <Router>
             <div className={'container'}>
               <Routes>

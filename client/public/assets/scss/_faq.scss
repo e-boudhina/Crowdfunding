@@ -1,0 +1,83 @@
+/* 11.faq */
+.faq-tab{
+    & ul{
+        border-bottom: 2px solid #e1e1e1;
+        @media #{$xs}{
+            padding-bottom: 10px;
+        }
+        @media #{$sm}{
+            padding-bottom: 30px;
+        }
+        & li{
+            margin-right: 70px;
+                @media #{$xs}{
+                    margin-right: 25px;
+                    margin-bottom: 10px;
+                }
+                @media #{$sm}{
+                    margin-right: 40px;
+                    margin-bottom: 0px;
+                }
+            & a{
+                font-size: 16px;
+                font-weight: 500;
+                color: #8c8bb5;
+                letter-spacing: 2px;
+                padding: 0;
+                text-transform: uppercase;
+                position: relative;
+                &.active{
+                    color: #100d1c;
+                    &:before{
+                        position: absolute;
+                        bottom: -32px;
+                        left: 0;
+                        height: 2px;
+                        width: 200px;
+                        content: "";
+                        background: $theme-color;
+                        transition: .3s;
+                        @media #{$xs}{
+                            display: none;
+                        }
+                        @media #{$sm}{
+                            display: block;
+                        }
+                    }
+                }
+
+            }
+        }
+    }
+}
+
+.faq{
+    & h3{
+        font-size: 25px;
+        margin-bottom: 25px;
+        text-transform: capitalize;
+    }
+    & ul{
+        & li{
+            margin-bottom: 18px;
+            line-height: 1;
+            & a{
+                font-size: 18px;
+                &:hover{
+                    text-decoration: underline;
+                    color: $theme-color;
+                }
+            }
+        }
+    }
+}
+.faq-link{
+    & a{
+        color: $theme-color;
+        font-weight: 500;
+        font-size: 14px;
+        &:hover{
+            color: $theme-color-2;
+        }
+    }
+}

@@ -1,0 +1,153 @@
+/* 4.section-title */
+.section-title{
+    position: relative;
+    z-index: 9;
+    & p{
+        color: $theme-color;
+        font-size: 16px;
+        text-transform: uppercase;
+        font-weight: 500;
+        letter-spacing: 3px;
+
+        & span{
+            background: $theme-color;
+            height: 2px;
+            width: 30px;
+            display: inline-block;
+            margin-right: 12px;
+            position: relative;
+            top: -4px;
+        }
+    }
+    & h1{
+        font-size: 50px;
+        margin: 0;
+        line-height: 1.2;
+        letter-spacing: -2px;
+        @media #{$xs}{
+            font-size: 36px;
+        }
+        & span{
+            position: relative;
+            color: $yellow;
+            @media #{$xs}{
+                color: $theme-color;
+            }
+            &:before{
+                position: absolute;
+                background-image: url(../../assets/img/icon/bg-shape.png);
+                content: "";
+                height: 83px;
+                width: 290px;
+                left: -12px;
+                transform: translateY(-50%);
+                background-repeat: no-repeat;
+                background-position: center center;
+                z-index: -1;
+                top: 35px;
+                background-size: cover;
+                @media #{$xs}{
+                    display: none;
+                }
+            }
+        }
+    }
+    & h5{
+        color: $heading-soft;
+        font-weight: 300;
+        font-size: 30px;
+        margin-top: 20px;
+    }
+}
+
+// title white
+.section-title{
+    &.white-text{
+        & p{
+            color: $theme-color;
+            & span{
+                background: $theme-color;
+            }
+        }
+        & h1{
+            color: $white;
+        }
+    }
+}
+
+.bakix-map{
+    position: relative;
+}
+.map-c1{}
+.bakix-marker {
+	position: absolute;
+}
+.map-c1 {
+	top: 21%;
+	left: 19%;
+}
+.map-c2 {
+	top: 16%;
+	left: 37%;
+}
+.map-c3 {
+	top: 35%;
+	left: 25%;
+}
+.map-c4 {
+	top: 40%;
+	left: 80%;
+}
+.map-c5 {
+	top: 30%;
+	left: 60%;
+}
+.map-c6 {
+	top: 14%;
+	left: 75%;
+}
+.map-c7 {
+	top: 58%;
+	left: 53%;
+}
+.map-c8 {
+	top: 80%;
+	left: 86%;
+}
+.map-c9 {
+	top: 40%;
+	left: 70%;
+}
+.map-c10 {
+	top: 74%;
+	left: 30%;
+}
+.bakix-map-icon {
+	background: #1b70f0;
+	height: 8px;
+	width: 8px;
+	border-radius: 50%;
+	cursor: pointer;
+}
+.bakix-map-address {
+	background: #6100b3;
+	padding: 12px;
+    margin-top: 10px;
+    opacity: 0;
+    visibility: hidden;
+    transition: .3s;
+    display: none;
+    position: relative;
+    z-index: 9;
+}
+.bakix-map-address p {
+	color: #fff;
+	margin: 0;
+}
+.bakix-marker:hover .bakix-map-address {
+    opacity: 1;
+    visibility: visible;
+    display: block;
+}
+
+

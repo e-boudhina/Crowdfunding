@@ -1,0 +1,77 @@
+/* 10.portfolio */
+.portfolio {
+    background: $white;
+    padding: 30px;
+    padding-top: 30px;
+    margin-top: -65px;
+    margin-left: 30px;
+    margin-right: 30px;
+    position: relative;
+    padding-top: 25px;
+    box-shadow: 1.389px 7.878px 16px 0px rgba(162, 162, 162, 0.2);
+    & h4{
+        font-size: 16px;
+        line-height: 1.6;
+        margin-bottom: 20px;
+    }
+}
+.project-details{
+    & p{
+        font-size: 16px;
+        line-height: 28px;
+        margin-bottom: 30px;
+    }
+}
+
+.project-count{
+    margin-bottom: 20px;
+    @media #{$lg}{
+        display: inline-block;
+        margin-right: 40px;
+    }
+    & h2{
+        font-size: 30px;
+        margin-bottom: 10px;
+        @media #{$xs}{
+            font-size: 26px;
+        }
+    }
+    & span{
+        font-size: 18px;
+    }
+}
+.project-icon-link{
+   & a{
+    margin-right: 15px;
+    font-size: 18px;
+    display: inline-block;
+   }
+}
+
+
+// navigation
+.navigation-border{
+    border-top: 2px solid #f7f7f7;
+    overflow: hidden;
+}
+.bakix-navigation{
+    & span{
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-weight: 500;
+        display: block;
+        margin-bottom: 10px;
+        & a:hover{
+            color: $theme-color;
+        }
+    }
+    & h4{
+        font-size: 24px;
+        margin: 0;
+        & a:hover{
+            color: $theme-color;
+        }
+    }
+}
+

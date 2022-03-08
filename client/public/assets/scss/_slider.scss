@@ -1,0 +1,314 @@
+/* 2.slider */
+.hero-height{
+    min-height: 1270px;
+    background-position: top center;
+    background-repeat: no-repeat;
+    @media #{$xs}{
+        min-height: 890px;
+        background-position: bottom center;
+    }
+}
+
+.hero{
+    &__caption{
+      & p{
+          color: $white;
+          font-size: 20px;
+          margin-bottom: 30px;
+      }
+      & h1{
+          font-size: 78px;
+          color: $white;
+          margin-bottom: 60px;
+          line-height: 1.2;
+          letter-spacing: -2px;
+            @media #{$xs}{
+                font-size: 42px;
+            }
+      }
+    }
+}
+
+.hero-progress{
+    & .progress{
+        height: 10px;
+        background-color: $progress-slider-bg;
+        border-radius: 30px;
+        & .progress-bar{
+            background-color: $theme-color-2;
+        }
+    }
+
+}
+
+.count{
+    & h2{
+        font-size: 50px;
+        color: $white;
+        margin: 0;
+        @media #{$xs}{
+            font-size: 26px;
+        }
+    }
+    & span{
+        font-size: 18px;
+        color: $white;
+
+    }
+}
+
+// hero image
+.hero-img-area {
+    margin-top: -500px;
+    @media #{$md}{
+       margin-top: -380px;
+    }
+    @media #{$xs}{
+        margin-top: -180px;
+    }
+}
+
+
+// slider 2
+.hero-slider{
+    & .hero__caption{
+      & p{
+          color: $hero-soft-color;
+          font-size: 18px;
+      }
+      & h1{
+          font-size: 70px;
+          color: $white;
+          padding-right: 50px;
+          position: relative;
+            @media #{$xs}{
+                font-size: 42px;
+            }
+          & span{
+            position: relative;
+            top: -39px;
+            color: $theme-color;
+            font-size: 20px;
+            font-weight: 500;
+            left: -15px;
+          }
+        }
+    }
+}
+
+.hero-slider{
+    .hero-progress{
+        & .progress{
+            height: 10px;
+            background-color: $progress-bg-2;
+            border-radius: 30px;
+            & .progress-bar{
+                background-color: $theme-color-2;
+            }
+        }
+    }
+}
+.slide-img {
+	& img{
+        max-width: inherit;
+        margin-left: -100px;
+    }
+}
+
+.popular-features{
+    & .hero__caption{
+      & h4{
+          font-size: 18px;
+          color: $hero-soft-color-2;
+          padding-right: 50px;
+          line-height: 1.5;
+            @media #{$lg}{
+                padding-right: 0px;
+            }
+            @media #{$xs}{
+                padding-right: 0px;
+            }
+          & a:hover{
+              color: $white;
+          }
+        }
+    }
+}
+.popular-features{
+    .hero-progress{
+        & .progress{
+            height: 6px;
+            background-color: $progress-bg;
+            border-radius: 30px;
+            & .progress-bar{
+                background-color: $theme-color-2;
+            }
+            & .progress-bar.theme-bg{
+                background-color: $theme-color;
+            }
+            & .progress-bar.theme-red{
+                background-color: $theme-red;
+            }
+        }
+    }
+}
+.feasures-border{
+    border-top: 2px solid $sep-color;
+    @media #{$lg}{
+        margin-top:50px;
+    }
+    @media #{$md}{
+        margin-top:40px;
+    }
+    @media #{$xs}{
+        margin-top:40px;
+    }
+}
+
+.slider-active {
+    & .slick-dots {
+        text-align: center;
+        bottom: 30px;
+        position: absolute;
+        left: 80px;
+        z-index: 12;
+        width: 30px;
+        top: 50%;
+        @media #{$laptop}{
+            left: 35px;
+        }
+
+        & li{
+            display: inline-block;
+            margin: 0 4px;
+            & button{
+                background: no-repeat;
+                border: 0;
+                height: 10px;
+                width: 13px;
+                text-indent: -9999px;
+                transition: .3s;
+                padding: 0;
+                border: 2px solid $grey-dip;
+                height: 13px;
+                border-radius: 50%;
+            }
+            &.slick-active{
+                & button{
+                    border-color: $theme-color;
+                }
+            }
+        }
+    }
+}
+.single-slider.pt-360{
+    @media #{$laptop}{
+        padding-top: 300px;
+    }
+    @media #{$lg}{
+        padding-top: 250px;
+    }
+    @media #{$md}{
+        padding-top: 250px;
+    }
+    @media #{$xs}{
+        padding-top: 200px;
+    }
+
+}
+// slider 3
+.slide-box {
+	background-size: cover;
+	background-repeat: no-repeat;
+    background-position: center center;
+    min-height: 860px;
+    @media #{$laptop}{
+        min-height: 660px;
+    }
+    @media #{$lg}{
+        min-height: 660px;
+    }
+    @media #{$md}{
+        min-height: 660px;
+    }
+    @media #{$xs}{
+        min-height: 550px;
+    }
+}
+.slide-box-content{
+    padding: 30px 160px;
+    line-height: 1.2;
+    width: 100%;
+    @media #{$laptop}{
+        padding: 30px 30px;
+    }
+    @media #{$lg}{
+        padding: 30px 30px;
+    }
+    @media #{$md}{
+        padding: 30px 30px;
+    }
+    @media #{$xs}{
+        padding: 30px 30px;
+    }
+    @media #{$sm}{
+        padding: 30px 100px;
+    }
+}
+.slide-text{
+    & h3{
+        color: $white;
+        font-size: 50px;
+        @media #{$lg}{
+            font-size: 32px;
+        }
+        @media #{$xs}{
+            font-size: 30px;
+        }
+
+    }
+}
+.intro-desc{
+    @media #{$md}{
+        padding-left: 0px;
+    }
+    @media #{$xs}{
+        padding-left: 0px;
+    }
+}
+
+
+.bounce-animate {
+	animation-name: float-bob;
+	animation-duration: 2s;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+	-moz-animation-name: float-bob;
+	-moz-animation-duration: 2s;
+	-moz-animation-iteration-count: infinite;
+	-moz-animation-timing-function: linear;
+	-ms-animation-name: float-bob;
+	-ms-animation-duration: 2s;
+	-ms-animation-iteration-count: infinite;
+	-ms-animation-timing-function: linear;
+	-o-animation-name: float-bob;
+	-o-animation-duration: 2s;
+	-o-animation-iteration-count: infinite;
+	-o-animation-timing-function: linear;
+}
+@-webkit-keyframes float-bob {
+  0% {
+    -webkit-transform: translateY(-20px);
+    transform: translateY(-20px);
+  }
+
+  50% {
+    -webkit-transform: translateY(-10px);
+    transform: translateY(-10px);
+  }
+
+  100% {
+    -webkit-transform: translateY(-20px);
+    transform: translateY(-20px);
+  }
+}
