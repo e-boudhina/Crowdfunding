@@ -5,22 +5,27 @@ import Register from "./pages/User/Register";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import ProjectDetails from "./components/Projects/ProjectDetails";
 
 
 function App() {
   return (
          <>
    <Header></Header>
-<Footer></Footer>
+
+
           <Router>
             <div className={'container'}>
               <Routes>
                   <Route path={'/'} element={<Dashboard/>}/>
+                  <Route exact path={'/ProjectDetails'} element={<ProjectDetails/>}/>
                   <Route path={'/login'} element={<Login/>}/>
                   <Route path={'/register'} element={<Register/>}/>
               </Routes>
             </div>
           </Router>
+
+          <Footer></Footer>
       </>
   );
 
