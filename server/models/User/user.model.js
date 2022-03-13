@@ -20,6 +20,14 @@ var UserSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Role"
     }],
+    organization: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "organization"
+        }],
+    aa: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "organization"
+    }],
   /*  gorvernorate: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Gorvernorate"

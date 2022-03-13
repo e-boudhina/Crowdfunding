@@ -5,4 +5,4 @@ const Admin  = User.discriminator( 'Admin', new mongoose.Schema({
     task : String 
 }));
 
-module.exports =Admin; ;
+module.exports =Admin; 
