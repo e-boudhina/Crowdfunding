@@ -2,6 +2,8 @@ import React from 'react'
 
 
 function ProjectDetails(){
+
+
     return (
       <div className="col-md-12">
       <div className="bakix-video mb-60">
