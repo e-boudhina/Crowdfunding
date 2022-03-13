@@ -10,12 +10,11 @@ var imgModel = require('./models/Image/image.model');
 var fs = require('fs');
 
 
-
 var app = express();
 var corsOptions = {
     origin: "*"
   };
-const port = process.env.PORT || 5000 ;
+const port = process.env.PORT || 5001 ;
 
 app.use(cors(corsOptions));
 app.use(express.json()); 
@@ -75,8 +74,6 @@ var upload = multer({ storage: storage });
 //       }
 //   });
 // });
-
-
 
 
 

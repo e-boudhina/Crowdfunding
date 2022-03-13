@@ -1,15 +1,20 @@
+/* eslint-disable import/no-anonymous-default-export */
 import axios from "axios";
 
 const API_URL = "http://localhost:5000/api/auth/";
 
-const register = (username, email, password) => {
+const register = (username, email, password , firstName , lastName , address , birthdate) => {
   return axios.post(API_URL + "signup", {
+    firstName,
+    lastName,
     username,
     email,
     password,
+    address , 
+    birthdate
   });
 };
-
+ 
 const login = (username, password) => {
   return axios
     .post(API_URL + "signin", {
@@ -17,8 +22,9 @@ const login = (username, password) => {
       password,
     })
     .then((response) => {
-      if (response.data.accessToken) {
-        localStorage.setItem("user", JSON.stringify(response.data));
+      if (response.data.user.accessToken) {
+      localStorage.setItem("user", JSON.stringify(response.data.user));
+      localStorage.setItem("infos", JSON.stringify(response.data.infos));
       }
       return response.data;
     });
@@ -26,6 +32,7 @@ const login = (username, password) => {
 
 const logout = () => {
   localStorage.removeItem("user");
+ localStorage.removeItem("infos");
 };
 
 export default  {
