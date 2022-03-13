@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import "./bezkoder.css";
+// import "./bezkoder.css";
 import Login from "./components/User/login.component";
 import Register from "./components/User/register.component";
 import Home from "./components/User/home.component";
@@ -15,7 +15,9 @@ import { history } from "./helpers/history";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import Dashboard from "./pages/User/Dashboard"
+import Dashboard from "./pages/User/Dashboard" 
+import ProjectDetails from "./components/Projects/ProjectDetails" 
+import AddProject from "./components/Projects/addProject" 
 
 
 
@@ -47,7 +49,7 @@ const App = () => {
 
   return (
 <Router history={history}>
-      <Header></Header>
+      {/* <Header></Header> */}
       <div>
         <nav className="navbar navbar-expand navbar-dark bg-dark">
           <Link to={"/"} className="navbar-brand">
@@ -115,6 +117,8 @@ const App = () => {
           <Route path={'/login'} element={<Login/>}/>
           <Route path={'/profile'} element={<Profile/>}/>
           <Route path={'/register'} element={<Register/>}/>
+          <Route exact path={'/ProjectDetails'} element={<ProjectDetails/>}/>
+          <Route exact path={'/addProject'} element={<AddProject/>}/>
           </Routes>
         </div>
       </div>
