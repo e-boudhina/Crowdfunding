@@ -6,7 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Events from "./components/Events/Events";
-
+import EventDetails from "./components/Events/EventDetails";
 function App() {
   return (
          <>
@@ -19,6 +19,7 @@ function App() {
                   <Route path={'/login'} element={<Login/>}/>
                   <Route path={'/register'} element={<Register/>}/>
                   <Route path={'/events'} element={<Events/>}/>
+                  <Route path={'/eventsdet'} element={<EventDetails/>}/>
               </Routes>
             </div>
           </Router><Footer></Footer>

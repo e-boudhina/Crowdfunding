@@ -1,12 +1,15 @@
 function Events(){
     return(
-      
+  
+    
+         
         <section className="event-area pos-relative event-bg pt-120 pb-120">
         <div className="event-shape spahe1 bounce-animate" data-depth=".3"><img src="assets/img/event/p1.png" alt="" /></div>
         <div className="event-shape spahe2 bounce-animate" data-depth=".3"><img src="assets/img/event/p2.png" alt="" /></div>
         <div className="event-shape spahe3 bounce-animate" data-depth=".3"><img src="assets/img/event/p3.png" alt="" /></div>
         <div className="event-shape spahe4 bounce-animate" data-depth=".3"><img src="assets/img/event/p4.png" alt="" /></div>
         <div className="event-shape spahe5 bounce-animate" data-depth=".3"><img src="assets/img/event/p5.png" alt="" /></div>
+        
         <div className="container">
           <div className="row align-items-center">
             <div className="col-xl-9 col-lg-8">
@@ -437,6 +440,7 @@ function Events(){
           </div>
         </div>
       </section>
+    
     )
 }
 export default Events;
