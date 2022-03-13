@@ -152,7 +152,7 @@ exports.addOrganization = (req, res) => {
   
   };
 
-
+// fdsdfsd
   exports.deleteOrganization = (req, res) => {
     console.log(req.params);
     console.log(req.params.id);
