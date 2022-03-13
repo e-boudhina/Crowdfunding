@@ -11,11 +11,12 @@ var app = express();
 var corsOptions = {
     origin: "*"
   };
-const port = process.env.PORT || 5000 ;
+const port = process.env.PORT || 5001 ;
 
 app.use(cors(corsOptions));
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: true }));
+
 
 require('./routes/User/auth.routes')(app);
 require('./routes/User/user.routes')(app);
