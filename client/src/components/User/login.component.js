@@ -1,5 +1,6 @@
-import React, {  useState, useRef } from "react";
-import { Navigate } from 'react-router-dom';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useRef , useEffect  } from "react";
+import { Navigate } from "react-router-dom";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
@@ -21,9 +22,10 @@ const Login = (props) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const { isLoggedIn } = useSelector(state => state.auth);
-  const { message } = useSelector(state => state.message);
+  const { isLoggedIn } = useSelector((state) => state.auth);
+  const { message } = useSelector((state) => state.message);
   const dispatch = useDispatch();
+
   const onChangeUsername = (e) => {
     const username = e.target.value;
     setUsername(username);
@@ -53,53 +55,66 @@ const Login = (props) => {
     return <Navigate to="/profile" />;
   }
   return (
-    <div className="col-md-12">
-      <div className="card card-container">
-        <img
-          src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-          alt="profile-img"
-          className="profile-img-card"
-        />
-        <Form onSubmit={handleLogin} ref={form}>
-          <div className="form-group">
-            <label htmlFor="username">Username</label>
-            <Input
-              type="text"
-              className="form-control"
-              name="username"
-              value={username}
-              onChange={onChangeUsername}
-              validations={[required]}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="password">Password</label>
-            <Input
-              type="password"
-              className="form-control"
-              name="password"
-              value={password}
-              onChange={onChangePassword}
-              validations={[required]}
-            />
-          </div>
-          <div className="form-group">
-            <button className="btn btn-primary btn-block" disabled={loading}>
-              {loading && (
-                <span className="spinner-border spinner-border-sm"></span>
-              )}
-              <span>Login</span>
-            </button>
-          </div>
-          {message && (
-            <div className="form-group">
-              <div className="alert alert-danger" role="alert">
-                {message}
-              </div>
+    <div className="login-area pt-120 pb-120">
+      <div className="container">
+        <div className="row">
+          <div className="col-lg-8 offset-lg-2">
+            <div className="basic-login">
+              
+                <h3 className="text-center mb-60">Login From Here</h3>
+                <Form onSubmit={handleLogin} ref={form}>
+                  
+                    <label htmlFor="username">Username <span>**</span></label>
+                    <Input
+                      type="text"
+                      className="form-control"
+                      name="username"
+                      value={username}
+                      onChange={onChangeUsername}
+                      validations={[required]}
+                    />
+                 
+                  
+                    <label htmlFor="password">Password <span>**</span> </label>
+                    <Input
+                      type="password"
+                      className="form-control"
+                      name="password"
+                      value={password}
+                      onChange={onChangePassword}
+                      validations={[required]}
+                    />
+                  
+                  <div className="login-action mb-20 fix">
+                  <span className="forgot-login f-right">
+                      <a href="#">Lost your password?</a>
+                    </span>
+                    </div>
+                    <button className="btn btn-black w-100" disabled={loading}>
+                      {loading && (
+                        <span className="spinner-border spinner-border-sm"></span>
+                      )}
+                      Login
+                    </button>
+                    <div className="or-divide">
+                      <span>or</span>
+                      </div>
+                    <button className="btn w-100">Register Now</button>
+                    
+                
+                  {message && (
+                    <div className="form-group">
+                      <div className="alert alert-danger" role="alert">
+                        {message}
+                      </div>
+                    </div>
+                  )}
+                  <CheckButton style={{ display: "none" }} ref={checkBtn} />
+                </Form>
+              
             </div>
-          )}
-          <CheckButton style={{ display: "none" }} ref={checkBtn} />
-        </Form>
+          </div>
+        </div>
       </div>
     </div>
   );
