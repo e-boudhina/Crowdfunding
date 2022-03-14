@@ -1,7 +1,7 @@
-const { authJwt } = require("../../middlewares");
+//const { authJwt } = require("../../middlewares");
 const controller = require("../../controllers/Event/Event.controller");
 const db = require("../../models");
-const Event = db.Event;
+const Event = db.Events;
 
 var multer = require('multer');
   
@@ -21,7 +21,7 @@ var upload = multer({ storage: storage });
 module.exports = function(app) {
 
 
-app.get("/api/event/all",controller.Project);
+app.get("/api/event/all",controller.Events);
 //  app.post("/api/test/add",controller.AddEvent);
  app.post("/api/event/add",upload.single('Image'),(req, res) => {  
  const event = new Event({
@@ -29,7 +29,7 @@ app.get("/api/event/all",controller.Project);
     EventDescription: req.body.EventDescription,
       EndDate: req.body.EndDate,
       StartDate: req.body.StartDate,
-    EventImage: req.params.id
+   // EventImage: req.params.id
  });
  event.save((err, event) => {
    if (err) {
@@ -44,6 +44,6 @@ app.get("/api/event/all",controller.Project);
  })})
 
  app.delete("/api/event/delete/:id",controller.Eventdelete);
- app.put("/api/event/delete/:id",controller.EventUpdate);
+ app.put("/api/event/update/:id",controller.EventUpdate);
 
   };

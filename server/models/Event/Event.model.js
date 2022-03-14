@@ -9,9 +9,8 @@ var EventSchema = new mongoose.Schema({
     EndDate: Number,
     NbParticipants:String,
     Rating:String,
-    Status:String,  
-    EventImage:String  
-
+    Status:String
+    //EventImage:String  
 }
 
     )
