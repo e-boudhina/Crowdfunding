@@ -1,8 +1,26 @@
 function Events(){
     return(
-  
-    
-         
+      <body>
+  <main>
+  <section className="page-title-area pt-320 pb-140" data-background="assets/img/bg/breadcumb.jpg" style={{ backgroundImage: 'url("assets/img/bg/breadcumb.jpg")' }}>
+            <div className="container">
+                <div className="row">
+                    <div className="col-xl-12">
+                        <div className="page-title page-title-white text-center">
+                            <h2>Our Event</h2>
+                            <div className="breadcrumb-list">
+                                <ul>
+                                    <li><a href="#">Home</a></li>
+                                    <li><a href="#">Pages</a></li>
+                                    <li>Event</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            </section>
         <section className="event-area pos-relative event-bg pt-120 pb-120">
         <div className="event-shape spahe1 bounce-animate" data-depth=".3"><img src="assets/img/event/p1.png" alt="" /></div>
         <div className="event-shape spahe2 bounce-animate" data-depth=".3"><img src="assets/img/event/p2.png" alt="" /></div>
@@ -440,7 +458,8 @@ function Events(){
           </div>
         </div>
       </section>
-    
+      </main>
+      </body>
     )
 }
 export default Events;
