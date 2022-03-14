@@ -4,9 +4,21 @@ const User = db.user;
 const Role = db.role;
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
+const asyncHandler = require('express-async-handler')
 
 
-exports.signup = (req, res) => {
+const signup = asyncHandler(async (req, res) => {
+
+    //Getting form fields
+    const {username, email, password} = req.body
+
+    //check if form contains required fields
+    if(!username || !email || !password){
+        res.status(400)
+        throw Error('Please add all fields')
+    }
+
+
     const user = new User({
         firstName: req.body.firstName,
         lastName: req.body.lastName,
@@ -60,9 +72,20 @@ exports.signup = (req, res) => {
         });
       }
     });
-  };
+  }
+  );
 
-  exports.signin = (req, res) => {
+  const signin = asyncHandler(async (req, res) => {
+
+          //Getting form fields
+          const {username, password} = req.body
+
+          //check if form contains required fields
+          if(!username || !password){
+              res.status(400)
+              throw Error('Please add all fields')
+          }
+
     User.findOne({
       username: req.body.username
     })
@@ -113,4 +136,8 @@ exports.signup = (req, res) => {
         });
         
       });
-  };
+  }
+  );
+  //Defining the functions as consts than exporting them as an array like this is much easier than exporting them one by one
+// you can simply look into module.export and see what are you exporting without scanning the entire file
+module.exports = { signup, signin}
