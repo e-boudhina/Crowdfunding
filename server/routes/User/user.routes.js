@@ -16,4 +16,6 @@ module.exports = function(app) {
     app.get( "/api/test/inc", [authJwt.verifyToken, authJwt.isIncubator],controller.IncubatorBoard );
     app.get("/api/test/admin", [authJwt.verifyToken, authJwt.isAdmin],  controller.adminBoard );
 
+    app.post("/api/user/update", controller.updateUserProfile);
+    app.delete("/api/user/delete", controller.deleteUser);
   };

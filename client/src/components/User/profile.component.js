@@ -1,34 +1,41 @@
-import React, { useState, useRef , useEffect  } from "react";
-import { Navigate } from 'react-router-dom';
+import React, { useState , useEffect  } from "react";
+import { Navigate  } from 'react-router-dom';
 import { useDispatch, useSelector  } from "react-redux";
-import { refreshUser } from "../../actions/auth";
+import { useNavigate  } from "react-router-dom";
 
-const Profile = () => {
-  const dispatch = useDispatch();
+const Profile = (props) => {
+  const navigate = useNavigate();
+
+  const navigateToEdit = () => navigate("/register"); //eg.history.push('/login');
+  //const dispatch = useDispatch();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [username, setUsername] = useState("");
-  const { user: currentUser } = useSelector((state) => state.auth);
+ // const { user: currentUser } = useSelector((state) => state.auth);
+ const { message } = useSelector((state) => state.message);
   const { infos: currentInfos } = useSelector((state) => state.auth);
-
+  const { isLoggedIn: IsLoggedIn } = useSelector((state) => state.auth);
 
 
 
 useEffect(() => {
-  if (currentInfos) {  
-    console.log("called useEffect");
+  if (!IsLoggedIn) {  
+    navigate("/login"); 
+  } else { 
     setFirstName(currentInfos.firstName)
     setLastName(currentInfos.lastName)
     setUsername(currentInfos.username)
-  } else { 
-   console.log(" ma fammech "); }
- },[currentInfos])  //dep hass"hom zeydin 
+    console.log("User is logged in (fom profile:22");
+ }
+   
+ },[IsLoggedIn])  //dep hass"hom zeydin
   
-    if (!currentUser || !currentInfos) {
-      return <Navigate to="/login" />;
+
+    /*if (!currentUser || !currentInfos) {
+        navigate("/login");
     } else {
-     console.log(" chbiha ");
-    }
+     console.log(" Entered profile (from profile:33) ");
+    } */
 
   return (
 <section className="team-area pt-120 pb-100">
@@ -40,6 +47,7 @@ useEffect(() => {
                 <div className="team__thumb">
                   <img src="assets/img/team/team-details.jpg" alt="" />
                 </div>
+                <button onClick={navigateToEdit} type="button" className="btn btn-black w-100" > Edit profile </button>
               </div>
             </div>
             <div className="col-xl-7 col-lg-7">

@@ -1,10 +1,10 @@
 /* eslint-disable import/no-anonymous-default-export */
 import axios from "axios";
 
-const API_URL = "http://localhost:5000/api/auth/";
+const API_URL = "http://localhost:5000/api";
 
 const register = (username, email, password , firstName , lastName , address , birthdate) => {
-  return axios.post(API_URL + "signup", {
+  return axios.post(API_URL + "/auth/signup", {
     firstName,
     lastName,
     username,
@@ -17,7 +17,7 @@ const register = (username, email, password , firstName , lastName , address , b
  
 const login = (username, password) => {
   return axios
-    .post(API_URL + "signin", {
+    .post(API_URL + "/auth/signin", {
       username,
       password,
     })
@@ -35,8 +35,15 @@ const logout = () => {
  localStorage.removeItem("infos");
 };
 
+const deleteUser = id => {
+  console.log("service react , id user : " + id);
+  return  axios.delete("http://localhost:5000/api/user/delete/", { data: { id : id}});
+};
+
+
 export default  {
   register,
   login,
   logout,
+  deleteUser,
 };

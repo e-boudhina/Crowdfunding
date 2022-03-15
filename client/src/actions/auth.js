@@ -6,13 +6,65 @@ import {
     LOGIN_FAIL,
     LOGOUT,
     SET_MESSAGE,
-    REFRESH_USER
+    REFRESH_USER,
+    USER_UPDATE_SUCCESS,
+    USER_LOGIN_SUCCESS,
+    USER_UPDATE_FAIL,
+    USER_UPDATE_REQUEST,
+    DELETE_USER
   } from "./type";
+  import { useSelector  } from "react-redux";
   import AuthService from "../services/auth.service";
   import UserService from "../services/user.service";
   import axios from "axios";
 
+  const API_URL = "http://localhost:5000/api";
 
+
+  export const deleteUser = (id) => async (dispatch) => {
+    try {
+      console.log("Entered deleteUser in Actions");
+      await AuthService.deleteUser(id)
+      dispatch({
+        type: DELETE_USER,
+        payload: { id },
+      });
+    } catch (err) {
+      console.log("DeleteUser -action  error "+ err + " id user = " + id);
+    }
+  };
+
+
+  export const updateProfile = ( id ,email, password , firstName , lastName , address   ,phone , token) => async (dispatch, getState) => {
+    const user = { id , email, password , firstName , lastName , address , phone }
+    try {
+      dispatch({ type: USER_UPDATE_REQUEST });  //esm fnct  
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          "x-access-token": `Bearer ${token}`,
+        },      };
+  // to update mel service
+      const { data } = await axios.post(API_URL+"/user/update", user, config); 
+      dispatch({ type: USER_UPDATE_SUCCESS, payload: data });
+      localStorage.setItem("infos", JSON.stringify(data.infos));
+      localStorage.setItem("user", JSON.stringify(data.user));
+    } catch (error) {
+     /* dispatch({
+        type: USER_UPDATE_FAIL,
+      });*/
+      const message =
+      (error.response &&
+        error.response.data &&
+        error.response.data.message) ||
+      error.message ||
+      error.toString();
+      dispatch({
+        type: SET_MESSAGE,
+        payload: message,
+      });
+    }
+  }
   export const register = (username, email, password , firstName , lastName , address , birthdate) => (dispatch) => {
     return AuthService.register(username, email, password , firstName , lastName , address , birthdate ).then(
       (response) => {
@@ -45,38 +97,6 @@ import {
   };
   
 
-
-  export const login2 = (username, password) =>  (dispatch) => {
-    try {
-  
-      const config = {
-        headers: {
-          "Content-type": "application/json",
-        },
-      };  
-      const { data } =  AuthService.login(username, password)
-      dispatch({
-        type: LOGIN_SUCCESS,
-        payload: { user: data  },  // , infos : data.infos
-      })
-  
-    } catch (error) {
-      const message =
-      (error.response &&
-        error.response.data &&
-        error.response.data.message) ||
-      error.message ||
-      error.toString();
-    dispatch({
-      type: LOGIN_FAIL,
-    });
-    dispatch({
-      type: SET_MESSAGE,
-      payload: message,
-    });
-    }
-  };
-
   export const  login =  (username, password) =>   (dispatch) => {
     return AuthService.login(username, password).then(
       (data) => {
@@ -105,32 +125,6 @@ import {
     );
   };
 
-
-  export const refreshUser = () => (dispatch) => {
-    return UserService.refreshUser().then(
-      (data) => {
-        console.log(data);
-        dispatch({
-          type: REFRESH_USER,
-          payload: { user: data },
-        });
-        return Promise.resolve();
-      },
-      (error) => {
-        const message =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
-        dispatch({
-          type: SET_MESSAGE,
-          payload: message,
-        });
-        return Promise.reject();
-      }
-    );
-  };
 
 
 

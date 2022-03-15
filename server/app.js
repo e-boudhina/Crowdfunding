@@ -15,7 +15,7 @@ const port = process.env.PORT || 5001 ;
 
 app.use(cors(corsOptions));
 app.use(express.json()); 
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 
 
 require('./routes/User/auth.routes')(app);

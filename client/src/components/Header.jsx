@@ -1,21 +1,30 @@
 import React , { useEffect , useState } from 'react';
 import { logout } from "../actions/auth";
 import { useDispatch, useSelector } from "react-redux";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link , useNavigate  } from "react-router-dom";
 
 function Header(){
+  let navigate = useNavigate();
   const dispatch = useDispatch();
   const { user: currentUser } = useSelector((state) => state.auth);
+  const { isLoggedIn: isLoggedIn } = useSelector((state) => state.auth);
   const [showLogin, setShowLogin] = useState(false);
 
   useEffect(() => {
     if (currentUser) {
       setShowLogin(true);
-      console.log(showLogin);
     } else { 
       setShowLogin(false);
     }
   }, [currentUser]);
+  /*useEffect(() => {
+    if (isLoggedIn) {
+      setShowLogin(true);
+      console.log(showLogin);
+    } else { 
+      setShowLogin(false);
+    }
+  }, [isLoggedIn ]);*/
 
   const logOut = () => {
     dispatch(logout());
@@ -128,9 +137,12 @@ function Header(){
                           <li><a href="blog-details-gallery.html">Blog Details Gallery</a></li>
                         </ul>
                       </li>
-                      <li><a href="contact.html">Contact</a></li>
-                      {currentUser ? (   <li> <Link to={"/login"} className="nav-link" onClick={logOut}>  Logout </Link> </li>  )
-                                            : <li><a href="/login">Login</a></li>}
+                     
+                      {currentUser ? ( <> 
+                      <li> <Link   to={"/profile"} className="nav-link">  Profile </Link> </li>  
+                      <li> <Link  to={"/login"} className="nav-link" onClick={logOut}>  Logout </Link> </li>  
+                      </> )
+                                            :     <li> <Link  to={"/login"} className="nav-link" >  Login </Link> </li>              }
                    
                     </ul>
                   </nav>

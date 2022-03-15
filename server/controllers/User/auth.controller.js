@@ -4,10 +4,12 @@ const User = db.user;
 const Role = db.role;
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
+const asyncHandler = require('express-async-handler')
 
 
 exports.signup = (req, res) => {
     const user = new User({
+      
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         verified: 0,
@@ -92,7 +94,7 @@ exports.signup = (req, res) => {
         for (let i = 0; i < user.roles.length; i++) {
           authorities.push("ROLE_" + user.roles[i].name.toUpperCase());
         }
-        res.status(200).send({
+        res.status(200).send( {
           user : {  
           id: user._id,
           roles: authorities,
@@ -107,6 +109,7 @@ exports.signup = (req, res) => {
             address: user.address,
             verified: user.verified,
             email: user.email,
+            password: user.password
           }
 
 

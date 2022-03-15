@@ -30,6 +30,7 @@ const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     history.listen((location) => {
+      console.log("history listen called from Appjs:33");
       dispatch(clearMessage()); // clear message when changing location
     });
   }, [dispatch]);

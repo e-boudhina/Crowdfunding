@@ -1,11 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useRef , useEffect  } from "react";
-import { Navigate } from "react-router-dom";
+import React, { useState, useRef   } from "react";
+import { Navigate , useNavigate  } from "react-router-dom";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../actions/auth";
+import {clearMessage } from "../../actions/message"
 
 const required = (value) => {
   if (!value) {
@@ -17,6 +18,7 @@ const required = (value) => {
   }
 };
 const Login = (props) => {
+  let navigate = useNavigate();
   const form = useRef();
   const checkBtn = useRef();
   const [username, setUsername] = useState("");
@@ -41,8 +43,10 @@ const Login = (props) => {
     if (checkBtn.current.context._errors.length === 0) {
       dispatch(login(username, password))
         .then(() => {
-          props.history.push("/profile");
-          window.location.reload();
+        //  props.history.push("/profile");
+        dispatch(clearMessage());
+        navigate("/profile")
+        //  window.location.reload();
         })
         .catch(() => {
           setLoading(false);
