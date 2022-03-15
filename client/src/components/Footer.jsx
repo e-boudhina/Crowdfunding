@@ -9,7 +9,7 @@ function Footer(){
             <div className="row">
               <div className="col-xl-12">
                 <div className="brand-heading text-center mb-70">
-                  <h3>What Client Working With BAKIX And They Are Happy</h3>
+                  <h3>What Client Working With BucksBooks And They Are Happy</h3>
                 </div>
                 <div className="brand-active owl-carousel owl-loaded owl-drag">
                   <div className="owl-stage-outer"><div className="owl-stage" style={{transform: 'translate3d(-960px, 0px, 0px)', transition: 'all 0s ease 0s', width: '3040px'}}><div className="owl-item cloned" style={{width: '130px', marginRight: '30px'}}><div className="single-brand">
@@ -62,7 +62,7 @@ function Footer(){
               <div className="col-xl-2 col-lg-3 col-md-4">
                 <div className="footer-widget mb-40">
                   <div className="footer-logo mb-25">
-                    <img src="assets/img/logo/footer.png" alt="" />
+                    <img src="assets/img/logo/logo.png" alt="" />
                   </div>
                   <div className="social-icon">
                     <a href="#"><i className="fab fa-facebook-f" /></a>
@@ -77,7 +77,7 @@ function Footer(){
                 <div className="footer-widget mb-40">
                   <h4 className="footer-title">Company</h4>
                   <ul className="footer-link">
-                    <li><a href="#">What is Bakix</a></li>
+                    <li><a href="#">What is BucksBooks</a></li>
                     <li><a href="#">How It Works</a></li>
                     <li><a href="#">What Is This</a></li>
                     <li><a href="#">Jobs</a></li>
@@ -159,7 +159,7 @@ function Footer(){
             <div className="row">
               <div className="col-12">
                 <div className="copyright-text text-center">
-                  <p>Copyright All Right Reserved By BasicTheme - 2019</p>
+                  <p>Copyright All Right Reserved By BucksBooks - 2022</p>
                 </div>
               </div>
             </div>

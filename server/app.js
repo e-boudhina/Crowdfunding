@@ -7,6 +7,7 @@ const mongoose =db.mongoose ;
 const  dotenv = require('dotenv').config();
 const init_functions = require('./utils/init_functions')
 var imgModel = require('./models/Image/image.model');
+
 var fs = require('fs');
 
 
@@ -19,6 +20,7 @@ const port = process.env.PORT || 5001 ;
 app.use(cors(corsOptions));
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: true }));
+
 
 // app.set("view engine", "ejs");
 
@@ -87,6 +89,59 @@ require('./routes/User/user.routes')(app);
 require('./routes/Project/Project.routes')(app);
 require('./routes/Organization/Organization.routes')(app);
 
+// app.set("view engine", "ejs");
+
+
+
+
+// app.get('/image', (req, res) => {
+//   imgModel.find({}, (err, items) => {
+//       if (err) {
+//           console.log(err);
+//           res.status(500).send('An error occurred', err);
+//       }
+//       else {
+//           res.render('imagesPage', { items: items });
+//       }
+//   });
+// });
+
+
+// app.post('/images', upload.single('image'), (req, res, next) => {
+  
+//   var obj = {
+
+//       name: req.body.name,
+//       desc: req.body.desc,
+//       img: {
+//           data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
+//           contentType: 'image/png'
+//       }
+//   }
+//   imgModel.create(obj, (err, item) => {
+//       if (err) {
+//           console.log(err);
+//           res.redirect('/erreur9ahba');
+//       }
+//       else {
+//           // item.save();
+//           // res.send({ id: item.id})
+//           res.redirect(307,'/api/test/add');
+          
+//       }
+//   });
+// });
+
+
+
+
+
+
+require('./routes/Event/Event.routes')(app);
+
+
+
+
 const uri = process.env.LOCAL_URI ;
 //const uri = process.env.MONGO_URI ;
 async function run() {
@@ -102,7 +157,7 @@ async function run() {
   }
   run();
 
-  init_functions.initRoles();
+  //init_functions.initRoles();
 
   app.listen(port , () => `Server running on port ${port} `);
 

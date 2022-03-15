@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-// import "./bezkoder.css";
 //import "./bezkoder.css";
 import Login from "./components/User/login.component";
 import Register from "./components/User/register.component";
@@ -16,9 +15,12 @@ import { history } from "./helpers/history";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import Dashboard from "./pages/User/Dashboard" 
+import Dashboard from "./pages/User/Dashboard"
 import ProjectDetails from "./components/Projects/ProjectDetails" 
 import AddProject from "./components/Projects/addProject" 
+import EventDetails from "./components/Events/EventDetails";
+//import Events from "./components/Events/Events";
+import Events from "./pages/Events/Event";
 
 import "react-datepicker/dist/react-datepicker.css"
 
@@ -51,10 +53,10 @@ const App = () => {
 
   return (
 <Router history={history}>
-      {/* <Header></Header> */}
+      <Header></Header>
       <div>
-     
-        <div className="container mt-3">
+    
+        
           <Routes>
           <Route path={'/'} element={<Dashboard/>}/>
           <Route path={'/login'} element={<Login/>}/>
@@ -62,8 +64,10 @@ const App = () => {
           <Route path={'/register'} element={<Register/>}/>
           <Route exact path={'/ProjectDetails'} element={<ProjectDetails/>}/>
           <Route exact path={'/addProject'} element={<AddProject/>}/>
+          <Route path={'/eventsdet'} element={<EventDetails/>}/>
+          <Route path={'/events'} element={<Events/>}/>
           </Routes>
-        </div>
+       
       
       </div>
       <Footer/>
