@@ -90,8 +90,8 @@ function Header(){
                           <li><a href="progress.html">Progress Explore</a></li>
                           <li><a href="progress-done.html">Progress Done</a></li>
                           <li><a href="fund-details.html">Fund Details</a></li>
-                          <li><a href="/events">Event</a></li>
-                          <li><a href="eventsdet">Event Details</a></li>
+                          <li><a href="events.html">Event</a></li>
+                          <li><a href="events-details.html">Event Details</a></li>
                           <li><a href="portfolio.html">Portfolio</a></li>
                           <li><a href="project-details.html">Portfolio Details</a></li>
                           <li><a href="we-do.html">Service</a></li>
