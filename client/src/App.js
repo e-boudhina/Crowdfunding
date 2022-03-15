@@ -18,6 +18,7 @@ import Footer from "./components/Footer";
 import Dashboard from "./pages/User/Dashboard"
 
 import "react-datepicker/dist/react-datepicker.css"
+import Recover_password from "./components/User/recover-password.component";
 
 
 const App = () => {
@@ -48,7 +49,7 @@ const App = () => {
 
   return (
 <Router history={history}>
-      <Header></Header>
+      <Header/>
       <div>
      
         <div className="container mt-3">
@@ -57,6 +58,7 @@ const App = () => {
           <Route path={'/login'} element={<Login/>}/>
           <Route path={'/profile'} element={<Profile/>}/>
           <Route path={'/register'} element={<Register/>}/>
+          <Route path={'/recover-password'} element={<Recover_password/>}/>
           </Routes>
         </div>
       
