@@ -12,4 +12,10 @@ db.role = require("./User/role.model")
 db.incubator = require("./User/incubator.model")
 db.admin = require("./User/admin.model")
 
+
+//db.Image = require("./Image/image.model")
+
+db.Events= require("./Event/Event.model")
+
+
 module.exports = db;

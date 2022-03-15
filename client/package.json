@@ -18,12 +18,10 @@
     "react-router-dom": "^6.2.2",
     "react-scripts": "5.0.0",
     "react-validation": "^3.0.7",
-<<<<<<< HEAD
     "redux-devtools-extension": "^2.13.9",
-=======
+
     "redux": "^4.1.2",
     "redux-thunk": "^2.4.1",
->>>>>>> 118ef1abcb0cc152afad6e08f89aeacad0a15f48
     "validator": "^13.7.0"
   },
   "scripts": {

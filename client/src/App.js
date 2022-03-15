@@ -19,7 +19,9 @@ import Footer from "./components/Footer";
 import Dashboard from "./pages/User/Dashboard" 
 import ProjectDetails from "./components/Projects/ProjectDetails" 
 import AddProject from "./components/Projects/addProject" 
-
+import EventDetails from "./components/Events/EventDetails";
+//import Events from "./components/Events/Events";
+import Events from "./pages/Events/Event";
 import "react-datepicker/dist/react-datepicker.css"
 
 
@@ -62,12 +64,15 @@ const App = () => {
           <Route path={'/register'} element={<Register/>}/>
           <Route exact path={'/ProjectDetails'} element={<ProjectDetails/>}/>
           <Route exact path={'/addProject'} element={<AddProject/>}/>
+          <Route path={'/eventsdet'} element={<EventDetails/>}/>
+                  <Route path={'/events'} element={<Events/>}/>
           </Routes>
         </div>
       
       </div>
       <Footer/>
     </Router>
+
   );
 };
 export default App;
