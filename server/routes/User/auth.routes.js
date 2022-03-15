@@ -12,9 +12,12 @@ module.exports = function(app) {
       next();
     });
     //set header then do request | check roles not necessary
-    app.post("/api/auth/signup",[ verifySignUp.checkDuplicateUsernameOrEmail],
-        controller.signup );
+    app.post("/api/auth/signup",[ verifySignUp.checkDuplicateUsernameOrEmail], controller.signup );
    
-    app.post("/api/auth/signin", 
-        controller.signin);
+    app.post("/api/auth/signin", controller.signin);
+
+    app.get("/api/auth/reset-password", controller.reset_password);
+
     };
+
+

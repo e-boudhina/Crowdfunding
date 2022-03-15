@@ -15,6 +15,8 @@ exports.IncubatorBoard = (req, res) => {
   };
 
 
+
+
 /*exports.FindAllProfiles = async (req ,res)=>{
     try {
        const data =  await ProfileModel.find(('user', ["firstName","lastName", "email", "role"])

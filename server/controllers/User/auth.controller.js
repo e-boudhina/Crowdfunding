@@ -5,7 +5,9 @@ const Role = db.role;
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 const asyncHandler = require('express-async-handler')
-
+const nodemailer =require('nodemailer')
+const crypto = require('crypto')
+const buffer = require("buffer");
 
 const signup = asyncHandler(async (req, res) => {
 
@@ -138,6 +140,95 @@ const signup = asyncHandler(async (req, res) => {
       });
   }
   );
+
+
+  const reset_password = asyncHandler(async (req, res) => {
+      //console.log('recover password end point reached')
+      const {username} = req.body
+          if(!username){
+              res.status(400)
+              throw Error('Please provide a username')
+          }
+
+      crypto.randomBytes(32, (err,buffer)=>{
+          if (err){
+            console.log(err)
+          }
+          //console.log("before converting: ", buffer)
+          // Output : <Buffer 09 c6 b8 38 33 c2 c1 65 3d 6f 58 08 b6 9e 09 68 ec b8 bf 1d 60 c2 6e 25 be d3 a0 5d 3b 08 b8 00>
+          const generatedResetPasswordToken = buffer.toString("hex")
+          //console.log("After converting: ", emailToken)
+          // Output: 09c6b83833c2c1653d6f5808b69e0968ecb8bf1d60c26e25bed3a05d3b08b800
+          //fetching the username email
+          //Is there another way to write this besides chaining it using then?
+          User.findOne({username: username}).then(user => {
+              if (!user){
+                  //return is no longer needed it gets added if missing
+                  res.status(200).send({
+                      error: `There is no user registered under the username : "${username}"`
+                  })
+              }
+              //else
+              user.resetPasswordToken = generatedResetPasswordToken
+                  // Token will be valid for one hour ( in milliseconds)
+              user.resetPasswordExpireToken = Date.now()+ 3600000
+                user.save().then(async (result) => {
+                    console.log(result)
+
+                    //if user saved
+
+                    const transport = nodemailer.createTransport({
+
+                        //Configuration
+                        host: process.env.MAIL_HOST,
+                        port: process.env.MAIl_PORT,
+                        auth: {
+                            user: process.env.MAIL_USER,
+                            pass: process.env.MAIL_PASS
+                        }
+                    })
+
+                    // content
+                    const text = 'TEXT EXAMPLE'
+                    //                    await transport.sendMail({
+                    await transport.sendMail({
+                        from: process.env.MAIL_FROM,
+                        to: `${user.email}`,
+                        subject: "Reseting your password",
+                        //for testing
+                        html: `<div className="email" style="
+                            border: 1px solid black;
+                            padding: 20px;
+                            font-family: sans-serif;
+                            line-height: 2;
+                            font-size: 20px;
+                            ">
+             <h1>Hello ${user.username},</h1>
+            <h2><a href="#" class="btn btn-black">Click on this link to reset your password: </h2>
+            <p>${text}</p>
+
+            <p>All the best,</p>
+            <p>BucksBooks Team</p>
+             </div>`
+                    })
+
+                    res.status(200).send({
+                        message: "Email sent "
+                    })
+
+
+                })
+              })
+
+      })
+
+
+
+
+
+
+  }
+  );
   //Defining the functions as consts than exporting them as an array like this is much easier than exporting them one by one
 // you can simply look into module.export and see what are you exporting without scanning the entire file
-module.exports = { signup, signin}
+module.exports = { signup, signin,reset_password}
