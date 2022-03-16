@@ -18,8 +18,12 @@ import Footer from "./components/Footer";
 import Dashboard from "./pages/User/Dashboard"
 
 import "react-datepicker/dist/react-datepicker.css"
-import Recover_password from "./components/User/recover-password.component";
+import Reset_password from "./components/User/reset-password.component";
+import New_password from "./components/User/new-password.component";
 
+// Import toast and the css
+import {ToastContainer} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css'
 
 const App = () => {
   const [showModeratorBoard, setShowModeratorBoard] = useState(false);
@@ -48,6 +52,7 @@ const App = () => {
   
 
   return (
+      <>
 <Router history={history}>
       <Header/>
       <div>
@@ -58,13 +63,16 @@ const App = () => {
           <Route path={'/login'} element={<Login/>}/>
           <Route path={'/profile'} element={<Profile/>}/>
           <Route path={'/register'} element={<Register/>}/>
-          <Route path={'/recover-password'} element={<Recover_password/>}/>
+          <Route path={'/reset-password'} element={<Reset_password/>}/>
+          <Route path={'/new-password/:token'} element={<New_password/>}/>
           </Routes>
         </div>
       
       </div>
       <Footer/>
     </Router>
+        <ToastContainer/>
+        </>
   );
 };
 export default App;

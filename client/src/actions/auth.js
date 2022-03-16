@@ -1,13 +1,13 @@
 /* eslint-disable no-unused-vars */
 import {
-    REGISTER_SUCCESS,
-    REGISTER_FAIL,
-    LOGIN_SUCCESS,
-    LOGIN_FAIL,
-    LOGOUT,
-    SET_MESSAGE,
-    REFRESH_USER
-  } from "./type";
+  REGISTER_SUCCESS,
+  REGISTER_FAIL,
+  LOGIN_SUCCESS,
+  LOGIN_FAIL,
+  LOGOUT,
+  SET_MESSAGE,
+  REFRESH_USER, RESET_PASSWORD_SUCCESS, RESET_PASSWORD_FAILED
+} from "./type";
   import AuthService from "../services/auth.service";
   import UserService from "../services/user.service";
   import axios from "axios";
@@ -104,6 +104,36 @@ import {
       }
     );
   };
+
+export const  reset_password =  (username) =>   (dispatch) => {
+
+  return AuthService.reset_password(username).then(
+      (data) => {
+        // console.log(username)
+        dispatch({
+          type: RESET_PASSWORD_SUCCESS,
+          payload: { message: data.message},
+        });
+        return Promise.resolve();
+      },
+      (error) => {
+        const message =
+            (error.response &&
+                error.response.data &&
+                error.response.data.message) ||
+            error.message ||
+            error.toString();
+        dispatch({
+          type: RESET_PASSWORD_FAILED,
+        });
+        dispatch({
+          type: SET_MESSAGE,
+          payload: message,
+        });
+        return Promise.reject();
+      }
+  );
+};
 
 
   export const refreshUser = () => (dispatch) => {

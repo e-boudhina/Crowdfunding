@@ -163,12 +163,13 @@ const signup = asyncHandler(async (req, res) => {
           //Is there another way to write this besides chaining it using then?
           User.findOne({username: username}).then(user => {
               if (!user){
-                  //return is no longer needed it gets added if missing
-                  res.status(200).send({
+                  // if you do not put return the request will be sent back but the rest of the code will continue to execute, which will cause an error
+                  return res.status(400).send({
                       error: `There is no user registered under the username : "${username}"`
                   })
               }
-              //else
+              // console.log('this line')
+              // if user exists
               user.resetPasswordToken = generatedResetPasswordToken
                   // Token will be valid for one hour ( in milliseconds)
               user.resetPasswordExpireToken = Date.now()+ 3600000
@@ -204,7 +205,7 @@ const signup = asyncHandler(async (req, res) => {
                             font-size: 20px;
                             ">
              <h1>Hello ${user.username},</h1>
-            <h2><a href="#" class="btn btn-black">Click on this link to reset your password: </h2>
+            <h2><a href="${process.env.BASE_ADDRESS}/new-password/${user.resetPasswordToken}" className="btn btn-black">Click on this link to reset your password: </h2>
             <p>${text}</p>
 
             <p>All the best,</p>
@@ -213,7 +214,7 @@ const signup = asyncHandler(async (req, res) => {
                     })
 
                     res.status(200).send({
-                        message: "Email sent "
+                        message: "Email sent, please check your email!"
                     })
 
 
@@ -229,6 +230,47 @@ const signup = asyncHandler(async (req, res) => {
 
   }
   );
+
+
+const new_password = asyncHandler(async (req, res) => {
+
+    //Getting form fields
+    const newPassword = req.body.password
+    const sentPasswordResetToken = req.body.password_reset_token
+
+    //check if form contains required fields
+    if(!newPassword || !sentPasswordResetToken){
+        res.status(400)
+        throw Error('Please provide a valid password')
+    }
+
+
+    User.findOne({resetPasswordToken: sentPasswordResetToken, resetPasswordExpireToken: {$gt: Date.now() }
+    }).then((user)=>{
+        if (!user){
+            return res.status(422).send({
+                error: "Try again, session expired"
+                }
+            )
+        }
+        //hashSync did not work. Why? async/await?
+        bcrypt.hash(newPassword,8).then((hashedPassword) => {
+            //Updating user with new data
+            user.password = hashedPassword
+            user.resetPasswordToken = undefined
+            user.resetPasswordExpireToken = undefined
+            user.save().then((savedUser)=>{
+                res.status(200).send({
+                    message: "Password updated, you can now login using your new password!"
+                })
+            })
+        }).catch(err=>{
+            console.log(err);
+        })
+    })
+
+});
+
   //Defining the functions as consts than exporting them as an array like this is much easier than exporting them one by one
 // you can simply look into module.export and see what are you exporting without scanning the entire file
-module.exports = { signup, signin,reset_password}
+module.exports = { signup, signin,reset_password, new_password}
