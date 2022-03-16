@@ -5,9 +5,10 @@ const Role = db.role;
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 const asyncHandler = require('express-async-handler')
-const nodemailer =require('nodemailer')
+
 const crypto = require('crypto')
 const buffer = require("buffer");
+const transport = require("../../config/nodemailer");
 
 const signup = asyncHandler(async (req, res) => {
 
@@ -19,9 +20,13 @@ const signup = asyncHandler(async (req, res) => {
         res.status(400)
         throw Error('Please add all fields')
     }
+        var generated_token
+        //Read more about transforming an async function to a normal function
+         // it had an error and a buffer as return callback
+        //  var buffer= crypto.randomBytes(32)
+        // generated_token=  buffer.toString("hex")
 
-
-    const user = new User({
+        const user = new User({
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         verified: 0,
@@ -30,49 +35,57 @@ const signup = asyncHandler(async (req, res) => {
         birthdate: req.body.birthdate,
         username: req.body.username,
         email: req.body.email,
-        password: bcrypt.hashSync(req.body.password, 8)
+        password: bcrypt.hashSync(req.body.password, 8),
+        verifyEmailToken: crypto.randomBytes(32).toString("hex")
+
     });
-    user.save((err, user) => {
-      if (err) {
-        res.status(500).send({ message: err });
-        return;
-      }
-      if (req.body.roles) {
-        Role.find(
-          {
-            name: { $in: req.body.roles }
-          },
-          (err, roles) => {
-            if (err) {
-              res.status(500).send({ message: err });
-              return;
-            }
-            user.roles = roles.map(role => role._id);
-            user.save(err => {
-              if (err) {
-                res.status(500).send({ message: err });
-                return;
-              }
-              res.send({ message: "User was registered successfully!" });
-            });
-          }
-        );
-      } else {
-        Role.findOne({ name: "user" }, (err, role) => {
-          if (err) {
-            res.status(500).send({ message: err });
+    user.save(async (err, user) => {
+        if (err) {
+            res.status(500).send({message: err});
             return;
-          }
-          user.roles = [role._id];
-          user.save(err => {
-            if (err) {
-              res.status(500).send({ message: err });
-              return;
-            }
-            res.send({ message: "User was registered successfully!" });
-          });
-        });
-      }
+        }
+        //sending email
+        //if you remove the await the rest of the code will continue and a success message will be returned even though and error can be raised
+        // However if you remove it the request will be much faster
+        await basic_email_template(user)
+
+        if (req.body.roles) {
+            Role.find(
+                {
+                    name: {$in: req.body.roles}
+                },
+                (err, roles) => {
+                    if (err) {
+                        res.status(500).send({message: err});
+                        return;
+                    }
+                    user.roles = roles.map(role => role._id);
+                    user.save(err => {
+                        if (err) {
+                            res.status(500).send({message: err});
+                            return;
+                        }
+                        res.send({message: "User was registered successfully!"});
+                    });
+                }
+            );
+        } else {
+            Role.findOne({name: "user"}, (err, role) => {
+                if (err) {
+                    res.status(500).send({message: err});
+                    return;
+                }
+                user.roles = [role._id];
+                user.save(err => {
+                    if (err) {
+                        res.status(500).send({message: err});
+                        return;
+                    }
+                    res.send({message: "User was registered successfully!"});
+                });
+            });
+        }
+
     });
   }
   );
@@ -142,8 +155,9 @@ const signup = asyncHandler(async (req, res) => {
   );
 
 
+
   const reset_password = asyncHandler(async (req, res) => {
-      //console.log('recover password end point reached')
+      //console.log('reset password end point reached')
       const {username} = req.body
           if(!username){
               res.status(400)
@@ -175,27 +189,14 @@ const signup = asyncHandler(async (req, res) => {
               user.resetPasswordExpireToken = Date.now()+ 3600000
                 user.save().then(async (result) => {
                     console.log(result)
-
                     //if user saved
-
-                    const transport = nodemailer.createTransport({
-
-                        //Configuration
-                        host: process.env.MAIL_HOST,
-                        port: process.env.MAIl_PORT,
-                        auth: {
-                            user: process.env.MAIL_USER,
-                            pass: process.env.MAIL_PASS
-                        }
-                    })
-
                     // content
                     const text = 'TEXT EXAMPLE'
-                    //                    await transport.sendMail({
+                    //I already moved the node mail transport configuration to the "conf" directory. However, I still need to make email templates as a function and export it.
                     await transport.sendMail({
                         from: process.env.MAIL_FROM,
                         to: `${user.email}`,
-                        subject: "Reseting your password",
+                        subject: "Resetting your password",
                         //for testing
                         html: `<div className="email" style="
                             border: 1px solid black;
@@ -214,7 +215,7 @@ const signup = asyncHandler(async (req, res) => {
                     })
 
                     res.status(200).send({
-                        message: "Email sent, please check your email!"
+                        message: "Reset password email sent, please check your email!"
                     })
 
 
@@ -222,12 +223,6 @@ const signup = asyncHandler(async (req, res) => {
               })
 
       })
-
-
-
-
-
-
   }
   );
 
@@ -271,6 +266,68 @@ const new_password = asyncHandler(async (req, res) => {
 
 });
 
+
+const verify_email = asyncHandler(async (req, res) => {
+        //I removed most of the comments from this function since they are the same
+        // if you would like to learn how it works you can check the "reset_password" above and follow along to understand
+
+    const {username} = req.body
+    if(!username){
+        res.status(400)
+        throw Error('Please provide a valid username')
+    }
+
+    User.findOne({username: username}).exec((err, user) => {
+        if (err) {
+            return res.status(400).send({message: err});
+        }
+        if (!user) {
+            return res.status(200).send({message: `There is no user registered under the user name => ${username} <= `});
+        }
+        // try to find away to move this code out of user.find one
+
+
+
+
+        })//end user find
+
+   })
+
+//TO be developed later to make the code shorter
+// can a const function returns a value using return?
+function generate_custom_token(){
+    crypto.randomBytes(32, (err,buffer)=>{
+        if (err){
+            console.log(err)
+        }
+        return buffer.toString("hex")
+    })
+}
+const basic_email_template = async (user) => {
+    const text = 'TEXT EXAMPLE'
+    //I already moved the node mail transport configuration to the "conf" directory. However, I still need to make email templates as a function and export it.
+    await transport.sendMail({
+        from: process.env.MAIL_FROM,
+        to: `${user.email}`,
+        subject: "Verify email",
+        //for testing
+        html: `<div className="email" style="
+                            border: 1px solid black;
+                            padding: 20px;
+                            font-family: sans-serif;
+                            line-height: 2;
+                            font-size: 20px;
+                            ">
+             <h1>Hello ${user.username},</h1>
+            <h2><a href="${process.env.BASE_ADDRESS}/verify-password/${user.verifyEmailToken}" className="btn btn-black">Click on this link to verify your email: </h2>
+            <p>${text}</p>
+
+            <p>All the best,</p>
+            <p>BucksBooks Team</p>
+             </div>`
+    })
+}
+
   //Defining the functions as consts than exporting them as an array like this is much easier than exporting them one by one
 // you can simply look into module.export and see what are you exporting without scanning the entire file
-module.exports = { signup, signin,reset_password, new_password}
+module.exports = { signup, signin,reset_password, new_password, verify_email}

@@ -9,7 +9,7 @@ verifyToken = (req, res, next) => {
 
   //Token is being send as parameter in the headers x-access-token
   // You can switch this method and use "Authorisation header" sent in in the form 'Bearer ${token}'. However that will required some changed in the function to extract the token
-  console.log(req.headers)
+  // console.log(req.headers)
     let token = req.headers["x-access-token"];
     if (!token) {
       return res.status(403).send({ message: "No token provided!" });

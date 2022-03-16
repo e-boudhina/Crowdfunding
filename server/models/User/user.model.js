@@ -16,6 +16,7 @@ var UserSchema = new mongoose.Schema({
     phone: Number,
     password : String,
     birthdate: Date,
+    verifyEmailToken: String,
     resetPasswordToken: String,
     resetPasswordExpireToken: Date,
     roles: [{
