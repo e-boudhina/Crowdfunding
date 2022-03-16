@@ -5,24 +5,26 @@ import Register from "./pages/User/Register";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import EventDetails from "./components/Events/EventDetails";
+//import EventDetails from "./components/Events/EventDetails";
 //import Events from "./components/Events/Events";
 import Events from "./pages/Events/Event";
+import EventsDetails from "./pages/Events/EventDetails";
+import Home from "./pages/Home";
+
 function App() {
   return (
          <>
    <Header></Header>
 
           <Router>
-            <div className={'container'}>
               <Routes>
-                  <Route path={'/'} element={<Dashboard/>}/>
+                  <Route path={'/'} element={<Home/>}/>
                   <Route path={'/login'} element={<Login/>}/>
                   <Route path={'/register'} element={<Register/>}/>
-                  <Route path={'/eventsdet'} element={<EventDetails/>}/>
+               
                   <Route path={'/events'} element={<Events/>}/>
+                  <Route path={'/eventsdet'} element={<EventsDetails/>}/>
               </Routes>
-            </div>
           </Router>
           <Footer></Footer>
 

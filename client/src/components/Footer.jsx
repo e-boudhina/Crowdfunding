@@ -119,7 +119,7 @@ function Footer(){
                   <ul className="widget-latest-post">
                     <li>
                       <div className="widget-thumb">
-                        <a href="#"><img src="assets/img/blog/latest/post1.jpg" alt="" /></a>
+                        <a href="#"><img src="assets/img/blog/latest/footer.jpg" alt="" /></a>
                       </div>
                       <div className="widget-content">
                         <h4><a href="#">Dolor sit amet, consectet is was
@@ -129,7 +129,7 @@ function Footer(){
                     </li>
                     <li>
                       <div className="widget-thumb">
-                        <a href="#"><img src="assets/img/blog/latest/post2.jpg" alt="" /></a>
+                        <a href="#"><img src="assets/img/blog/latest/footer.jpg" alt="" /></a>
                       </div>
                       <div className="widget-content">
                         <h4><a href="#">Dolor sit amet, consectet is was
@@ -139,7 +139,7 @@ function Footer(){
                     </li>
                     <li>
                       <div className="widget-thumb">
-                        <a href="#"><img src="assets/img/blog/latest/post3.jpg" alt="" /></a>
+                        <a href="#"><img src="assets/img/blog/latest/footer.jpg" alt="" /></a>
                       </div>
                       <div className="widget-content">
                         <h4><a href="#">Dolor sit amet, consectet is was
@@ -167,4 +167,5 @@ function Footer(){
       </footer>
     )
 }
+
 export default Footer
