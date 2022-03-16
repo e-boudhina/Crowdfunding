@@ -56,19 +56,20 @@ const App = () => {
       <Header></Header>
       <div>
     
-        
+      
           <Routes>
           <Route path={'/'} element={<Dashboard/>}/>
           <Route path={'/login'} element={<Login/>}/>
           <Route path={'/profile'} element={<Profile/>}/>
           <Route path={'/register'} element={<Register/>}/>
+         
           <Route exact path={'/ProjectDetails'} element={<ProjectDetails/>}/>
           <Route exact path={'/addProject'} element={<AddProject/>}/>
           <Route path={'/eventsdet'} element={<EventDetails/>}/>
-          <Route path={'/events'} element={<Events/>}/>
+                  <Route path={'/events'} element={<Events/>}/>
           </Routes>
-       
       
+   
       </div>
       <Footer/>
     </Router>
