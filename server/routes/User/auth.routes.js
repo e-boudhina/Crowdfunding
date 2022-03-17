@@ -16,7 +16,7 @@ module.exports = function(app) {
    
     app.post("/api/auth/signin", controller.signin);
 
-    app.post("/api/auth/verify-email", controller.verify_email);
+    app.post("/api/auth/verify-email/:verify_email_token", controller.verify_email);
     app.post("/api/auth/reset-password", controller.reset_password);
     app.post("/api/auth/new-password", controller.new_password);
 

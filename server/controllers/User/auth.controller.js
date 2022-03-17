@@ -154,8 +154,6 @@ const signup = asyncHandler(async (req, res) => {
   }
   );
 
-
-
   const reset_password = asyncHandler(async (req, res) => {
       //console.log('reset password end point reached')
       const {username} = req.body
@@ -188,7 +186,7 @@ const signup = asyncHandler(async (req, res) => {
                   // Token will be valid for one hour ( in milliseconds)
               user.resetPasswordExpireToken = Date.now()+ 3600000
                 user.save().then(async (result) => {
-                    console.log(result)
+                    // console.log(result)
                     //if user saved
                     // content
                     const text = 'TEXT EXAMPLE'
@@ -271,19 +269,32 @@ const verify_email = asyncHandler(async (req, res) => {
         //I removed most of the comments from this function since they are the same
         // if you would like to learn how it works you can check the "reset_password" above and follow along to understand
 
-    const {username} = req.body
-    if(!username){
+    const verifyEmailToken= req.params.verify_email_token
+    // console.log(verifyEmailToken)
+    if(!verifyEmailToken){
         res.status(400)
-        throw Error('Please provide a valid username')
+        throw Error('Please provide a valid verification token')
     }
+    // else {
+    //    return  res.status(200).send("here")
+    // }
 
-    User.findOne({username: username}).exec((err, user) => {
+    User.findOne({verifyEmailToken: verifyEmailToken}).exec((err, user) => {
         if (err) {
             return res.status(400).send({message: err});
         }
         if (!user) {
-            return res.status(200).send({message: `There is no user registered under the user name => ${username} <= `});
+            return res.status(200).send({message: `There is no user registered using that token => ${verifyEmailToken} <= `});
         }
+        //else
+        user.verified = true
+        user.verifyEmailToken = undefined
+        // you can send email notification here
+        user.save().then((savedUser)=>{
+            res.status(200).send({
+                message: `Thank you ${user.username}. Your account is now verified!`
+            })
+        })
         // try to find away to move this code out of user.find one
 
 
