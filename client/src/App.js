@@ -23,7 +23,7 @@ import Events from "./pages/Events/Event"
 import EventDetails from "./pages/Events/EventDetails" 
 
 import "react-datepicker/dist/react-datepicker.css"
-
+import AddEvents from "./pages/Events/AddEvent" 
 
 const App = () => {
   const [showModeratorBoard, setShowModeratorBoard] = useState(false);
@@ -66,6 +66,7 @@ const App = () => {
           <Route exact path={'/addProject'} element={<AddProject/>}/>
           <Route path={'/eventsdet'} element={<EventDetails/>}/>
                   <Route path={'/events'} element={<Events/>}/>
+                  <Route path={'/addevents'} element={<AddEvents/>}/>
           </Routes>
       
    
