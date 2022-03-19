@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "express": "^4.17.3",
+    "react-owl-carousel": "^2.3.3"
+  }
+}

@@ -19,6 +19,8 @@ import Footer from "./components/Footer";
 import Dashboard from "./pages/User/Dashboard" 
 import ProjectDetails from "./components/Projects/ProjectDetails" 
 import AddProject from "./components/Projects/addProject" 
+import Events from "./pages/Events/Event" 
+import EventDetails from "./pages/Events/EventDetails" 
 
 import "react-datepicker/dist/react-datepicker.css"
 
@@ -51,7 +53,7 @@ const App = () => {
 
   return (
 <Router history={history}>
-      {/* <Header></Header> */}
+       <Header></Header>
       <div>
 
           <Routes>
