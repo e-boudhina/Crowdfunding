@@ -1,7 +1,26 @@
-import React from 'react'
-
+import React , { useEffect , useState } from 'react';
+import { logout } from "../actions/auth";
+import { useDispatch, useSelector } from "react-redux";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 function Header(){
+  const dispatch = useDispatch();
+  const { user: currentUser } = useSelector((state) => state.auth);
+  const [showLogin, setShowLogin] = useState(false);
+
+  useEffect(() => {
+    if (currentUser) {
+      setShowLogin(true);
+      console.log(showLogin);
+    } else { 
+      setShowLogin(false);
+    }
+  }, [currentUser]);
+
+  const logOut = () => {
+    dispatch(logout());
+  };
+
     return (
       <div>
       <meta charSet="utf-8" />
@@ -29,6 +48,13 @@ function Header(){
           <span />
         </div>
       </div>
+      <div id="preloader" style={{display: 'none'}}>
+        <div className="preloader">
+          <span />
+          <span />
+        </div>
+      </div>
+      
       <header id="sticky-header" className="header header-transparent mt-60">
         <div className="container">
           <div className="header-box white-bg pl-50 pr-50">
@@ -103,6 +129,9 @@ function Header(){
                         </ul>
                       </li>
                       <li><a href="contact.html">Contact</a></li>
+                      {currentUser ? (   <li> <Link to={"/login"} className="nav-link" onClick={logOut}>  Logout </Link> </li>  )
+                                            : <li><a href="/login">Login</a></li>}
+                   
                     </ul>
                   </nav>
                 </div>
@@ -114,6 +143,10 @@ function Header(){
           </div>
         </div>
       </header>
+      <section className="page-title-area pt-140 pb-140" data-background="assets/img/bg/breadcumb.jpg" style={{backgroundImage: 'url("assets/img/bg/breadcumb.jpg")'}}>
+       
+      </section>
+
     </div>
      )
 }
