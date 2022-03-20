@@ -45,10 +45,10 @@ import {
           "x-access-token": `Bearer ${token}`,
         },      };
   // to update mel service
-      const { data } = await axios.post(API_URL+"/user/update", user, config); 
-      dispatch({ type: USER_UPDATE_SUCCESS, payload: data });
-      localStorage.setItem("infos", JSON.stringify(data.infos));
+      const { data } = await axios.post(API_URL+"/user/update", user, config)
+     localStorage.setItem("infos", JSON.stringify(data.infos));
       localStorage.setItem("user", JSON.stringify(data.user));
+      dispatch({ type: USER_UPDATE_SUCCESS, payload: data })
     } catch (error) {
      /* dispatch({
         type: USER_UPDATE_FAIL,
@@ -65,6 +65,9 @@ import {
       });
     }
   }
+
+
+  
   export const register = (username, email, password , firstName , lastName , address , birthdate) => (dispatch) => {
     return AuthService.register(username, email, password , firstName , lastName , address , birthdate ).then(
       (response) => {

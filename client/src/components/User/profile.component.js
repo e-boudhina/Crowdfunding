@@ -18,7 +18,9 @@ const Profile = (props) => {
 
 
 
+
 useEffect(() => {
+  console.log("is mounted ");
   if (!IsLoggedIn) {  
     navigate("/login"); 
   } else { 
@@ -27,8 +29,8 @@ useEffect(() => {
     setUsername(currentInfos.username)
     console.log("User is logged in (fom profile:22");
  }
-   
- },[IsLoggedIn])  //dep hass"hom zeydin
+
+ },[IsLoggedIn,currentInfos,navigate])  //dep hass"hom zeydin
   
 
     /*if (!currentUser || !currentInfos) {

@@ -72,6 +72,7 @@ exports.updateUserProfile = asyncHandler(async (req, res) => {
       authorities.push("ROLE_" + user.roles[i].name.toUpperCase());
     }
     const updatedUser = await user.save();
+    if (updatedUser) { console.log(updatedUser) }
     res.json(
       {
         user: {
@@ -160,12 +161,18 @@ exports.getUser = (req, res) => {
     });
 };
 
-/*exports.DeleteProfile = async (req ,res)=>{
-    try {
-        const data =  await ProfileModel.findOneAndRemove({_id: req.params.id})
-        res.status(200).json({message: "deleted"})
- 
-     } catch (error) {
-         res.status(404).json(error.message)
-     }
-} */
+exports.searchUsers = async (req, res) => {
+  // usage : user to consult another user
+  const keyword =req.params.keyword
+  console.log("called "+keyword);
+  try {
+    const data = await User
+      .find(
+        { firstName : { $regex: keyword  } }
+      )
+     // .populate("roles", "-__v");
+    res.status(200).json(data);
+  } catch (error) {
+    res.status(404).json(error.message);
+  }
+};

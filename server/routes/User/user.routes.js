@@ -18,4 +18,5 @@ module.exports = function(app) {
 
     app.post("/api/user/update", controller.updateUserProfile);
     app.delete("/api/user/delete", controller.deleteUser);
+    app.get("/api/user/searchusers/:keyword",controller.searchUsers);
   };

@@ -1,12 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useRef   } from "react";
-import { Navigate , useNavigate  } from "react-router-dom";
+import React, { useState, useRef } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../actions/auth";
-import {clearMessage } from "../../actions/message"
+import { clearMessage } from "../../actions/message";
 
 const required = (value) => {
   if (!value) {
@@ -43,10 +43,10 @@ const Login = (props) => {
     if (checkBtn.current.context._errors.length === 0) {
       dispatch(login(username, password))
         .then(() => {
-        //  props.history.push("/profile");
-        dispatch(clearMessage());
-        navigate("/profile")
-        //  window.location.reload();
+          //  props.history.push("/profile");
+          dispatch(clearMessage());
+          navigate("/profile");
+          //  window.location.reload();
         })
         .catch(() => {
           setLoading(false);
@@ -55,67 +55,83 @@ const Login = (props) => {
       setLoading(false);
     }
   };
+
+  const registerHandle = () => {
+    console.log("clicked register");
+
+      //  props.history.push("/tutorials");
+     navigate("/register")
+  
+  };
+
+
   if (isLoggedIn) {
     return <Navigate to="/profile" />;
   }
+
+
+
+
   return (
     <div className="login-area pt-120 pb-120">
       <div className="container">
         <div className="row">
           <div className="col-lg-8 offset-lg-2">
             <div className="basic-login">
-              
-                <h3 className="text-center mb-60">Login From Here</h3>
-                <Form onSubmit={handleLogin} ref={form}>
-                  
-                    <label htmlFor="username">Username <span>**</span></label>
-                    <Input
-                      type="text"
-                      className="form-control"
-                      name="username"
-                      value={username}
-                      onChange={onChangeUsername}
-                      validations={[required]}
-                    />
-                 
-                  
-                    <label htmlFor="password">Password <span>**</span> </label>
-                    <Input
-                      type="password"
-                      className="form-control"
-                      name="password"
-                      value={password}
-                      onChange={onChangePassword}
-                      validations={[required]}
-                    />
-                  
-                  <div className="login-action mb-20 fix">
+              <h3 className="text-center mb-60">Login From Here</h3>
+              <Form onSubmit={handleLogin} ref={form}>
+                <label htmlFor="username">
+                  Username <span>**</span>
+                </label>
+                <Input
+                  type="text"
+                  className="form-control"
+                  name="username"
+                  value={username}
+                  onChange={onChangeUsername}
+                  validations={[required]}
+                />
+
+                <label htmlFor="password">
+                  Password <span>**</span>{" "}
+                </label>
+                <Input
+                  type="password"
+                  className="form-control"
+                  name="password"
+                  value={password}
+                  onChange={onChangePassword}
+                  validations={[required]}
+                />
+
+                <div className="login-action mb-20 fix">
                   <span className="forgot-login f-right">
-                      <a href="#">Lost your password?</a>
-                    </span>
-                    </div>
-                    <button className="btn btn-black w-100" disabled={loading}>
-                      {loading && (
-                        <span className="spinner-border spinner-border-sm"></span>
-                      )}
-                      Login
-                    </button>
-                    <div className="or-divide">
-                      <span>or</span>
-                      </div>
-                    <button className="btn w-100">Register Now</button>
-                    
-                
-                  {message && (
-                    <div className="form-group">
-                      <div className="alert alert-danger" role="alert">
-                        {message}
-                      </div>
-                    </div>
+                    <a href="#">Lost your password?</a>
+                  </span>
+                </div>
+                <button className="btn btn-black w-100" disabled={loading}>
+                  {loading && (
+                    <span className="spinner-border spinner-border-sm"></span>
                   )}
-                  <CheckButton style={{ display: "none" }} ref={checkBtn} />
-                </Form>
+                  Login
+                </button>
               
+
+                {message && (
+                  <div className="form-group">
+                    <div className="alert alert-danger" role="alert">
+                      {message}
+                    </div>
+                  </div>
+                )}
+                <CheckButton style={{ display: "none" }} ref={checkBtn} />
+              </Form>
+
+              <div className="or-divide">
+                  <span>or</span>
+                </div>
+                <button className="btn w-100" onClick={registerHandle}>Register Now</button>
+
             </div>
           </div>
         </div>

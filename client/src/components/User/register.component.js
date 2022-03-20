@@ -82,20 +82,17 @@ const Register = () => {
   useEffect(() => {
     if (currentInfos) {
       setRegisterForm(false);
-      console.log("regsterForm " + registerForm);
-      console.log("password modified initial " + passwordModified);
       setFormTitle("Profile Edit");
       setFirstName(currentInfos.firstName);
       setLastName(currentInfos.lastName);
       setUsername(currentInfos.username);
       setAddress(currentInfos.address);
       setEmail(currentInfos.email);
-      setPhone(currentInfos.phone);
+      setPhone(String(currentInfos.phone));
     } else {
-      console.log(" ma fammech ");
       setFormTitle("Signup");
     }
-  }, [currentInfos]);
+  },[currentInfos]);
 
   const onChangeUsername = (e) => {
     const username = e.target.value;
@@ -172,8 +169,7 @@ const Register = () => {
         address,
         phone
       );
-      dispatch(
-        updateProfile(
+      dispatch(updateProfile(
           currentUser.id,
           email,
           password,
@@ -181,11 +177,12 @@ const Register = () => {
           lastName,
           address,
           phone,
-          currentUser.accessToken
-        )
-      )
+          currentUser.accessToken    ))
         .then(() => {
+          navigate("/profile")
+   // window.location.reload();
           setSuccessful(true);
+     
         })
         .catch(() => {
           setSuccessful(false);
@@ -288,7 +285,7 @@ const Register = () => {
                         onChange={(birthdate) => setBirthdate(birthdate)}
                       />
 
-                      <label htmlFor="phone "> Phone number : </label>
+<label htmlFor="phone "> Phone number : </label>
                       <PhoneInput
                         name="phone"
                         country={"tn"}
