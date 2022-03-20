@@ -11,6 +11,11 @@ const Profile = (props) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [username, setUsername] = useState("");
+  const [address, setAddress] = useState("");
+  const [birthDate, setBirthDate] = useState("");
+  const [email, setEmail] = useState("");
+  const [verified,setVerified] = useState(false);
+  const [phone, setPhone]= useState("")
  // const { user: currentUser } = useSelector((state) => state.auth);
  const { message } = useSelector((state) => state.message);
   const { infos: currentInfos } = useSelector((state) => state.auth);
@@ -27,6 +32,10 @@ useEffect(() => {
     setFirstName(currentInfos.firstName)
     setLastName(currentInfos.lastName)
     setUsername(currentInfos.username)
+    setEmail(currentInfos.email)
+    setAddress(currentInfos.address)
+    setVerified(currentInfos.verified)
+    setPhone(currentInfos.phone)
     console.log("User is logged in (fom profile:22");
  }
 
@@ -57,14 +66,14 @@ useEffect(() => {
                 <div className="section-title mb-40">
                   <p><span /> username : {username}</p>
                   <h1>  {firstName} {lastName} </h1>
-                  <h5>Based in Netherland, I’m developer and graphic designer.</h5>
+                  <h5>  {address} </h5>
                 </div>
                 <div className="team-info">
                   <div className="row">
                     <div className="col-lg-6 col-md-6">
                       <div className="team-cta mb-35">
-                        <h5 className="team-ph">P : +33 (0)1 48 87 08 19</h5>
-                        <h5 className="team-mail">contact@example-co.com</h5>
+                        <h5 className="team-ph">P : + {phone} </h5>
+                        <h5 className="team-mail">  {email} </h5>
                       </div>
                     </div>
                     <div className="col-lg-6 col-md-6">

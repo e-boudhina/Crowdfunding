@@ -2,8 +2,8 @@
 import axios from "axios";
 import authHeader from "./auth-header";
 import { useSelector  } from "react-redux";
-const TEST_API_URL = "http://localhost:8080/api/test/";
-const API_URL = "http://localhost:8080/api/user/";
+const TEST_API_URL = "http://localhost:5000/api/test/";
+const API_URL = "http://localhost:5000/api/user/";
 
 
 const getPublicContent = () => {
@@ -21,12 +21,19 @@ const getAdminBoard = () => {
 const getAllUsers = (keyword) => {
   return axios.get("http://localhost:5000/api/user/searchusers/"+keyword, { headers: authHeader()   })
 }
-
+export const updateUser = (user ) => {
+  return  axios.post(API_URL+"update", user , authHeader())
+}
+export const getUser =(username) =>{
+  return axios.get(API_URL+"get/"+username  )
+}
 export default {
   getPublicContent,
   getUserBoard,
   getModeratorBoard,
   getAdminBoard,
-  getAllUsers
+  getAllUsers,
+  updateUser,
+  getUser
   //refreshUser
 };

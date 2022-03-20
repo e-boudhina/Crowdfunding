@@ -106,15 +106,7 @@ const Register = () => {
     const lastName = e.target.value;
     setLastName(lastName);
   };
-  const onChangePhone = (e) => {
-    const phone = e.target.value;
-    console.log(phone);
-    setPhone(phone);
-  };
-  const onChangeBirthDate = (e) => {
-    const birthdate = e.target.value;
-    setPassword(password);
-  };
+ 
   const onChangeAddress = (e) => {
     const address = e.target.value;
     setAddress(address);
@@ -167,7 +159,8 @@ const Register = () => {
         firstName,
         lastName,
         address,
-        phone
+        phone,
+        birthdate
       );
       dispatch(updateProfile(
           currentUser.id,
@@ -177,6 +170,7 @@ const Register = () => {
           lastName,
           address,
           phone,
+          birthdate,
           currentUser.accessToken    ))
         .then(() => {
           navigate("/profile")
@@ -273,7 +267,7 @@ const Register = () => {
                         name="address"
                         value={address}
                         onChange={onChangeAddress}
-                        validations={[required, vaddress]}
+                     
                       />
 
                       <label htmlFor="birthdate "> Birthdate : </label>
@@ -283,6 +277,7 @@ const Register = () => {
                         name="birthdate"
                         value={birthdate}
                         onChange={(birthdate) => setBirthdate(birthdate)}
+                        validations={[required]}
                       />
 
 <label htmlFor="phone "> Phone number : </label>
