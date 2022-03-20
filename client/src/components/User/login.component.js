@@ -106,15 +106,16 @@ const Login = (props) => {
 
                 <div className="login-action mb-20 fix">
                   <span className="forgot-login f-right">
-                    <a href="#">Lost your password?</a>
-                  </span>
-                </div>
-                <button className="btn btn-black w-100" disabled={loading}>
-                  {loading && (
-                    <span className="spinner-border spinner-border-sm"></span>
-                  )}
-                  Login
-                </button>
+                     <a href="/reset-password">Lost your password?</a>
+                    </span>
+                    </div>
+                    <button className="btn btn-black w-100" disabled={loading}>
+                      {loading && (
+                        <span className="spinner-border spinner-border-sm"></span>
+                      )}
+                      Login
+                    </button>
+            
               
 
                 {message && (

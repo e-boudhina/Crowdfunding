@@ -30,6 +30,20 @@ const login = (username, password) => {
     });
 };
 
+const reset_password = (username) => {
+  return axios
+      .post(API_URL + "reset-password", {
+        username
+      })
+      .then((response) => {
+        if (response.data.message) {
+          console.log(response.data.message)
+        }
+        return response.data;
+      });
+};
+
+
 const logout = () => {
   localStorage.removeItem("user");
  localStorage.removeItem("infos");
@@ -46,4 +60,5 @@ export default  {
   login,
   logout,
   deleteUser,
+  reset_password
 };

@@ -4,8 +4,12 @@ const db = require("../../models");
 const User = db.user;
 const Role = db.role;
 
-// fisrt , we verify if token is valid 
+// first , we verify if token is valid
 verifyToken = (req, res, next) => {
+
+  //Token is being send as parameter in the headers x-access-token
+  // You can switch this method and use "Authorisation header" sent in in the form 'Bearer ${token}'. However that will required some changed in the function to extract the token
+  // console.log(req.headers)
     let token = req.headers["x-access-token"];
     if (!token) {
       return res.status(403).send({ message: "No token provided!" });
@@ -19,7 +23,7 @@ verifyToken = (req, res, next) => {
     });
   };
 
-  //then we verify roles
+  //Then we verify roles
 
   isAdmin = (req, res, next) => {
     User.findById(req.userId).exec((err, user) => {

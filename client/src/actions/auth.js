@@ -12,11 +12,13 @@ import {
   USER_UPDATE_FAIL,
   USER_UPDATE_REQUEST,
   DELETE_USER,
+  RESET_PASSWORD_SUCCESS,
+  RESET_PASSWORD_FAILED
 } from "./type";
 import { useSelector } from "react-redux";
 import AuthService from "../services/auth.service";
 import { updateUser } from "../services/user.service";
-import axios from "axios";
+import UserService from "../services/user.service"
 
 const API_URL = "http://localhost:5000/api";
 
@@ -152,9 +154,69 @@ export const login = (username, password) => (dispatch) => {
   );
 };
 
-export const logout = () => (dispatch) => {
-  AuthService.logout();
-  dispatch({
-    type: LOGOUT,
-  });
+export const  reset_password =  (username) =>   (dispatch) => {
+
+  return AuthService.reset_password(username).then(
+      (data) => {
+        // console.log(username)
+        dispatch({
+          type: RESET_PASSWORD_SUCCESS,
+          payload: { message: data.message},
+        });
+        return Promise.resolve();
+      },
+      (error) => {
+        const message =
+            (error.response &&
+                error.response.data &&
+                error.response.data.message) ||
+            error.message ||
+            error.toString();
+        dispatch({
+          type: RESET_PASSWORD_FAILED,
+        });
+        dispatch({
+          type: SET_MESSAGE,
+          payload: message,
+        });
+        return Promise.reject();
+      }
+  );
 };
+
+
+  export const refreshUser = () => (dispatch) => {
+    return UserService.refreshUser().then(
+      (data) => {
+        console.log(data);
+        dispatch({
+          type: REFRESH_USER,
+          payload: { user: data },
+        });
+        return Promise.resolve();
+      },
+      (error) => {
+        const message =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
+        dispatch({
+          type: SET_MESSAGE,
+          payload: message,
+        });
+        return Promise.reject();
+      }
+    );
+  };
+
+
+
+
+  export const logout = () => (dispatch) => {
+    AuthService.logout();
+    dispatch({
+      type: LOGOUT,
+    });
+  };

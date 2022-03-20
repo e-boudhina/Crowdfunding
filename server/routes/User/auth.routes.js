@@ -2,17 +2,26 @@ const { verifySignUp } = require("../../middlewares");
 const controller = require("../../controllers/User/auth.controller");
 
 module.exports = function(app) {
+
+    //This is a middleware it should be moved to a middleware directory
     app.use(function(req, res, next) {
       res.header(
         "Access-Control-Allow-Headers",
         "x-access-token, Origin, Content-Type, Accept"
       );
       next();
-    }); //setheader then do request 
-    app.post("/api/auth/signup",[ verifySignUp.checkDuplicateUsernameOrEmail, verifySignUp.checkRolesExisted],
-        controller.signup );
+    });
+    //set header then do request | check roles not necessary
+    app.post("/api/auth/signup",[ verifySignUp.checkDuplicateUsernameOrEmail], controller.signup );
    
-    app.post("/api/auth/signin", 
-        controller.signin);
-    
+    app.post("/api/auth/signin", controller.signin);
+
+    app.post("/api/auth/verify-email/:verify_email_token", controller.verify_email);
+    app.post("/api/auth/reset-password", controller.reset_password);
+    app.post("/api/auth/new-password", controller.new_password);
+
+
+
     };
+
+

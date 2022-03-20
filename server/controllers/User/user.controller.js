@@ -99,6 +99,8 @@ exports.updateUserProfile = asyncHandler(async (req, res) => {
   }
 });
 
+
+
 /*exports.FindAllProfiles = async (req ,res)=>{
     try {
        const data =  await ProfileModel.find(('user', ["firstName","lastName", "email", "role"])
@@ -170,3 +172,12 @@ exports.searchUsers = async (req, res) => {
     res.status(404).json(error.message);
   }
 };
+/*exports.DeleteProfile = async (req ,res)=>{
+    try {
+        const data =  await ProfileModel.findOneAndRemove({_id: req.params.id})
+        res.status(200).json({message: "deleted"})
+ 
+     } catch (error) {
+         res.status(404).json(error.message)
+     }
+} */
