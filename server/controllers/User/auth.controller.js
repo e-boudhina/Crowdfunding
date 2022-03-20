@@ -141,6 +141,7 @@ const signin = asyncHandler(async (req, res) => {
           verified: user.verified,
           email: user.email,
           password: user.password,
+          phone: user.phone
         },
       });
     });
