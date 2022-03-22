@@ -285,6 +285,7 @@ const Register = () => {
                         name="phone"
                         country={"tn"}
                         value={phone}
+                        validations={[required]}
                         onChange={(phone) => {
                           setPhone(phone);
                           console.log(phone);

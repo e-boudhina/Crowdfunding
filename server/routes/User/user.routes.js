@@ -20,4 +20,5 @@ module.exports = function(app) {
     app.delete("/api/user/delete", controller.deleteUser);
     app.get("/api/user/searchusers/:keyword",controller.searchUsers);
     app.get("/api/user/:username",controller.FindSingleProfile);
+    app.post("/api/user/makeAdmin",controller.makeAdmin);
   };

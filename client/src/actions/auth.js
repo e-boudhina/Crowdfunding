@@ -63,7 +63,7 @@ export const updateProfile =
         const config = {
           headers: {
             "Content-Type": "application/json",
-            "x-access-token": `Bearer ${token}`,
+            "x-access-token": `${token}`,
           },
         };
         //  const { data } = await axios.post(API_URL+"/user/update", user, config)

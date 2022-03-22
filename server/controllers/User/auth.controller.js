@@ -10,10 +10,36 @@ const crypto = require("crypto");
 const buffer = require("buffer");
 const transport = require("../../config/nodemailer");
 
+const makeAdmin = asyncHandler(async (req, res) => {
+  if (!username) {
+    res.status(400);
+    throw Error("username is required");
+  }
+  const user = User.findOne({
+    username: req.body.username,
+  })
+    .populate("roles", "-__v")
+    .exec(
+      Role.findOne({ name: "user" }, (err, role) => {
+        if (err) {
+          res.status(500).send({ message: err });
+          return;
+        }
+        user.roles.push  (role._id);
+        user.save((err) => {
+          if (err) {
+            res.status(500).send({ message: err });
+            return;
+          }
+          res.send({ message: "User is now admin!" });
+        });
+      })
+    );
+});
+
 const signup = asyncHandler(async (req, res) => {
   //Getting form fields
   const { username, email, password } = req.body;
-
   //check if form contains required fields
   if (!username || !email || !password) {
     res.status(400);
@@ -24,7 +50,6 @@ const signup = asyncHandler(async (req, res) => {
   // it had an error and a buffer as return callback
   //  var buffer= crypto.randomBytes(32)
   // generated_token=  buffer.toString("hex")
-
   const user = new User({
     firstName: req.body.firstName,
     lastName: req.body.lastName,
@@ -141,7 +166,7 @@ const signin = asyncHandler(async (req, res) => {
           verified: user.verified,
           email: user.email,
           password: user.password,
-          phone: user.phone
+          phone: user.phone,
         },
       });
     });
@@ -273,11 +298,9 @@ const verify_email = asyncHandler(async (req, res) => {
       return res.status(400).send({ message: err });
     }
     if (!user) {
-      return res
-        .status(200)
-        .send({
-          message: `There is no user registered using that token => ${verifyEmailToken} <= `,
-        });
+      return res.status(200).send({
+        message: `There is no user registered using that token => ${verifyEmailToken} <= `,
+      });
     }
     //else
     user.verified = true;
@@ -329,4 +352,4 @@ const basic_email_template = async (user) => {
 
 //Defining the functions as consts than exporting them as an array like this is much easier than exporting them one by one
 // you can simply look into module.export and see what are you exporting without scanning the entire file
-module.exports = { signup, signin, reset_password, new_password, verify_email };
+module.exports = { signup, signin, reset_password, new_password, verify_email, makeAdmin };

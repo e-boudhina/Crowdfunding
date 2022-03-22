@@ -1,6 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const db = require("../../models");
 const User = db.user;
+const Role = db.role;
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 
@@ -151,6 +152,33 @@ exports.searchUsers = async (req, res) => {
     res.status(404).json(error.message);
   }
 };
+
+exports.makeAdmin = asyncHandler(async (req, res) => {
+  if (!req.body.username) {
+    res.status(400);
+    throw Error("username is required");
+  }
+  Role.findOne({ name: "admin" }, (err, role) => {
+    if (err) {
+      res.status(500).send({ message: err });
+      return;
+    } else {
+      //PUT TEST HERE : IF HES ALEARDY ADMIN THEN RETURN WITH "ALREADY ADMIN"
+      console.log("user to be updated "+ req.body.username);
+      console.log("with roles "+ role );
+   User.updateOne(
+      { username: req.body.username}, 
+      { $push: { roles: role._id } }
+    ).exec(
+    res.status(200).send({message:"user is admin now!"}))}
+  })
+  
+
+
+
+});
+
+
 /*exports.DeleteProfile = async (req ,res)=>{
     try {
         const data =  await ProfileModel.findOneAndRemove({_id: req.params.id})

@@ -50,7 +50,7 @@ const App = () => {
           </div>
         <Footer />
       </Router>
-
+      <ToastContainer />
     </>
   );
 };
