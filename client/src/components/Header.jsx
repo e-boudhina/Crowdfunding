@@ -2,11 +2,7 @@ import React, { useEffect, useState } from "react";
 import { logout } from "../actions/auth";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Link,
-  useNavigate,
+  Link
 } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
@@ -60,20 +56,20 @@ function Header() {
       <link
         rel="shortcut icon"
         type="image/x-icon"
-        href="assets/img/favicon.png"
+        href="../assets/img/favicon.png"
       />
       {/* Place favicon.png in the root directory */}
       {/* CSS here */}
-      <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
-      <link rel="stylesheet" href="assets/css/owl.carousel.min.css" />
-      <link rel="stylesheet" href="assets/css/animate.min.css" />
-      <link rel="stylesheet" href="assets/css/magnific-popup.css" />
-      <link rel="stylesheet" href="assets/css/fontawesome-all.min.css" />
-      <link rel="stylesheet" href="assets/css/flaticon.css" />
-      <link rel="stylesheet" href="assets/css/meanmenu.css" />
-      <link rel="stylesheet" href="assets/css/slick.css" />
-      <link rel="stylesheet" href="assets/css/style.css" />
-      <link rel="stylesheet" href="assets/css/responsive.css" />
+      <link rel="stylesheet" href="../assets/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="../assets/css/owl.carousel.min.css" />
+      <link rel="stylesheet" href="../assets/css/animate.min.css" />
+      <link rel="stylesheet" href="../assets/css/magnific-popup.css" />
+      <link rel="stylesheet" href="../assets/css/fontawesome-all.min.css" />
+      <link rel="stylesheet" href="../assets/css/flaticon.css" />
+      <link rel="stylesheet" href="../assets/css/meanmenu.css" />
+      <link rel="stylesheet" href="../assets/css/slick.css" />
+      <link rel="stylesheet" href="../assets/css/style.css" />
+      <link rel="stylesheet" href="../assets/css/responsive.css" />
       <div id="preloader" style={{ display: "none" }}>
         <div className="preloader">
           <span />
@@ -94,7 +90,7 @@ function Header() {
               <div className="col-xl-2 col-lg-2 col-md-3 col-5 d-flex align-items-center">
                 <div className="header__logo">
                   <a href="index.html">
-                    <img src="assets/img/logo/logo.png" alt="" />
+                    <img src="../assets/img/logo/logo.png" alt="" />
                   </a>
                 </div>
               </div>
@@ -345,8 +341,8 @@ function Header() {
       </header>
       <section
         className="page-title-area pt-140 pb-140"
-        data-background="assets/img/bg/breadcumb.jpg"
-        style={{ backgroundImage: 'url("assets/img/bg/breadcumb.jpg")' }}
+        data-background={"url("+process.env.PUBLIC_URL+"/assets/img/bg/breadcumb.jpg)"}
+        style={{ backgroundImage:  'url('+process.env.PUBLIC_URL+'/assets/img/bg/breadcumb.jpg)' }}
       ></section>
     </div>
   );

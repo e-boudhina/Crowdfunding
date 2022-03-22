@@ -12,7 +12,6 @@ module.exports = function(app) {
     });
 
     app.get("/api/test/all", controller.allAccess);
-    app.get("/api/user/refreshuser/", controller.getUser);
     app.get("/api/test/user", [authJwt.verifyToken, verifiedAccount_Middleware], controller.userBoard);
     app.get( "/api/test/inc", [authJwt.verifyToken, authJwt.isIncubator],controller.IncubatorBoard );
     app.get("/api/test/admin", [authJwt.verifyToken, authJwt.isAdmin],  controller.adminBoard );
@@ -20,4 +19,5 @@ module.exports = function(app) {
     app.post("/api/user/update", controller.updateUserProfile);
     app.delete("/api/user/delete", controller.deleteUser);
     app.get("/api/user/searchusers/:keyword",controller.searchUsers);
+    app.get("/api/user/:username",controller.FindSingleProfile);
   };

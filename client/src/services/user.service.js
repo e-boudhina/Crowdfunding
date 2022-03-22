@@ -24,8 +24,9 @@ const getAllUsers = (keyword) => {
 export const updateUser = (user ) => {
   return  axios.post(API_URL+"update", user , authHeader())
 }
-export const getUser =(username) =>{
-  return axios.get(API_URL+"get/"+username  )
+export const getUser  =  (username) =>{
+  return   axios.get(API_URL+username  )
+
 }
 export default {
   getPublicContent,

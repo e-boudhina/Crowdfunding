@@ -36,6 +36,7 @@ useEffect(() => {
     setAddress(currentInfos.address)
     setVerified(currentInfos.verified)
     setPhone(currentInfos.phone)
+    setBirthDate(currentInfos.birthdate)
     console.log("User is logged in (fom profile:22");
  }
 
@@ -72,8 +73,9 @@ useEffect(() => {
                   <div className="row">
                     <div className="col-lg-6 col-md-6">
                       <div className="team-cta mb-35">
-                        <h5 className="team-ph">P : + {phone} </h5>
-                        <h5 className="team-mail">  {email} </h5>
+                        <h5 className="team-ph"> {email} </h5>
+                        <h5 className="team-mail"> P : +   {phone} </h5>
+                        <h5 className="team-mail">  {birthDate} </h5>
                       </div>
                     </div>
                     <div className="col-lg-6 col-md-6">

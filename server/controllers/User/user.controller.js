@@ -49,7 +49,6 @@ exports.updateUserProfile = asyncHandler(async (req, res) => {
     _id: req.body.id,
   }).populate("roles", "-__v");
   if (user) {
-    console.log("User values to update :" + user);
     user.id = req.body.id;
     user.firstName = req.body.firstName || user.firstName;
     user.lastName = req.body.lastName || user.lastName;
@@ -88,9 +87,6 @@ exports.updateUserProfile = asyncHandler(async (req, res) => {
         password: updatedUser.password,
         birthdate: updatedUser.birthdate
       },
-      //   pic: updatedUser.pic,
-      // isAdmin: updatedUser.isAdmin,
-      //  token: generateToken(updatedUser._id),
     });
   } else {
     res.status(404);
@@ -110,12 +106,12 @@ exports.updateUserProfile = asyncHandler(async (req, res) => {
         res.status(404).json(error.message)
     }
 }*/
-exports.FindSingleProfile = async (req, res) => {
+exports.FindSingleProfile = (req, res) => {
   // usage : user to consult another user
-  try {
-    const data = await userProfile
-      .findById(
-        { _id: req.body._id },
+  console.log("user controller 111 username searched : "+ req.params.username);
+  const username = req.params.username
+ User.findOne(
+        { username: username },
         {
           username: 1,
           firstName: 1,
@@ -123,42 +119,25 @@ exports.FindSingleProfile = async (req, res) => {
           email: 1,
           address: 1,
           verified: 1,
+          phone:1,
           roles: 1,
         }
-      )
-      .populate("roles", "-__v");
-    res.status(200).json(data);
-  } catch (error) {
-    res.status(404).json(error.message);
-  }
-};
-//exports.getUser = async (req ,res)=>{  // user : user to refresh its infos
-exports.getUser = (req, res) => {
-  User.findById(req.body.id)
-    .populate("roles", "-__v")
-    .exec((err, user) => {
-      if (err) {
-        res.status(500).send({ message: err });
-        return;
-      }
-      if (!user) {
-        return res.status(404).send({ message: "User Not found." });
-      }
-      var authorities = [];
-      for (let i = 0; i < user.roles.length; i++) {
-        authorities.push("ROLE_" + user.roles[i].name.toUpperCase());
-      }
-      res.status(200).send({
-        username: user.username,
-        email: user.email,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        address: user.address,
-        verified: user.verified,
-        //roles: authorities
-      });
-    });
-};
+      ).populate("roles", "-__v").then
+        (data => {
+          if (!data)
+            res.status(404).send({ message: "Not found Tutorial with id " + username });
+          else res.send(data);
+        })
+        .catch(err => {
+          res
+            .status(500)
+            .send({ message: "Error retrieving Tutorial with id=" + username });
+        });
+      };
+    
+      
+
+
 
 exports.searchUsers = async (req, res) => {
   // usage : user to consult another user
