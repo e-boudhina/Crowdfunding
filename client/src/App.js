@@ -10,7 +10,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Dashboard from "./pages/User/Dashboard";
-
+import Adminboard from "./components/User/board-admin.component"
 import "react-datepicker/dist/react-datepicker.css";
 import Reset_password from "./components/User/reset-password.component";
 import New_password from "./components/User/new-password.component";
@@ -45,7 +45,9 @@ const App = () => {
               <Route path={"/register"} element={<Register />} />
               <Route path={"/reset-password"} element={<Reset_password />} />
               <Route path={"/new-password/:token"} element={<New_password />} />
+              <Route path ={"/admin"} element={<Adminboard/>}/>
               <Route path={"*"} element={<Notfound />} />
+           
             </Routes>
           </div>
         <Footer />

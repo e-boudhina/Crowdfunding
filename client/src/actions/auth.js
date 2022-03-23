@@ -86,7 +86,7 @@ export const updateProfile =
     };
 
 export const register =
-  (username, email, password, firstName, lastName, address, birthdate) =>
+  (username, email, password, firstName, lastName, address, birthdate ,phone) =>
     (dispatch) => {
       return AuthService.register(
         username,
@@ -95,7 +95,7 @@ export const register =
         firstName,
         lastName,
         address,
-        birthdate
+        birthdate,phone
       ).then(
         (response) => {
           dispatch({

@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { logout } from "../actions/auth";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  Link
-} from "react-router-dom";
+import { Link , useNavigate } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import getAllUsers from "../services/user.service";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 function Header() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user: currentUser } = useSelector((state) => state.auth);
   const [showLogin, setShowLogin] = useState(false);
 
+  //------------------- AUTOCOMPLETE CODE HEADER
   const [open, setOpen] = React.useState(false);
   const [options, setOptions] = React.useState([]);
   const loading = open && options.length === 0;
@@ -29,6 +29,7 @@ function Header() {
     setOptions(Object.keys(countries).map((key) => countries[key]));
     console.log("options " + options);
   };
+//---------------------------------AUTOCOMPLETE CODE HEADER ENDS HERE
 
   useEffect(() => {
     if (currentUser) {
@@ -95,11 +96,9 @@ function Header() {
                 </div>
               </div>
               <div className="col-xl-10 col-lg-10 col-7 col-md-9">
-            
                 <div className="header__menu f-right">
                   <nav id="mobile-menu" style={{ display: "block" }}>
                     <ul>
-                    
                       <li>
                         <a href="index.html">Home</a>
                         <ul className="submenu">
@@ -141,9 +140,8 @@ function Header() {
                           <li>
                             <a href="portfolio.html">Portfolio</a>
                           </li>
-                          <li>
-                            <a href="project-details.html">Portfolio Details</a>
-                          </li>
+                      
+                       
                           <li>
                             <a href="we-do.html">Service</a>
                           </li>
@@ -187,64 +185,21 @@ function Header() {
                           </li>
                         </ul>
                       </li>
-                      <li>
-                        <a href="blog.html">Blog</a>
-                        <ul className="submenu">
+                   {   
+                    (currentUser)?
+                       (currentUser.roles.includes("ROLE_ADMIN")) ?
                           <li>
-                            <a href="blog.html">Blog Right Sidebar</a>
+                            {" "}
+                            <Link to={"/admin"} className="nav-link">
+                              {" "}
+                              ADMIN DASHBOARD{" "}
+                            </Link>{" "}
                           </li>
-                          <li>
-                            <a href="blog-left-sidebar.html">
-                              Blog Left Sidebar
-                            </a>
-                          </li>
-                          <li>
-                            <a href="blog-grid-sidebar.html">
-                              Blog Grid Sidebar
-                            </a>
-                          </li>
-                          <li>
-                            <a href="blog-grid-sidebar-left.html">
-                              Blog Grid Left Sidebar
-                            </a>
-                          </li>
-                          <li>
-                            <a href="blog-2-col.html">Blog 2 Column</a>
-                          </li>
-                          <li>
-                            <a href="blog-2-col-masonry.html">
-                              Blog 2 Column masonry
-                            </a>
-                          </li>
-                          <li>
-                            <a href="blog-3-col.html">Blog 3 Column</a>
-                          </li>
-                          <li>
-                            <a href="blog-3-col-masonry.html">
-                              Blog 3 Column masonry
-                            </a>
-                          </li>
-                          <li>
-                            <a href="blog-details.html">Blog Details Image</a>
-                          </li>
-                          <li>
-                            <a href="blog-details-audio.html">
-                              Blog Details Audio
-                            </a>
-                          </li>
-                          <li>
-                            <a href="blog-details-video.html">
-                              Blog Details Video
-                            </a>
-                          </li>
-                          <li>
-                            <a href="blog-details-gallery.html">
-                              Blog Details Gallery
-                            </a>
-                          </li>
-                        </ul>
-                      </li>
-
+                          :
+                          <></>
+                    :
+                    <></>
+                          }
                       {currentUser ? (
                         <>
                           <li>
@@ -254,13 +209,13 @@ function Header() {
                               Profile{" "}
                             </Link>{" "}
                           </li>
+                        
                           <li>
                             {" "}
                             <Link
                               to={"/login"}
                               className="nav-link"
-                              onClick={logOut}
-                            >
+                              onClick={logOut}>
                               {" "}
                               Logout{" "}
                             </Link>{" "}
@@ -275,7 +230,7 @@ function Header() {
                           </Link>{" "}
                         </li>
                       )}
-                        <li>
+                      <li>
                         <Autocomplete
                           id="asynchronous-demo"
                           style={{ width: 300 }}
@@ -294,6 +249,19 @@ function Header() {
                           }
                           options={options}
                           loading={loading}
+                          renderOption={(option) => (
+                            <React.Fragment>
+                              <span
+                                style={{ cursor: "pointer" }}
+                                onClick={() => {
+                                //window.location.href = `/u/${option.username}`;
+                           navigate(`/u/${option.username}`)     
+                           console.log(option);
+                                }}>
+                                {option.firstName}  {option.lastName} 
+                              </span>
+                            </React.Fragment>
+                          )}
                           renderInput={(params) => (
                             <TextField
                               {...params}
@@ -330,9 +298,7 @@ function Header() {
                 </div>
               </div>
               <div className="col-12">
-                <div style={{ marginLeft: "40%", marginTop: "60px" }}>
-           
-                </div>
+                <div style={{ marginLeft: "40%", marginTop: "60px" }}></div>
                 <div className="mobile-menu" />
               </div>
             </div>
@@ -341,9 +307,13 @@ function Header() {
       </header>
       <section
         className="page-title-area pt-140 pb-140"
-        data-background={"url("+process.env.PUBLIC_URL+"/assets/img/bg/breadcumb.jpg)"}
-        style={{ backgroundImage:  'url('+process.env.PUBLIC_URL+'/assets/img/bg/breadcumb.jpg)' }}
-      ></section>
+        data-background={
+          "url(" + process.env.PUBLIC_URL + "/assets/img/bg/breadcumb.jpg)"
+        }
+        style={{
+          backgroundImage:
+            "url(" + process.env.PUBLIC_URL + "/assets/img/bg/breadcumb.jpg)",
+        }}></section>
     </div>
   );
 }

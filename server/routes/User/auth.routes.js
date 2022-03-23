@@ -13,9 +13,7 @@ module.exports = function(app) {
     });
     //set header then do request | check roles not necessary
     app.post("/api/auth/signup",[ verifySignUp.checkDuplicateUsernameOrEmail], controller.signup );
-   
     app.post("/api/auth/signin", controller.signin);
-
     app.post("/api/auth/verify-email/:verify_email_token", controller.verify_email);
     app.post("/api/auth/reset-password", controller.reset_password);
     app.post("/api/auth/new-password", controller.new_password);

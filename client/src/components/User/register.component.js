@@ -190,7 +190,7 @@ const Register = () => {
     form.current.validateAll();
     if (checkBtn.current.context._errors.length === 0) {
       dispatch(
-        register(username, email, password, firstName, lastName, address)
+        register(username, email, password, firstName, lastName, address,birthdate,phone)
       )
         .then(() => {
           setSuccessful(true);
