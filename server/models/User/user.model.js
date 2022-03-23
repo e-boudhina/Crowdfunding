@@ -16,6 +16,9 @@ var UserSchema = new mongoose.Schema({
     phone: Number,
     password : String,
     birthdate: Date,
+    verifyEmailToken: String,
+    resetPasswordToken: String,
+    resetPasswordExpireToken: Date,
     roles: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Role"
@@ -28,10 +31,10 @@ var UserSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "organization"
     }],
-  /*  gorvernorate: [{
+  /*  gorvernorate: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Gorvernorate"
-    }] , */
+    } , */
 },baseOptions
 )
 

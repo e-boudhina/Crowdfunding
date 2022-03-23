@@ -1,34 +1,53 @@
-import React, { useState, useRef , useEffect  } from "react";
-import { Navigate } from 'react-router-dom';
+import React, { useState , useEffect  } from "react";
+import { Navigate  } from 'react-router-dom';
 import { useDispatch, useSelector  } from "react-redux";
-import { refreshUser } from "../../actions/auth";
+import { useNavigate  } from "react-router-dom";
 
-const Profile = () => {
-  const dispatch = useDispatch();
+const Profile = (props) => {
+  const navigate = useNavigate();
+
+  const navigateToEdit = () => navigate("/register"); //eg.history.push('/login');
+  //const dispatch = useDispatch();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [username, setUsername] = useState("");
-  const { user: currentUser } = useSelector((state) => state.auth);
+  const [address, setAddress] = useState("");
+  const [birthDate, setBirthDate] = useState("");
+  const [email, setEmail] = useState("");
+  const [verified,setVerified] = useState(false);
+  const [phone, setPhone]= useState("")
+ // const { user: currentUser } = useSelector((state) => state.auth);
+ const { message } = useSelector((state) => state.message);
   const { infos: currentInfos } = useSelector((state) => state.auth);
+  const { isLoggedIn: IsLoggedIn } = useSelector((state) => state.auth);
 
 
 
 
 useEffect(() => {
-  if (currentInfos) {  
-    console.log("called useEffect");
+  console.log("is mounted ");
+  if (!IsLoggedIn) {  
+    navigate("/login"); 
+  } else { 
     setFirstName(currentInfos.firstName)
     setLastName(currentInfos.lastName)
     setUsername(currentInfos.username)
-  } else { 
-   console.log(" ma fammech "); }
- },[currentInfos])  //dep hass"hom zeydin 
+    setEmail(currentInfos.email)
+    setAddress(currentInfos.address)
+    setVerified(currentInfos.verified)
+    setPhone(currentInfos.phone)
+    setBirthDate(currentInfos.birthdate)
+    console.log("User is logged in (fom profile:22");
+ }
+
+ },[IsLoggedIn,currentInfos,navigate])  //dep hass"hom zeydin
   
-    if (!currentUser || !currentInfos) {
-      return <Navigate to="/login" />;
+
+    /*if (!currentUser || !currentInfos) {
+        navigate("/login");
     } else {
-     console.log(" chbiha ");
-    }
+     console.log(" Entered profile (from profile:33) ");
+    } */
 
   return (
 <section className="team-area pt-120 pb-100">
@@ -40,6 +59,7 @@ useEffect(() => {
                 <div className="team__thumb">
                   <img src="assets/img/team/team-details.jpg" alt="" />
                 </div>
+                <button onClick={navigateToEdit} type="button" className="btn btn-black w-100" > Edit profile </button>
               </div>
             </div>
             <div className="col-xl-7 col-lg-7">
@@ -47,14 +67,15 @@ useEffect(() => {
                 <div className="section-title mb-40">
                   <p><span /> username : {username}</p>
                   <h1>  {firstName} {lastName} </h1>
-                  <h5>Based in Netherland, I’m developer and graphic designer.</h5>
+                  <h5>  {address} </h5>
                 </div>
                 <div className="team-info">
                   <div className="row">
                     <div className="col-lg-6 col-md-6">
                       <div className="team-cta mb-35">
-                        <h5 className="team-ph">P : +33 (0)1 48 87 08 19</h5>
-                        <h5 className="team-mail">contact@example-co.com</h5>
+                        <h5 className="team-ph"> {email} </h5>
+                        <h5 className="team-mail"> P : +   {phone} </h5>
+                        <h5 className="team-mail">  {birthDate} </h5>
                       </div>
                     </div>
                     <div className="col-lg-6 col-md-6">

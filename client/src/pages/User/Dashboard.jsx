@@ -1,7 +1,7 @@
 
 function Dashboard(){
     return(
-        <div>Dashboard</div>
+        <div>Home user component ( dashboard.jsx ) to be modified  </div>
     )
 }
 export default Dashboard

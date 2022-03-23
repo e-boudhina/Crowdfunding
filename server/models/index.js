@@ -11,5 +11,6 @@ db.organization=require("./Organization/organization.model")
 db.role = require("./User/role.model")
 db.incubator = require("./User/incubator.model")
 db.admin = require("./User/admin.model")
-
+db.certificate = require("./Learning/certificate.model")
+db.chapter = require("./Learning/chapter.model")
 module.exports = db;

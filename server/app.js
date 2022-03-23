@@ -9,16 +9,19 @@ const init_functions = require('./utils/init_functions')
 var imgModel = require('./models/Image/image.model');
 var fs = require('fs');
 
+const connectDB = require('./config/db')
+const color = require('colors')
+const {errorHandler} = require('./middlewares/Error/error_Middleware')
+connectDB()
+
+
+const port = process.env.PORT || 5001 ;
 
 var app = express();
 var corsOptions = {
     origin: "*"
-  };
-const port = process.env.PORT || 5001 ;
-
+};
 app.use(cors(corsOptions));
-app.use(express.json()); 
-app.use(express.urlencoded({ extended: true }));
 
 // app.set("view engine", "ejs");
 
@@ -79,6 +82,14 @@ var upload = multer({ storage: storage });
 
 
 
+// The 2 following line are called middlewares
+// Accepting only body type format (Content-type: json)
+app.use(express.json());
+//We will only accept form url encoded ( NOT raw/binary/form-data)
+app.use(express.urlencoded({ extended: false }));
+
+//require("./routes/User/auth.routes")(app);
+//require("./routes/User/user.routes")(app);
 
 require('./routes/User/auth.routes')(app);
 require('./routes/User/user.routes')(app);
@@ -86,6 +97,8 @@ require('./routes/User/user.routes')(app);
 //Project routes
 require('./routes/Project/Project.routes')(app);
 require('./routes/Organization/Organization.routes')(app);
+
+require('./routes/Learning/learning.routes')(app);
 
 const uri = process.env.LOCAL_URI ;
 //const uri = process.env.MONGO_URI ;
@@ -102,8 +115,11 @@ async function run() {
   }
   run();
 
-  init_functions.initRoles();
+// overriding express default error handler that return text/html( express assumes BY DEFAULT that you are using blade or twig templating engine)
+//It needs to be be defined after routes or else it will not work
+app.use(errorHandler);
+init_functions.initRoles();
 
-  app.listen(port , () => `Server running on port ${port} `);
+app.listen(port, () => `Server running on port ${port} `);
 
 module.exports = app;

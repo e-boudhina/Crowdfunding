@@ -1,25 +1,29 @@
 const jwt = require("jsonwebtoken");
-//const config = require("../config/auth.config.js");
+const config = require("../../config/auth.js")
 const db = require("../../models");
 const User = db.user;
 const Role = db.role;
 
-// fisrt , we verify if token is valid 
+// first , we verify if token is valid
 verifyToken = (req, res, next) => {
+
+  //Token is being send as parameter in the headers x-access-token
+  // You can switch this method and use "Authorisation header" sent in in the form 'Bearer ${token}'. However that will required some changed in the function to extract the token
+  // console.log(req.headers)
     let token = req.headers["x-access-token"];
     if (!token) {
       return res.status(403).send({ message: "No token provided!" });
     }
-    jwt.verify(token, process.env.secret, (err, decoded) => {
+    jwt.verify(token, config.secret , (err, decoded) => {
       if (err) {
-        return res.status(401).send({ message: "Unauthorized!" });
+        return res.status(401).send({ message: "Token not valid! "+ config.secret });
       }
       req.userId = decoded.id;
       next();
     });
   };
 
-  //then we verify roles
+  //Then we verify roles
 
   isAdmin = (req, res, next) => {
     User.findById(req.userId).exec((err, user) => {
