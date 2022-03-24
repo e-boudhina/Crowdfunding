@@ -1,3 +1,4 @@
+
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -28,6 +29,11 @@ import "react-toastify/dist/ReactToastify.css";
 import Notfound from "./components/404.jsx";
 import Profileconsult from "./components/User/profileconsult.component"
 
+import Add from "./components/Elearning/add-chapter.component";
+import { Layout, Menu } from 'antd';
+import { PlusCircleOutlined, EyeOutlined } from '@ant-design/icons';
+import 'antd/dist/antd.css';
+
 const App = () => {
   //const currentUser = {};
   const dispatch = useDispatch();
@@ -52,7 +58,10 @@ const App = () => {
               <Route path={"/register"} element={<Register />} />
               <Route path={"/reset-password"} element={<Reset_password />} />
               <Route path={"/new-password/:token"} element={<New_password />} />
-              <Route path ={"/admin"} element={<Adminboard/>}/>
+              <Route path ={"/admin"} element={<Adminboard/>}> 
+    
+              </Route>
+              <Route exact path={'/test'} element={<Add/>}/>
               <Route exact path={'/ProjectDetails'} element={<ProjectDetails/>}/>
           <Route exact path={'/addProject'} element={<AddProject/>}/>
           <Route path={'/eventsdet'} element={<EventDetails/>}/>
@@ -67,5 +76,5 @@ const App = () => {
       <ToastContainer />
     </>
   );
-};
+}; //          <Route path={"/addchapter"} element={<Addchapter />} />
 export default App;

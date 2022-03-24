@@ -5,7 +5,8 @@ var ChapterSchema = new mongoose.Schema({
     nextChapter: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Chapter"
-    }
+    },
+    content:String
 },
 { timestamps: true })
 module.exports = mongoose.model('Chapter' , ChapterSchema , 'Chapters') ;

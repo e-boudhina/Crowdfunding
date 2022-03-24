@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 
 var certificateSchema = new mongoose.Schema({
 name:String , 
+tutor: String,
 chapters:[{
     type: mongoose.Schema.Types.ObjectId,
     ref: "Chapter"
