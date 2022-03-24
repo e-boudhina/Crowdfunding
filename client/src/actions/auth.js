@@ -63,6 +63,7 @@ import {
           type: SET_MESSAGE,
           payload: message,
         });
+        
         return Promise.reject();
       }
     );

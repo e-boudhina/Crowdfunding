@@ -21,21 +21,23 @@ app.use(cors(corsOptions));
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: true }));
 
-// app.set("view engine", "ejs");
+app.set("view engine", "ejs");
+let reqPath = path.join(__dirname, '../client/public');
+console.log(reqPath);
+app.use(express.static(reqPath));
 
-
-var multer = require('multer');
+// var multer = require('multer');
   
-var storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'uploads')
-    },
-    filename: (req, file, cb) => {
-        cb(null, file.fieldname + '-' + Date.now())
-    }
-});
+// var storage = multer.diskStorage({
+//     destination: (req, file, cb) => {
+//         cb(null, 'uploads')
+//     },
+//     filename: (req, file, cb) => {
+//         cb(null, file.fieldname + '-' + Date.now())
+//     }
+// });
   
-var upload = multer({ storage: storage });
+// var upload = multer({ storage: storage });
 
 
 // app.get('/image', (req, res) => {
@@ -65,7 +67,6 @@ var upload = multer({ storage: storage });
 //   imgModel.create(obj, (err, item) => {
 //       if (err) {
 //           console.log(err);
-//           res.redirect('/erreur9ahba');
 //       }
 //       else {
 //           // item.save();

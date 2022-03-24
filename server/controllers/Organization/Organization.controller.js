@@ -183,6 +183,25 @@ exports.all = (req, res) => {
         }
             });
   };
+                  
+exports.allForUser = (req, res) => {  
+  User.findOne({ _id: req.params.id }, (err, user) => {
+    if (user) {
+      console.log(user);            // The below two lines will add the newly saved review's 
+        // ObjectID to the the User's reviews array field
+        organization.find({ownerName:user.username},(err, result)=>{
+          if(err){
+          res.json(err);
+          }
+          else{
+              
+          res.json(result)
+          }
+              });
+        
+    }
+});
+  };
 
 
                     

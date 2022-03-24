@@ -47,6 +47,29 @@
     }
 }
 
+
+.causes-heart1 {
+    & a {
+    position: absolute;
+    top: 50;
+    right: 50;
+    height: 50px;
+    width: 50px;
+    background: $grey-dip;
+    color: $white;
+    text-align: center;
+    line-height: 50px;
+    border-radius: 50%;
+    top: 20px;
+    right: 30px;
+    opacity: 0;
+    visibility: hidden;
+    &:hover{
+        background: $theme-color;
+    }
+}
+}
+
 .causes{
     &:hover .causes-heart a{
         opacity: 1;

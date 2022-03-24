@@ -2858,6 +2858,34 @@ label {
   visibility: visible;
   top: 30px; }
 
+
+.causes-heart1 button {
+  position: absolute;
+  top: 40;
+  right: 40;
+  height: 50px;
+  width: 50px;
+  background: #c4c4c4;
+  color: #ffffff;
+  text-align: center;
+  line-height: 50px;
+  border-radius: 50%;
+  top: 20px;
+  right: 30px;
+  opacity: 0;
+  visibility: hidden; }
+  .causes-heart1 button:hover {
+    background: #1b70f0; }
+
+
+
+
+
+
+
+
+
+
 .causes-tag a {
   font-size: 12px;
   color: #1b70f0;

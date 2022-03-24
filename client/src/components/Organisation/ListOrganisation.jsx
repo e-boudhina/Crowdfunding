@@ -3,32 +3,32 @@ import { useDispatch, useSelector  } from "react-redux";
 import { useLocation, useNavigate } from 'react-router';
 
 // import { dispatch  } from "react-redux";
-import { allProjects } from "../../actions/Projects/ProjectCrud.actions";
-import  SingleProject  from "./SingleProject";
+import { allOrganisation } from "../../actions/Organisations/OrganisationCrud.actions";
+import  SingleOranisation  from "./SingleOranisation";
 import React, { useState, useEffect } from "react";
 import { deleteProject } from "../../actions/Projects/ProjectCrud.actions";
 
 
 
 
-function ListProject(){
+function ListOrganisation(){
   
   
  // clear message when changing location
  const dispatch = useDispatch();
  const navigate =useNavigate();
 
-const deletee=(id)=>{
-  dispatch(deleteProject(id))
+// const deletee=(id)=>{
+//   dispatch(deleteProject(id))
 
-// if (error) {
-//   console.log("Problem with the api");
-// } else {
-//   console.log("good job");
+// // if (error) {
+// //   console.log("Problem with the api");
+// // } else {
+// //   console.log("good job");
   
-// navigate("/ListProject");
-window.location.reload();
-}
+// // navigate("/ListOrganisation");
+// window.location.reload();
+// }
 
 
 
@@ -37,10 +37,10 @@ window.location.reload();
     //     dispatch(clearMessage()); // clear message when changing location
     //   });
     // }, [dispatch]);
-    const projects = useSelector((state) => state.projects);
-    console.log(projects); 
+    const organisations = useSelector((state) => state.organisations);
+    console.log(organisations); 
     useEffect(() => {
-      dispatch(allProjects());
+      dispatch(allOrganisation());
     }, []);
     const { user: currentUser } = useSelector((state) => state.auth);
   if (!currentUser) {
@@ -56,14 +56,15 @@ window.location.reload();
       <div className="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
         <div className="row">
           {
-projects.projects.map((element)=>{
+organisations.organisations.map((element)=>{
   console.log(element);
   // <SingleProject/>
 
   return(
 
     
-    <SingleProject delete={deletee} project={element} ></SingleProject>
+    <SingleOranisation organisation={element} ></SingleOranisation>
+    // <SingleOranisation delete={deletee} organisation={element} ></SingleOranisation>
   )  
   }
     )
@@ -80,4 +81,4 @@ projects.projects.map((element)=>{
 
 
 
-export default ListProject;
+export default ListOrganisation;

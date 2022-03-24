@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:5000/api/project/";
+const API_URL = "http://localhost:5000/api/organization/";
 
 const config ={
   headers:{
@@ -11,11 +11,14 @@ const config ={
 
 
 
-const  allProjects= () => {
+const  allOrganisation= () => {
   return axios.get(API_URL + "all");
 };
+const  allOrganisationForUser= (id) => {
+  return axios.get(API_URL + "allForUser/" +id);
+  };
 
-const  AddProject= (form) => {
+const  AddOrganisation= (form) => {
 // const  AddProject= (labelproject,projectdescriptiob,fundneeded,image) => {
   return axios.post(API_URL + "add",form,config);
 };
@@ -36,8 +39,9 @@ const getSingle = (id)=> {
 
 
 export default  {
-  allProjects,
-  AddProject,
+  AddOrganisation,
+  allOrganisation,
+  allOrganisationForUser,
   getSingle,
   remove,
   update

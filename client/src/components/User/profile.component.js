@@ -1,15 +1,24 @@
 import React from "react";
 import { Navigate } from 'react-router-dom';
 import { useSelector  } from "react-redux";
+import { useNavigate } from 'react-router';
+import { ListOrganisationForUser } from '../Organisation/ListOrganisationForUser';
 
 const Profile = () => {
+  
+const navigate=useNavigate();
   const { user: currentUser } = useSelector((state) => state.auth);
   if (!currentUser) {
     return <Navigate to="/login" />;
   }
+
+
+
   return (
     <div className="container">
       <header className="jumbotron">
+
+
         <h3>
           <strong>{currentUser.username}</strong> Profile
         </h3>
@@ -29,6 +38,14 @@ const Profile = () => {
         {currentUser.roles &&
           currentUser.roles.map((role, index) => <li key={index}>{role}</li>)}
       </ul>
+<button onClick={()=>{navigate("/addOrganisation") }}>Ajouter Organization</button>
+
+<ListOrganisationForUser/>
+
+
+
+
+
     </div>
   );
 };
