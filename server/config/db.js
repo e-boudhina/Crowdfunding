@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 
 //Comment and uncomment the next following lines to switch database from local/remote
 const current_URI = process.env.LOCAL_URI ;
-//const uri = process.env.MONGO_URI ;
+//const current_URI = process.env.MONGO_URI ;
 const connectDB = async () => {
     try {
         const conn = await mongoose.connect(current_URI);
