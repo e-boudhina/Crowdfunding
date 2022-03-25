@@ -13,7 +13,7 @@ export default function Events(props){
                                   <h2>Our Event</h2>
                                   <div className="breadcrumb-list">
                                       <ul>
-                                          <li><a href="#">Home</a></li>
+                                          <li><a href="/">Home</a></li>
                                           <li><a href="#">Pages</a></li>
                                           <li>Event</li>
                                       </ul>
@@ -88,7 +88,7 @@ export default function Events(props){
                               </div>
                               <div className="col-lg-3 d-flex align-items-center justify-content-start justify-content-lg-end">
                                 <div className="event-btn">
-                                  <a href="#" className="btn-circle">join today</a>
+                                  <a href="/eventsdet" className="btn-circle">join today</a>
                                 </div>
                               </div>
                             </div>
@@ -120,7 +120,7 @@ export default function Events(props){
                               </div>
                               <div className="col-lg-3 d-flex align-items-center justify-content-start justify-content-lg-end">
                                 <div className="event-btn">
-                                  <a href="#" className="btn-circle">join today</a>
+                                  <a href="/eventsdet" className="btn-circle">join today</a>
                                 </div>
                               </div>
                             </div>
@@ -183,7 +183,7 @@ export default function Events(props){
                               </div>
                               <div className="col-lg-3 d-flex align-items-center justify-content-start justify-content-lg-end">
                                 <div className="event-btn">
-                                  <a href="#" className="btn-circle">join today</a>
+                                  <a href="/eventsdet" className="btn-circle">join today</a>
                                 </div>
                               </div>
                             </div>
@@ -218,7 +218,7 @@ export default function Events(props){
                               </div>
                               <div className="col-lg-3 d-flex align-items-center justify-content-start justify-content-lg-end">
                                 <div className="event-btn">
-                                  <a href="#" className="btn-circle">join today</a>
+                                  <a href="/eventsdet" className="btn-circle">join today</a>
                                 </div>
                               </div>
                             </div>
@@ -251,7 +251,7 @@ export default function Events(props){
                               </div>
                               <div className="col-lg-3 d-flex align-items-center justify-content-start justify-content-lg-end">
                                 <div className="event-btn">
-                                  <a href="#" className="btn-circle">join today</a>
+                                  <a href="/eventsdet" className="btn-circle">join today</a>
                                 </div>
                               </div>
                             </div>
@@ -284,7 +284,7 @@ export default function Events(props){
                               </div>
                               <div className="col-lg-3 d-flex align-items-center justify-content-start justify-content-lg-end">
                                 <div className="event-btn">
-                                  <a href="#" className="btn-circle">join today</a>
+                                  <a href="/eventsdet" className="btn-circle">join today</a>
                                 </div>
                               </div>
                             </div>
@@ -351,7 +351,7 @@ export default function Events(props){
                               </div>
                               <div className="col-lg-3 d-flex align-items-center justify-content-start justify-content-lg-end">
                                 <div className="event-btn">
-                                  <a href="#" className="btn-circle">join today</a>
+                                  <a href="/eventsdet" className="btn-circle">join today</a>
                                 </div>
                               </div>
                             </div>
@@ -416,7 +416,7 @@ export default function Events(props){
                               </div>
                               <div className="col-lg-3 d-flex align-items-center justify-content-start justify-content-lg-end">
                                 <div className="event-btn">
-                                  <a href="#" className="btn-circle">join today</a>
+                                  <a href="/eventsdet" className="btn-circle">join today</a>
                                 </div>
                               </div>
                             </div>
@@ -449,7 +449,7 @@ export default function Events(props){
                               </div>
                               <div className="col-lg-3 d-flex align-items-center justify-content-start justify-content-lg-end">
                                 <div className="event-btn">
-                                  <a href="#" className="btn-circle">join today</a>
+                                  <a href="/eventsdet" className="btn-circle">join today</a>
                                 </div>
                               </div>
                             </div>

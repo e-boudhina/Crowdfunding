@@ -8,3 +8,8 @@ export const CLEAR_MESSAGE = "CLEAR_MESSAGE";
 export const GET_PROFILE ="GET_PROFILE";
 export const UPDATE = "UPDATE";
 export const REFRESH_USER = "REFRESH_USER";
+
+export const CREATE_TUTORIAL = "CREATE_Event";
+export const RETRIEVE_TUTORIALS = "RETRIEVE_Event";
+export const UPDATE_TUTORIAL = "UPDATE_Event";
+export const DELETE_TUTORIAL = "DELETE_Event";

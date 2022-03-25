@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 //import "./bezkoder.css";
 import Login from "./components/User/login.component";
 import Register from "./components/User/register.component";
-import Home from "./components/User/home.component";
+///import Home from "./components/User/home.component";
 import Profile from "./components/User/profile.component";
 import BoardUser from "./components/User/board-user.component";
 import BoardModerator from "./components/User/board-moderator.component";
@@ -23,6 +23,8 @@ import EventDetails from "./components/Events/EventDetails";
 import Events from "./pages/Events/Event";
 
 import "react-datepicker/dist/react-datepicker.css"
+import AddEvents from "./pages/Events/AddEvent" 
+import Home from "./pages/Home" 
 
 
 const App = () => {
@@ -58,7 +60,7 @@ const App = () => {
     
       
           <Routes>
-          <Route path={'/'} element={<Dashboard/>}/>
+          <Route path={'/'} element={<Home/>}/>
           <Route path={'/login'} element={<Login/>}/>
           <Route path={'/profile'} element={<Profile/>}/>
           <Route path={'/register'} element={<Register/>}/>
@@ -67,6 +69,8 @@ const App = () => {
           <Route exact path={'/addProject'} element={<AddProject/>}/>
           <Route path={'/eventsdet'} element={<EventDetails/>}/>
                   <Route path={'/events'} element={<Events/>}/>
+                  <Route path={'/addevents'} element={<AddEvents/>}/>
+
           </Routes>
       
    
