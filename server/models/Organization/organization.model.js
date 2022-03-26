@@ -10,6 +10,7 @@ var OrganisationSchema = new mongoose.Schema({
     description:String,
     Secteur: String,
     ownerName:String,
+    Image:String,
     userFollowing: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
@@ -20,8 +21,6 @@ var OrganisationSchema = new mongoose.Schema({
     }]
 
 })
-
-
 
 module.exports = mongoose.model('organization' , OrganisationSchema,'Organization') ;
 // module.exports = OrganisationModel;

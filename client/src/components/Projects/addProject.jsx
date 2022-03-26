@@ -1,153 +1,173 @@
-import axios from 'axios'
+import React, { useState, useRef } from "react";
+import { Navigate } from 'react-router-dom';
+import Form from "react-validation/build/form";
+import Input from "react-validation/build/input";
+import CheckButton from "react-validation/build/button";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from 'react-router';
+import axios from 'axios';
+// import { login } from "../../actions/auth";
+import { AddProject } from "../../actions/Projects/ProjectCrud.actions";
 
-import React, { useState } from 'react'; 
-  
-function AddProject(){
-
-
-    const [newProject,setNewProject]=useState(
-        {
-        
-          labelproject: '' ,
-            projectdescriptiob: '',
-            fundneeded: '',
-            fundcollected: '',
-             Image:''
-        
-        }
+const required = (value) => {
+  if (!value) {
+    return (
+      <div className="alert alert-danger" role="alert">
+        This field is required!
+      </div>
     );
-    const {
-        labelproject,
-        projectdescriptiob,
-        fundneeded,
-        fundcollected,
-        Image
+  }
+};
+const ProjectAdd = (props) => {
+  const form = useRef();
+  const checkBtn = useRef();
+  const [labelproject, setLabelproject] = useState("");
+  const [projectdescriptiob, setProjectdescriptiob] = useState("");
+  const [fundneeded, setFundneeded] = useState(0);
+  const [image,setImage] = useState(null);
+
+  const navigate =useNavigate();
 
 
-    } = newProject;
-
-
-
-    const  onChange=(e)=> {
-
-        setNewProject({
-            ...newProject,
-            [e.target.name]: e.target.value,
-        });
-
-
-
-
-    }
-    const onChangeFile = (e) => {
-
-        setNewProject({
-            ...newProject,
-            Image: e.target.file?.[0]
-        });
+  const [loading, setLoading] = useState(false);
+  // const { ProjectAdded } = useSelector(state => state.auth);
+  const { message } = useSelector(state => state.message);
+  const dispatch = useDispatch();
 
 
 
+  const onChangelabelproject = (e) => {
+    const labelproject = e.target.value;
+    setLabelproject(labelproject);
+  };
+  const onChangeprojectdescriptiob = (e) => {
+    const projectdescriptiob = e.target.value;
+    setProjectdescriptiob(projectdescriptiob);
+  };
+  
+  const onChangefundneeded = (e) => {
+    const fundneeded = e.target.value;
+    setFundneeded(fundneeded);
+  };
+  
+  
 
-    }
+//   const onChangeFile = (e) => {
+//     setImage({
+//       image:e.target.files[0]
+    
+//     });
+
+// }
 
 
 
-   
 
-    const handleSubmit=(e)=>{
-e.precentDefault();
+
+
+
+
+
+  const handleAddProject = (e) => {
+e.preventDefault();
 
 const formData =new FormData();
-formData.append('Image',newProject.Image);
-formData.append('labelproject',newProject.labelproject);
-formData.append('projectdescriptiob',newProject.projectdescriptiob);
-formData.append('fundneeded',newProject.fundneeded);
-formData.append('fundcollected',newProject.fundcollected);
+formData.append('image',image);
+  formData.append('labelproject',labelproject);
+formData.append('projectdescriptiob',projectdescriptiob);
+formData.append('fundneeded',fundneeded);
 
 
-console.log(newProject.Image);
+// const config ={
+//   headers:{
+//     'content-type': 'multipart/form-data'
 
-axios.post('http://localhost:5000/api/project/add',formData)
-.then(res=>{
-    console.log(res);
-})
-.catch(err=>{
-    console.log(err);
+// }
+
+
+// const url ='http://localhost:5000/api/project/add';
+
+
+ console.log(formData);
+//  formData.current.validateAll();
+    // if (checkBtn.current.context._errors.length === 0) {
+      dispatch(AddProject(formData))
+        .then(() => {
+          
+          console.log(formData);
+          // props.history.push("/ListProject");
+          // window.location.reload();
+          navigate("/ListProject")
+        }).
+      catch((e) => {
+        console.log(e);
+      });
+    // } else {
+    //   // setLoading(false);
+
+    // }
+  // };
+  // if (ProjectAdded) {
+  //   return navigate("/ListProject");
+  // }
+
 }
-
-)
-
+  return (
 
 
 
+    <Form onSubmit={handleAddProject} encType="multipart/form-data">
+ 
+<label htmlFor="labelproject">labelproject</label>
+           <Input
+              type="text"
+              className="form-control"
+              name="labelproject"
+              value={labelproject}
+              onChange={onChangelabelproject}
+              validations={[required]}
+            />
 
 
+   <label htmlFor="projectdescriptiob">projectdescriptiob</label>
+    <Input
+              type="text"
+              className="form-control"
+              name="projectdescriptiob"
+              value={projectdescriptiob}
+              onChange={onChangeprojectdescriptiob}
+              validations={[required]}
+            />
 
 
-    }
+       <label htmlFor="fundneeded">funds needed</label>
+           <Input
+              type="text"
+              className="form-control"
+              name="fundneeded"
+              value={fundneeded}
+              onChange={onChangefundneeded}
+              validations={[required]}
+            />
 
-    return (
-    
-        <form onSubmit={handleSubmit} method="POST" encType="multipart/form-data">
-        <div>
-          <label htmlFor="name"> labelproject</label>
-          <input type="text"
-             name="labelproject"
-             placeholder="labelproject"
-             value={labelproject}
-             onChange={(e) => onChange(e)}
-              required />
-        </div>
+<label htmlFor="image">Image upload</label>
+    <input 
+             type="file"
+             name="image"
+                //  value={image}
+               id="image"
+               onChange={(e)=>{
+                  setImage(e.target.files[0])
+         }}
+             />
 
+    <div>
+    <button type="submit" class="btn" >Submit</button>
+              {/* <button  className="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i className="fa fa-trash"></i></button> */}
+              {/* <button  className="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i className="fa fa-trash"></i></button> */}
+    </div>
+  </Form>
 
-        <div>
-          <label htmlFor="name">projectdescriptiob</label>
-          <input type="text"
-             name="projectdescriptiob"
-             placeholder="projectdescriptiob"
-             value={projectdescriptiob}
-             onChange={(e) => onChange(e)}
-              required />
-        </div>
-
-
-        <div>
-          <label htmlFor="name">fundneeded</label>
-          <input type="text"
-             name="fundneeded"
-             placeholder="fundneeded"
-             value={fundneeded}
-             onChange={(e) => onChange(e)}
-              required />
-        </div>
-
-        <div>
-          <label htmlFor="name">fundcollected</label>
-          <input type="text"
-             name="fundcollected"
-             placeholder="fundcollected"
-             value={fundcollected}
-             onChange={(e) => onChange(e)}
-              required />
-        </div>
-      
-
-
-
-        <div>
-          <label htmlFor="Image">Image</label>
-          <input 
-          type="file" 
-          id="Image" 
-          name="Image" 
-          onChange={(e) => onChangeFile(e)}
-          required />
-        </div>
-        <div>
-          <button type="submit" >Submit</button>
-        </div>
-      </form>
-)
-}
-export default AddProject
+  );
+};
+export default ProjectAdd;

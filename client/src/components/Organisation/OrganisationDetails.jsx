@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router';
 import { allProjects, RetrieveProject } from "../../actions/Projects/ProjectCrud.actions";
 import { Link, useParams } from 'react-router-dom';
 
-function ProjectDetails(props) {
+function OrrganisationDetails(props) {
 
   const location = useLocation();
   console.log(location.state.image)
@@ -70,4 +70,4 @@ function ProjectDetails(props) {
 
   )
 }
-export default ProjectDetails
+export default OrrganisationDetails

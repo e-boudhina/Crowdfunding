@@ -2,15 +2,21 @@ const { authJwt } = require("../../middlewares");
 const controller = require("../../controllers/Project/Project.controller");
 const db = require("../../models");
 const Project = db.Project;
+var path = require('path');
+
+
 
 var multer = require('multer');
-  
+const reqPath = path.join(__dirname, '../../../client/public/Uploads');
+console.log(reqPath);
 var storage = multer.diskStorage({
+  
     destination: (req, file, cb) => {
-        cb(null, 'uploads')
+        cb(null, reqPath)
     },
     filename: (req, file, cb) => {
-        cb(null, file.fieldname + '-' + Date.now())
+      console.log(file.fieldname);
+        cb(null, file.originalname)
     }
 });
   
@@ -23,12 +29,13 @@ module.exports = function(app) {
 
 app.get("/api/project/all",controller.Project);
 //  app.post("/api/test/add",controller.ProjectAdd);
- app.post("/api/project/add",upload.single('Image'),(req, res) => {  
- const project = new Project({
+ app.post("/api/project/add",upload.single('image'),(req, res) => {  
+ console.log(req.file);
+  const project = new Project({
      labelproject: req.body.labelproject,
      projectdescriptiob: req.body.projectdescriptiob,
      fundneeded: req.body.fundneeded,
-     fundcollected: req.body.fundcollected,
+     fundcollected: 0,
      Image :req.file.originalname
  });
  project.save((err, project) => {
@@ -41,10 +48,43 @@ app.get("/api/project/all",controller.Project);
       
      // res.send(project)
    }
- })})
+ }
+ )
+}
+ 
+ )
 
  app.delete("/api/project/delete/:id",controller.Projectdelete);
- app.put("/api/project/delete/:id",controller.ProjectUpdate);
+ app.put("/api/project/update/:id",upload.single('image'),(req, res) => {
+  
+  Project.findOneAndUpdate({_id:req.params.id},{$set:{
+  
+
+    
+    labelproject: req.body.labelproject,
+    projectdescriptiob: req.body.projectdescriptiob,
+    fundneeded: req.body.fundneeded,
+    fundcollected: req.body.fundcollected,
+    Image :req.file.originalname
+  
+  
+  }
+  }).then(result=>{
+    res.status(200).json({updated_product:result})
+  
+  
+  })
+  .catch(err=>{
+  console.log(err);
+  res.status(500).json({error:erreur})
+  
+  })
+  
+ })
+        
+app.get("/api/project/get/:id",controller.getProjectByid);
+
+
 
 
 

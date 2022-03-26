@@ -1,7 +1,8 @@
-import React, { useState , useEffect  } from "react";
+import  { React,useState , useEffect  } from "react";
 import { Navigate  } from 'react-router-dom';
 import { useDispatch, useSelector  } from "react-redux";
 import { useNavigate  } from "react-router-dom";
+import ListOrganisationForUser from "../Organisation/ListOrganisationForUser"
 
 const Profile = (props) => {
   const navigate = useNavigate();
@@ -28,7 +29,7 @@ useEffect(() => {
   console.log("is mounted ");
   if (!IsLoggedIn) {  
     navigate("/login"); 
-  } else { 
+  } else {   
     setFirstName(currentInfos.firstName)
     setLastName(currentInfos.lastName)
     setUsername(currentInfos.username)
@@ -95,9 +96,14 @@ useEffect(() => {
                 </div>
               </div>
             </div>
+            <button onClick={()=>{navigate("/addOrganisation") }}>Ajouter Organization</button>
+
+<ListOrganisationForUser/>
           </div>
         </div>
       </section>
-  );
-};
+
+
+
+  )};
 export default Profile;

@@ -206,6 +206,7 @@ export const  reset_password =  (username) =>   (dispatch) => {
           type: SET_MESSAGE,
           payload: message,
         });
+        
         return Promise.reject();
       }
     );
