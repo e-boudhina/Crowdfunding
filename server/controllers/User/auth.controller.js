@@ -9,7 +9,10 @@ const asyncHandler = require("express-async-handler");
 const crypto = require("crypto");
 const buffer = require("buffer");
 const transport = require("../../config/nodemailer");
+const {fchmod} = require("fs");
 
+const ResetPasswordEmailTemplate =require('../../Templates/Emails/ResetPasswordEmail')
+const VerificationEmailTemplateTemplate =require('../../Templates/Emails/VerificationEmail')
 const makeAdmin = asyncHandler(async (req, res) => {
   if (!username) {
     res.status(400);
@@ -45,11 +48,7 @@ const signup = asyncHandler(async (req, res) => {
     res.status(400);
     throw Error("Please add all fields");
   }
-  var generated_token;
-  //Read more about transforming an async function to a normal function
-  // it had an error and a buffer as return callback
-  //  var buffer= crypto.randomBytes(32)
-  // generated_token=  buffer.toString("hex")
+
   const user = new User({
     firstName: req.body.firstName,
     lastName: req.body.lastName,
@@ -60,17 +59,17 @@ const signup = asyncHandler(async (req, res) => {
     username: req.body.username,
     email: req.body.email,
     password: bcrypt.hashSync(req.body.password, 8),
-    verifyEmailToken: crypto.randomBytes(32).toString("hex"),
+     verifyEmailToken: await generate_custom_token(),
+    // verifyEmailToken: crypto.randomBytes(32).toString("hex") // this function can be either used synchronously or asynchronously
+    //Read more about transforming an async function to a normal function
+    // it had an error and a buffer as return callback
+
   });
   user.save(async (err, user) => {
     if (err) {
       res.status(500).send({ message: err });
       return;
     }
-    //sending email
-    //if you remove the await the rest of the code will continue and a success message will be returned even though and error can be raised
-    // However if you remove it the request will be much faster
-    await basic_email_template(user);
 
     if (req.body.roles) {
       Role.find(
@@ -99,12 +98,23 @@ const signup = asyncHandler(async (req, res) => {
           return;
         }
         user.roles = [role._id];
-        user.save((err) => {
+        user.save(async (err) => {
           if (err) {
-            res.status(500).send({ message: err });
+            res.status(500).send({message: err});
             return;
           }
-          res.send({ message: "User was registered successfully!" });
+
+          //sending email
+          //if you remove the await the rest of the code will continue and a success message will be returned even though and error can be raised
+          // However if you remove it the request will be much faster
+          console.log("Sending VerificationEmail Email...")
+          await transport.sendMail(VerificationEmailTemplateTemplate(user))
+              .then(() => console.log('Verification Email Sent Successfully!'))
+              .catch(error => {
+                console.log(error)
+              });
+
+          res.send({message: "User was registered successfully! Please check your inbox for email verification"});
         });
       });
     }
@@ -179,16 +189,8 @@ const reset_password = asyncHandler(async (req, res) => {
     res.status(400);
     throw Error("Please provide a username");
   }
-
-  crypto.randomBytes(32, (err, buffer) => {
-    if (err) {
-      console.log(err);
-    }
-    //console.log("before converting: ", buffer)
-    // Output : <Buffer 09 c6 b8 38 33 c2 c1 65 3d 6f 58 08 b6 9e 09 68 ec b8 bf 1d 60 c2 6e 25 be d3 a0 5d 3b 08 b8 00>
-    const generatedResetPasswordToken = buffer.toString("hex");
-    //console.log("After converting: ", emailToken)
-    // Output: 09c6b83833c2c1653d6f5808b69e0968ecb8bf1d60c26e25bed3a05d3b08b800
+  //start
+    const generatedResetPasswordToken = await generate_custom_token();
     //fetching the username email
     //Is there another way to write this besides chaining it using then?
     User.findOne({ username: username }).then((user) => {
@@ -206,36 +208,34 @@ const reset_password = asyncHandler(async (req, res) => {
       user.save().then(async (result) => {
         // console.log(result)
         //if user saved
-        // content
-        const text = "TEXT EXAMPLE";
-        //I already moved the node mail transport configuration to the "conf" directory. However, I still need to make email templates as a function and export it.
-        await transport.sendMail({
-          from: process.env.MAIL_FROM,
-          to: `${user.email}`,
-          subject: "Resetting your password",
-          //for testing
-          html: `<div className="email" style="
-                            border: 1px solid black;
-                            padding: 20px;
-                            font-family: sans-serif;
-                            line-height: 2;
-                            font-size: 20px;
-                            ">
-             <h1>Hello ${user.username},</h1>
-            <h2><a href="${process.env.BASE_ADDRESS}/new-password/${user.resetPasswordToken}" className="btn btn-black">Click on this link to reset your password: </h2>
-            <p>${text}</p>
 
-            <p>All the best,</p>
-            <p>BucksBooks Team</p>
-             </div>`,
-        });
-
+        //I  restructured this file for the third time by moving the templates to the templates directory + moved the node mail transport configuration to the "conf" directory.
+        // I exported the Templates as function that take mailOptions dynamically  and exported them to be used here it to decreased the load here and minimize the code.
+        console.log("Sending Reset Password Email...")
+        await transport.sendMail(ResetPasswordEmailTemplate(user))
+            .then(()=> console.log('Reset Password Email Sent Successfully!'))
+             .catch(error => { console.log(error)});
         res.status(200).send({
           message: "Reset password email sent, please check your email!",
         });
+
       });
     });
-  });
+
+  //end
+  // (async () => {
+  //   console.log(await generate_custom_token())
+  // })()
+  // these 2 method return the same value
+   //console.log( await generate_custom_token())
+  // generate_custom_token().then(data => {
+  //   console.log(data);
+  // });
+
+  // res.status(200).send({
+  //   message: "end point reached!",
+  // });
+
 });
 
 const new_password = asyncHandler(async (req, res) => {
@@ -317,38 +317,23 @@ const verify_email = asyncHandler(async (req, res) => {
 
 //TO be developed later to make the code shorter
 // can a const function returns a value using return?
-function generate_custom_token() {
-  crypto.randomBytes(32, (err, buffer) => {
-    if (err) {
-      console.log(err);
-    }
-    return buffer.toString("hex");
-  });
-}
-const basic_email_template = async (user) => {
-  const text = "TEXT EXAMPLE";
-  //I already moved the node mail transport configuration to the "conf" directory. However, I still need to make email templates as a function and export it.
-  await transport.sendMail({
-    from: process.env.MAIL_FROM,
-    to: `${user.email}`,
-    subject: "Verify email",
-    //for testing
-    html: `<div className="email" style="
-                            border: 1px solid black;
-                            padding: 20px;
-                            font-family: sans-serif;
-                            line-height: 2;
-                            font-size: 20px;
-                            ">
-             <h1>Hello ${user.username},</h1>
-            <h2><a href="${process.env.BASE_ADDRESS}/verify-password/${user.verifyEmailToken}" className="btn btn-black">Click on this link to verify your email: </h2>
-            <p>${text}</p>
+const generate_custom_token = async () => {
 
-            <p>All the best,</p>
-            <p>BucksBooks Team</p>
-             </div>`,
-  });
-};
+  return await new Promise ((resolve, reject) => {
+    crypto.randomBytes(32, (err, buffer) => {
+      //console.log("before converting: ", buffer)
+      // Output : <Buffer 09 c6 b8 38 33 c2 c1 65 3d 6f 58 08 b6 9e 09 68 ec b8 bf 1d 60 c2 6e 25 be d3 a0 5d 3b 08 b8 00>
+      if (err) {
+        reject('error generating token');
+      }
+      resolve(buffer.toString('hex'));
+      //console.log("After converting: ", buffer.toString('hex) value)
+      // Output: 09c6b83833c2c1653d6f5808b69e0968ecb8bf1d60c26e25bed3a05d3b08b800
+    });
+  })
+}
+
+
 
 //Defining the functions as consts than exporting them as an array like this is much easier than exporting them one by one
 // you can simply look into module.export and see what are you exporting without scanning the entire file

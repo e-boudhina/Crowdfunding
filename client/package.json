@@ -33,7 +33,8 @@
     "react-validation": "^3.0.7",
     "reactstrap": "^9.0.1",
     "sass-loader": "^7.2.0",
-    "validator": "^13.7.0"
+    "validator": "^13.7.0",
+    "webpack": "^5.70.0"
   },
   "scripts": {
     "start": "react-scripts start",
