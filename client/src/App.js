@@ -1,49 +1,51 @@
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+// import "./bezkoder.css";
+//import "./bezkoder.css";
 import Login from "./components/User/login.component";
 import Register from "./components/User/register.component";
 import Profile from "./components/User/profile.component";
 import { clearMessage } from "./actions/message";
 import { history } from "./helpers/history";
-
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import ProjectDetails from "./components/Projects/ProjectDetails";
-import AddProject from "./components/Projects/addProject";
-import Events from "./pages/Events/Event";
-import EventDetails from "./pages/Events/EventDetails";
-import "react-datepicker/dist/react-datepicker.css";
-import AddEvents from "./pages/Events/AddEvent";
-import Adminboard from "./pages/User/board-admin";
-import "react-datepicker/dist/react-datepicker.css";
+import ProjectDetails from "./components/Projects/ProjectDetails"
+import ListPProject from "./components/Projects/ListProject"
+import UpdateProject from "./components/Projects/UpdateProject"
+import OrganisationAdd from "./components/Organisation/AddOrganisation"
+import UppdateOrganisation from "./components/Organisation/UpdateOrganisation"
 import Reset_password from "./components/User/reset-password.component";
 import New_password from "./components/User/new-password.component";
-
-// Import toast and the css
+import AddEvents from "./pages/Events/AddEvent" 
 import { ToastContainer } from "react-toastify";
+
+import ProjectAdd from "./components/Projects/addProject" 
+import Events from "./pages/Events/Event" 
+import EventDetails from "./pages/Events/EventDetails" 
+
+
 import "react-toastify/dist/ReactToastify.css";
 import Notfound from "./components/404.jsx";
-import Profileconsult from "./components/User/profileconsult.component";
-import "antd/dist/antd.css";
+import Profileconsult from "./components/User/profileconsult.component"
+import Adminboard from "./pages/User/board-admin"
+
+import "react-datepicker/dist/react-datepicker.css"
+
+import { allProjects } from "./actions/Projects/ProjectCrud.actions";
+import ListOrganisation from "./components/Organisation/ListOrganisation";
 import Add from "./components/Elearning/add-chapter.component";
 import Listchapter from "./components/Elearning/list-chapter.component";
 
+const App = () => {
 
-const App =(props) => {
-
-
-  //const currentUser = {};
   const dispatch = useDispatch();
   useEffect(() => {
     history.listen((location) => {
-      console.log("history listen called from Appjs:33");
       dispatch(clearMessage()); // clear message when changing location
     });
   }, [dispatch]);
-
-
-
+      dispatch(allProjects()); 
   return (
     <>
       <Router history={history}>
@@ -60,10 +62,15 @@ const App =(props) => {
             <Route path={"/reset-password"} element={<Reset_password />} />
             <Route path={"/new-password/:token"} element={<New_password />} />
             <Route exact  path={"/ProjectDetails"} element={<ProjectDetails />} />
-            <Route exact path={"/addProject"} element={<AddProject />} />
             <Route path={"/eventsdet"} element={<EventDetails />} />
             <Route path={"/events"} element={<Events />} />
             <Route path={"/addevents"} element={<AddEvents />} />
+            <Route exact path={'/ListProject'} element={<ListPProject />} />
+            <Route exact path={'/addProject'} element={<ProjectAdd />} />
+            <Route exact path={'/addOrganisation'} element={<OrganisationAdd />} />
+            <Route exact path={'/ListOrganisation'} element={< ListOrganisation/>} />
+            <Route exact path={'/updateProject'} element={<UpdateProject />} />
+            <Route exact path={'/updateOrganisation'} element={<UppdateOrganisation />} />
             <Route path={"/*"} element={<Notfound />} />
             </Route>
 

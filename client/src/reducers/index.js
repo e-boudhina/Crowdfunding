@@ -1,5 +1,7 @@
 import { combineReducers } from "redux";
 import auth from "./auth";
+import projects from "../reducers/Projects/project.reducers";
+import organisations from "../reducers/Organisations/organisation.reducers";
 import message from "./message";
 import navigation from "./navigation";
 import postReducer from "./postReducer";
@@ -9,4 +11,6 @@ export default combineReducers({   //t'importi el reducers li bech  yetaamlou ma
   message,
   navigation,
   post: postReducer,
+  projects,
+  organisations
 });

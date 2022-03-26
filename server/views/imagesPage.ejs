@@ -26,7 +26,7 @@
             <div>
                 <label for="image">Upload Image</label>
                 <input type="file" id="image" 
-                       name="image" value="" required>
+                       name="Image" value="" required>
             </div>
             <div>
                 <button type="submit">Submit</button>
@@ -34,27 +34,6 @@
         </form>
     </div>
   
-    <hr>
-  
-    <h1>Uploaded Images</h1>
-    <div>
-        <% items.forEach(function(image) { %>
-        <div>
-            <div>
-                <img src="data:image/<%=image.img.contentType%>;base64,
-                     <%=image.img.data.toString('base64')%>">
-                <div>
-                    <h5><%= image.name %></h5>
-                      
-<p><%= image.desc %></p>
-  
-  
-  
-                </div>
-            </div>
-        </div>
-        <% }) %>
-    </div>
 </body>
   
 </html>

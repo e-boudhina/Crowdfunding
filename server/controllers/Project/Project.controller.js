@@ -52,48 +52,29 @@ exports.Project = (req, res) => {
 
   //   };
 
-    exports.ProjectUpdate = (req, res) => {
+//     exports.ProjectUpdate = (req, res) => {
   
-Project.findOneAndUpdate({_id:req.params.id},{$set:{
+// Project.findOneAndUpdate({_id:req.params.id},{$set:{
 
-  labelproject: req.body.labelproject,
-  projectdescriptiob: req.body.projectdescriptiob,
-  fundneeded: req.body.fundneeded,
-  fundcollected: req.body.fundcollected
-
-
-}
-}).then(result=>{
-  res.status(200).json({updated_product:result})
+//   labelproject: req.body.labelproject,
+//   projectdescriptiob: req.body.projectdescriptiob,
+//   fundneeded: req.body.fundneeded,
+//   fundcollected: req.body.fundcollected
 
 
-})
-.catch(err=>{
-console.log(err);
-res.status(500).json({error:erreur})
+// }
+// }).then(result=>{
+//   res.status(200).json({updated_product:result})
 
-})
 
-      const project = new Project({
-          labelproject: req.body.labelproject,
-          projectdescriptiob: req.body.projectdescriptiob,
-          fundneeded: req.body.fundneeded,
-          fundcollected: req.body.fundcollected,
-          img: req.params.id
-      });
-      project.save((err, project) => {
-        if (err) {
-          res.status(500).send({ message: err });
-        }
-        else {
-            
-           res.status(200).send({message:"Project was created succesfully "})
-           
-          // res.send(project)
-        }
-      });
-  
-      };
+// })
+// .catch(err=>{
+// console.log(err);
+// res.status(500).json({error:erreur})
+
+// })
+
+//       };
 
 
 
@@ -117,7 +98,18 @@ console.log(req.params.id);
                 })
               }
 
-        
+                          
+exports.getProjectByid = (req, res) => {
+  Project.find({_id:req.params.id},(err, result)=>{
+      if(err){
+      res.json(err);
+      }
+      else{
+          console.log(result);
+      res.json(result)
+      }
+          });
+};
 
   
 

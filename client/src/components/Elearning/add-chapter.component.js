@@ -67,6 +67,7 @@ const editorContent  =     EditorState.createEmpty();
   }, [message])
 
   return (
+    <div class="container-sm">
     <Row justify="center">
       <Col span="12">
         <Form
@@ -100,7 +101,7 @@ const editorContent  =     EditorState.createEmpty();
         </Form>
       </Col>
     </Row>
-
+    </div>
   );
 }
 
