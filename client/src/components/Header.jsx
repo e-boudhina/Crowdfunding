@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { logout } from "../actions/auth";
 import { useDispatch, useSelector } from "react-redux";
-import { Link , useNavigate } from "react-router-dom";
+import { Link , useNavigate ,Outlet} from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import getAllUsers from "../services/user.service";
@@ -47,6 +47,7 @@ function Header() {
   };
 
   return (
+    <>
     <div>
       <meta charSet="utf-8" />
       <meta httpEquiv="x-ua-compatible" content="ie=edge" />
@@ -315,6 +316,8 @@ function Header() {
             "url(" + process.env.PUBLIC_URL + "/assets/img/bg/breadcumb.jpg)",
         }}></section>
     </div>
+  <Outlet/>
+    </>
   );
 }
 export default Header;
