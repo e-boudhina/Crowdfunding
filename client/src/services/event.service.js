@@ -8,14 +8,11 @@ const config ={
 
 }
 }
-const add = (EventDescription, EventName, StartDate , EndDate ) => {
-  return axios.post(API_URL + "add", {
-    EventDescription: String ,
-    EventName: String ,
-    StartDate: Number,
-    EndDate: Number
-   
-  });
+const add = (form ) => {
+  console.log("EVENT SERVICE "+form);
+  return axios.post(API_URL + "add", JSON.parse(form), {
+    'Content-Type': 'application/json'
+    });
 };
 const DELETE_Event = (id)=> {
 
@@ -32,12 +29,16 @@ const getevent = (id)=> {
 const  allevents= () => {
   return axios.get(API_URL + "all");
 };
+const findEventByName = (id)=> {
+  return axios.get(API_URL+"/event?name=${EventName}");
+};
 export default  {
   add,
   DELETE_Event,
   update,
   getevent,
-  allevents
+  allevents,
+  findEventByName
 };
 
   

@@ -23,7 +23,7 @@ module.exports = function(app) {
 
 app.get("/api/event/all",controller.Events);
 //  app.post("/api/test/add",controller.AddEvent);
- app.post("/api/event/add",upload.single('Image'),(req, res) => {  
+ app.post("/api/event/add",(req, res) => {  
  const event = new Event({
     EventName: req.body.EventName,
     EventDescription: req.body.EventDescription,
@@ -31,13 +31,15 @@ app.get("/api/event/all",controller.Events);
       StartDate: req.body.StartDate,
    // EventImage: req.params.id
  });
+console.log("Event routes , body "+req.body.EventName);
  event.save((err, event) => {
    if (err) {
      res.status(500).send({ message: err });
    }
+  
    else {
        
-      res.status(200).send({message:"Event was created succesfully "})
+      res.status(200).send({message:"Event was created succesfully ","event":event})
       
      // res.send(event)
    }

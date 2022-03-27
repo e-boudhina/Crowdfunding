@@ -18,13 +18,17 @@ import Footer from "./components/Footer";
 import Dashboard from "./pages/User/Dashboard"
 import ProjectDetails from "./components/Projects/ProjectDetails" 
 import AddProject from "./components/Projects/addProject" 
-import EventDetails from "./components/Events/EventDetails";
+//import EventDetails from "./components/Events/EventDetails";
 //import Events from "./components/Events/Events";
 import Events from "./pages/Events/Event";
-
+import EventDetails from "./components/Events/EventDetails"
 import "react-datepicker/dist/react-datepicker.css"
 import AddEvents from "./pages/Events/AddEvent" 
+
 import Home from "./pages/Home" 
+
+import EventList from "./components/Events/EventList";
+
 
 
 const App = () => {
@@ -57,8 +61,7 @@ const App = () => {
 <Router history={history}>
       <Header></Header>
       <div>
-    
-      
+
           <Routes>
           <Route path={'/'} element={<Home/>}/>
           <Route path={'/login'} element={<Login/>}/>
@@ -70,6 +73,8 @@ const App = () => {
           <Route path={'/eventsdet'} element={<EventDetails/>}/>
                   <Route path={'/events'} element={<Events/>}/>
                   <Route path={'/addevents'} element={<AddEvents/>}/>
+                  
+                  <Route exact path={'/ListEvents'} element={<EventList />} />
 
           </Routes>
       

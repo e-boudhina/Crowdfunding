@@ -26,9 +26,9 @@ exports.EventUpdate = (req, res) => {
             EventDescription: req.body.EventDescription,
             StartDate: req.body.StartDate,
             EndDate: req.body.EndDate,
-            EventImage: req.body.EventImage,
-            Status: req.body.Status,
-            Rating: req.body.Rating
+           // EventImage: req.body.EventImage,
+           // Status: req.body.Status,
+         //  Rating: req.body.Rating
 
         }
     }).then(result => {

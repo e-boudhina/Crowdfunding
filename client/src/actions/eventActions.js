@@ -1,6 +1,11 @@
 import {
  
-    SET_MESSAGE
+    SET_MESSAGE,
+    RETRIEVE_Event,
+    CREATE_Event,
+    DELETE_Event,
+    UPDATE_Event
+
      
   } from "./type";
 import eventService from "../services/event.service";
@@ -8,7 +13,7 @@ import eventService from "../services/event.service";
   export const allEvents = () => (dispatch) => {
     return eventService.allevents().then(
         (result) => {
-            console.log(result);
+            //console.log(result);
             dispatch({
                 type: RETRIEVE_Event,
                 payload: result.data,
@@ -33,13 +38,14 @@ import eventService from "../services/event.service";
     );
   };
 
-  export const CREATE_Event = (form) => (dispatch) => {
+  export const EventAdd = (form) => (dispatch) => {
+      console.log("EVENT ACTION DATA : "+ form);
     return eventService.add(form).then(
       (response) => {
         console.log(response);
         dispatch({
-          
-         
+          type: CREATE_Event,
+        
         });
         dispatch({
           type: SET_MESSAGE,
@@ -65,7 +71,7 @@ import eventService from "../services/event.service";
   };
 
 
-  export const DELETE_Event = (id) =>  (dispatch) => {
+  export const RemoveEvent = (id) =>  (dispatch) => {
     try {
       eventService.dellete(id);
       dispatch({
@@ -77,26 +83,27 @@ import eventService from "../services/event.service";
     }
   };
 
-  export const RETRIEVE_Event = (id) => async (dispatch) => {
+ //export const AllEvents = () => async (dispatch) => {
     
-      const res = await eventService.getevent(id).then(
-        (result) => {
-            console.log(result);
-            dispatch({
-                payload: result.data,
-            });
-            console.log(result.data);
-            return Promise.resolve();
-          },
+     // const res = await eventService.getevent().then(
+        //(result) => {
+          //  console.log(result);
+            //dispatch({
+              //type : RETRIEVE_Event,
+                //payload: result.data,
+            //});
+            //console.log(result.data);
+            //return Promise.resolve();
+          //},
 
-          (error) => {
-         console.log("Erreur");
-            return Promise.reject();
-          }
-          );
-        }
+         // (error) => {
+        // console.log("Erreur");
+          //  return Promise.reject();
+         // }
+         // );
+      //  } 
         
-  export const UPDATE_Event = (id, data) => async (dispatch) => {
+  export const Update = (id, data) => async (dispatch) => {
     try {
       const res = await eventService.update(id, data);
       dispatch({
@@ -106,5 +113,16 @@ import eventService from "../services/event.service";
       return Promise.resolve(res.data);
     } catch (err) {
       return Promise.reject(err);
+    }
+  };
+  export const findEventByName = (EventName) => async (dispatch) => {
+    try {
+      const res = await eventService.findByTitle(EventName);
+      dispatch({
+        type: RETRIEVE_Event,
+        payload: res.data,
+      });
+    } catch (err) {
+      console.log(err);
     }
   };

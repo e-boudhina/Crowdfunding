@@ -5,10 +5,7 @@ import {
     DELETE_Event
    
   } from "../actions/types";
-  const initialState = {
-    events:[],
-  };
- 
+  const initialState= [];
     
   function EventReducer(events = initialState, action) {
     const { type, payload } = action;
