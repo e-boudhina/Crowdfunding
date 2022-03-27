@@ -128,10 +128,10 @@ const EventDetails = (props) => {
               </ul>
               <p>hey</p>
               <p>This is the event description</p>
-              <a className="btn" href="#">Join<img src="assets/img/icon/arrow.png" alt="" /></a>
+              <a className="btn" >Join<img src="assets/img/icon/arrow.png" alt="" /></a>
               <br/>
 
-              <a className="btn" href="#">Update<img src="assets/img/icon/arrow.png" alt="" /></a>
+              <a className="btn" onClick={updateStatus}>Update<img src="assets/img/icon/arrow.png" alt="" /></a>
               <br/>
 
               <a className="btn" href="#">Delete<img src="assets/img/icon/arrow.png" alt="" /></a>

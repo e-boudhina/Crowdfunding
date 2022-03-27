@@ -67,6 +67,7 @@ const EventList = () => {
             onClick={() => setActiveEvent(event, index)}
             key={index}
             >
+              
               {event.EventName}
               
             </li>
