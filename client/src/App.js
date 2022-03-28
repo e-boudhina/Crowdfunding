@@ -21,13 +21,17 @@ import AddProject from "./components/Projects/addProject"
 //import EventDetails from "./components/Events/EventDetails";
 //import Events from "./components/Events/Events";
 import Events from "./pages/Events/Event";
-import EventDetails from "./pages/Events/EventDetails"
+//import EventDetails from "./pages/Events/EventDetails"
 import "react-datepicker/dist/react-datepicker.css"
 import AddEvents from "./pages/Events/AddEvent" 
 
 import Home from "./pages/Home" 
 
 import EventList from "./components/Events/EventList";
+import EventDetails from "./components/Events/EventDetails";
+import UpdateEvent from "./components/Events/UpdateEvent";
+
+
 
 
 
@@ -75,6 +79,8 @@ const App = () => {
                   <Route path={'/addevents'} element={<AddEvents/>}/>
                   
                   <Route exact path={'/eventlist'} element={<EventList />} />
+                  <Route exact path={'/update'} element={<UpdateEvent />} />
+
 
           </Routes>
       

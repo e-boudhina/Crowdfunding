@@ -4,16 +4,23 @@ import {
     UPDATE_Event,
     DELETE_Event
    
-  } from "../actions/types";
-  const initialState= [];
+  } from "../actions/type";
+  const initialState={
+    Events:[],
+    
+    }
     
   function EventReducer(events = initialState, action) {
     const { type, payload } = action;
+    
     switch (type) {
       case CREATE_Event:
         return [...events, payload];
-      case RETRIEVE_Event:
-        return payload;
+        case     RETRIEVE_Event:
+          return {
+            ...events,
+            Events: action.payload,
+          };
       case UPDATE_Event:
         return events.map((event) => {
           if (events.id === payload.id) {

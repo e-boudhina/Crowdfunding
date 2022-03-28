@@ -23,9 +23,9 @@ const EventDetails = (props) => {
         console.log(e);
       });
   };
-  useEffect(() => {
-    getEvent(props.match.params.id);
-  }, [props.match.params.id]);
+ // useEffect(() => {
+   // getEvent(props.match.params.id);
+  //}, [props.match.params.id]);
   const handleInputChange = event => {
     const { name, value } = event.target;
     setCurrentEvent({ ...currentEvent, [name]: value });
@@ -131,7 +131,7 @@ const EventDetails = (props) => {
               <a className="btn" >Join<img src="assets/img/icon/arrow.png" alt="" /></a>
               <br/>
 
-              <a className="btn" onClick={updateStatus}>Update<img src="assets/img/icon/arrow.png" alt="" /></a>
+              <a className="btn" href="/update">Update<img src="assets/img/icon/arrow.png" alt="" /></a>
               <br/>
 
               <a className="btn" href="#">Delete<img src="assets/img/icon/arrow.png" alt="" /></a>

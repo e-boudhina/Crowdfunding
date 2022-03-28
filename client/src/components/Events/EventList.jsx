@@ -1,21 +1,46 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate} from 'react-router-dom'
 import { Link } from "react-router-dom";
 import {
   allEvents,
   findEventByName,
-  RemoveEvent
+  RemoveEvent,Update
 
 } from "../../actions/eventActions";
-const EventList = () => {
+const EventList = (props) => {
   
-  const events = useSelector(state => state.events);
   const dispatch = useDispatch();
+  const navigate=useNavigate();
   const [currentEvent, setCurrentEvent] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(-1);
+  const [message, setMessage] = useState("");
+
+  const updateEvent= () => {
+    dispatch(Update(currentEvent.id, currentEvent))
+      .then(response => {
+        console.log(response);
+        setMessage("The event was updated successfully!");
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
+  const removeEvent = () => {
+    dispatch(RemoveEvent(currentEvent.id))
+      .then(() => {
+        props.history.push("/events");
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
   useEffect(() => {
     dispatch(allEvents());
   }, []);
+  const events = useSelector(state => state.events);
+  
+  console.log(events.Events);
   const [EventName, setEventName] = useState("");
   const onChangeEventName = e => {
     const EventName = e.target.value;
@@ -35,91 +60,65 @@ const EventList = () => {
   };
 
   return (
-    <div className="list row">
-    <div className="col-md-8">
-      <div className="input-group mb-3">
-        <input
-          type="text"
-          className="form-control"
-          placeholder="Search by title"
-      
-        />
-        <div className="input-group-append">
-          <button
-            className="btn btn-outline-secondary"
-            type="button"
-            onClick={findByName}
-          >
-            Search
-          </button>
-        </div>
-      </div>
-    </div>
-    <div className="col-md-6">
-      <h4>Events List</h4>
-      <ul className="list-group">
-          {events && events.map((event, index) => (
-            <li
-            className={
-              "list-group-item " + (index === currentIndex ? "active" : "")
-            }
-            
-            onClick={() => setActiveEvent(event, index)}
-            key={index}
-            >
-              
-              {event.EventName}
-              
-            </li>
-           
-          ))}
+
+    <div className="card-body">
+     <h4 className="card-title mb-4">Events List</h4>
+     <div className="table-responsive">
+       <table className="table table-hover table-centered table-nowrap mb-0">
+         <thead>
+           <tr>
+             <th scope="col">(#) Id</th>
+             <th scope="col">Name of the Event</th>
+             <th scope="col">Event Description</th>
+             <th scope="col">StartDate</th>
+             <th scope="col">EndDate</th>
+
+             <th scope="col" colSpan={2}>Email</th>
+             {/* <th scope="col" colSpan={2}>List of projects</th> */}
+           </tr>
+         </thead>
+         <tbody>
+
+
         
-    
-        </ul>
-      <button
-          className="m-3 btn btn-sm btn-danger"
-          onClick={RemoveEvent}
-        ></button>
-    
+           {
+                events.Events.map((event, index) => (
+           <tr>
+             <th scope="row">{event._id}</th>
+             <td><span className="badge bg-success">{event.EventName}</span></td>
+
+             <td><span className="badge bg-success">{event.EventDescription}</span></td>
+             <td><span className="badge bg-success">{event.StartDate}</span></td>
+             <td><span className="badge bg-success">{event.EndDate}</span></td>
+             <td>
+               <div>
+                 <a href="" className="btn btn-primary btn-sm">view Projects</a>
+               </div>
+             </td>
+             <Link
+              to={"/eventsdet/" + currentEvent.id}
+              className="badge badge-warning"
+            >
+              Edit
+            </Link>
+              <button type="button"   onClick={() => {
+                 navigate('/eventsdet',{state:{id:event._id,event:event.EventName,EventName:event.EventDescription,EventDescription:event.StartDate,StartDate:event.EndDate}});}}class="btn btn-outline-info btn-rounded" data-mdb-ripple-color="dark" >Info</button>
+           
+           </tr>
+          
+          ))}
+           
+           
+         </tbody>
+       </table>
+     </div>
     </div>
-    <div className="col-md-6">
-      {currentEvent? (
-        <div>
-          <h4>Tutorial</h4>
-          <div>
-            <label>
-              <strong>Title:</strong>
-            </label>{" "}
-            {}
-          </div>
-          <div>
-            <label>
-              <strong>Description:</strong>
-            </label>{" "}
-            {currentEvent.EventDescription}
-          </div>
-          <div>
-            <label>
-              <strong>Status:</strong>
-            </label>{" "}
-            {currentEvent.published ? "Published" : "Pending"}
-          </div>
-          <Link
-            to={"/eventsdet/" + currentEvent.id}
-            className="badge badge-warning"
-          >
-            Edit
-          </Link>
-        </div>
-      ) : (
-        <div>
-          <br />
-          <p>Please click on an Event...</p>
-        </div>
-      )}
-    </div>
-  </div>
-  );
+    
+    
+    
+    
+    )
+  
 };
 export default EventList;
 
