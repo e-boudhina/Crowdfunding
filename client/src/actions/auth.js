@@ -149,6 +149,7 @@ export const login = (username, password) => (dispatch) => {
         type: SET_MESSAGE,
         payload: message,
       });
+
       return Promise.reject();
     }
   );
@@ -158,11 +159,15 @@ export const  reset_password =  (username) =>   (dispatch) => {
 
   return AuthService.reset_password(username).then(
       (data) => {
-        // console.log(username)
+        //   console.log('reset data object: ')
+        // console.log(data.message)
         dispatch({
           type: RESET_PASSWORD_SUCCESS,
-          payload: { message: data.message},
         });
+          dispatch({
+              type: SET_MESSAGE,
+              payload: { message: data.message},
+          });
         return Promise.resolve();
       },
       (error) => {
@@ -188,9 +193,12 @@ export const  new_password =  (password, token) =>   (dispatch) => {
 
   return AuthService.new_password(password, token).then(
       (data) => {
-        // console.log(username)
+         console.log(data)
         dispatch({
           type: NEW_PASSWORD_SUCCESS,
+        });
+        dispatch({
+          type: SET_MESSAGE,
           payload: { message: data.message},
         });
         return Promise.resolve();
@@ -217,26 +225,33 @@ export const  verify_email =  (token) =>   (dispatch) => {
 
   return AuthService.verify_email(token).then(
       (data) => {
-        // console.log(username)
+        // console.log("returned data")
+        // console.log(data.message)
         dispatch({
           type: EMAIL_VERIFIED_SUCCESS,
+        });
+        dispatch({
+          type: SET_MESSAGE,
           payload: { message: data.message},
         });
         return Promise.resolve();
       },
       (error) => {
+         // console.log("Error message here:")
+
         const message =
             (error.response &&
                 error.response.data &&
                 error.response.data.message) ||
             error.message ||
             error.toString();
+
         dispatch({
           type: EMAIL_VERIFIED_FAILED,
         });
         dispatch({
           type: SET_MESSAGE,
-          payload: message,
+            payload: { message: message},
         });
         return Promise.reject();
       }

@@ -7,6 +7,8 @@ import { isEmail } from "validator";
 
 import {login, register} from "../../actions/auth";
 import {reset_password} from "../../actions/auth";
+import {useNavigate} from "react-router-dom";
+
 
 
 const Reset_password = () => {
@@ -16,8 +18,10 @@ const Reset_password = () => {
 
     const [successful, setSuccessful] = useState(false);
     const { message } = useSelector(state => state.message);
+    console.log("before")
+    console.log(message)
     const dispatch = useDispatch();
-
+    const navigate = useNavigate();
 
     const required = (value) => {
         if (!value) {
@@ -48,7 +52,17 @@ const Reset_password = () => {
     const handleReset = (e) => {
         e.preventDefault();
         form.current.validateAll();
-        dispatch(reset_password(username))
+        dispatch(reset_password(username)).then(() => {
+            console.log("objs")
+            console.log(message)
+            if (message.message.startsWith("Reset"))
+            setSuccessful(true);
+            //you must first clear the message
+            // setTimeout(()=>{
+            //              navigate('/login');
+            //     }
+            //     ,5000)
+        })
     };
 
     //make sure that the user can not go to this component if he is already logged in
@@ -89,11 +103,11 @@ const Reset_password = () => {
                                 {message && (
                                     <div className="form-group">
                                         <div className={ successful ? "alert alert-success" : "alert alert-danger" } role="alert">
-                                            {message}
+                                            {message.message}
                                         </div>
                                     </div>
                                 )}
-                                <CheckButton style={{ display: "none" }} ref={checkBtn} />
+
                             </Form>
                         </div>
                     </div>
