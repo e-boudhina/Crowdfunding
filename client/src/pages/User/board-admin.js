@@ -3,7 +3,7 @@ import { Navigate , Link } from 'react-router-dom';
 import { useDispatch, useSelector  } from "react-redux";
 import { useNavigate  } from "react-router-dom";
 import { BrowserRouter as Router, Routes, Route , Outlet} from "react-router-dom";
-
+import "bootstrap/dist/css/bootstrap.min.css";
 const Dashboardadmin = (props) => {
   const navigate = useNavigate();
 
@@ -303,6 +303,24 @@ document.body.appendChild(document.createElement("script")).src = "assets-back/j
                       <span>List  chapterr</span>
                     </Link>
                   </li>
+                  <li>
+                    <Link to="/admin/ListOrganisation" className="waves-effect">
+                      <i className="ti-home" /><span className="badge rounded-pill bg-primary float-end">2</span>
+                      <span>List  of organisation</span>
+                    </Link>
+                  </li>
+                  {/* <li>
+                    <Link to="/admin/ListProject" className="waves-effect">
+                      <i className="ti-home" /><span className="badge rounded-pill bg-primary float-end">2</span>
+                      <span>List  of projects</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/admin/ListProject" className="waves-effect">
+                      <i className="ti-home" /><span className="badge rounded-pill bg-primary float-end">2</span>
+                      <span>List  of projects to validate</span>
+                    </Link>
+                  </li> */}
                 </ul>
               </div>
               {/* Sidebar */}

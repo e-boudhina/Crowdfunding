@@ -3,7 +3,8 @@ import {
     GET_PROjECT,
     DELETE_PROJECT,
     UPDATE_PROJECT,
-    GET_SINGLE_PROJECT
+    GET_SINGLE_PROJECT,
+    GET_PROJECTS_ORG
   } from "../../actions/Projects/Type";
 
 const initialState={
@@ -16,6 +17,11 @@ projects:[]
     const { type, payload } = action;
     switch (type) {
       case GET_PROjECT:
+        return {
+          ...state,
+          projects: action.payload,
+        };
+      case GET_PROJECTS_ORG:
         return {
           ...state,
           projects: action.payload,

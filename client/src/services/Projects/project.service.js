@@ -15,6 +15,10 @@ const  allProjects= () => {
   return axios.get(API_URL + "all");
 };
 
+const  getprojectsByorg= (id) => {
+  return axios.get(API_URL + "getProjectOfOrg"+id);
+};
+
 const  AddProject= (form) => {
 // const  AddProject= (labelproject,projectdescriptiob,fundneeded,image) => {
   return axios.post(API_URL + "add",form,config);
@@ -40,7 +44,8 @@ export default  {
   AddProject,
   getSingle,
   remove,
-  update
+  update,
+  getprojectsByorg
   // ,
   // login,
   // logout,

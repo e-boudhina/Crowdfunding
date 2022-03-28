@@ -22,6 +22,10 @@ const  AddOrganisation= (form) => {
 // const  AddProject= (labelproject,projectdescriptiob,fundneeded,image) => {
   return axios.post(API_URL + "add",form,config);
 };
+const  FollowOrganisation= (id,idOrganization) => {
+// const  AddProject= (labelproject,projectdescriptiob,fundneeded,image) => {
+  return axios.post(API_URL + "follow/"+idOrganization+"/"+id);
+};
 
 const remove = (id)=> {
 
@@ -44,7 +48,8 @@ export default  {
   allOrganisationForUser,
   getSingle,
   remove,
-  update
+  update,
+  FollowOrganisation
   // ,
   // login,
   // logout,

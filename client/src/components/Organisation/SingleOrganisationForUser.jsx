@@ -5,7 +5,7 @@ import { allorganisation} from "../../actions/Organisations/OrganisationCrud.act
 // import styled from 'styled-components';
 
 import { Navigate } from "react-router-dom";
-function SingleOranisation(props) {
+function SingleOranisationForUser(props) {
   const dispatch = useDispatch();
   
   console.log(props.organisation);
@@ -21,12 +21,7 @@ function SingleOranisation(props) {
           {/* <button type="button"   onClick={() => {
                 dispatch(RetrieveProject(project._id)); navigate('/ProjectDetails/'+project._id);}}class="btn btn-outline-info btn-rounded" data-mdb-ripple-color="dark" >Info</button> */}
           <img src={`Uploads/${organisation.Image}`} alt="" />
-          <div className="causes-heart">
-            <a href="#"><i className="far fa-heart" /></a>
-          </div>
-          <div className="causes-heart1">
-
-          </div>
+          
         </div>
 
 
@@ -50,17 +45,19 @@ function SingleOranisation(props) {
 
 
       
-<div style={{width: '500px',display:'inline-block',width:'130px'}}>
+<div style={{width: '500px',display:'inline-block',width:'130px',textAlign: 'center'}}>
 
 <button  type="submit" class="btn" onClick={() => props.delete(organisation._id)}>Delete</button>
 
-{/* <button  className="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i className="fa fa-trash"></i></button> */}
-{/* <button  className="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i className="fa fa-trash"></i></button> */}
+<button  className="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i className="fa fa-trash"></i></button> 
+ <button  className="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i className="fa fa-trash"></i></button> 
 
 <button class="btn btn-black" onClick={() => {
   navigate('/updateOrganisation',{state:{id:organisation._id,image:organisation.Image,name:organisation.name,phone:organisation.phone,fax:organisation.fax,adress:organisation.adress,description:organisation.description,Secteur:organisation.Secteur,email:organisation.email}})  }} type="submit">Upadate</button>
 <button type="button"   onClick={() => {
    navigate('/organisationDetails',{state:{id:organisation._id,image:organisation.Image,name:organisation.name,phone:organisation.phone,fax:organisation.fax,adress:organisation.adress,description:organisation.description,Secteur:organisation.Secteur,email:organisation.email}})  }}class="btn btn-outline-info btn-rounded" data-mdb-ripple-color="dark" >Info</button>
+
+<button type="button"   onClick={() => {navigate('/addProject',{state:{id:organisation._id}})}} className="btn btn-outline-info btn-rounded" data-mdb-ripple-color="dark" >Info</button>
 
 
 </div>
@@ -108,4 +105,4 @@ function SingleOranisation(props) {
 
 
 
-export default SingleOranisation
+export default SingleOranisationForUser

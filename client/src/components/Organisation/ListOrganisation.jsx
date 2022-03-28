@@ -1,12 +1,15 @@
 import { Navigate } from 'react-router-dom';
 import { useDispatch, useSelector  } from "react-redux";
 import { useLocation, useNavigate } from 'react-router';
+import { history } from "../../helpers/history";
+import { clearMessage } from "../../actions/message";
 
 // import { dispatch  } from "react-redux";
 import { allOrganisation } from "../../actions/Organisations/OrganisationCrud.actions";
 import  SingleOranisation  from "./SingleOrganisation";
 import React, { useState, useEffect } from "react";
 import { deleteProject } from "../../actions/Projects/ProjectCrud.actions";
+// import { truncateSync } from 'fs';
 
 
 
@@ -31,6 +34,9 @@ function ListOrganisation(){
 // }
 
 
+const { message } = useSelector(state => state.message);
+
+
 
     // useEffect(() => {
     //   history.listen((location) => {
@@ -47,8 +53,18 @@ function ListOrganisation(){
     console.log(organisations.Organisations); 
     
 
-
-    
+    useEffect(() => {
+      history.listen((location) => {
+        dispatch(clearMessage()); // clear message when changing location
+      });
+    }, [dispatch]);
+     
+    const sami=()=>{
+        if(message.includes("You")){
+            return true
+        }
+return false
+    }
  
 
 
@@ -58,10 +74,30 @@ function ListOrganisation(){
   }
     // console.log(projects.projects[0]._id); 
     return (
-      
-      <div className="tab-content" id="myTabContent">
+
+        <div className="container">
+
+            
+         <div style={{width:'200'}}>
+
+
+             {sami}
+    {sami ? (
+      <div className="form-group">
+      <div className="alert alert-danger" role="alert">
+      {message}
+      </div>
+      </div>
+      ):(
+        <div className="form-group">
+        <div className="alert alert-success" role="alert">
+        {message}
+        </div>
+        </div>
+        )}
+      </div>
+      <div className="tab-content" id="myTabContent" style={{display: 'center'}}>
           <h3>
-          <strong>{currentUser.firstName}</strong> Profile
         </h3>
       <div className="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
         <div className="row">
@@ -84,6 +120,7 @@ organisations.Organisations.map((element)=>{
 </div>
         </div>
  
+      </div>
       </div>
       
     )

@@ -34,6 +34,7 @@ import "react-datepicker/dist/react-datepicker.css"
 
 import { allProjects } from "./actions/Projects/ProjectCrud.actions";
 import ListOrganisation from "./components/Organisation/ListOrganisation";
+import ListOrganisationForAdmin from "./components/Organisation/ListOrganisationForAdmin";
 import Add from "./components/Elearning/add-chapter.component";
 import Listchapter from "./components/Elearning/list-chapter.component";
 
@@ -45,7 +46,7 @@ const App = () => {
       dispatch(clearMessage()); // clear message when changing location
     });
   }, [dispatch]);
-      dispatch(allProjects()); 
+  
   return (
     <>
       <Router history={history}>
@@ -71,12 +72,13 @@ const App = () => {
             <Route exact path={'/ListOrganisation'} element={< ListOrganisation/>} />
             <Route exact path={'/updateProject'} element={<UpdateProject />} />
             <Route exact path={'/updateOrganisation'} element={<UppdateOrganisation />} />
+            {/* <Route exact path={'/ListOrganisationForAdmin'} element={<ListOrganisationForAdmin />} /> */}
             <Route path={"/*"} element={<Notfound />} />
             </Route>
 
     
             <Route path={"/admin"} element={<Adminboard />}>
-           
+            <Route path={'/admin/ListOrganisation'} element={< ListOrganisationForAdmin/>} />
             <Route  path={"/admin/listchapters"} element={< Listchapter/>}/>
             <Route  path={"/admin/add"} element={<Add/>}/>
             </Route>

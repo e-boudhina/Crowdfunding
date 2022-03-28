@@ -2,6 +2,7 @@ const { authJwt } = require("../../middlewares");
 const controller = require("../../controllers/Project/Project.controller");
 const db = require("../../models");
 const Project = db.Project;
+const organization = db.organization;
 var path = require('path');
 
 
@@ -35,17 +36,37 @@ app.get("/api/project/all",controller.Project);
      labelproject: req.body.labelproject,
      projectdescriptiob: req.body.projectdescriptiob,
      fundneeded: req.body.fundneeded,
+     organisation: req.body.fundneeded,
      fundcollected: 0,
      Image :req.file.originalname
  });
  project.save((err, project) => {
    if (err) {
      res.status(500).send({ message: err });
+     
    }
    else {
+    
+    
+
+    organization.findOne({_id:project.organisation._id},(err, organisation)=>{
+      if(err){
+      res.json(err);
+      }
+      else {
        
+organisation.projects.push(project);
+organisation.save();
+            res.json({ message: 'project  added to an anorganization ' });
+      }
+
+    
+     
+
+
+
       res.status(200).send({message:"Project was created succesfully "})
-      
+    })
      // res.send(project)
    }
  }
@@ -70,9 +91,10 @@ app.get("/api/project/all",controller.Project);
   
   }
   }).then(result=>{
+
     res.status(200).json({updated_product:result})
   
-  
+
   })
   .catch(err=>{
   console.log(err);
@@ -83,6 +105,8 @@ app.get("/api/project/all",controller.Project);
  })
         
 app.get("/api/project/get/:id",controller.getProjectByid);
+app.get("/api/project/getProjectOfOrg/:id",controller.getProjectOfOrg);
+app.post("/api/project/addProjectToId/:id/:idProject",controller.addProjectToOrg);
 
 
 

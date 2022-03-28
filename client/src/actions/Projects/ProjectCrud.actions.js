@@ -4,8 +4,8 @@ import {
     AddProject_SUCCESS,
      DELETE_PROJECT,
      UPDATE_PROJECT,
-     GET_SINGLE_PROJECT
-     
+     GET_SINGLE_PROJECT,
+     GET_PROJECTS_ORG
   } from "./Type";
 //   import ProjectService from "../services/auth.service";
   import ProjectService from "../../services/Projects/project.service";
@@ -93,6 +93,26 @@ import {
             console.log(result);
             dispatch({
                 type: GET_SINGLE_PROJECT,
+                payload: result.data,
+            });
+            console.log(result.data);
+            return Promise.resolve();
+          },
+
+          (error) => {
+         console.log("Erreur");
+            return Promise.reject();
+          }
+          );
+        }
+
+  export const RetrieveProjectsByOrg = (id) => async (dispatch) => {
+    
+      const res = await ProjectService.getprojectsByorg(id).then(
+        (result) => {
+            console.log(result);
+            dispatch({
+                type: GET_PROJECTS_ORG,
                 payload: result.data,
             });
             console.log(result.data);

@@ -4,7 +4,8 @@ import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from 'react-router';
+import { useNavigate,useLocation } from 'react-router';
+
 import axios from 'axios';
 // import { login } from "../../actions/auth";
 import { AddProject } from "../../actions/Projects/ProjectCrud.actions";
@@ -26,6 +27,9 @@ const ProjectAdd = (props) => {
   const [fundneeded, setFundneeded] = useState(0);
   const [image,setImage] = useState(null);
 
+
+
+  const location = useLocation();
   const navigate =useNavigate();
 
 
@@ -76,6 +80,7 @@ formData.append('image',image);
   formData.append('labelproject',labelproject);
 formData.append('projectdescriptiob',projectdescriptiob);
 formData.append('fundneeded',fundneeded);
+formData.append('organisation',location.state.id);
 
 
 // const config ={
