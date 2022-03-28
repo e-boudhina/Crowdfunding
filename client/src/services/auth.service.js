@@ -32,7 +32,7 @@ const login = (username, password) => {
 
 const reset_password = (username) => {
   return axios
-      .post(API_URL + "reset-password", {
+      .post(API_URL + "/auth/reset-password", {
         username
       })
       .then((response) => {
@@ -42,6 +42,32 @@ const reset_password = (username) => {
         return response.data;
       });
 };
+const new_password = (password, password_reset_token) => {
+  return axios
+      .post(API_URL + "/auth/new-password", {
+        password,
+          password_reset_token
+      })
+      .then((response) => {
+        if (response.data.message) {
+          console.log(response.data.message)
+        }
+        return response.data;
+      });
+};
+const verify_email = (token) => {
+  return axios
+      .post(API_URL + "/auth/verify-email/"+token)
+      .then((response) => {
+        if (response.data.message) {
+          console.log(response.data.message)
+        }
+        return response.data;
+      });
+};
+
+
+
 
 
 const logout = () => {
@@ -60,5 +86,7 @@ export default  {
   login,
   logout,
   deleteUser,
-  reset_password
+  reset_password,
+  new_password,
+  verify_email
 };

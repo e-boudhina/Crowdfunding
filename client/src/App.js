@@ -37,6 +37,7 @@ import ListOrganisation from "./components/Organisation/ListOrganisation";
 import ListOrganisationForAdmin from "./components/Organisation/ListOrganisationForAdmin";
 import Add from "./components/Elearning/add-chapter.component";
 import Listchapter from "./components/Elearning/list-chapter.component";
+import Verify_email from "./components/User/verify-email.component";
 
 const App = () => {
 
@@ -62,6 +63,8 @@ const App = () => {
             <Route path={"/register"} element={<Register />} />
             <Route path={"/reset-password"} element={<Reset_password />} />
             <Route path={"/new-password/:token"} element={<New_password />} />
+            <Route path={"/verify-email/:token"} element={<Verify_email/>} />
+
             <Route exact  path={"/ProjectDetails"} element={<ProjectDetails />} />
             <Route path={"/eventsdet"} element={<EventDetails />} />
             <Route path={"/events"} element={<Events />} />

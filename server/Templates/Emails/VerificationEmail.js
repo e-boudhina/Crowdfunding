@@ -15,9 +15,8 @@ const VerificationEmailTemplateTemplate = (user) => {
                             font-size: 20px;
                             ">
              <h1>Hello ${user.username},</h1>
-           <h2><a href="${process.env.BASE_ADDRESS}/verify-password/${user.verifyEmailToken}" className="btn btn-black">Click on this link to verify your email: </h2>
+           <h2><a href="${process.env.BASE_ADDRESS}/verify-email/${user.verifyEmailToken}" className="btn btn-black">Click on this link to verify your email: </h2>
     
-
             <p>All the best,</p>
             <p>BucksBooks Team</p>
              </div>`

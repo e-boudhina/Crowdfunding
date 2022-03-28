@@ -1,19 +1,19 @@
 /* eslint-disable no-unused-vars */
 import {
-  REGISTER_SUCCESS,
-  REGISTER_FAIL,
-  LOGIN_SUCCESS,
-  LOGIN_FAIL,
-  LOGOUT,
-  SET_MESSAGE,
-  REFRESH_USER,
-  USER_UPDATE_SUCCESS,
-  USER_LOGIN_SUCCESS,
-  USER_UPDATE_FAIL,
-  USER_UPDATE_REQUEST,
-  DELETE_USER,
-  RESET_PASSWORD_SUCCESS,
-  RESET_PASSWORD_FAILED
+    REGISTER_SUCCESS,
+    REGISTER_FAIL,
+    LOGIN_SUCCESS,
+    LOGIN_FAIL,
+    LOGOUT,
+    SET_MESSAGE,
+    REFRESH_USER,
+    USER_UPDATE_SUCCESS,
+    USER_LOGIN_SUCCESS,
+    USER_UPDATE_FAIL,
+    USER_UPDATE_REQUEST,
+    DELETE_USER,
+    RESET_PASSWORD_SUCCESS,
+    RESET_PASSWORD_FAILED, NEW_PASSWORD_SUCCESS, NEW_PASSWORD_FAILED, EMAIL_VERIFIED_FAILED, EMAIL_VERIFIED_SUCCESS
 } from "./type";
 import { useSelector } from "react-redux";
 import AuthService from "../services/auth.service";
@@ -149,6 +149,7 @@ export const login = (username, password) => (dispatch) => {
         type: SET_MESSAGE,
         payload: message,
       });
+
       return Promise.reject();
     }
   );
@@ -158,11 +159,15 @@ export const  reset_password =  (username) =>   (dispatch) => {
 
   return AuthService.reset_password(username).then(
       (data) => {
-        // console.log(username)
+        //   console.log('reset data object: ')
+        // console.log(data.message)
         dispatch({
           type: RESET_PASSWORD_SUCCESS,
-          payload: { message: data.message},
         });
+          dispatch({
+              type: SET_MESSAGE,
+              payload: { message: data.message},
+          });
         return Promise.resolve();
       },
       (error) => {
@@ -178,6 +183,75 @@ export const  reset_password =  (username) =>   (dispatch) => {
         dispatch({
           type: SET_MESSAGE,
           payload: message,
+        });
+        return Promise.reject();
+      }
+  );
+};
+
+export const  new_password =  (password, token) =>   (dispatch) => {
+
+  return AuthService.new_password(password, token).then(
+      (data) => {
+         console.log(data)
+        dispatch({
+          type: NEW_PASSWORD_SUCCESS,
+        });
+        dispatch({
+          type: SET_MESSAGE,
+          payload: { message: data.message},
+        });
+        return Promise.resolve();
+      },
+      (error) => {
+        const message =
+            (error.response &&
+                error.response.data &&
+                error.response.data.message) ||
+            error.message ||
+            error.toString();
+        dispatch({
+          type: NEW_PASSWORD_FAILED,
+        });
+        dispatch({
+          type: SET_MESSAGE,
+          payload: message,
+        });
+        return Promise.reject();
+      }
+  );
+};
+export const  verify_email =  (token) =>   (dispatch) => {
+
+  return AuthService.verify_email(token).then(
+      (data) => {
+        // console.log("returned data")
+        // console.log(data.message)
+        dispatch({
+          type: EMAIL_VERIFIED_SUCCESS,
+        });
+        dispatch({
+          type: SET_MESSAGE,
+          payload: { message: data.message},
+        });
+        return Promise.resolve();
+      },
+      (error) => {
+         // console.log("Error message here:")
+
+        const message =
+            (error.response &&
+                error.response.data &&
+                error.response.data.message) ||
+            error.message ||
+            error.toString();
+
+        dispatch({
+          type: EMAIL_VERIFIED_FAILED,
+        });
+        dispatch({
+          type: SET_MESSAGE,
+            payload: { message: message},
         });
         return Promise.reject();
       }
