@@ -1,19 +1,19 @@
 /* eslint-disable no-unused-vars */
 import {
-  REGISTER_SUCCESS,
-  REGISTER_FAIL,
-  LOGIN_SUCCESS,
-  LOGIN_FAIL,
-  LOGOUT,
-  SET_MESSAGE,
-  REFRESH_USER,
-  USER_UPDATE_SUCCESS,
-  USER_LOGIN_SUCCESS,
-  USER_UPDATE_FAIL,
-  USER_UPDATE_REQUEST,
-  DELETE_USER,
-  RESET_PASSWORD_SUCCESS,
-  RESET_PASSWORD_FAILED
+    REGISTER_SUCCESS,
+    REGISTER_FAIL,
+    LOGIN_SUCCESS,
+    LOGIN_FAIL,
+    LOGOUT,
+    SET_MESSAGE,
+    REFRESH_USER,
+    USER_UPDATE_SUCCESS,
+    USER_LOGIN_SUCCESS,
+    USER_UPDATE_FAIL,
+    USER_UPDATE_REQUEST,
+    DELETE_USER,
+    RESET_PASSWORD_SUCCESS,
+    RESET_PASSWORD_FAILED, NEW_PASSWORD_SUCCESS, NEW_PASSWORD_FAILED, EMAIL_VERIFIED_FAILED, EMAIL_VERIFIED_SUCCESS
 } from "./type";
 import { useSelector } from "react-redux";
 import AuthService from "../services/auth.service";
@@ -174,6 +174,65 @@ export const  reset_password =  (username) =>   (dispatch) => {
             error.toString();
         dispatch({
           type: RESET_PASSWORD_FAILED,
+        });
+        dispatch({
+          type: SET_MESSAGE,
+          payload: message,
+        });
+        return Promise.reject();
+      }
+  );
+};
+
+export const  new_password =  (password, token) =>   (dispatch) => {
+
+  return AuthService.new_password(password, token).then(
+      (data) => {
+        // console.log(username)
+        dispatch({
+          type: NEW_PASSWORD_SUCCESS,
+          payload: { message: data.message},
+        });
+        return Promise.resolve();
+      },
+      (error) => {
+        const message =
+            (error.response &&
+                error.response.data &&
+                error.response.data.message) ||
+            error.message ||
+            error.toString();
+        dispatch({
+          type: NEW_PASSWORD_FAILED,
+        });
+        dispatch({
+          type: SET_MESSAGE,
+          payload: message,
+        });
+        return Promise.reject();
+      }
+  );
+};
+export const  verify_email =  (token) =>   (dispatch) => {
+
+  return AuthService.verify_email(token).then(
+      (data) => {
+        // console.log(username)
+        dispatch({
+          type: EMAIL_VERIFIED_SUCCESS,
+          payload: { message: data.message},
+        });
+        return Promise.resolve();
+      },
+      (error) => {
+        const message =
+            (error.response &&
+                error.response.data &&
+                error.response.data.message) ||
+            error.message ||
+            error.toString();
+        dispatch({
+          type: EMAIL_VERIFIED_FAILED,
         });
         dispatch({
           type: SET_MESSAGE,

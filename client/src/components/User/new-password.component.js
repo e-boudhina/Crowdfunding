@@ -6,7 +6,7 @@ import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
 import {toast} from "react-toastify";
-import {login, register} from "../../actions/auth";
+import {new_password} from "../../actions/auth";
 
 
 
@@ -60,7 +60,7 @@ const New_password = (props) => {
             console.log('here')
             toast.error('Passwords do not match')
         }
-        // dispatch(reset_password(username))
+         dispatch(new_password(password, token))
     };
 
     //make sure that the user can not go to this component if he is already logged in

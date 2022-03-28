@@ -17,6 +17,7 @@
     "css-loader": "^2.1.1",
     "draft-js": "^0.11.7",
     "draftjs-to-html": "^0.9.1",
+    "immutable": "^4.0.0",
     "jquery": "^3.6.0",
     "node-sass": "^7.0.1",
     "prop-types": "^15.7.2",

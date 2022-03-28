@@ -52,9 +52,9 @@ const Reset_password = () => {
     };
 
     //make sure that the user can not go to this component if he is already logged in
-    useEffect = () =>{
-
-    }
+    // useEffect = () =>{
+    //
+    // }
     return (
         <div className="login-area pt-120 pb-120">
             <div className="container">
