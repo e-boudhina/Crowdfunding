@@ -166,8 +166,9 @@ export const  reset_password =  (username) =>   (dispatch) => {
         });
           dispatch({
               type: SET_MESSAGE,
-              payload: { message: data.message},
+              payload: data.message,
           });
+
         return Promise.resolve();
       },
       (error) => {
@@ -199,7 +200,7 @@ export const  new_password =  (password, token) =>   (dispatch) => {
         });
         dispatch({
           type: SET_MESSAGE,
-          payload: { message: data.message},
+          payload: data.message,
         });
         return Promise.resolve();
       },

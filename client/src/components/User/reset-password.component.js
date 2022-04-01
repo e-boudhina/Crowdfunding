@@ -8,18 +8,18 @@ import { isEmail } from "validator";
 import {login, register} from "../../actions/auth";
 import {reset_password} from "../../actions/auth";
 import {useNavigate} from "react-router-dom";
+import {clearMessage} from "../../actions/message";
 
 
 
 const Reset_password = () => {
     const form = useRef();
-    const checkBtn = useRef();
     const [username, setUsername] = useState("");
 
     const [successful, setSuccessful] = useState(false);
     const { message } = useSelector(state => state.message);
-    console.log("before")
-    console.log(message)
+    // console.log("before")
+    // console.log(message)
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -49,19 +49,34 @@ const Reset_password = () => {
         setUsername(username);
     };
 
+    useEffect(() => {
+        console.log('changed detected')
+    },[message])
     const handleReset = (e) => {
         e.preventDefault();
         form.current.validateAll();
         dispatch(reset_password(username)).then(() => {
-            console.log("objs")
-            console.log(message)
-            if (message.message.startsWith("Reset"))
-            setSuccessful(true);
+            console.log("is message exists? "+message)
+            // I added ? to see if it exists else you'll get "TypeError: message is undefined"
+            console.log("Message: "+message)
+            console.log("Message starts with reset ?  "+message.startsWith("Reset"))
+            console.log("1"+successful)
+            if (message.startsWith("Reset"))
+            {
+                console.log("2"+successful)
+                setSuccessful(true);
+                console.log("3"+successful)
+                // setTimeout(()=>{
+                //         clearMessage()
+                //         navigate('/login');
+                //     }
+                //     ,5000)
+            }
+
             //you must first clear the message
-            // setTimeout(()=>{
-            //              navigate('/login');
-            //     }
-            //     ,5000)
+
+        }).catch((error)=>{
+            console.log(error)
         })
     };
 
@@ -103,7 +118,7 @@ const Reset_password = () => {
                                 {message && (
                                     <div className="form-group">
                                         <div className={ successful ? "alert alert-success" : "alert alert-danger" } role="alert">
-                                            {message.message}
+                                            {message}
                                         </div>
                                     </div>
                                 )}
