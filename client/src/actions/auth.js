@@ -233,7 +233,7 @@ export const  verify_email =  (token) =>   (dispatch) => {
         });
         dispatch({
           type: SET_MESSAGE,
-          payload: { message: data.message},
+          payload: data.message,
         });
         return Promise.resolve();
       },

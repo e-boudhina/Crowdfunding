@@ -5,6 +5,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import "react-phone-input-2/lib/style.css";
 import {verify_email} from "../../actions/auth";
 import Spinner from "../Spinner";
+import {clearMessage} from "../../actions/message";
 
 
 
@@ -13,8 +14,7 @@ const Verify_email = (props) => {
     // console.log(token)
 
 
-    const [isLoaded, setIsLoaded] = useState(false);
-    const [isPageLoaded, setIsPageLoaded] = useState(false); //this helps
+
     const [isLoading, setIsLoading] = useState(true);
 
     const { message } = useSelector((state) => state.message);
@@ -24,10 +24,10 @@ const Verify_email = (props) => {
     const dispatch = useDispatch();
    const navigate = useNavigate();
 
-    // useEffect(() => {
-    //     setIsLoaded(true);
-    //
-    // }, []);
+    useEffect(() => {
+        runFunction()
+        return () => {dispatch(clearMessage())}
+    }, []);
 
     const runFunction = () => {
         dispatch(verify_email(token)).then(()=>{
@@ -35,17 +35,18 @@ const Verify_email = (props) => {
             //you can sue status codes here
             setSuccessful(true);
             setTimeout(()=>{
-
-                    //     navigate('/login');
+                    //dispatch(clearMessage())
+                        navigate('/login');
                 }
                 ,5000)
+
+        }).catch(()=>{
+            setIsLoading(false)
+            setSuccessful(false);
         })
     }
-    runFunction()
 
-    // if (isLoading){
-    //     return <Spinner/>
-    // }
+    //runFunction()
 
     // useEffect(() => {
     //     if (isLoaded) {
@@ -73,7 +74,7 @@ const Verify_email = (props) => {
                 }
                 role="alert"
             >
-                {message.message}
+                {message}
             </div>
         </div>
     )}

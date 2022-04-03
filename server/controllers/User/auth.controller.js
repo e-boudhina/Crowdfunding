@@ -303,8 +303,8 @@ const verify_email = asyncHandler(async (req, res) => {
       });
     }
     //else
-    user.verified = true;
-    user.verifyEmailToken = undefined;
+    //user.verified = true;
+    //user.verifyEmailToken = undefined;
     // you can send email notification here
     user.save().then((savedUser) => {
       res.status(200).send({

@@ -211,7 +211,9 @@ const Register = () => {
           //You can pust clear message here you need to put it on component unmount
           //dispatch(clearMessage())
         })
-        .catch(() => {
+        .catch((error) => {
+          console.log("here")
+          setIsLoading(false)
           setSuccessful(false);
         });
     }
