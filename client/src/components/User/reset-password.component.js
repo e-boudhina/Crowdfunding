@@ -2,10 +2,7 @@ import React, {useState, useRef, useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
-import CheckButton from "react-validation/build/button";
-import { isEmail } from "validator";
 
-import {login, register} from "../../actions/auth";
 import {reset_password} from "../../actions/auth";
 import {useNavigate} from "react-router-dom";
 import {clearMessage} from "../../actions/message";
@@ -13,16 +10,19 @@ import {clearMessage} from "../../actions/message";
 
 
 const Reset_password = () => {
+
     const form = useRef();
     const [username, setUsername] = useState("");
 
     const [successful, setSuccessful] = useState(false);
-    const { message } = useSelector(state => state.message);
+
+
+
     // console.log("before")
     // console.log(message)
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
+    const { message } = useSelector(state => state.message);
     const required = (value) => {
         if (!value) {
             return (
@@ -50,34 +50,42 @@ const Reset_password = () => {
     };
 
     useEffect(() => {
-        console.log('changed detected')
-    },[message])
+        console.log('change detected')
+    },[])
+
     const handleReset = (e) => {
         e.preventDefault();
         form.current.validateAll();
+        console.log('before')
+        console.log("is message exists? "+message)
         dispatch(reset_password(username)).then(() => {
-            console.log("is message exists? "+message)
-            // I added ? to see if it exists else you'll get "TypeError: message is undefined"
+           console.log("after")
+           console.log("is message exists? "+message)
+            //I added ? to see if it exists else you'll get "TypeError: message is undefined"
             console.log("Message: "+message)
             console.log("Message starts with reset ?  "+message.startsWith("Reset"))
             console.log("1"+successful)
-            if (message.startsWith("Reset"))
-            {
+
+             if (message.startsWith("Reset"))
+             {
                 console.log("2"+successful)
                 setSuccessful(true);
-                console.log("3"+successful)
+               console.log("3"+successful)
                 // setTimeout(()=>{
                 //         clearMessage()
                 //         navigate('/login');
                 //     }
                 //     ,5000)
-            }
+             }
 
             //you must first clear the message
 
         }).catch((error)=>{
-            console.log(error)
-        })
+             setSuccessful(false);
+           console.log("Catching error")
+           console.log(error)
+        }
+        )
     };
 
     //make sure that the user can not go to this component if he is already logged in
