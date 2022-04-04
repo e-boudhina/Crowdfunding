@@ -15,8 +15,17 @@ const  allProjects= () => {
   return axios.get(API_URL + "all");
 };
 
+
+
+
+
+
+
 const  getprojectsByorg= (id) => {
-  return axios.get(API_URL + "getProjectOfOrg"+id);
+  return axios.get(API_URL + "getProjectOfOrg/"+id);
+};
+const  getFollowers= (id) => {
+  return axios.get(API_URL + "getFollowersOfOrg/"+id);
 };
 
 const  AddProject= (form) => {
@@ -45,7 +54,8 @@ export default  {
   getSingle,
   remove,
   update,
-  getprojectsByorg
+  getprojectsByorg,
+  getFollowers
   // ,
   // login,
   // logout,

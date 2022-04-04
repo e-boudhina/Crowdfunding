@@ -33,6 +33,7 @@ function ProjectDetails(props) {
   const [fundcollected, setFundcollected] = useState(location.state.fundcollected);
   const [image, setImage] = useState(location.state.image);
   return (
+    <div className="container">
     <div className="col-md-12">
       <div className="bakix-video mb-60">
         {/* <img src={`Uploads/${image}`}  alt="" /> */}
@@ -67,7 +68,7 @@ function ProjectDetails(props) {
         <p>{projectdescriptiob}.</p>
       </div>
     </div>
-
+    </div>
   )
 }
 export default ProjectDetails

@@ -107,8 +107,8 @@ function UpdateProject(props, { route, navigation }) {
         
             .then(() => {
 
-                console.log(formData);
-                navigate("/ListProject");
+                navigate("/ListProject")
+        window.location.reload();
                 // props.history.push("/ListProject");
                 // window.location.reload();
              

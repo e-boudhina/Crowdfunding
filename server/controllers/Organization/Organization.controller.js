@@ -147,7 +147,59 @@ if (k===0) {
 
 
 
+exports.isFollowed = (req, res) => {
+  // console.log( req.params.id);
+  // console.log( req.params.idUser);
+ 
+   
+User.findOne({_id:req.params.idUser},(err, user)=>{
+    if(err){
+    res.json(err);
+    }
+    else{ 
+        // console.log(organization1);
+ organization.findOne({ _id:req.params.id}, (err, organisation) => {
+    var k=0;    
 
+
+    user.aa.forEach((element)=> {
+      if(element.equals(organisation._id)){
+      
+        res.json({ Isfollowed: true}); 
+      }
+      else{
+        res.json({ Isfollowed: false }); 
+        
+      }
+
+
+
+
+        });
+
+    })
+        }
+      })
+    }
+
+
+
+    exports.getUser = (req, res) => {
+      // usage : user to consult another user
+      console.log("user controller 111 username searched : "+ req.params.username);
+      const username = req.params.username
+     User.findOne({ username: username }).then
+            (data => {
+              if (!data)
+                res.status(404).send({ message: "Not found Tutorial with id " + username });
+              else res.send(data);
+            })
+            .catch(err => {
+              res
+                .status(500)
+                .send({ message: "Error retrieving Tutorial with id=" + username });
+            });
+          };
 
 
 

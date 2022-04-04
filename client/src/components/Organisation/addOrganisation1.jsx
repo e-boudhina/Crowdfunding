@@ -19,11 +19,11 @@ const required = (value) => {
         );
     }
 };
-const OrganisationAdd = (props) => {
+const AddOrganisation1 = (props) => {
 
-    
-    
-    
+
+
+
     const form = useRef();
     const checkBtn = useRef();
     const [name, setName] = useState("");
@@ -40,20 +40,6 @@ const OrganisationAdd = (props) => {
     const navigate = useNavigate();
 
 
-    const mailValidation = (value) => {
-
-
-        const regex = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
-        // const regex = /^[a-z0-9][\-_\.\+\!\#\$\%\&\'\*\/\=\?\^\`\{\|]{0,1}([a-z0-9][\-_\.\+\!\#\$\%\&\'\*\/\=\?\^\`\{\|]{0,1})*[a-z0-9]@[a-z0-9][-\.]{0,1}([a-z][-\.]{0,1})*[a-z0-9]\.[a-z0-9]{1,}([\.\-]{0,1}[a-z]){0,}[a-z0-9]{0,}$/
-        if(regex.test(value) === false){
-            return (
-            <div className="alert alert-danger" role="alert">
-            Email non valid
-        </div>
-            );
-           
-        }
-    };
 
 
 
@@ -108,12 +94,7 @@ const OrganisationAdd = (props) => {
 
 
     const handleAddOrganisation = (e) => {
-
-
         e.preventDefault();
-        setLoading(true);
-    
-        form.current.validateAll();
 
         const formData = new FormData();
         formData.append('image', Image);
@@ -127,26 +108,20 @@ const OrganisationAdd = (props) => {
         formData.append('email', email);
 
 
-        if (checkBtn.current.context._errors.length === 0) {
-            dispatch(AddOrganisation(formData))
-            .then(() => {
-      
-              console.log(formData);
-            //   props.history.push("/profile");
-            navigate("/profile")
-              window.location.reload();
-            //   
-            })
-            .catch((e) => {
-              setLoading(false);
-            });
-          } else {
-            setLoading(false);
-          }
-
+        console.log(formData);
         //  formData.current.validateAll();
         // if (checkBtn.current.context._errors.length === 0) {
-      
+        dispatch(AddOrganisation(formData))
+            .then(() => {
+
+                console.log(formData);
+                // props.history.push("/ListProject");
+                // window.location.reload();
+                navigate("/profile")
+            }).
+            catch((e) => {
+                console.log(e);
+            });
 
 
     }
@@ -162,8 +137,8 @@ const OrganisationAdd = (props) => {
                     <div class="col-lg-8 offset-lg-2">
                         <div class="basic-login">
                             <h3 class="text-center mb-60">Add an organisation</h3>
-                            <Form onSubmit={handleAddOrganisation} ref={form} encType="multipart/form-data">
-                                <label for="name">Organisation name <span>**</span></label>
+                            <Form onSubmit={handleAddOrganisation} encType="multipart/form-data">
+                                <label for="name">Username <span>**</span></label>
 
                                 <Input
                                     type="text"
@@ -182,7 +157,7 @@ const OrganisationAdd = (props) => {
                                     name="email"
                                     value={email}
                                     onChange={onChangeEmail}
-                                    validations={[required,mailValidation]}
+                                    validations={[required]}
                                 />
 
 
@@ -272,22 +247,17 @@ add_a_photo
 
                                  {/* </button> */}
 
-                                 <div className="form-group">
-            <button className="btn btn-primary btn-block" disabled={loading}>
-              {loading && (
-                <span className="spinner-border spinner-border-sm"></span>
-              )}
-              <span>Add organisation</span>
-            </button>
-          </div>
-          {message && (
-            <div className="form-group">
-              <div className="alert alert-danger" role="alert">
-                {message}
-              </div>
-            </div>
-          )}
-          <CheckButton style={{ display: "none" }} ref={checkBtn} />
+<br></br>
+
+
+
+
+
+                                {/* <input id="email-id" type="text" placeholder="Enter Username or Email address..." /> */}
+                                {/* <label for="pass">Password <span>**</span></label>
+                                <input id="pass" type="password" placeholder="Enter password..." /> */}
+                                <div class="mt-10"></div>
+                                <button class="btn btn-black w-100">Add organisation</button>
                                 {/* <div class="or-divide"><span>or</span></div>
                             <button class="btn w-100">login Now</button> */}
                             </Form>
@@ -299,4 +269,4 @@ add_a_photo
 
     );
 };
-export default OrganisationAdd;
+export default AddOrganisation1;

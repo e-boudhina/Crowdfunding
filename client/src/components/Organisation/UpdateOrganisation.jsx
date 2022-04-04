@@ -120,10 +120,8 @@ function UppdateOrganisation(props, { route, navigation }) {
         
             .then(() => {
 
-                console.log(formData);
-                // props.history.push("/ListProject");
-         
                 navigate("/profile")
+                window.location.reload();
         
              
             }).

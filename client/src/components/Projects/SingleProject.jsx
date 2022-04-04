@@ -1,19 +1,29 @@
 import React, { useState, useEffect } from "react";
-import { useLocation, useNavigate } from 'react-router';
+import { useNavigate } from 'react-router';
 import { useDispatch, useSelector } from "react-redux";
 import { allProjects, RetrieveProject } from "../../actions/Projects/ProjectCrud.actions";
 
+import { Navigate, useLocation } from 'react-router-dom';
 
-import { Navigate } from "react-router-dom";
 function SingleProject(props) {
   const dispatch = useDispatch();
+  const location = useLocation();
+
   
   console.log(props.project);
   const [project, setProject] = useState(props.project);
 
   const navigate = useNavigate();
+  const { user: currentUser } = useSelector((state) => state.auth);
 
   return (
+
+
+   
+
+
+
+
     <div className="col-xl-4 col-lg-4 col-md-6">
       <div className="causes white-bg mb-30">
         <div className="causes__img">
@@ -49,19 +59,25 @@ function SingleProject(props) {
               </div>
 
 <br></br><br></br>
+
+
+{
+         (currentUser.roles.username===props.owner.ownerName) ?
 <div>
 
-<button type="submit" class="btn" onClick={() => props.delete(project._id)}>Delete</button>
-              {/* <button  className="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i className="fa fa-trash"></i></button> */}
-              {/* <button  className="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i className="fa fa-trash"></i></button> */}
-
-<button class="btn btn-black" onClick={() => {
-                navigate('/updateProject',{state:{id:project._id,labelproject:project.labelproject,fundcollected:project.fundcollected,fundneeded:project.fundneeded,projectdescriptiob:project.projectdescriptiob,image:project.Image}})  }} type="submit">Upadate</button>
-              <button type="button"   onClick={() => {
-                 navigate('/ProjectDetails',{state:{id:project._id,labelproject:project.labelproject,fundcollected:project.fundcollected,fundneeded:project.fundneeded,projectdescriptiob:project.projectdescriptiob,image:project.Image}});}}class="btn btn-outline-info btn-rounded" data-mdb-ripple-color="dark" >Info</button>
-
+&nbsp;<i className="fa fa-trash" onClick={() => props.delete(project._id)} style={{fontSize: '48px', color: 'red',cursor: 'pointer'}}>&nbsp;</i>&nbsp;
+&nbsp; <i className="fa fa-edit" style={{fontSize: '48px',color: '#2c9646',cursor: 'pointer'}}  onClick={() => {
+                navigate('/updateProject',{state:{id:project._id,labelproject:project.labelproject,fundcollected:project.fundcollected,fundneeded:project.fundneeded,projectdescriptiob:project.projectdescriptiob,image:project.Image}})  }} ></i>
+             &nbsp; 
+             &nbsp; 
+             <i className="fa fa-info"  style={{fontSize: '48px',color:'#3981f3',cursor: 'pointer'}}  onClick={() => {
+                 navigate('/ProjectDetails',{state:{id:project._id,labelproject:project.labelproject,fundcollected:project.fundcollected,fundneeded:project.fundneeded,projectdescriptiob:project.projectdescriptiob,image:project.Image}});}}> </i>
+              
 
 </div>
+  :
+  <></>
+              }
             </div>
           </div>
         </div>

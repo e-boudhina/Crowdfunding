@@ -36,7 +36,7 @@ app.get("/api/project/all",controller.Project);
      labelproject: req.body.labelproject,
      projectdescriptiob: req.body.projectdescriptiob,
      fundneeded: req.body.fundneeded,
-     organisation: req.body.fundneeded,
+
      fundcollected: 0,
      Image :req.file.originalname
  });
@@ -49,7 +49,7 @@ app.get("/api/project/all",controller.Project);
     
     
 
-    organization.findOne({_id:project.organisation._id},(err, organisation)=>{
+    organization.findOne({_id:req.body.organisation},(err, organisation)=>{
       if(err){
       res.json(err);
       }
@@ -65,7 +65,7 @@ organisation.save();
 
 
 
-      res.status(200).send({message:"Project was created succesfully "})
+      // res.status(200).send({message:"Project was created succesfully "})
     })
      // res.send(project)
    }
@@ -107,6 +107,8 @@ organisation.save();
 app.get("/api/project/get/:id",controller.getProjectByid);
 app.get("/api/project/getProjectOfOrg/:id",controller.getProjectOfOrg);
 app.post("/api/project/addProjectToId/:id/:idProject",controller.addProjectToOrg);
+app.get("/api/project/searchProjects/:keyword",controller.searchProjects);
+app.get("/api/project/getFollowersOfOrg/:id",controller.geyFollowersOfOrg);
 
 
 

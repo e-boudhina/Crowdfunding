@@ -5,7 +5,7 @@ const Image = require("../../models/Image/image.model");
 const Project = db.Project;
 const User = db.user;
 const organization = db.organization;
-
+var arrayList = require('array-list')
 
 
 
@@ -111,18 +111,92 @@ exports.getProjectByid = (req, res) => {
 
 
 exports.getProjectOfOrg = (req, res) => {
-  organization.find({ _id: req.params.id }, (err, project) => {
-    if (err) {
-      res.json(err);
-    }
-    else {
-      // console.log(organization.Projects);            // The below two lines will add the newly saved review's 
-      // ObjectID to the the User's reviews array field
+  var list = arrayList()
+  
+  organization.findOne({ _id: req.params.id }).populate("projects")
+  .exec(
+
+    function (err, organisation) {
+      if (err) return handleError(err);
+  
+    
+organisation.projects.forEach(element => {
+  
+
+list.push(element);
 
 
-      res.json(organization[0].Projects);
+});
+res.json(list)
+      // prints "The author is Ian Fleming"
     }
-  });
+
+
+
+);
+// res.json(list)
+
+}
+
+
+exports.geyFollowersOfOrg = (req, res) => {
+  var list = arrayList()
+  
+  organization.findOne({ _id: req.params.id }).populate("userFollowing")
+  .exec(
+
+    function (err, organisation) {
+  
+  console.log(organisation);
+  
+  organisation.userFollowing.forEach(element => {
+    console.log(organisation);
+    
+
+list.push(element);
+
+
+
+
+});
+list.push(list.length);
+// res.send({message:list.length})
+res.json(list)
+      // prints "The author is Ian Fleming"
+    }
+
+
+
+);
+// res.json(list)
+
+}
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+exports.searchProjects = async (req, res) => {
+  // usage : user to consult another user
+  const keyword = req.params.keyword;
+  console.log("aghh " + keyword);
+  try {
+    const data = await Project.find({ labelproject: { $regex: keyword } });
+    // .populate("roles", "-__v");
+    res.status(200).json(data);
+  } catch (error) {
+    res.status(404).json(error.message);
+  }
 };
 
 

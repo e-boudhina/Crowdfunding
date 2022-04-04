@@ -70,21 +70,22 @@ useEffect(() => {
       
       <div className="tab-content" id="myTabContent">
           <h3>
-          <strong>{currentUser.firstName}</strong> Profile
+          <strong>My organisations :</strong>
         </h3>
       <div className="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
         <div className="row">
           {
 organisations.Organisations.map((element)=>{
   console.log(element);
-  // <SingleProject/>
+  // <SingleProject/><button type="button"   onClick={() => {navigate('/addProject',{state:{id:organisation._id}})}} className="btn btn-outline-info btn-rounded" data-mdb-ripple-color="dark" >AddProject</button>
 
-  return(
+  return[
+    <>
+    <SingleOranisationForUser delete={deletee} organisation={element} >       
 
-    
-    <SingleOranisationForUser delete={deletee} organisation={element} ></SingleOranisationForUser>
-    // <SingleOranisation delete={deletee} organisation={element} ></SingleOranisation>
-  )  
+    </SingleOranisationForUser>
+    </>
+  ]; 
   }
     )
   }

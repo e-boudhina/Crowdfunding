@@ -1,18 +1,19 @@
-.tile_div  {
-    display: block;
-    float: left;
-    height: 50px;
-    width: 100px;
-    margin-right: 5px;
-    text-align: center;
-    line-height: 50px;
-    text-decoration: none;
+input[type="file"] {
+    display: none;
+
 }
 
-/* .title_div a.last {
-    margin-right: 0;
+.material-icons{
+
+width: 50px;
+
+}
+
+
+/* label{
+color: white;
+height:60px;
+height:250px;
+
+
 } */
-
-.clear {
-    clear: both;
-}

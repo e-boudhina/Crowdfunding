@@ -24,6 +24,7 @@ Organisations:[],
           ...state,
           Organisations: action.payload,
         };
+
       case     GET_ORGANISATION:
         return {
           ...state,

@@ -14,6 +14,7 @@ import ProjectDetails from "./components/Projects/ProjectDetails"
 import ListPProject from "./components/Projects/ListProject"
 import UpdateProject from "./components/Projects/UpdateProject"
 import OrganisationAdd from "./components/Organisation/AddOrganisation"
+import AddOrganisation1 from "./components/Organisation/addOrganisation1"
 import UppdateOrganisation from "./components/Organisation/UpdateOrganisation"
 import Reset_password from "./components/User/reset-password.component";
 import New_password from "./components/User/new-password.component";
@@ -37,6 +38,7 @@ import ListOrganisation from "./components/Organisation/ListOrganisation";
 import ListOrganisationForAdmin from "./components/Organisation/ListOrganisationForAdmin";
 import Add from "./components/Elearning/add-chapter.component";
 import Listchapter from "./components/Elearning/list-chapter.component";
+import OrrganisationDetails from "./components/Organisation/OrganisationDetails";
 
 const App = () => {
 
@@ -60,6 +62,7 @@ const App = () => {
             <Route path={"/u/:username"} element={<Profileconsult />} />
             <Route path={"/login"} element={<Login />} />
             <Route path={"/register"} element={<Register />} />
+            <Route path={"/addOrganisation1"} element={<AddOrganisation1 />} />
             <Route path={"/reset-password"} element={<Reset_password />} />
             <Route path={"/new-password/:token"} element={<New_password />} />
             <Route exact  path={"/ProjectDetails"} element={<ProjectDetails />} />
@@ -72,6 +75,7 @@ const App = () => {
             <Route exact path={'/ListOrganisation'} element={< ListOrganisation/>} />
             <Route exact path={'/updateProject'} element={<UpdateProject />} />
             <Route exact path={'/updateOrganisation'} element={<UppdateOrganisation />} />
+            <Route exact path={'/organisationDetails'} element={<OrrganisationDetails />} />
             {/* <Route exact path={'/ListOrganisationForAdmin'} element={<ListOrganisationForAdmin />} /> */}
             <Route path={"/*"} element={<Notfound />} />
             </Route>
