@@ -172,11 +172,73 @@ exports.makeAdmin = asyncHandler(async (req, res) => {
     ).exec(
     res.status(200).send({message:"user is admin now!"}))}
   })
-  
-
 
 
 });
+
+//Make Incubator:
+exports.makeIncubator = asyncHandler(async (req, res) => {
+  //return res.status(400).send('here');
+
+  if (!req.body.username) {
+    res.status(400);
+    throw Error("username is required");
+  }
+
+  Role.findOne({name: "incubator"}, (err, role) => {
+    if (err) {
+      return res.status(500).send({message: err});
+    } else {
+      //Checking if user already has that role - we can move this to a middleware which will limit and prevent unnecessary requests
+      if (user.roles.includes(role._id)) {
+        return res.status(500).send({
+          message: `User ${req.body.username} has already been assigned to the role \'${role.name}\'`
+        });
+      }
+      console.log("User to be updated " + req.body.username);
+      console.log("New Role" + role);
+      User.updateOne(
+          {username: req.body.username},
+          {$push: {roles: role._id}}
+          //Why did you put the return result in the exec method?
+      ).exec().then((data, success) => {
+        res.status(200).send({message: "User is now incubator!"})
+      })
+
+    }
+  });
+});
+
+
+
+//Make Incubator:
+exports.banUser = asyncHandler(async (req, res) => {
+  //return res.status(400).send('here2');
+  const {username} = req.body;
+
+  if (!username) {
+    res.status(400);
+    throw Error("username is required");
+  }
+
+User.findOne({username: username }).then((user)=>{
+  if (!user)
+    return res.status(200).send({
+      message: `User \'${username}\' does not exist!`
+    });
+  if (user.isBanned)
+    return res.status(200).send({
+      message: `User \'${username}\' is already banned!`
+    });
+  //else
+  user.isBanned =true
+  user.save()
+  return res.status(202).send({
+    message: `User \'${username}\' is now banned!`
+  });
+  })
+  });
+
 
 
 /*exports.DeleteProfile = async (req ,res)=>{

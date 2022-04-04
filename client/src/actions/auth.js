@@ -164,10 +164,13 @@ export const  reset_password =  (username) =>   (dispatch) => {
         dispatch({
           type: RESET_PASSWORD_SUCCESS,
         });
+          console.log("setting message")
+         console.log("Service message"+data.message)
           dispatch({
               type: SET_MESSAGE,
-              payload: { message: data.message},
+              payload: data.message,
           });
+
         return Promise.resolve();
       },
       (error) => {
@@ -199,7 +202,7 @@ export const  new_password =  (password, token) =>   (dispatch) => {
         });
         dispatch({
           type: SET_MESSAGE,
-          payload: { message: data.message},
+          payload: data.message,
         });
         return Promise.resolve();
       },
@@ -232,7 +235,7 @@ export const  verify_email =  (token) =>   (dispatch) => {
         });
         dispatch({
           type: SET_MESSAGE,
-          payload: { message: data.message},
+          payload: data.message,
         });
         return Promise.resolve();
       },
@@ -251,7 +254,7 @@ export const  verify_email =  (token) =>   (dispatch) => {
         });
         dispatch({
           type: SET_MESSAGE,
-            payload: { message: message},
+            payload: message,
         });
         return Promise.reject();
       }

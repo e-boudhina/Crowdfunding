@@ -1,5 +1,5 @@
 import React, {useState, useRef, useEffect} from "react";
-import  {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
@@ -7,6 +7,7 @@ import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
 import {toast} from "react-toastify";
 import {new_password} from "../../actions/auth";
+import {clearMessage} from "../../actions/message";
 
 
 
@@ -21,6 +22,8 @@ const New_password = () => {
     const [successful, setSuccessful] = useState(false);
     const { message } = useSelector(state => state.message);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const [isLoading, setIsLoading] = useState(false);
 
     const required = (value) => {
         if (!value) {
@@ -61,6 +64,11 @@ const New_password = () => {
             //console.log("here 3")
             dispatch(new_password(password, token)).then(()=>{
                 setSuccessful(true);
+                setTimeout(()=>{
+                        clearMessage()
+                        navigate('/login');
+                    }
+                    ,5000)
             })
         }
 
@@ -71,9 +79,9 @@ const New_password = () => {
     };
 
     //make sure that the user can not go to this component if he is already logged in
-    // useEffect = () =>{
-    //
-    // }
+    useEffect(() => {
+        return () => {dispatch(clearMessage())}
+    },[isLoading])
     return (
         <div className="login-area pt-120 pb-120">
             <div className="container">
@@ -118,7 +126,7 @@ const New_password = () => {
                                 {message && (
                                     <div className="form-group">
                                         <div className={ successful ? "alert alert-success" : "alert alert-danger" } role="alert">
-                                            {message.message}
+                                            {message}
                                         </div>
                                     </div>
                                 )}

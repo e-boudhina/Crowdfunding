@@ -4,6 +4,8 @@ import {useNavigate, useParams} from "react-router-dom";
 
 import "react-phone-input-2/lib/style.css";
 import {verify_email} from "../../actions/auth";
+import Spinner from "../Spinner";
+import {clearMessage} from "../../actions/message";
 
 
 
@@ -12,8 +14,8 @@ const Verify_email = (props) => {
     // console.log(token)
 
 
-    const [isLoaded, setIsLoaded] = useState(false);
-    const [isPageLoaded, setIsPageLoaded] = useState(false); //this helps
+
+    const [isLoading, setIsLoading] = useState(true);
 
     const { message } = useSelector((state) => state.message);
     // console.log("your message :")
@@ -23,40 +25,39 @@ const Verify_email = (props) => {
    const navigate = useNavigate();
 
     useEffect(() => {
-        setIsLoaded(true);
+        runFunction()
+        return () => {dispatch(clearMessage())}
+    }, []);
+
+    const runFunction = () => {
         dispatch(verify_email(token)).then(()=>{
+            setIsLoading(false)
             //you can sue status codes here
             setSuccessful(true);
             setTimeout(()=>{
-
-                //     navigate('/login');
+                    //dispatch(clearMessage())
+                        navigate('/login');
                 }
-            ,5000)
+                ,5000)
+
+        }).catch(()=>{
+            setIsLoading(false)
+            setSuccessful(false);
         })
-    }, []);
+    }
 
-    // if (isLoading){
-    //     return <Spinner/>
-    // }
-
-    useEffect(() => {
-        if (isLoaded) {
-            setIsPageLoaded(true);
-            console.log('loaded yes')
-        }
-    }, [isLoaded]);
+    //runFunction()
 
     // useEffect(() => {
+    //     if (isLoaded) {
+    //         setIsPageLoaded(true);
+    //         console.log('loaded yes')
+    //     }
+    // }, [isLoaded]);
     //
-    //
-    // },[]);
-    //
-
-
-    const handleRegister = (e) => {
-        e.preventDefault();
-        setSuccessful(false);
-    };
+    if (isLoading){
+        return <Spinner/>
+    }
 
     return (
         // <>here</>
@@ -73,7 +74,7 @@ const Verify_email = (props) => {
                 }
                 role="alert"
             >
-                {message.message}
+                {message}
             </div>
         </div>
     )}
