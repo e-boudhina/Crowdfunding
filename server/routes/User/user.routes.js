@@ -1,6 +1,7 @@
 const { authJwt } = require("../../middlewares");
 const controller = require("../../controllers/User/user.controller");
 const verifiedAccount_Middleware = require("../../middlewares/User/verifiedAccount_Middleware");
+const verify_Admin = require("../../middlewares/User/verifyAdmin");
 
 module.exports = function(app) {
     app.use(function(req, res, next) {
@@ -20,5 +21,12 @@ module.exports = function(app) {
     app.delete("/api/user/delete", controller.deleteUser);
     app.get("/api/user/searchusers/:keyword",controller.searchUsers);
     app.get("/api/user/:username",controller.FindSingleProfile);
+    //Become admin
     app.post("/api/user/makeAdmin",controller.makeAdmin);
+
+    //Admin can not become incubator? - Verify admin middleware missing admin role verification
+    app.post("/api/user/makeIncubator", [verify_Admin], controller.makeIncubator);
+
+    //Banning user
+
   };

@@ -19,6 +19,7 @@ var UserSchema = new mongoose.Schema({
     verifyEmailToken: String,
     resetPasswordToken: String,
     resetPasswordExpireToken: Date,
+    isBanned: Boolean,
     roles: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Role"
