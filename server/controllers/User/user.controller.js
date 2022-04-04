@@ -209,6 +209,38 @@ exports.makeIncubator = asyncHandler(async (req, res) => {
   });
 });
 
+
+
+//Make Incubator:
+exports.banUser = asyncHandler(async (req, res) => {
+  //return res.status(400).send('here2');
+  const {username} = req.body;
+
+  if (!username) {
+    res.status(400);
+    throw Error("username is required");
+  }
+
+User.findOne({username: username }).then((user)=>{
+  if (!user)
+    return res.status(200).send({
+      message: `User \'${username}\' does not exist!`
+    });
+  if (user.isBanned)
+    return res.status(200).send({
+      message: `User \'${username}\' is already banned!`
+    });
+  //else
+  user.isBanned =true
+  user.save()
+  return res.status(202).send({
+    message: `User \'${username}\' is now banned!`
+  });
+  })
+  });
+
+
+
 /*exports.DeleteProfile = async (req ,res)=>{
     try {
         const data =  await ProfileModel.findOneAndRemove({_id: req.params.id})

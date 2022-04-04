@@ -22,11 +22,12 @@ module.exports = function(app) {
     app.get("/api/user/searchusers/:keyword",controller.searchUsers);
     app.get("/api/user/:username",controller.FindSingleProfile);
     //Become admin
-    app.post("/api/user/makeAdmin",controller.makeAdmin);
+    app.post("/api/user/makeAdmin", controller.makeAdmin);
 
     //Admin can not become incubator? - Verify admin middleware missing admin role verification
     app.post("/api/user/makeIncubator", [verify_Admin], controller.makeIncubator);
 
     //Banning user
+    app.post("/api/user/ban", [verify_Admin], controller.banUser);
 
   };
