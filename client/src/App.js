@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import {BrowserRouter as Router, Routes, Route, Link, useNavigate, Redirect} from "react-router-dom";
 // import "./bezkoder.css";
 //import "./bezkoder.css";
 import Login from "./components/User/login.component";
@@ -38,26 +38,43 @@ import Add from "./components/Elearning/add-chapter.component";
 import Listchapter from "./components/Elearning/list-chapter.component";
 import Verify_email from "./components/User/verify-email.component";
 import Users from "./components/User/getUsers.component"
+
+
 const App = () => {
 
-
-
+   const redirect = ()=>{
+    //navigate('/')
+    // window.location.reload()
+   }
+    //const navigate = useNavigate();
   const dispatch = useDispatch();
+    const [isVerified,setisVerified] = useState(false)
   useEffect(() => {
+      if (localStorage.getItem('user')){
+        const infos = JSON.parse(localStorage.getItem('infos'));
+       const  isUserVerified = infos.verified
+    if (!isUserVerified)
+    {
+      setisVerified(true)
+        //history.go('/')
+        //window.location ='/';
+    }
+      }
+
     history.listen((location) => {
       dispatch(clearMessage()); // clear message when changing location
     });
-  }, [dispatch]);
-      dispatch(allProjects()); 
+  },[] );
+     // dispatch(allProjects());
   return (
     <>
-      <Router history={history}>
+      <Router history={history} >
 
 
 
           <Routes>
 
-
+            {/*{ isVerified ? redirect():''}*/}
             <Route  path={"/"} element={<><Header /><Footer/></>} > 
             <Route path={"/profile"} element={<Profile />} />
             <Route path={"/u/:username"} element={<Profileconsult />} />

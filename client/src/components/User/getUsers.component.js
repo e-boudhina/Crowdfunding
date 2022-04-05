@@ -6,14 +6,14 @@ import {useDispatch, useSelector} from "react-redux";
 const Users = () => {
 
     const dispatch = useDispatch();
-    const users = useSelector((action) => action.payload);
+    const users = useSelector((state) => state.users);
     console.log(users)
     useEffect(async () => {
 
         document.body.appendChild(document.createElement("script")).src = "assets-back/libs/jquery/jquery.min.js";
         dispatch(get_Users())
         // console.log(users.length)
-    }, [users]);
+    }, []);
 
     return(
         <div className="card-body">
@@ -31,26 +31,30 @@ const Users = () => {
                     </thead>
                     <tbody>
 
-                    {/*{tutorials &&*/}
-                    {/*tutorials.map((tutorial, index) => (*/}
-                    {/*    <tr>*/}
-                    {/*        <th scope="row">{tutorial._id}</th>*/}
-                    {/*        <td>*/}
-                    {/*            <div>*/}
-                    {/*                <img src="assets/images/users/user-6.jpg" alt="" className="avatar-xs rounded-circle me-2" /> {tutorial.name}*/}
-                    {/*            </div>*/}
-                    {/*        </td>*/}
-                    {/*        <td>19/1/2019</td>*/}
-                    {/*        <td>$120</td>*/}
-                    {/*        <td><span className="badge bg-success">{tutorial.createdAt}</span></td>*/}
-                    {/*        <td>*/}
-                    {/*            <div>*/}
-                    {/*                <a href="#" className="btn btn-primary btn-sm">Edit</a>*/}
-                    {/*            </div>*/}
-                    {/*        </td>*/}
-                    {/*    </tr>*/}
+                    {users &&
+                    users.users.map((user, index) => (
+                        <tr>
+                            <th scope="row">{user._id}</th>
+                            <td>
+                                <div>
+                                    <img src="assets/images/users/user-6.jpg" alt="" className="avatar-xs rounded-circle me-2" /> {user.username}
+                                </div>
+                            </td>
+                            <td>{user.email}</td>
+                            <td>{user.verified?'Yes':'No'}</td>
+                            {/*<td><span className="badge bg-success">{tutorial.createdAt}</span></td>*/}
+                            <td>
+                                <div>
+                                    <a href="#" className="btn btn-primary btn-sm">Edit</a>&nbsp;
+                                    <a href="#" className="btn btn-blue-grey btn-sm">Ban</a>&nbsp;
+                                    <a href="#" className="btn btn-danger btn-sm">Delete</a>&nbsp;
+                                    <a href="#" className="btn btn-outline-dark btn-sm">Make Admin</a>
 
-                    {/*))}*/}
+                                </div>
+                            </td>
+                        </tr>
+
+                    ))}
 
 
                     </tbody>
