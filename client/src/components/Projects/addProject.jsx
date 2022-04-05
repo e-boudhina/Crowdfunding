@@ -91,8 +91,11 @@ const ProjectAdd = (props) => {
       dispatch(AddProject(formData))
       .then(() => {
 
-        navigate("/ListProject")
-        window.location.reload();
+        setTimeout(()=>{
+          //dispatch(clearMessage())
+              navigate("/ListProject")
+      }
+      ,5000)
       })
       .catch((e) => {
         setLoading(false);
