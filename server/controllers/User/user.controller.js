@@ -239,6 +239,22 @@ User.findOne({username: username }).then((user)=>{
   })
   });
 
+exports.getUsers = asyncHandler(async (req, res) => {
+  adminRole = await Role.findOne({name:'admin'},{name: 1});
+  users = await User.find({'roles': {$ne: adminRole._id}},{password :0});
+
+  if (!users) {
+    return res.status(200).send({
+      message: `There are no user yet!`
+    });
+  }
+
+    return res.status(200).send({
+      users
+    });
+
+  }
+)
 
 
 /*exports.DeleteProfile = async (req ,res)=>{

@@ -58,7 +58,8 @@ const Login = (props) => {
         <img
           src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
           alt="profile-img"
-          className="profile-img-card"
+          width={'100px'}
+          className="rounded mx-auto d-block"
         />
         <Form onSubmit={handleLogin} ref={form}>
           <div className="form-group">
@@ -84,6 +85,17 @@ const Login = (props) => {
             />
           </div>
           <div className="form-group">
+            <div className="login-action mb-20 fix">
+        {/*<span className="log-rem f-left">*/}
+        {/*  <input id="remember" type="checkbox" />*/}
+        {/*  <label htmlFor="remember">Remember me!</label>*/}
+        {/*</span>*/}
+              <span className="forgot-login f-right">
+          <a href="/reset-password">Lost your password?</a>
+        </span>
+            </div>
+          </div>
+          <div className="form-group">
             <button className="btn btn-primary btn-block" disabled={loading}>
               {loading && (
                 <span className="spinner-border spinner-border-sm"></span>
@@ -91,6 +103,12 @@ const Login = (props) => {
               <span>Login</span>
             </button>
           </div>
+          <div className="form-group">
+            <div className="or-divide"><span>or</span></div>
+            <a className="btn w-100" href="/register">Register Now</a>
+
+          </div>
+
           {message && (
             <div className="form-group">
               <div className="alert alert-danger" role="alert">

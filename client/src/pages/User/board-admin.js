@@ -303,6 +303,12 @@ document.body.appendChild(document.createElement("script")).src = "assets-back/j
                       <span>List  chapterr</span>
                     </Link>
                   </li>
+                  <li>
+                    <Link to="/admin/users" className="waves-effect">
+                      <i className="ti-home" />
+                      <span>List  Users</span>
+                    </Link>
+                  </li>
                 </ul>
               </div>
               {/* Sidebar */}

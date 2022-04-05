@@ -26,7 +26,9 @@ export const updateUser = (user ) => {
 }
 export const getUser  =  (username) =>{
   return   axios.get(API_URL+username  )
-
+}
+const getUsers = ()=> {
+  return  axios.get(API_URL )
 }
 export default {
   getPublicContent,
@@ -35,6 +37,7 @@ export default {
   getAdminBoard,
   getAllUsers,
   updateUser,
-  getUser
+  getUser,
+  getUsers
   //refreshUser
 };

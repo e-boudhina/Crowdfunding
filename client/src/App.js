@@ -37,8 +37,10 @@ import ListOrganisation from "./components/Organisation/ListOrganisation";
 import Add from "./components/Elearning/add-chapter.component";
 import Listchapter from "./components/Elearning/list-chapter.component";
 import Verify_email from "./components/User/verify-email.component";
-
+import Users from "./components/User/getUsers.component"
 const App = () => {
+
+
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -54,7 +56,8 @@ const App = () => {
 
 
           <Routes>
-           
+
+
             <Route  path={"/"} element={<><Header /><Footer/></>} > 
             <Route path={"/profile"} element={<Profile />} />
             <Route path={"/u/:username"} element={<Profileconsult />} />
@@ -82,6 +85,9 @@ const App = () => {
            
             <Route  path={"/admin/listchapters"} element={< Listchapter/>}/>
             <Route  path={"/admin/add"} element={<Add/>}/>
+
+
+            <Route  path={"/admin/users"} element={<Users/>}/>
             </Route>
 
           </Routes>
