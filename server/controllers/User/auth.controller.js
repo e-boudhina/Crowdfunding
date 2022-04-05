@@ -191,7 +191,7 @@ const signin = asyncHandler(async (req, res) => {
           email: user.email,
           password: user.password,
           phone: user.phone,
-          image: user.img
+        image: user.img
         },
       });
     });
@@ -211,8 +211,8 @@ const reset_password = asyncHandler(async (req, res) => {
     User.findOne({ username: username }).then((user) => {
       if (!user) {
         // if you do not put return the request will be sent back but the rest of the code will continue to execute, which will cause an error
-        return res.status(400).send({
-          error: `There is no user registered under the username : "${username}"`,
+        return res.status(200).send({
+          message: `There is no user registered under the username : "${username}"`,
         });
       }
       // console.log('this line')

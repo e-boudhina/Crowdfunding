@@ -9,6 +9,8 @@ import { register,registerr, updateProfile , deleteUser , logout} from "../../ac
 import DatePicker from "react-datepicker";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
+import {clearMessage} from "../../actions/message";
+import Spinner from "../Spinner";
 
 const required = (value) => {
   if (!value) {
@@ -73,7 +75,7 @@ const Register = () => {
   const { message } = useSelector((state) => state.message);
   const dispatch = useDispatch();
   let navigate = useNavigate();
-
+  const [isLoading, setIsLoading] = useState(false);
   const [formTitle, setFormTitle] = useState("");
   const [registerForm, setRegisterForm] = useState(true);
   const { infos: currentInfos } = useSelector((state) => state.auth);
@@ -92,6 +94,8 @@ const Register = () => {
     } else {
       setFormTitle("Signup");
     }
+    //Using return is like using componentWillUnmount hook
+     return () => {dispatch(clearMessage())}
   },[currentInfos]);
 
   const onChangeUsername = (e) => {
@@ -152,6 +156,7 @@ const Register = () => {
     setSuccessful(false);
     form.current.validateAll();
     if (checkBtn.current.context._errors.length === 0) {
+
       console.log(
         "called " + currentUser.id,
         email,
@@ -171,12 +176,12 @@ const Register = () => {
           address,
           phone,
           birthdate,
-          currentUser.accessToken    ))
+          currentUser.accessToken    )
+      )
         .then(() => {
+          //Clearing the message is done using useEffect return
           navigate("/profile")
-   // window.location.reload();
           setSuccessful(true);
-     
         })
         .catch(() => {
           setSuccessful(false);
@@ -200,16 +205,28 @@ const Register = () => {
 
     setSuccessful(false);
     form.current.validateAll();
+
     if (checkBtn.current.context._errors.length === 0) {
+      setIsLoading(true)
       dispatch(
        // register(username, email, password, firstName, lastName, address,birthdate,phone,image)
        registerr(formData)
       )
         .then(() => {
-          console.log();
+          console.log('done')
+          setIsLoading(false)
           setSuccessful(true);
+          // dispatch(clearMessage())
+          setTimeout(()=>{
+                navigate('/login');
+              }
+              ,5000)
+          //You can pust clear message here you need to put it on component unmount
+          //dispatch(clearMessage())
         })
-        .catch(() => {
+        .catch((error) => {
+          console.log("here")
+          setIsLoading(false)
           setSuccessful(false);
         });
     }
@@ -229,6 +246,10 @@ const Register = () => {
         console.log(e);
       });
   };
+
+  if (isLoading){
+    return <Spinner/>
+  }
   return (
     <div className="login-area pt-120 pb-120">
       <div className="container">

@@ -15,7 +15,7 @@ var OrganisationSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
     }],
-    Projects: [{
+    projects: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Projects"
     }]

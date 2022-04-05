@@ -1,18 +1,19 @@
 import React, {useState, useRef, useEffect} from "react";
-import  {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
 import {toast} from "react-toastify";
-import {login, register} from "../../actions/auth";
+import {new_password} from "../../actions/auth";
+import {clearMessage} from "../../actions/message";
 
 
 
-const New_password = (props) => {
+const New_password = () => {
     const {token} = useParams()
-    console.log(token)
+    //console.log(token)
     const form = useRef();
     const checkBtn = useRef();
     const [password, setPassword] = useState("");
@@ -21,7 +22,8 @@ const New_password = (props) => {
     const [successful, setSuccessful] = useState(false);
     const { message } = useSelector(state => state.message);
     const dispatch = useDispatch();
-
+    const navigate = useNavigate();
+    const [isLoading, setIsLoading] = useState(false);
 
     const required = (value) => {
         if (!value) {
@@ -36,12 +38,11 @@ const New_password = (props) => {
         if (value.length < 3 || value.length > 20) {
             return (
                 <div className="alert alert-danger" role="alert">
-                    The username must be between 3 and 20 characters.
+                    The password must be between 3 and 20 characters.
                 </div>
             );
         }
     };
-
 
 
     const onChangePassword= (e) => {
@@ -56,17 +57,31 @@ const New_password = (props) => {
     const handleReset = (e) => {
         e.preventDefault();
         form.current.validateAll();
+
         if(password !== password2) {
-            console.log('here')
             toast.error('Passwords do not match')
+        }else {
+            //console.log("here 3")
+            dispatch(new_password(password, token)).then(()=>{
+                setSuccessful(true);
+                setTimeout(()=>{
+                        clearMessage()
+                        navigate('/login');
+                    }
+                    ,5000)
+            })
         }
-        // dispatch(reset_password(username))
+
+
+
+
+
     };
 
     //make sure that the user can not go to this component if he is already logged in
-    // useEffect = () =>{
-    //
-    // }
+    useEffect(() => {
+        return () => {dispatch(clearMessage())}
+    },[isLoading])
     return (
         <div className="login-area pt-120 pb-120">
             <div className="container">
@@ -93,12 +108,11 @@ const New_password = (props) => {
                                             />
                                         </div>
                                         <div className="form-group">
-                                            <label htmlFor="password2">ReEnter your password</label>
+                                            <label htmlFor="password2">Reenter your password</label>
                                             <Input
                                                 type="text"
                                                 className="form-control"
                                                 name="password2"
-                                                // value={email}
                                                 onChange={onChangePassword2}
                                                 validations={[required, vpassword]}
                                             />
@@ -116,7 +130,7 @@ const New_password = (props) => {
                                         </div>
                                     </div>
                                 )}
-                                <CheckButton style={{ display: "none" }} ref={checkBtn} />
+
                             </Form>
                         </div>
                     </div>

@@ -17,10 +17,21 @@ const  allOrganisation= () => {
 const  allOrganisationForUser= (id) => {
   return axios.get(API_URL + "allForUser/" +id);
   };
+const  getUser= (username) => {
+  return axios.get(API_URL + "getUser/" +username);
+  };
 
 const  AddOrganisation= (form) => {
 // const  AddProject= (labelproject,projectdescriptiob,fundneeded,image) => {
   return axios.post(API_URL + "add",form,config);
+};
+const  FollowOrganisation= (id,idOrganization) => {
+// const  AddProject= (labelproject,projectdescriptiob,fundneeded,image) => {
+  return axios.post(API_URL + "follow/"+idOrganization+"/"+id);
+};
+const  IsFollowed= (id,idOrganization) => {
+// const  AddProject= (labelproject,projectdescriptiob,fundneeded,image) => {
+  return axios.post(API_URL + "isFollowed/"+idOrganization+"/"+id);
 };
 
 const remove = (id)=> {
@@ -44,7 +55,10 @@ export default  {
   allOrganisationForUser,
   getSingle,
   remove,
-  update
+  update,
+  FollowOrganisation,
+  IsFollowed,
+  getUser
   // ,
   // login,
   // logout,
