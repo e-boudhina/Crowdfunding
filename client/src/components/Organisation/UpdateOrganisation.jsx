@@ -54,13 +54,30 @@ function UppdateOrganisation(props, { route, navigation }) {
     //
 
     const navigate = useNavigate();
+    const mailValidation = (value) => {
 
+
+        const regex = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+        // const regex = /^[a-z0-9][\-_\.\+\!\#\$\%\&\'\*\/\=\?\^\`\{\|]{0,1}([a-z0-9][\-_\.\+\!\#\$\%\&\'\*\/\=\?\^\`\{\|]{0,1})*[a-z0-9]@[a-z0-9][-\.]{0,1}([a-z][-\.]{0,1})*[a-z0-9]\.[a-z0-9]{1,}([\.\-]{0,1}[a-z]){0,}[a-z0-9]{0,}$/
+        if(regex.test(value) === false){
+            return (
+            <div className="alert alert-danger" role="alert">
+            Email non valid
+        </div>
+            );
+           
+        }
+    };
 
     const [loading, setLoading] = useState(false);
     // const { ProjectAdded } = useSelector(state => state.auth);
     const { message } = useSelector(state => state.message);
 
 
+    const { user: currentUser } = useSelector((state) => state.auth);
+    if (!currentUser) {
+        return <Navigate to="/login" />;
+    }
 
     const onChangeName = (e) => {
         const name = e.target.value;
@@ -113,21 +130,28 @@ function UppdateOrganisation(props, { route, navigation }) {
 
 
 
-        console.log(formData);
         //  formData.current.validateAll();
         // if (checkBtn.current.context._errors.length === 0) {
-        dispatch(updateOrganisation(location.state.id,formData))
+
+             if (checkBtn.current.context._errors.length === 0) {
+                 dispatch(updateOrganisation(location.state.id,formData))
         
-            .then(() => {
+                 .then(() => {
+                console.log(formData);
 
                 navigate("/profile")
                 window.location.reload();
         
              
-            }).
-            catch((e) => {
+            })
+            .catch((e) => {
                 console.log(e);
             });
+        }
+        else {
+            setLoading(false);
+          }
+
 
 
             
@@ -142,98 +166,140 @@ function UppdateOrganisation(props, { route, navigation }) {
         // }
     };
     return (
+        <div class="login-area pt-120 pb-120">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+        rel="stylesheet"></link>
+              
+              <div class="container">
+                  <div class="row">
+                      <div class="col-lg-8 offset-lg-2">
+                          <div class="basic-login">
+                              <h3 class="text-center mb-60">Update an organisation</h3>
 
 
+        <Form onSubmit={handleUpdateOrganisation} ref={form} encType="multipart/form-data">
 
-        <Form onSubmit={handleUpdateOrganisation} encType="multipart/form-data">
+        <label for="name">Organisation name <span>**</span></label>
 
-        <label htmlFor="name">Name :</label>
-        <Input
-            type="text"
-            className="form-control"
-            name="name"
-            value={name}
-            onChange={onChangeName}
-            validations={[required]}
-        />
-
-
-        <label htmlFor="email">Email :</label>
-        <Input
-            type="text"
-            className="form-control"
-            name="email"
-            value={email}
-            onChange={onChangeEmail}
-            validations={[required]}
-        />
+<Input
+    type="text"
+    className="form-control"
+    id="name"
+    name="name"
+    value={name}
+    onChange={onChangeName}
+    validations={[required]}
+/>
 
 
-        <label htmlFor="phone">Cell phone number:</label>
-        <Input
-            type="number"
-            className="form-control"
-            name="phone"
-            value={phone}
-            onChange={onChangePhone}
-            validations={[required]}
-        />
-        <label htmlFor="fax"> fax number:</label>
-        <Input
-            type="number"
-            className="form-control"
-            name="fax"
-            value={fax}
-            onChange={onChangeFax}
-            validations={[required]}
-        />
+<label for="email-id">Email Address <span>**</span></label>
+                                <Input
+                                    type="text"
+                                    className="form-control"
+                                    name="email"
+                                    value={email}
+                                    onChange={onChangeEmail}
+                                    validations={[required,mailValidation]}
+                                />
 
-        <label htmlFor="adress"> Address :</label>
-        <Input
-            type="text"
-            className="form-control"
-            name="adress"
-            value={adress}
-            onChange={onChangeAdress}
-            validations={[required]}
-        />
-        <label htmlFor="description"> description :</label>
-        <Input
-            type="text"
-            className="form-control"
-            name="description"
-            value={description}
-            onChange={onChangeDescription}
-            validations={[required]}
-        />
+
+<label for="phone">Cell phone number <span>**</span></label>
+                                <Input
+                                    type="number"
+                                    className="form-control"
+                                    name="phone"
+                                    value={phone}
+                                    onChange={onChangePhone}
+                                    validations={[required]}
+                                />
+        <label for="fax">Fax number <span>**</span></label>
+
+<Input
+    type="number"
+    className="form-control"
+    name="fax"
+    value={fax}
+    onChange={onChangeFax}
+    validations={[required]}
+/>
+
+<label for="adress">Address <span>**</span></label>
+                                <Input
+                                    type="text"
+                                    className="form-control"
+                                    name="adress"
+                                    value={adress}
+                                    onChange={onChangeAdress}
+                                    validations={[required]}
+                                />
+          <label for="description">Description <span>**</span></label>
+                                <Input
+                                    type="text"
+                                    className="form-control"
+                                    name="description"
+                                    value={description}
+                                    onChange={onChangeDescription}
+                                    validations={[required]}
+                                />
       
-        <label htmlFor="Secteur"> Secteur:</label>
-        <Input
-            type="text"
-            className="form-control"
-            name="Secteur"
-            value={Secteur}
-            onChange={onChangeSecteur}
-            validations={[required]}
-        />
+      <label for="Secteur">Secteur <span>**</span></label>
+                                <Input
+                                    type="text"
+                                    className="form-control"
+                                    name="Secteur"
+                                    value={Secteur}
+                                    onChange={onChangeSecteur}
+                                    validations={[required]}
+                                />
+
+<label for="email-id">Owner name <span>**</span></label>
+                                <Input
+                                    type="text"
+                                    disabled
+                                    className="form-control"
+                                    name="ownerName"
+                                    value={currentUser.username}
+                                    // onChange={onChangeOwnerName}
+                                    validations={[required]}
+                                />
+               <label for="image">Image uploader: <span>**</span> <span className="material-icons">
+add_a_photo
+</span></label>
+
+
+ <input
+                                    type="file"
+                                    name="image"
+                                    // value={Image}
+                                    id="image"
+                                    onChange={(e) => {
+                                        setImage(e.target.files[0])
+                                    }}
+                                />
+
+<div className="form-group">
+            <button className="btn btn-primary btn-block" disabled={loading}>
+              {loading && (
+                <span className="spinner-border spinner-border-sm"></span>
+              )}
+              <span>Update organisation</span>
+            </button>
+          </div>
+          {message && (
+            <div className="form-group">
+              <div className="alert alert-danger" role="alert">
+                {message}
+              </div>
+            </div>
+          )}
+          <CheckButton style={{ display: "none" }} ref={checkBtn} />
       
-        <label htmlFor="image">Image upload</label>
-        <input
-            type="file"
-            name="image"
-            // value={Image}
-            id="image"
-            onChange={(e) => {
-                setImage(e.target.files[0])
-            }}
-        />
-
-        <div>
-
-            <button type="submit" class="btn">Submit</button>
-  
-        </div>
     </Form>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     );
 }

@@ -3,6 +3,8 @@ import { useLocation, useNavigate } from 'react-router';
 import { useDispatch, useSelector } from "react-redux";
 import { allorganisation} from "../../actions/Organisations/OrganisationCrud.actions";
 // import styled from 'styled-components';
+import './aaa.css'
+
 
 import { Navigate } from "react-router-dom";
 function SingleOranisationForUser(props) {
@@ -21,7 +23,7 @@ function SingleOranisationForUser(props) {
           {/* <button type="button"   onClick={() => {
                 dispatch(RetrieveProject(project._id)); navigate('/ProjectDetails/'+project._id);}}class="btn btn-outline-info btn-rounded" data-mdb-ripple-color="dark" >Info</button> */}
           <a onClick={()=>
-          navigate('/organisationDetails',{state:{id:organisation._id,image:organisation.Image,name:organisation.name,phone:organisation.phone,fax:organisation.fax,adress:organisation.adress,description:organisation.description,Secteur:organisation.Secteur,ownerName:organisation.ownerName,email:organisation.email}}) }> <img src={`Uploads/${organisation.Image}`} alt="" /></a>
+          navigate('/organisationDetails',{state:{id:organisation._id,image:organisation.Image,name:organisation.name,phone:organisation.phone,fax:organisation.fax,adress:organisation.adress,description:organisation.description,Secteur:organisation.Secteur,ownerName:organisation.ownerName,email:organisation.email}}) }> <img src={`Uploads/${organisation.Image}`} className='photo' alt="" /></a>
           
         </div>
 

@@ -54,6 +54,7 @@ window.location.reload();
     return (
       <div className="container">
       <div>
+      <br></br>
       <div className="tab-content" id="myTabContent">
           {/* <h3>
           <strong>{currentUser.firstName}</strong> Profile
@@ -67,8 +68,15 @@ window.location.reload();
         
       <div className="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
         <div className="row">
+
+        <div className="col-11">
+           <div className="text-right my-2 pr-1">
+             <i style={{fontSize: '2rem', cursor: 'pointer', color: '#4bb543'}} onClick={() => {navigate('/addProject',{state:{id:location.state.id}})}} className="fas fa-plus-circle mx-auto" />
+           </div>
+         </div>
           {
 projects.projects.map((element)=>{
+  
   console.log(element);
   // <SingleProject/>
 
