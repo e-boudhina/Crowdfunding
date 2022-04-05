@@ -9,6 +9,7 @@ const Users = () => {
     const users = useSelector((action) => action.payload);
     console.log(users)
     useEffect(async () => {
+
         document.body.appendChild(document.createElement("script")).src = "assets-back/libs/jquery/jquery.min.js";
         dispatch(get_Users())
         // console.log(users.length)

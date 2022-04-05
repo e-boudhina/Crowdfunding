@@ -53,8 +53,13 @@ const Login = (props) => {
     return <Navigate to="/profile" />;
   }
   return (
-    <div className="col-md-12">
-      <div className="card card-container">
+
+      <div className="login-area pt-120 pb-120">
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-8 offset-lg-2">
+              <div className="basic-login">
+                <h3 className="text-center mb-60">Login From Here</h3>
         <img
           src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
           alt="profile-img"
@@ -118,8 +123,12 @@ const Login = (props) => {
           )}
           <CheckButton style={{ display: "none" }} ref={checkBtn} />
         </Form>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+
   );
 };
 export default Login;

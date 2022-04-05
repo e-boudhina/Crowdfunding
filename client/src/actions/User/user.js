@@ -7,12 +7,10 @@ export const  get_Users =  () =>   (dispatch) => {
     return UserService.getUsers().then(
         (data) => {
             console.log(data.data.users)
+
             dispatch({
                 type: FETCHING_USERS_SUCCESS,
-            });
-            dispatch({
-                type: GET_USERS,
-                payload: data.data.users,
+                 payload: data.data.users,
             });
             return Promise.resolve();
         },
