@@ -15,4 +15,4 @@ app.post("/api/learning/add-certificate",controller.addCertificate);
 app.get("/api/learning/certificate/:id",controller.getCertificate);
 app.get("/api/learning/certificates/",controller.getAllCertificates);
 app.post("/api/learning/add-chapter-certificate/:certifId",controller.addChapterToCertificate)
-}
+} 

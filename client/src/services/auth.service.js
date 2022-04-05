@@ -3,7 +3,19 @@ import axios from "axios";
 
 const API_URL = "http://localhost:5000/api";
 
-const register = (username, email, password , firstName , lastName , address , birthdate,phone) => {
+const config ={
+  headers:{
+    'content-type': 'multipart/form-data'
+}}
+
+const registerr = (form) => {
+  console.log("AUTH SERVICE image"+JSON.stringify(form));
+  return axios.post(API_URL + "/auth/signup", form,config);
+};
+
+
+const register = (username, email, password , firstName , lastName , address , birthdate,phone,image) => {
+  console.log("AUTH SERVICE image"+JSON.stringify(image));
   return axios.post(API_URL + "/auth/signup", {
     firstName,
     lastName,
@@ -11,7 +23,8 @@ const register = (username, email, password , firstName , lastName , address , b
     email,
     password,
     address , 
-    birthdate,phone
+    birthdate,phone,
+    image
   });
 };
  
@@ -56,6 +69,7 @@ const deleteUser = id => {
 
 
 export default  {
+  registerr,
   register,
   login,
   logout,

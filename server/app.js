@@ -28,19 +28,7 @@ let reqPath = path.join(__dirname, '../client/public');
 console.log(reqPath);
 app.use(express.static(reqPath));
 
-// var multer = require('multer');
-  
-// var storage = multer.diskStorage({
-//     destination: (req, file, cb) => {
-//         cb(null, 'uploads')
-//     },
-//     filename: (req, file, cb) => {
-//         cb(null, file.fieldname + '-' + Date.now())
-//     }
-// });
-  
-// var upload = multer({ storage: storage });
-
+var bodyParser = require('body-parser');
 
 // app.get('/image', (req, res) => {
 //   imgModel.find({}, (err, items) => {

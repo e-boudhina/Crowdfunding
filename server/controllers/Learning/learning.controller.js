@@ -15,7 +15,12 @@ exports.addChapter = (req, res) => {
     chapter
       .save(chapter)
       .then(data => {
-        res.send(data);
+        console.log("Calling certif update wit hID  "+req.body.certifId);
+            Certificate.updateOne(
+            { _id: req.body.certifId}, 
+            { $push: { chapters: chapter._id } }
+            ).exec(
+        res.send(data))
       })
       .catch(err => {
         res.status(500).send({
@@ -84,15 +89,30 @@ exports.addChapter = (req, res) => {
       });
   };
 
-  exports.getAllCertificates = asyncHandler(async (req, res) => {
-    try {
+  exports.getAllCertificates = (req, res) => {
+    Certificate.find()
+      .then(data => {
+        if (!data)
+          res.status(404).send({ message: "Not found Certificate with id "  });
+        else {
+          console.log(data);
+          res.send(data)}
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .send({ message: "Error retrieving Certificate with id=" });
+      });
+  };
+
+ /* exports.getAllCertificates =asyncHandler(async (req, res) => {
+   try {
       const certifs = await Certificate.find();
       return res.json(certifs);
     } catch (error) {
       res.json({ message: error });
     }
-  })
-
+    } );*/
 
   exports.addChapterToCertificate = asyncHandler(async (req, res) => {
     if (!req.params.certifId) {

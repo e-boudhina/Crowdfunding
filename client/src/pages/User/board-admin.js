@@ -350,7 +350,7 @@ document.body.appendChild(document.createElement("script")).src = "assets-back/j
               </div> {/* container-fluid */}
             </div>
             {/* End Page-content */}
-      
+            <Outlet/>
           </div>
           {/* end main content*/}
         </div>
@@ -385,16 +385,20 @@ document.body.appendChild(document.createElement("script")).src = "assets-back/j
               <div className="mb-2">
                 <img src="../assets-back/images/layouts/layout-3.jpg" className="img-fluid img-thumbnail" alt="" />
               </div>
+              
               <div className="form-check form-switch mb-5">
                 <input type="checkbox" className="form-check-input theme-choice" id="rtl-mode-switch" data-appstyle="../assets-back/css/app-rtl.min.css" />
                 <label className="form-check-label" htmlFor="rtl-mode-switch">RTL Mode</label>
               </div>
+              
               <div className="d-grid">
                 <a href="https://1.envato.market/grNDB" className="btn btn-primary mt-3" target="_blank"><i className="mdi mdi-cart me-1" /> Purchase Now</a>
               </div>
             </div>
           </div> {/* end slimscroll-menu*/}
+  
         </div>
+        
         {/* /Right-bar */}
         {/* Right bar overlay*/}
         <div className="rightbar-overlay" />
@@ -403,7 +407,7 @@ document.body.appendChild(document.createElement("script")).src = "assets-back/j
       </div>
     );
   
-    <Outlet/>
+
     </>
   );
 };

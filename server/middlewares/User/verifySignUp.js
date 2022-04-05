@@ -6,12 +6,12 @@ const asyncHandler = require('express-async-handler')
 //The methods defined in here are also middlewares since they contain next meaning handling or verifying the request before letting the request proceed by writing (next)
  const checkDuplicateUsernameOrEmail =  asyncHandler(async (req, res, next) => {
   const {username, email} = req.body
-  //check for email
-  if(!username ||!email ){
+  //check for emai  l
+  /*if(!username ||!email ){   //temporary commented this ( iheb )
     res.status(400)
     throw new Error('Checking for duplicate username and emails Middleware can not run without providing a username or email')
   }
-
+*/
     // Username
     User.findOne({
       username: req.body.username

@@ -36,7 +36,7 @@ import { allProjects } from "./actions/Projects/ProjectCrud.actions";
 import ListOrganisation from "./components/Organisation/ListOrganisation";
 import Add from "./components/Elearning/add-chapter.component";
 import Listchapter from "./components/Elearning/list-chapter.component";
-
+import Viewchapter from "./components/Elearning/view-chapter.components";
 const App = () => {
 
   const dispatch = useDispatch();
@@ -76,9 +76,9 @@ const App = () => {
 
     
             <Route path={"/admin"} element={<Adminboard />}>
-           
             <Route  path={"/admin/listchapters"} element={< Listchapter/>}/>
             <Route  path={"/admin/add"} element={<Add/>}/>
+            <Route  path={"/admin/:id"} element={< Viewchapter/>}/>
             </Route>
 
           </Routes>

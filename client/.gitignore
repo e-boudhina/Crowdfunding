@@ -5,7 +5,8 @@
 /.pnp
 .pnp.js
 /public/assets/*
-
+/public/assets-back/*
+/public/*
 # testing
 /coverage
 

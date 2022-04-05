@@ -3,6 +3,7 @@ import { Navigate  } from 'react-router-dom';
 import { useDispatch, useSelector  } from "react-redux";
 import { useNavigate  } from "react-router-dom";
 import ListOrganisationForUser from "../Organisation/ListOrganisationForUser"
+import {Buffer} from 'buffer';
 
 const Profile = (props) => {
   const navigate = useNavigate();
@@ -17,10 +18,13 @@ const Profile = (props) => {
   const [email, setEmail] = useState("");
   const [verified,setVerified] = useState(false);
   const [phone, setPhone]= useState("")
+  const [image,setImage]=useState("")
+  const [imgData,setImgData] = useState("")
  // const { user: currentUser } = useSelector((state) => state.auth);
  const { message } = useSelector((state) => state.message);
   const { infos: currentInfos } = useSelector((state) => state.auth);
   const { isLoggedIn: IsLoggedIn } = useSelector((state) => state.auth);
+
 
 
 
@@ -38,10 +42,13 @@ useEffect(() => {
     setVerified(currentInfos.verified)
     setPhone(currentInfos.phone)
     setBirthDate(currentInfos.birthdate)
+    setImgData(currentInfos.image.data.data)
+    const bf = new Buffer.from(imgData).toString("base64");
+ setImage(bf)
     console.log("User is logged in (fom profile:22");
  }
 
- },[IsLoggedIn,currentInfos,navigate])  //dep hass"hom zeydin
+ },[IsLoggedIn,currentInfos,navigate,imgData])  //dep hass"hom zeydin
   
 
     /*if (!currentUser || !currentInfos) {
@@ -58,7 +65,8 @@ useEffect(() => {
             <div className="col-g-5 col-lg-5">
               <div className="team mb-50">
                 <div className="team__thumb">
-                  <img src="assets/img/team/team-details.jpg" alt="" />
+  
+                <img src={`data:image/png;base64,${image}`} />
                 </div>
                 <button onClick={navigateToEdit} type="button" className="btn btn-black w-100" > Edit profile </button>
               </div>

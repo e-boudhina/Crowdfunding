@@ -5,7 +5,7 @@ import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
-import { register, updateProfile , deleteUser , logout} from "../../actions/auth";
+import { register,registerr, updateProfile , deleteUser , logout} from "../../actions/auth";
 import DatePicker from "react-datepicker";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
@@ -78,7 +78,7 @@ const Register = () => {
   const [registerForm, setRegisterForm] = useState(true);
   const { infos: currentInfos } = useSelector((state) => state.auth);
   const { user: currentUser } = useSelector((state) => state.auth);
-
+  const [image, setImage] = useState(null);
   useEffect(() => {
     if (currentInfos) {
       setRegisterForm(false);
@@ -186,13 +186,27 @@ const Register = () => {
 
   const handleRegister = (e) => {
     e.preventDefault();
+    const formData = new FormData();
+    formData.append("username", username);
+    formData.append("firstName", firstName);
+    formData.append("lastName", lastName);
+    formData.append("address", address);
+    formData.append("phone", phone);
+    formData.append("email", email);
+    formData.append("password", password);
+    formData.append("birthdate", birthdate);
+    formData.append("image", image);
+    console.log(formData);
+
     setSuccessful(false);
     form.current.validateAll();
     if (checkBtn.current.context._errors.length === 0) {
       dispatch(
-        register(username, email, password, firstName, lastName, address,birthdate,phone)
+       // register(username, email, password, firstName, lastName, address,birthdate,phone,image)
+       registerr(formData)
       )
         .then(() => {
+          console.log();
           setSuccessful(true);
         })
         .catch(() => {
@@ -224,6 +238,7 @@ const Register = () => {
               <h3 className="text-center mb-60">{formTitle}</h3>
 
               <Form
+              enctype="multipart/form-data"
                 onSubmit={registerForm ? handleRegister : handleUpdate}
                 ref={form}
               >
@@ -247,7 +262,7 @@ const Register = () => {
                         name="firstName"
                         value={firstName}
                         onChange={onChangeFirstName}
-                        validations={[required, vname]}
+                   
                       />
 
                       <label htmlFor="lastName "> Last name : </label>
@@ -257,7 +272,7 @@ const Register = () => {
                         name="lastName"
                         value={lastName}
                         onChange={onChangeLastName}
-                        validations={[required, vname]}
+                
                       />
 
                       <label htmlFor="address "> Address : </label>
@@ -277,7 +292,7 @@ const Register = () => {
                         name="birthdate"
                         value={birthdate}
                         onChange={(birthdate) => setBirthdate(birthdate)}
-                        validations={[required]}
+               
                       />
 
 <label htmlFor="phone "> Phone number : </label>
@@ -301,7 +316,7 @@ const Register = () => {
                         name="email"
                         value={email}
                         onChange={onChangeEmail}
-                        validations={[required, validEmail]}
+                  
                       />
                     </div>
           
@@ -315,11 +330,23 @@ const Register = () => {
                         name="password"
                         value={password}
                         onChange={onChangePassword}
-                        validations={[vpassword,requiredPassword]}
+                
                       />
                     </div>
 
-
+                    <div className="form-group">
+                      <label htmlFor="image">Image</label>
+                      <Input
+                        type="file"
+                        className="form-control"
+                        name="image"
+                        validations={[required]}
+                        onChange={(e) => {
+                          setImage(e.target.files[0])
+                          console.log(e.target.files[0]);
+                      }}
+                      />
+                    </div>
 
 
 
