@@ -96,7 +96,12 @@ useEffect(() => {
                 </div>
               </div>
             </div>
-            <button onClick={()=>{navigate("/addOrganisation") }}>Ajouter Organization</button>
+               <div className="col-12">
+           <div className="text-right my-2 pr-1">
+             <i style={{fontSize: '2rem', cursor: 'pointer', color: '#4bb543'}} onClick={() => {navigate('/addOrganisation')}} className="fas fa-plus-circle mx-auto" />
+           </div>
+         </div>
+       
 
 <ListOrganisationForUser/>
           </div>

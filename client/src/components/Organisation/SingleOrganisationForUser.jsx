@@ -3,6 +3,9 @@ import { useLocation, useNavigate } from 'react-router';
 import { useDispatch, useSelector } from "react-redux";
 import { allorganisation} from "../../actions/Organisations/OrganisationCrud.actions";
 // import styled from 'styled-components';
+import './aaa.css'
+
+
 
 import { Navigate } from "react-router-dom";
 function SingleOranisationForUser(props) {
@@ -12,15 +15,16 @@ function SingleOranisationForUser(props) {
   const [organisation, setOrganisation] = useState(props.organisation);
 
   const navigate = useNavigate();
-  
+ 
 
   return (
     <div className="col-xl-4 col-lg-4 col-md-6">
-      <div className="causes white-bg mb-30">
+      {/* <div className="causes white-bg mb-30"> */}
         <div className="causes__img">
           {/* <button type="button"   onClick={() => {
                 dispatch(RetrieveProject(project._id)); navigate('/ProjectDetails/'+project._id);}}class="btn btn-outline-info btn-rounded" data-mdb-ripple-color="dark" >Info</button> */}
-          <img src={`Uploads/${organisation.Image}`} alt="" />
+          <a onClick={()=>
+          navigate('/organisationDetails',{state:{id:organisation._id,image:organisation.Image,name:organisation.name,phone:organisation.phone,fax:organisation.fax,adress:organisation.adress,description:organisation.description,Secteur:organisation.Secteur,ownerName:organisation.ownerName,email:organisation.email}}) }> <img src={`Uploads/${organisation.Image}`} className='photo' alt="" /></a>
           
         </div>
 
@@ -29,7 +33,8 @@ function SingleOranisationForUser(props) {
 
         <div className="causes__caption">
           <div className="causes-tag mb-20">
-            <a href="/"> {organisation.name}</a>
+            <a onClick={()=>
+          navigate('/organisationDetails',{state:{id:organisation._id,image:organisation.Image,name:organisation.name,phone:organisation.phone,fax:organisation.fax,adress:organisation.adress,description:organisation.description,Secteur:organisation.Secteur,email:organisation.email,ownerName:organisation.ownerName}}) }> {organisation.name}</a>
           </div>
           {/* <h4><a href="fund-details.html"> email{organisation.email}</a></h4> */}
           
@@ -40,25 +45,19 @@ function SingleOranisationForUser(props) {
          
          
           <p>{organisation.description}</p>
-          <br></br><br></br>
+          
 
 
 
-      
 <div style={{width: '500px',display:'inline-block',width:'130px',textAlign: 'center'}}>
 
-<button  type="submit" class="btn" onClick={() => props.delete(organisation._id)}>Delete</button>
 
-<button  className="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i className="fa fa-trash"></i></button> 
- <button  className="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i className="fa fa-trash"></i></button> 
-
-<button class="btn btn-black" onClick={() => {
-  navigate('/updateOrganisation',{state:{id:organisation._id,image:organisation.Image,name:organisation.name,phone:organisation.phone,fax:organisation.fax,adress:organisation.adress,description:organisation.description,Secteur:organisation.Secteur,email:organisation.email}})  }} type="submit">Upadate</button>
-<button type="button"   onClick={() => {
-   navigate('/organisationDetails',{state:{id:organisation._id,image:organisation.Image,name:organisation.name,phone:organisation.phone,fax:organisation.fax,adress:organisation.adress,description:organisation.description,Secteur:organisation.Secteur,email:organisation.email}})  }}class="btn btn-outline-info btn-rounded" data-mdb-ripple-color="dark" >Info</button>
-
-<button type="button"   onClick={() => {navigate('/addProject',{state:{id:organisation._id}})}} className="btn btn-outline-info btn-rounded" data-mdb-ripple-color="dark" >Info</button>
-
+&nbsp;<i className="fa fa-trash " style={{fontSize: '48px',color: 'red',cursor: 'pointer'}}  onClick={() => props.delete(organisation._id)}></i>
+&nbsp; <i className="fa fa-edit" style={{fontSize: '48px',color: '#2c9646',cursor: 'pointer'}}  onClick={() => {
+  navigate('/updateOrganisation',{state:{id:organisation._id,image:organisation.Image,name:organisation.name,phone:organisation.phone,fax:organisation.fax,adress:organisation.adress,description:organisation.description,Secteur:organisation.Secteur,email:organisation.email}})  }} ></i>
+             
+             <i className="fa fa-info" onClick={() => {
+   navigate('/organisationDetails',{state:{id:organisation._id,image:organisation.Image,name:organisation.name,phone:organisation.phone,fax:organisation.fax,adress:organisation.adress,description:organisation.description,Secteur:organisation.Secteur,email:organisation.email,ownerName:organisation.ownerName}})  }} style={{fontSize: '48px',color:'#3981f3',cursor: 'pointer'}} ></i>
 
 </div>
 
@@ -98,7 +97,7 @@ function SingleOranisationForUser(props) {
           </div> */}
         </div>
       </div>
-    </div>
+    // </div>
 
   )
 }

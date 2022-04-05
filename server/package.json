@@ -7,6 +7,7 @@
     "server": "nodemon app.js"
   },
   "dependencies": {
+    "array-list": "^1.0.8",
     "bcryptjs": "^2.4.3",
     "colors": "^1.4.0",
     "cookie-parser": "~1.4.4",

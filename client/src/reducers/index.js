@@ -2,6 +2,8 @@ import { combineReducers } from "redux";
 import auth from "./auth";
 import projects from "../reducers/Projects/project.reducers";
 import organisations from "../reducers/Organisations/organisation.reducers";
+import followers from "../reducers/Organisations/follow.reducers";
+import owner from "../reducers/Organisations/owner.reducer";
 import message from "./message";
 import navigation from "./navigation";
 import postReducer from "./postReducer";
@@ -12,5 +14,7 @@ export default combineReducers({   //t'importi el reducers li bech  yetaamlou ma
   navigation,
   post: postReducer,
   projects,
-  organisations
+  organisations,
+  followers,
+  owner
 });

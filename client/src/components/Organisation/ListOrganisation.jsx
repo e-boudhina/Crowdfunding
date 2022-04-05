@@ -53,6 +53,8 @@ const { message } = useSelector(state => state.message);
     console.log(organisations.Organisations); 
     
 
+    const [status, setStatus] = useState(false)
+
     useEffect(() => {
       history.listen((location) => {
         dispatch(clearMessage()); // clear message when changing location
@@ -61,11 +63,23 @@ const { message } = useSelector(state => state.message);
      
     const sami=()=>{
         if(message.includes("You")){
-            return true
+          console.log(message);
+          console.log(true);
+          setStatus(true) 
         }
-return false
     }
  
+
+
+    const f=() =>{
+     if( message.includes("You")){
+      console.log("YOu already followed that organisation");
+     setStatus(true)
+
+     
+     }
+     
+    }
 
 
     const { user: currentUser } = useSelector((state) => state.auth);
@@ -74,15 +88,16 @@ return false
   }
     // console.log(projects.projects[0]._id); 
     return (
+      <div className="container">
 
-        <div className="container">
+              
+          <div>
+             
 
-            
-         <div style={{width:'200'}}>
 
 
-             {sami}
-    {sami ? (
+             {f}
+    { status ?(
       <div className="form-group">
       <div className="alert alert-danger" role="alert">
       {message}
