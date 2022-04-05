@@ -12,13 +12,50 @@ var arrayList = require('array-list')
 
 
 exports.Project = (req, res) => {
+  var list = arrayList()
+
   Project.find({}, (err, result) => {
     if (err) {
       res.json(err);
     }
     else {
       console.log(result);
-      res.json(result)
+      result.forEach(element => {
+  
+        if(element.status===1){
+        list.push(element);
+        }
+        
+        });
+      res.json(list)
+    }
+  });
+};
+
+exports.getProjectToValidate = (req, res) => {
+  var list = arrayList()
+  Project.find({}, (err, result) => {
+
+    if (err) {
+
+
+      res.json(err);
+    }
+    else {
+   
+
+
+
+      result.forEach(element => {
+        console.log(element);
+      
+      
+        if(element.status===0){
+          list.push(element);
+        }
+      
+      });
+      res.json(list);
     }
   });
 };
@@ -122,9 +159,9 @@ exports.getProjectOfOrg = (req, res) => {
     
 organisation.projects.forEach(element => {
   
-
+if(element.status===1){
 list.push(element);
-
+}
 
 });
 res.json(list)
@@ -135,6 +172,50 @@ res.json(list)
 
 );
 // res.json(list)
+
+}
+exports.validateProject = (req, res) => {
+  var list = arrayList()
+  
+  Project.findOne({ _id: req.params.id })
+  .exec(
+
+    function (err, project) {
+      if (err) return handleError(err);
+  
+      project.status=1;
+      project.save();
+
+
+      // prints "The author is Ian Fleming"
+    }
+
+
+
+);
+res.json({message:'validation done successfully'})
+
+}
+exports.ignoreProject = (req, res) => {
+  var list = arrayList()
+  
+  Project.findOne({ _id: req.params.id })
+  .exec(
+
+    function (err, project) {
+      if (err) return handleError(err);
+  
+      project.status=2;
+      project.save();
+
+
+      // prints "The author is Ian Fleming"
+    }
+
+
+
+);
+res.json({message:'Ignorance done successfully'})
 
 }
 

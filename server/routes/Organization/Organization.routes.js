@@ -112,6 +112,6 @@ app.post("/api/organization/isFollowed/:id/:idUser",controller.isFollowed);
 app.post("/api/organization/addProjectToOrganization/:idOrganization/:idProject",controller.addProjectToOrganization);
 app.post("/api/organization/unfollow/:id/:idUser",controller.unfollowOrganization);
 app.delete("/api/organization/delete/:id",controller.deleteOrganization);
-app.delete("/api/organization/getUser/:username",controller.getUser);
+// app.delete("/api/organization/getUser/:username",controller.getUser);
 // app.put("/api/organization/update",controller.getOrganizationByUser);
 };

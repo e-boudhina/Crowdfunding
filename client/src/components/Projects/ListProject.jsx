@@ -64,7 +64,18 @@ window.location.reload();
         <h3>
          List of Projects:
         </h3>
-        
+        <div className="col-lg-8">
+        <div className="widget mb-40">
+            <div className="widget-title-box mb-30">
+              <span className="animate-border" />
+              <h3 className="widget-title">Search Projects</h3>
+            </div>
+            <form className="search-form">
+              <input type="text" placeholder="Search" />
+              <button type="submit"><i className="fas fa-search" /></button>
+            </form>
+          </div>
+        </div>
         
       <div className="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
         <div className="row">
@@ -82,12 +93,16 @@ projects.projects.map((element)=>{
 
   return(
 
+    (element.status===1)?
+          <SingleProject delete={deletee} project={element} owner={ownerName}></SingleProject>
+          : <></>
     
-    <SingleProject delete={deletee} project={element} owner={ownerName}></SingleProject>
-  )  
+    )  
   }
     )
   }
+
+  
 
 </div>
         </div>

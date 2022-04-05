@@ -6,6 +6,7 @@ import { allorganisation} from "../../actions/Organisations/OrganisationCrud.act
 import './aaa.css'
 
 
+
 import { Navigate } from "react-router-dom";
 function SingleOranisationForUser(props) {
   const dispatch = useDispatch();
@@ -14,7 +15,7 @@ function SingleOranisationForUser(props) {
   const [organisation, setOrganisation] = useState(props.organisation);
 
   const navigate = useNavigate();
-  
+ 
 
   return (
     <div className="col-xl-4 col-lg-4 col-md-6">

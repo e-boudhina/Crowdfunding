@@ -13,6 +13,7 @@ import Footer from "./components/Footer";
 import ProjectDetails from "./components/Projects/ProjectDetails"
 import ListPProject from "./components/Projects/ListProject"
 import UpdateProject from "./components/Projects/UpdateProject"
+import ListProjectToValidate from "./components/Projects/ListProjectToValidate"
 import OrganisationAdd from "./components/Organisation/AddOrganisation"
 import AddOrganisation1 from "./components/Organisation/addOrganisation1"
 import UppdateOrganisation from "./components/Organisation/UpdateOrganisation"
@@ -84,6 +85,7 @@ const App = () => {
             <Route path={"/admin"} element={<Adminboard />}>
             <Route path={'/admin/ListOrganisation'} element={< ListOrganisationForAdmin/>} />
             <Route  path={"/admin/listchapters"} element={< Listchapter/>}/>
+            <Route  path={"/admin/ListProjectToValidate"} element={<ListProjectToValidate/>}/>
             <Route  path={"/admin/add"} element={<Add/>}/>
             </Route>
 

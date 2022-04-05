@@ -38,6 +38,7 @@ app.get("/api/project/all",controller.Project);
      fundneeded: req.body.fundneeded,
 
      fundcollected: 0,
+     status: 0,
      Image :req.file.originalname
  });
  project.save((err, project) => {
@@ -109,6 +110,8 @@ app.get("/api/project/getProjectOfOrg/:id",controller.getProjectOfOrg);
 app.post("/api/project/addProjectToId/:id/:idProject",controller.addProjectToOrg);
 app.get("/api/project/searchProjects/:keyword",controller.searchProjects);
 app.get("/api/project/getFollowersOfOrg/:id",controller.geyFollowersOfOrg);
+app.post("/api/project/validateProject/:id",controller.validateProject);
+app.get("/api/project/getProjectToValidate",controller.getProjectToValidate);
 
 
 

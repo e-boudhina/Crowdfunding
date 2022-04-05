@@ -4,7 +4,8 @@ import {
     DELETE_PROJECT,
     UPDATE_PROJECT,
     GET_SINGLE_PROJECT,
-    GET_PROJECTS_ORG
+    GET_PROJECTS_ORG,
+    GET_PROJECTS_TO_VALIDATE
   } from "../../actions/Projects/Type";
 
 const initialState={
@@ -31,6 +32,15 @@ projects:[]
         return {
           ...state,
           project: action.payload,
+
+        } ;
+     
+
+      case GET_PROJECTS_TO_VALIDATE:
+       console.log(action.payload);
+        return {
+          ...state,
+          projects: action.payload,
 
         } ;
 

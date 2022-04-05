@@ -77,7 +77,10 @@ function SingleProject(props) {
 </div>
   :
   <></>
+
+  
               }
+              
             </div>
           </div>
         </div>
