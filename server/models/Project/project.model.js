@@ -12,7 +12,8 @@ var ProjectSchema = new mongoose.Schema({
     projectdescriptiob: String ,
     fundneeded: Number,
     fundcollected: Number,
-  Image:String
+  Image:String,
+  status:Number
     // incubator: {
     //     type: mongoose.Schema.Types.ObjectId,
     //     ref: "incubator"

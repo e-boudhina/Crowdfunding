@@ -24,11 +24,16 @@ Organisations:[],
           ...state,
           Organisations: action.payload,
         };
+
       case     GET_ORGANISATION:
         return {
           ...state,
           Organisations: action.payload,
         };
+      // case     Follow_Organisation:
+      //   return {
+
+      //   };
       // case GET_SINGLE_PROJECT:
       //  console.log(action.payload);
       //   return {

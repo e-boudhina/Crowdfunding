@@ -210,6 +210,13 @@ function Header() {
                               Profile{" "}
                             </Link>{" "}
                           </li>
+                            <li>
+                            {" "}
+                            <Link to={"/ListOrganisation"} className="nav-link">
+                              {" "}
+                              Organisations{" "}
+                            </Link>{" "}
+                          </li>
                         
                           <li>
                             {" "}
