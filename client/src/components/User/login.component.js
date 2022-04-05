@@ -53,12 +53,18 @@ const Login = (props) => {
     return <Navigate to="/profile" />;
   }
   return (
-    <div className="col-md-12">
-      <div className="card card-container">
+
+      <div className="login-area pt-120 pb-120">
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-8 offset-lg-2">
+              <div className="basic-login">
+                <h3 className="text-center mb-60">Login From Here</h3>
         <img
           src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
           alt="profile-img"
-          className="profile-img-card"
+          width={'100px'}
+          className="rounded mx-auto d-block"
         />
         <Form onSubmit={handleLogin} ref={form}>
           <div className="form-group">
@@ -84,6 +90,17 @@ const Login = (props) => {
             />
           </div>
           <div className="form-group">
+            <div className="login-action mb-20 fix">
+        {/*<span className="log-rem f-left">*/}
+        {/*  <input id="remember" type="checkbox" />*/}
+        {/*  <label htmlFor="remember">Remember me!</label>*/}
+        {/*</span>*/}
+              <span className="forgot-login f-right">
+          <a href="/reset-password">Lost your password?</a>
+        </span>
+            </div>
+          </div>
+          <div className="form-group">
             <button className="btn btn-primary btn-block" disabled={loading}>
               {loading && (
                 <span className="spinner-border spinner-border-sm"></span>
@@ -91,6 +108,12 @@ const Login = (props) => {
               <span>Login</span>
             </button>
           </div>
+          <div className="form-group">
+            <div className="or-divide"><span>or</span></div>
+            <a className="btn w-100" href="/register">Register Now</a>
+
+          </div>
+
           {message && (
             <div className="form-group">
               <div className="alert alert-danger" role="alert">
@@ -100,8 +123,12 @@ const Login = (props) => {
           )}
           <CheckButton style={{ display: "none" }} ref={checkBtn} />
         </Form>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+
   );
 };
 export default Login;

@@ -304,6 +304,13 @@ document.body.appendChild(document.createElement("script")).src = "assets-back/j
                     </Link>
                   </li>
                   <li>
+
+                    <Link to="/admin/users" className="waves-effect">
+                      <i className="ti-home" />
+                      <span>List  Users</span>
+                    </Link>
+                  </li>
+
                     <Link to="/admin/ListOrganisation" className="waves-effect">
                       <i className="ti-home" /><span className="badge rounded-pill bg-primary float-end">2</span>
                       <span>List  of organisation</span>
@@ -327,6 +334,7 @@ document.body.appendChild(document.createElement("script")).src = "assets-back/j
                       <span>List  of projects to validate</span>
                     </Link>
                   </li> */}
+
                 </ul>
               </div>
               {/* Sidebar */}

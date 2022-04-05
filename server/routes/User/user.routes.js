@@ -20,6 +20,9 @@ module.exports = function(app) {
     app.post("/api/user/update", controller.updateUserProfile);
     app.delete("/api/user/delete", controller.deleteUser);
     app.get("/api/user/searchusers/:keyword",controller.searchUsers);
+    //Getting all users
+    app.get("/api/user",controller.getUsers);
+
     app.get("/api/user/:username",controller.FindSingleProfile);
     //Become admin
     app.post("/api/user/makeAdmin", controller.makeAdmin);

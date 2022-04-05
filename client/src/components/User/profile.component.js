@@ -21,6 +21,8 @@ const Profile = (props) => {
  const { message } = useSelector((state) => state.message);
   const { infos: currentInfos } = useSelector((state) => state.auth);
   const { isLoggedIn: IsLoggedIn } = useSelector((state) => state.auth);
+  // const { verified: verified} = useSelector((state) => state.auth);
+  // console.log("is user logged in"+isLoggedIn)
 
 
 
