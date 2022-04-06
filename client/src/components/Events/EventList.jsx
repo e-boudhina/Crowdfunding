@@ -98,7 +98,7 @@ const EventList = (props) => {
              </td>
              
              
-              <button type="button"   onClick={() => {
+              <button type="button" className="btn btn-primary btn-sm"   onClick={() => {
                  navigate('/eventsdet',{state:{id:event._id,event:event.EventName,EventName:event.EventDescription,EventDescription:event.StartDate,StartDate:event.EndDate}});}}class="btn btn-outline-info btn-rounded" data-mdb-ripple-color="dark" >Info</button>
           
           

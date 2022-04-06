@@ -11,6 +11,7 @@ const EventDetails = (props) => {
     EventDescription: "",
  
   };
+
   const navigate=useNavigate();
   const [event, setEvent] = useState(props.event);
 
