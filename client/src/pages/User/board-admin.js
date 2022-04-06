@@ -60,7 +60,7 @@ document.body.appendChild(document.createElement("script")).src = "assets-back/j
               <div className="d-flex">
                 {/* LOGO */}
                 <div className="navbar-brand-box">
-                  <a href="index.html" className="logo logo-dark">
+                  <a href="/" className="logo logo-dark">
                     <span className="logo-sm">
                       <img src="../assets-back/images/logo-sm.png" alt="" height={22} />
                     </span>
