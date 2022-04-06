@@ -134,8 +134,15 @@ const OrganisationAdd = (props) => {
       
               console.log(formData);
             //   props.history.push("/profile");
-            navigate("/profile")
-              window.location.reload();
+
+            setTimeout(()=>{
+                //dispatch(clearMessage())
+                    navigate("/profile")
+            }
+            ,5000)
+
+            
+             
             //   
             })
             .catch((e) => {

@@ -111,6 +111,7 @@ app.post("/api/project/addProjectToId/:id/:idProject",controller.addProjectToOrg
 app.get("/api/project/searchProjects/:keyword",controller.searchProjects);
 app.get("/api/project/getFollowersOfOrg/:id",controller.geyFollowersOfOrg);
 app.post("/api/project/validateProject/:id",controller.validateProject);
+app.post("/api/project/IgnoreProject/:id",controller.ignoreProject);
 app.get("/api/project/getProjectToValidate",controller.getProjectToValidate);
 
 
