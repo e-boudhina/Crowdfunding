@@ -64,30 +64,19 @@ const dispatch = useDispatch();
 
 
     console.log(formData);
-    //  formData.current.validateAll();
-    // if (checkBtn.current.context._errors.length === 0) {
-    dispatch(Update(location.state.id,formData))
+    
+    dispatch(Update(location.state._id,formData))
     
         .then(() => {
 
             console.log(formData);
             navigate("/eventlist");
-            // props.history.push("/ListProject");
-            // window.location.reload();
+           window.location.reload();
          
         }).
         catch((e) => {
             console.log(e);
         });
-
-
-    // } else {
-    //   // setLoading(false);
-    // }
-    // };
-    // if (ProjectAdded) {
-    //   return navigate("/ListProject");
-    // }
 };
     return(
         <section className="contact-form-area">

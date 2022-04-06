@@ -1,24 +1,6 @@
 
 export default function Events(props){
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     return(
 
         <body>
@@ -68,10 +50,10 @@ export default function Events(props){
                     <div className="basic-tab">
                       <ul className="nav tab-menu justify-content-center mb-50" id="eventTab" role="tablist">
                         <li className="nav-item">
-                          <a className="nav-link" id="home-tabe" data-toggle="tab" href="/eventsdet" role="tab" aria-selected="false">day 01</a>
+                          <a className="nav-link" id="home-tabe" data-toggle="tab" href="#contacte" role="tab" aria-selected="false">day 01</a>
                         </li>
                         <li className="nav-item">
-                          <a className="nav-link" id="profile-tabe" data-toggle="tab" href="/eventsdet" role="tab" aria-selected="false">day 02</a>
+                          <a className="nav-link" id="profile-tabe" data-toggle="tab" href="#contacte" role="tab" aria-selected="false">day 02</a>
                         </li>
                         <li className="nav-item">
                           <a className="nav-link active show" id="contact-tabe" data-toggle="tab" href="#contacte" role="tab" aria-selected="true">day 03</a>

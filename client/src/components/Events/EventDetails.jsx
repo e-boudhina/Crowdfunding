@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Update, RemoveEvent } from "../../actions/eventActions";
 import EventService from "../../services/event.service";
+import { useNavigate} from 'react-router-dom'
 
 const EventDetails = (props) => {
   const initialEventState = {
@@ -10,6 +11,9 @@ const EventDetails = (props) => {
     EventDescription: "",
  
   };
+  const navigate=useNavigate();
+  const [event, setEvent] = useState(props.event);
+
   const [currentEvent, setCurrentEvent] = useState(initialEventState);
   const [message, setMessage] = useState("");
   const dispatch = useDispatch();
@@ -120,23 +124,20 @@ const EventDetails = (props) => {
             <div className="event-day-time pl-15">
               <div className="section-title mb-35">
                 <p><span /> funding rebound program</p>
-                <h1>Event Name</h1>
+                <h1>Fundraising Event</h1>
               </div>
               <ul className="event-place pt-35 pb-15 mb-30">
                 <li><span>Venue</span>: New York, UK</li>
                 <li><span>Sponsor</span>: Robert Bruce Co.</li>
               </ul>
-              <p>hey</p>
+              <p>Raffles have been a staple fundraiser throughout the decades. They are simple and require little effort. The raffle can be presented and advertised through websites, social medias, and emailing lists. Having a landing page for the event provides background information, and it can also offer more festivities for the event if videos and pictures are featured on said landing page.  Chance2Win is an online program that sets up virtual raffles, but their service fees are on the expensive side, especially for smaller nonprofits. Fortunately, setting up a raffle through your website is inexpensive and quite easy.</p>
               <p>This is the event description</p>
               <a className="btn" >Join<img src="assets/img/icon/arrow.png" alt="" /></a>
               <br/>
 
-              <a className="btn" href="/update">Update<img src="assets/img/icon/arrow.png" alt="" /></a>
-              <br/>
-
-              <a className="btn" href="#">Delete<img src="assets/img/icon/arrow.png" alt="" /></a>
-
-            </div>
+            
+          &nbsp;<i className="fa fa-trash" onClick={() => props.delete(event._id)} style={{fontSize: '48px', color: 'red',cursor: 'pointer'}}>&nbsp;</i>&nbsp;
+          </div>
           
           </div>
         </div>
