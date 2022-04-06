@@ -92,15 +92,11 @@ const EventList = (props) => {
              <td><span className="badge bg-success">{event.EndDate}</span></td>
              <td>
                <div>
-                 <a href="" className="btn btn-primary btn-sm">view Projects</a>
+                 <a href="/update" className="btn btn-primary btn-sm">Update</a>
                </div>
              </td>
-             <Link
-              to={"/eventsdet/" + currentEvent.id}
-              className="badge badge-warning"
-            >
-              Edit
-            </Link>
+             
+             
               <button type="button"   onClick={() => {
                  navigate('/eventsdet',{state:{id:event._id,event:event.EventName,EventName:event.EventDescription,EventDescription:event.StartDate,StartDate:event.EndDate}});}}class="btn btn-outline-info btn-rounded" data-mdb-ripple-color="dark" >Info</button>
            

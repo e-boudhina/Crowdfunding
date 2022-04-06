@@ -42,10 +42,7 @@ const dispatch = useDispatch();
     const EventDescription = e.target.value;
     setEventDescription(EventDescription);
   };
-  useEffect(() => {
-    
-    setEventName(props.event.EventName)
-    }, [props.event.EventName])
+
   const onChangeStartDate= (e) => {
     const StartDate = e.target.value;
     setStartDate(StartDate);
