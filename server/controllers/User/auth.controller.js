@@ -70,7 +70,7 @@ const signup = asyncHandler(async (req, res,next) => {
     password: bcrypt.hashSync(req.body.password, 8),
      verifyEmailToken: await generate_custom_token(),
      img: {
-      data: fs.readFileSync(path.join(process.cwd()+'/uploads/'+req.file.filename)),
+      data: req.file.filename,
       contentType: 'image/png'
   }
     // verifyEmailToken: crypto.randomBytes(32).toString("hex") // this function can be either used synchronously or asynchronously
@@ -78,7 +78,7 @@ const signup = asyncHandler(async (req, res,next) => {
     // it had an error and a buffer as return callback
 
   });
-
+console.log('/uploads/'+req.file.filename);
   user.save(async (err, user) => {
     if (err) {
       res.status(500).send({ message: err });

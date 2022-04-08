@@ -122,6 +122,7 @@ exports.FindSingleProfile = (req, res) => {
           verified: 1,
           phone:1,
           roles: 1,
+          img:1,
         }
       ).populate("roles", "-__v").then
         (data => {

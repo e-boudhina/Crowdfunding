@@ -1,12 +1,13 @@
 const { verifySignUp } = require("../../middlewares");
 const controller = require("../../controllers/User/auth.controller");
+var path = require('path');
 module.exports = function(app) {
   var multer = require('multer');
   
   var storage = multer.diskStorage({
       destination: (req, file, cb) => {
           console.log("FIELDNAME "+file.fieldname);
-          cb(null, 'uploads')
+          cb(null,path.join(__dirname, '../../../client/public/profile-uploads'))
       },
       filename: (req, file, cb) => {
           console.log("ORIGINAL NAME "+file.originalname);
