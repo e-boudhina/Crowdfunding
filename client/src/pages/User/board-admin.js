@@ -311,6 +311,7 @@ document.body.appendChild(document.createElement("script")).src = "assets-back/j
                     </Link>
                   </li>
 
+                  <li>
                     <Link to="/admin/ListOrganisation" className="waves-effect">
                       <i className="ti-home" /><span className="badge rounded-pill bg-primary float-end">2</span>
                       <span>List  of organisation</span>
@@ -382,7 +383,7 @@ document.body.appendChild(document.createElement("script")).src = "assets-back/j
               </div> {/* container-fluid */}
             </div>
             {/* End Page-content */}
-      
+            <Outlet/>
           </div>
           {/* end main content*/}
         </div>
@@ -430,13 +431,14 @@ document.body.appendChild(document.createElement("script")).src = "assets-back/j
         {/* /Right-bar */}
         {/* Right bar overlay*/}
         <div className="rightbar-overlay" />
-        {/* JAVASCRIPT */}
-  
-      </div>
-    );
-  
-    <Outlet/>
-    </>
+    {/* JAVASCRIPT */}
+
+  </div>
+        );
+
+
+      </>
   );
 };
-export default Dashboardadmin;
+
+export default Dashboardadmin
