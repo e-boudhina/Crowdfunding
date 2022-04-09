@@ -18,19 +18,20 @@ module.exports = function(app) {
     app.get("/api/test/admin", [authJwt.verifyToken, authJwt.isAdmin],  controller.adminBoard );
 
     app.post("/api/user/update", controller.updateUserProfile);
-    app.delete("/api/user/delete", controller.deleteUser);
+    app.delete("/api/user/:userId", controller.deleteUser);
     app.get("/api/user/searchusers/:keyword",controller.searchUsers);
     //Getting all users
     app.get("/api/user",controller.getUsers);
 
     app.get("/api/user/:username",controller.FindSingleProfile);
     //Become admin
-    app.post("/api/user/makeAdmin", controller.makeAdmin);
+    app.post("/api/user/makeAdmin/:id", controller.makeAdmin);
 
     //Admin can not become incubator? - Verify admin middleware missing admin role verification
-    app.post("/api/user/makeIncubator", [verify_Admin], controller.makeIncubator);
+    app.post("/api/user/makeIncubator/:id", controller.makeIncubator);
 
     //Banning user
-    app.post("/api/user/ban", [verify_Admin], controller.banUser);
+    app.post("/api/user/ban/:username", controller.banUser);
+    app.post("/api/user/unban/:username", controller.unbanUser);
 
   };

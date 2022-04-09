@@ -5,6 +5,9 @@ const asyncHandler = require('express-async-handler')
 
 const verify_Admin =  asyncHandler(async (req, res, next) => {
 
+    return res.status(200).send({usertoken: req.headers})
+    // you need to change this use the token
+
     const {userId} = req.body
 
     if(!userId){

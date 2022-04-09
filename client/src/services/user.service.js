@@ -30,6 +30,20 @@ export const getUser  =  (username) =>{
 const getUsers = ()=> {
   return  axios.get(API_URL )
 }
+const deleteUser = (id)=> {
+  return  axios.delete(API_URL +`${id}`)
+}
+const banUser = (username)=> {
+  return  axios.post(API_URL+`ban/${username}`)
+}
+const unbanUser = (username)=> {
+  return  axios.post(API_URL+`unban/${username}`)
+}
+const makeAdmin = (id)=> {
+  return  axios.post(API_URL+`makeAdmin/${id}`)
+}
+
+
 export default {
   getPublicContent,
   getUserBoard,
@@ -38,6 +52,10 @@ export default {
   getAllUsers,
   updateUser,
   getUser,
-  getUsers
+  getUsers,
+  banUser,
+  unbanUser,
+  deleteUser,
+  makeAdmin
   //refreshUser
 };

@@ -15,7 +15,9 @@ const Dashboardadmin = (props) => {
   const { infos: currentInfos } = useSelector((state) => state.auth);
   const { isLoggedIn: IsLoggedIn } = useSelector((state) => state.auth);
 
-
+function isUserAdmin () {
+  return currentUser.roles.includes("ROLE_ADMIN");
+  }
 useEffect(() => {
 
     if  ((!currentUser) || (!currentUser.roles.includes("ROLE_ADMIN"))){

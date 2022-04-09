@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {get_Users} from "../../actions/User/user";
+import {get_Users, ban_User, unban_User, delete_User, make_Admin} from "../../actions/User/user";
 import {useDispatch, useSelector} from "react-redux";
 
 
@@ -9,8 +9,6 @@ const Users = () => {
     const users = useSelector((state) => state.users);
     console.log(users)
     useEffect(async () => {
-
-        //git pudocument.body.appendChild(document.createElement("script")).src = "assets-back/libs/jquery/jquery.min.js";
         dispatch(get_Users())
         // console.log(users.length)
     }, []);
@@ -45,10 +43,16 @@ const Users = () => {
                             {/*<td><span className="badge bg-success">{tutorial.createdAt}</span></td>*/}
                             <td>
                                 <div>
-                                    <a href="#" className="btn btn-primary btn-sm">Edit</a>&nbsp;
-                                    <a href="#" className="btn btn-blue-grey btn-sm">Ban</a>&nbsp;
-                                    <a href="#" className="btn btn-danger btn-sm">Delete</a>&nbsp;
-                                    <a href="#" className="btn btn-outline-dark btn-sm">Make Admin</a>
+                                    <a href="" className="btn btn-primary btn-sm">Edit</a>&nbsp;
+                                    {user.isBanned ?
+                                        <a onClick={()=>dispatch(unban_User(user.username))} className="btn btn-success btn-sm">Unban</a>
+                                        :
+                                        <a onClick={()=>dispatch(ban_User(user.username))} className="btn btn-blue-grey btn-sm">Ban</a>
+                                    }&nbsp;
+
+
+                                    <a onClick={()=>dispatch(delete_User(user._id))} className="btn btn-danger btn-sm">Delete</a>&nbsp;
+                                    <a  onClick={()=>dispatch(make_Admin(user._id))}className="btn btn-outline-dark btn-sm">Make Admin</a>
 
                                 </div>
                             </td>

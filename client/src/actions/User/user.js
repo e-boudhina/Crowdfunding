@@ -1,5 +1,17 @@
 import UserService from "../../services/user.service";
-import {FETCHING_USERS_FAILED, FETCHING_USERS_SUCCESS, GET_USERS} from "../type";
+import {
+    DELETING_USER_FAILED,
+    DELETING_USER_SUCCESS,
+    FETCHING_USERS_FAILED,
+    FETCHING_USERS_SUCCESS,
+    GET_USERS,
+    MAKE_USER_ADMIN_FAILED,
+    MAKE_USER_ADMIN_SUCCESS,
+    USER_BAN_FAILED,
+    USER_BAN_SUCCESS,
+    USER_UNBAN_FAILED,
+    USER_UNBAN_SUCCESS
+} from "../type";
 import {SET_MESSAGE} from "../Organisations/Type";
 
 export const  get_Users =  () =>   (dispatch) => {
@@ -35,3 +47,152 @@ export const  get_Users =  () =>   (dispatch) => {
         }
     );
 };
+
+export const  delete_User =  (id) =>   (dispatch) => {
+
+    return UserService.deleteUser(id).then(
+        (data) => {
+          //  console.log('Delete return message')
+           // console.log(data.data)
+            dispatch({
+                type: DELETING_USER_SUCCESS,
+            });
+            dispatch({
+                type: SET_MESSAGE,
+                payload: data.data.message,
+            });
+            return Promise.resolve();
+        },
+        (error) => {
+            // console.log("Error message here:")
+
+            const message =
+                (error.response &&
+                    error.response.data &&
+                    error.response.data.message) ||
+                error.message ||
+                error.toString();
+
+            dispatch({
+                type: DELETING_USER_FAILED,
+            });
+            dispatch({
+                type: SET_MESSAGE,
+                payload: message,
+            });
+
+            return Promise.reject();
+        }
+    );
+};
+export const  ban_User =  (username) =>   (dispatch) => {
+
+    return UserService.banUser(username).then(
+        (data) => {
+            //console.log('Delete return message')
+            //console.log(data.data.message)
+            dispatch({
+                type: USER_BAN_SUCCESS,
+            });
+            dispatch({
+                type: SET_MESSAGE,
+                payload: data.data.message,
+            });
+            return Promise.resolve();
+        },
+        (error) => {
+            // console.log("Error message here:")
+
+            const message =
+                (error.response &&
+                    error.response.data &&
+                    error.response.data.message) ||
+                error.message ||
+                error.toString();
+
+            dispatch({
+                type: USER_BAN_FAILED,
+            });
+            dispatch({
+                type: SET_MESSAGE,
+                payload: message,
+            });
+            return Promise.reject();
+        }
+    );
+};
+
+export const  unban_User =  (username) =>   (dispatch) => {
+
+    return UserService.unbanUser(username).then(
+        (data) => {
+            //console.log('Delete return message')
+            //console.log(data.data.message)
+            dispatch({
+                type: USER_UNBAN_SUCCESS,
+            });
+            dispatch({
+                type: SET_MESSAGE,
+                payload: data.data.message,
+            });
+            return Promise.resolve();
+        },
+        (error) => {
+            // console.log("Error message here:")
+
+            const message =
+                (error.response &&
+                    error.response.data &&
+                    error.response.data.message) ||
+                error.message ||
+                error.toString();
+
+            dispatch({
+                type: USER_UNBAN_FAILED,
+            });
+            dispatch({
+                type: SET_MESSAGE,
+                payload: message,
+            });
+            return Promise.reject();
+        }
+    );
+};
+
+export const  make_Admin =  (id) =>   (dispatch) => {
+
+    return UserService.makeAdmin(id).then(
+        (data) => {
+            //console.log('Delete return message')
+            //console.log(data.data.message)
+            dispatch({
+                type: MAKE_USER_ADMIN_SUCCESS,
+            });
+            dispatch({
+                type: SET_MESSAGE,
+                payload: data.data.message,
+            });
+            return Promise.resolve();
+        },
+        (error) => {
+            // console.log("Error message here:")
+
+            const message =
+                (error.response &&
+                    error.response.data &&
+                    error.response.data.message) ||
+                error.message ||
+                error.toString();
+
+            dispatch({
+                type: MAKE_USER_ADMIN_FAILED
+            });
+            dispatch({
+                type: SET_MESSAGE,
+                payload: message,
+            });
+            return Promise.reject();
+        }
+    );
+};
+
