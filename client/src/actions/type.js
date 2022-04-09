@@ -28,3 +28,8 @@ export const TOGGLE_SIDEBAR = "TOGGLE_SIDEBAR";
 export const  FETCHING_USERS_SUCCESS = "FETCHING_USERS_SUCCESS"
 export const  FETCHING_USERS_FAILED= "FETCHING_USERS_FAILED"
 export const  GET_USERS= "GET_USERS"
+
+export const CREATE_Event = "CREATE_Event";
+export const RETRIEVE_Event = "RETRIEVE_Event";
+export const UPDATE_Event = "UPDATE_Event";
+export const DELETE_Event = "DELETE_Event";

@@ -8,6 +8,7 @@ import owner from "../reducers/Organisations/owner.reducer";
 import message from "./message";
 import navigation from "./navigation";
 import postReducer from "./postReducer";
+import events from "./event";
 
 export default combineReducers({   //t'importi el reducers li bech  yetaamlou maa l store 
   auth,
@@ -18,6 +19,9 @@ export default combineReducers({   //t'importi el reducers li bech  yetaamlou ma
   organisations,
   users,
   followers,
-  owner  
-});
+  owner  ,
 
+
+
+  events
+});

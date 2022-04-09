@@ -33,6 +33,16 @@ import Profileconsult from "./components/User/profileconsult.component"
 import Adminboard from "./pages/User/board-admin"
 
 import "react-datepicker/dist/react-datepicker.css"
+//import AddEvents from "./pages/Events/AddEvent" 
+
+import Home from "./pages/Home" 
+
+import EventList from "./components/Events/EventList";
+//import EventDetails from "./components/Events/EventDetails";
+import UpdateEvent from "./components/Events/UpdateEvent";
+
+
+
 
 import { allProjects } from "./actions/Projects/ProjectCrud.actions";
 import ListOrganisation from "./components/Organisation/ListOrganisation";
@@ -98,6 +108,7 @@ const App = () => {
             <Route path={"/eventsdet"} element={<EventDetails />} />
             <Route path={"/events"} element={<Events />} />
             <Route path={"/addevents"} element={<AddEvents />} />
+            <Route path={"/eventlist"} element={<EventList />} />
             <Route exact path={'/ListProject'} element={<ListPProject />} />
             <Route exact path={'/addProject'} element={<ProjectAdd />} />
             <Route exact path={'/addOrganisation'} element={<OrganisationAdd />} />
