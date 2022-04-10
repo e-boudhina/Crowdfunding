@@ -41,7 +41,8 @@ import Add from "./components/Elearning/add-chapter.component";
 import Listchapter from "./components/Elearning/list-chapter.component";
 import Verify_email from "./components/User/verify-email.component";
 
-import Users from "./components/User/getUsers.component"
+import Users from "./components/User/ManageUsers/getUsers.component"
+import UpdateUser from "./components/User/ManageUsers/updateUser"
 
 import OrrganisationDetails from "./components/Organisation/OrganisationDetails";
 
@@ -117,6 +118,8 @@ const App = () => {
 
 
             <Route  path={"/admin/users"} element={<Users/>}/>
+            {/*I tried to use props but failed*/}
+            <Route  path={"/admin/user/update/:username"} element={<UpdateUser/>}/>
             </Route>
 
           </Routes>

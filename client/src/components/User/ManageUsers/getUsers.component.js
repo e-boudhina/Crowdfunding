@@ -1,10 +1,12 @@
 import React, {useEffect} from "react";
-import {get_Users, ban_User, unban_User, delete_User, make_Admin} from "../../actions/User/user";
+import {get_Users, ban_User, unban_User, delete_User, make_Admin} from "../../../actions/User/user";
 import {useDispatch, useSelector} from "react-redux";
+import {useNavigate} from "react-router-dom";
 
 
 const Users = () => {
 
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const users = useSelector((state) => state.users);
     console.log(users)
@@ -12,6 +14,12 @@ const Users = () => {
         dispatch(get_Users())
         // console.log(users.length)
     }, []);
+
+    //there is no need to execute fetch user method since we arelad have all the users | 2 method possible either props or modular
+    const update = (user)=>{
+        //console.log(user)
+        navigate('/admin/user/update/'+user.username)
+    }
 
     return(
         <div className="card-body">
@@ -43,7 +51,7 @@ const Users = () => {
                             {/*<td><span className="badge bg-success">{tutorial.createdAt}</span></td>*/}
                             <td>
                                 <div>
-                                    <a href="" className="btn btn-primary btn-sm">Edit</a>&nbsp;
+                                    <a onClick={()=>update(user)}  className="btn btn-primary btn-sm">Edit</a>&nbsp;
                                     {user.isBanned ?
                                         <a onClick={()=>dispatch(unban_User(user.username))} className="btn btn-success btn-sm">Unban</a>
                                         :

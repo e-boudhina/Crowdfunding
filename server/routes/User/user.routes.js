@@ -25,13 +25,15 @@ module.exports = function(app) {
 
     app.get("/api/user/:username",controller.FindSingleProfile);
     //Become admin
-    app.post("/api/user/makeAdmin/:id", controller.makeAdmin);
+    app.post("/api/user/makeAdmin/:id", [authJwt.verifyToken, authJwt.isAdmin],controller.makeAdmin);
 
     //Admin can not become incubator? - Verify admin middleware missing admin role verification
-    app.post("/api/user/makeIncubator/:id", controller.makeIncubator);
+    app.get("/api/user/makeIncubator/:id", [authJwt.verifyToken, authJwt.isAdmin],controller.makeIncubator);
+
+    app.get("/api/user/makeUser/:id", controller.makeUser);
 
     //Banning user
-    app.post("/api/user/ban/:username", controller.banUser);
-    app.post("/api/user/unban/:username", controller.unbanUser);
+    app.post("/api/user/ban/:username", [authJwt.verifyToken, authJwt.isAdmin],controller.banUser);
+    app.post("/api/user/unban/:username", [authJwt.verifyToken, authJwt.isAdmin],controller.unbanUser);
 
   };

@@ -271,6 +271,56 @@ exports.makeIncubator = asyncHandler(async (req, res) => {
     }
   })
 
+});
+
+exports.makeUser = asyncHandler(async (req, res) => {
+  const {id} = req.params;
+
+  if (!id) {
+    res.status(400);
+    throw Error("User Id is required");
+  }
+  Role.findOne({ name: "user" }, (err, role) => {
+    if (err) {
+      return res.status(500).send({ message: err });
+    } else {
+
+      User.findOne({_id: id}).then((user)=>{
+
+        if (!user){
+          return res.status(202).send({
+            message: `There is no user registered under that id!!`
+          });
+        }
+        //return res.status(200).send({ message: user.roles });
+        if (user.roles.includes(role._id) && user.roles.length ===1) {
+        //  console.log('user roles: '+user.roles.length)
+          return res.status(500).send({
+            message: `User ${user.username} has already been assigned to the role \'${role.name}\'`
+          });
+        }
+        //else
+        User.findByIdAndUpdate(
+            { _id: id},
+            { roles: role._id }
+        ).then((user)=>{
+          console.log(user)
+          return res.status(202).send({
+            message: `User ${user.username} is now a simple User!`
+          });
+        })
+
+      }).catch((error)=>{
+        //The only error that will be handled here is the Cast to ObjectId failed for value since object id must respect mongo format of  a string containing  12 bytes or a string of 24 hex characters or an integer
+        console.log(error)
+        return res.status(202).send({
+          message: error
+        });
+
+      })
+    }
+  })
+
 
 });
 
@@ -371,7 +421,7 @@ exports.unbanUser = asyncHandler(async (req, res) => {
 
 exports.getUsers = asyncHandler(async (req, res) => {
   adminRole = await Role.findOne({name:'admin'},{name: 1});
-  users = await User.find({'roles': {$ne: adminRole._id}},{password :0});
+  users = await User.find({'roles': {$ne: adminRole._id}},{password :0}).populate("roles", "-__v");
 
   if (!users) {
     return res.status(200).send({

@@ -8,9 +8,9 @@ import {
     MAKE_USER_ADMIN_FAILED,
     MAKE_USER_ADMIN_SUCCESS,
     USER_BAN_FAILED,
-    USER_BAN_SUCCESS,
+    USER_BAN_SUCCESS, USER_FETCHED_FAILED, USER_FETCHED_SUCCESS,
     USER_UNBAN_FAILED,
-    USER_UNBAN_SUCCESS
+    USER_UNBAN_SUCCESS, USER_UPDATE_FAILED, USER_UPDATE_SUCCESS
 } from "../type";
 import {SET_MESSAGE} from "../Organisations/Type";
 
@@ -38,6 +38,40 @@ export const  get_Users =  () =>   (dispatch) => {
 
             dispatch({
                 type: FETCHING_USERS_FAILED,
+            });
+            dispatch({
+                type: SET_MESSAGE,
+                payload: message,
+            });
+            return Promise.reject();
+        }
+    );
+};
+
+export const  get_User =  (username) =>   (dispatch) => {
+
+    return UserService.getUser(username).then(
+        (data) => {
+            console.log(data.data)
+
+            dispatch({
+                type: USER_FETCHED_SUCCESS,
+                payload: data.data,
+            });
+            return Promise.resolve();
+        },
+        (error) => {
+            // console.log("Error message here:")
+
+            const message =
+                (error.response &&
+                    error.response.data &&
+                    error.response.data.message) ||
+                error.message ||
+                error.toString();
+
+            dispatch({
+                type: USER_FETCHED_FAILED,
             });
             dispatch({
                 type: SET_MESSAGE,
@@ -186,6 +220,49 @@ export const  make_Admin =  (id) =>   (dispatch) => {
 
             dispatch({
                 type: MAKE_USER_ADMIN_FAILED
+            });
+            dispatch({
+                type: SET_MESSAGE,
+                payload: message,
+            });
+            return Promise.reject();
+        }
+    );
+};
+
+//make incubator action here
+
+//
+
+
+//update user
+export const  update_User =  (user) =>   (dispatch) => {
+
+    return UserService.updateUser(user).then(
+        (data) => {
+            //console.log('Delete return message')
+            //console.log(data.data.message)
+            dispatch({
+                type: USER_UPDATE_SUCCESS,
+            });
+            dispatch({
+                type: SET_MESSAGE,
+                payload: data.data.message,
+            });
+            return Promise.resolve();
+        },
+        (error) => {
+            // console.log("Error message here:")
+
+            const message =
+                (error.response &&
+                    error.response.data &&
+                    error.response.data.message) ||
+                error.message ||
+                error.toString();
+
+            dispatch({
+                type: USER_UPDATE_FAILED
             });
             dispatch({
                 type: SET_MESSAGE,
