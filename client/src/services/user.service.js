@@ -63,6 +63,8 @@ export default {
   banUser,
   unbanUser,
   deleteUser,
-  makeAdmin
+  makeAdmin,
+  makeIncubator,
+  makeUser,
   //refreshUser
 };

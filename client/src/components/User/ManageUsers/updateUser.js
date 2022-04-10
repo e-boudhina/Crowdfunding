@@ -1,7 +1,15 @@
-import React, {useEffect, useRef} from "react";
-import {get_Users, ban_User, unban_User, delete_User, make_Admin, get_User} from "../../../actions/User/user";
+import React, {useEffect, useRef, useState} from "react";
+import {
+    get_Users,
+    ban_User,
+    unban_User,
+    delete_User,
+    make_Admin,
+    get_User,
+    update_User
+} from "../../../actions/User/user";
 import {useDispatch, useSelector} from "react-redux";
-import {useNavigate, useParams} from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {login} from "../../../actions/auth";
 
 const required = (value) => {
@@ -14,7 +22,20 @@ const required = (value) => {
     }
 };
 
-const UpdateUser = (props) => {
+const UpdateUser = () => {
+
+
+
+        // const [firstName,setFirstName] = useState('')
+        // lastName:"",
+        // phone:"",
+        // birthdate: "",
+        // adress: ""
+
+    //const {user} = useParams()
+    const location = useLocation()
+    const currentUser = location.state
+        // console.log(currentUser)
 
     // const onChangeUsername = (e) => {
     //     const username = e.target.value;
@@ -32,28 +53,28 @@ const UpdateUser = (props) => {
     const dispatch = useDispatch();
     console.log(username)
     useEffect(async () => {
-        dispatch(get_User(username))
-        // console.log(users.length)
-    }, []);
+        //dispatch(get_User(username))
+         console.log(form.current)
+    }, [form]);
 
 
     const handleUpdate= (e) => {
         e.preventDefault();
         form.current.validateAll();
         if (checkBtn.current.context._errors.length === 0) {
-            // dispatch(login(username, password))
-            //     .then(() => {
-            //         props.history.push("/profile");
-            //         window.location.reload();
-            //     })
-            //     .catch(() => {
-            //     });
+            dispatch(update_User(form))
+                .then(() => {
+
+                })
+                .catch(() => {
+                });
         } else {
 
         }
     };
 
     return(
+
         <div className="card-body">
             <h4 className="card-title mb-4">Update user</h4>
             <form onSubmit={handleUpdate} ref={form}>
@@ -64,15 +85,28 @@ const UpdateUser = (props) => {
                         type="text"
                         className="form-control"
                         disabled
+                        value={currentUser.username}
+
                     />
                 </div>
+                    <div className="col">
+                        <label htmlFor="username">Email</label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            disabled
+                            value={currentUser.email}
+                        />
+                    </div>
+
+
                     <div className="col">
                         <label htmlFor="username">FirstName</label>
                         <input
                             type="text"
                             className="form-control"
                             name="phone"
-                            // value={phone}
+                            value={currentUser.firstName}
                             // onChange={onChangePhone}
                             // validations={[required]}
                         />
@@ -84,13 +118,48 @@ const UpdateUser = (props) => {
                             type="text"
                             className="form-control"
                             name="phone"
-                            // value={phone}
+                             value={currentUser.lastName}
+                            // onChange={onChangePhone}
+                            // validations={[required]}
+                        />
+                    </div>
+                </div>
+                <div className="row">
+
+                    <div className="col">
+                        <label htmlFor="username">Phone</label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            name="phone"
+                            value={currentUser.phone}
+                            // onChange={onChangePhone}
+                            // validations={[required]}
+                        />
+                    </div>
+                    <div className="col">
+                        <label htmlFor="username">Birthdate</label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            name="phone"
+                            value={currentUser.birthdate}
                             // onChange={onChangePhone}
                             // validations={[required]}
                         />
                     </div>
 
-
+                        <div className="col">
+                            <label htmlFor="username">Adress</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                name="phone"
+                                value={currentUser.address}
+                                // onChange={onChangePhone}
+                                // validations={[required]}
+                            />
+                    </div>
                 </div>
 
 
