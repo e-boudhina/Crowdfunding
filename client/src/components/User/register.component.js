@@ -356,10 +356,12 @@ const Register = () => {
                     </div>
 
                     <div className="form-group">
-                      <label htmlFor="image">Image</label>
+                    <label htmlFor="image">Image</label>
+                      <label className="btn-border" htmlFor="image"> Choose image </label>
                       <Input
+                      id="image"
                         type="file"
-                        className="form-control"
+                        className="btn-border"
                         name="image"
                         validations={[required]}
                         onChange={(e) => {
@@ -384,6 +386,7 @@ const Register = () => {
           
                   
                     </div>
+                 
                   </div>
                 )}
                 {message && (
@@ -406,7 +409,9 @@ const Register = () => {
             {registerForm ? <> </> :  <button className="btn-border"  onClick={deleteUserHandler}>Delete </button>}
           </div>
         </div>
+        
       </div>
+    
     </div>
   );
 };
