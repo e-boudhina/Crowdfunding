@@ -3,9 +3,36 @@ import {get_Users, ban_User, unban_User, delete_User, make_Admin,make_Incubator,
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {Link} from "@material-ui/core";
+import {toast} from "react-toastify";
+import {clearMessage} from "../../../actions/message";
 
 
 const Users = () => {
+
+    function refreshPage() {
+        window.location.reload();
+    }
+    //You can use simple functions here and call dispatch inside
+    // function ban(){
+    //
+    // }
+    // function unban(){
+    //
+    // }
+    // function mkAdmin(){
+    //
+    // }
+    // function mkIncubator(){
+    //
+    // }
+    // function mkUser(){
+    //
+    // }
+    // function dlt(){
+    //
+    // }
+
+    const { message } = useSelector(state => state.message);
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -13,8 +40,10 @@ const Users = () => {
     console.log(users)
     useEffect(async () => {
         dispatch(get_Users())
-        // console.log(users.length)
-    }, []);
+        if (message)
+        toast.success(message).then(dispatch(clearMessage()))
+       // return () => {dispatch(clearMessage())}
+    }, [message]);
 
     //there is no need to execute fetch user method since we arelad have all the users | 2 method possible either props or modular
     const update = (user)=>{
