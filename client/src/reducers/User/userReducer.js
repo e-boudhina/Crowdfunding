@@ -1,4 +1,4 @@
-import {FETCHING_USERS_SUCCESS, GET_USERS} from "../../actions/type";
+import {FETCHING_USERS_SUCCESS, GET_USERS, USER_UPDATE_SUCCESS} from "../../actions/type";
 
 const initialState={
     users:[],
@@ -11,9 +11,12 @@ export default function (state = initialState, action) {
         case  FETCHING_USERS_SUCCESS:
             return {
                 ...state,
-                users: action.payload,
+                users: payload,
             };
-
+        case USER_UPDATE_SUCCESS:
+            return {
+                users: payload
+            }
         default:
             return state;
     }

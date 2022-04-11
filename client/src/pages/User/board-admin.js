@@ -15,7 +15,9 @@ const Dashboardadmin = (props) => {
   const { infos: currentInfos } = useSelector((state) => state.auth);
   const { isLoggedIn: IsLoggedIn } = useSelector((state) => state.auth);
 
-
+function isUserAdmin () {
+  return currentUser.roles.includes("ROLE_ADMIN");
+  }
 useEffect(() => {
 
     if  ((!currentUser) || (!currentUser.roles.includes("ROLE_ADMIN"))){
@@ -310,6 +312,10 @@ document.body.appendChild(document.createElement("script")).src = "assets-back/j
                       <span>List  Users</span>
                     </Link>
                   </li>
+
+
+
+
                   <li>
                     <Link to="/admin/ListOrganisation" className="waves-effect">
                       <i className="ti-home" /><span className="badge rounded-pill bg-primary float-end">2</span>
@@ -434,13 +440,16 @@ document.body.appendChild(document.createElement("script")).src = "assets-back/j
         {/* /Right-bar */}
         {/* Right bar overlay*/}
         <div className="rightbar-overlay" />
-        {/* JAVASCRIPT */}
-  
-      </div>
-    );
-  
 
-    </>
+    {/* JAVASCRIPT */}
+
+  </div>
+        );
+
+
+      </>
+
   );
 };
-export default Dashboardadmin;
+
+export default Dashboardadmin

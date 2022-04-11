@@ -21,15 +21,36 @@ const getAdminBoard = () => {
 const getAllUsers = (keyword) => {
   return axios.get("http://localhost:5000/api/user/searchusers/"+keyword, { headers: authHeader()   })
 }
-export const updateUser = (user ) => {
+export const updateUser = (user) => {
   return  axios.post(API_URL+"update", user , authHeader())
 }
 export const getUser  =  (username) =>{
-  return   axios.get(API_URL+username  )
+  return   axios.get(API_URL+username, authHeader()  )
 }
 const getUsers = ()=> {
   return  axios.get(API_URL )
 }
+const deleteUser = (id)=> {
+  return  axios.delete(API_URL +`${id}`, { headers: authHeader()   })
+}
+const banUser = (username)=> {
+  return  axios.post(API_URL+`ban/${username}`, {},{ headers: authHeader()})
+}
+const unbanUser = (username)=> {
+  return  axios.post(API_URL+`unban/${username}`,  {},{ headers: authHeader()   })
+}
+
+const makeAdmin = (id)=> {
+  return  axios.post(API_URL+`makeAdmin/${id}`, { headers: authHeader()   })
+}
+
+const makeIncubator = (id)=> {
+  return  axios.get(API_URL+`makeIncubator/${id}`, { headers: authHeader()   })
+}
+const makeUser = (id)=> {
+  return  axios.get(API_URL+`makeUser/${id}`, { headers: authHeader()   })
+}
+
 export default {
   getPublicContent,
   getUserBoard,
@@ -38,6 +59,12 @@ export default {
   getAllUsers,
   updateUser,
   getUser,
-  getUsers
+  getUsers,
+  banUser,
+  unbanUser,
+  deleteUser,
+  makeAdmin,
+  makeIncubator,
+  makeUser,
   //refreshUser
 };
