@@ -79,6 +79,8 @@ const Register = () => {
   const { infos: currentInfos } = useSelector((state) => state.auth);
   const { user: currentUser } = useSelector((state) => state.auth);
   const [image, setImage] = useState(null);
+
+  
   useEffect(() => {
     if (currentInfos) {
       setRegisterForm(false);

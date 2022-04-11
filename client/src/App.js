@@ -37,6 +37,8 @@ import ListOrganisation from "./components/Organisation/ListOrganisation";
 import Add from "./components/Elearning/add-chapter.component";
 import Listchapter from "./components/Elearning/list-chapter.component";
 import Viewchapter from "./components/Elearning/view-chapter.components";
+import ListCertificates from "./components/Elearning/list-certificates.component";
+import AddCertificate from "./components/Elearning/add-certificate.component";
 const App = () => {
 
   const dispatch = useDispatch();
@@ -77,8 +79,11 @@ const App = () => {
     
             <Route path={"/admin"} element={<Adminboard />}>
             <Route  path={"/admin/listchapters"} element={< Listchapter/>}/>
+            <Route  path={"/admin/listcertificates"} element={< ListCertificates/>}/>
             <Route  path={"/admin/add"} element={<Add/>}/>
+            <Route  path={"/admin/addcertificate"} element={<AddCertificate/>}/>
             <Route  path={"/admin/:id"} element={< Viewchapter/>}/>
+            <Route  path={"/admin/chapter/:id"} element={< Viewchapter/>}/>
             </Route>
 
           </Routes>

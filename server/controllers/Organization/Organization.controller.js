@@ -7,12 +7,7 @@ const User = db.user;
 const organization = db.organization;
 
 
-
-
-
 exports.addProjectToOrganization = (req, res) => {
-
-     
 Project.find({_id:req.params.idProject},(err, result)=>{
     if(err){
     res.json(err);
@@ -31,30 +26,12 @@ Project.find({_id:req.params.idProject},(err, result)=>{
                 res.json({ message: 'project added to an organization' });
             }
         });
-        
-
-
-
     }
         })
-  
-  
-  
-  
   };
 
 
-
-
-
-
-
-
-
-
 exports.unfollowOrganization = (req, res) => {
-
-      
 organization.find({_id:req.params.id},(err, result)=>{
     if(err){
     res.json(err);

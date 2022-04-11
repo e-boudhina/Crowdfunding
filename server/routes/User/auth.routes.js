@@ -1,6 +1,7 @@
 const { verifySignUp } = require("../../middlewares");
 const controller = require("../../controllers/User/auth.controller");
 var path = require('path');
+
 module.exports = function(app) {
   var multer = require('multer');
   
