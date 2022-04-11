@@ -62,7 +62,7 @@ document.body.appendChild(document.createElement("script")).src = "assets-back/j
               <div className="d-flex">
                 {/* LOGO */}
                 <div className="navbar-brand-box">
-                  <a href="index.html" className="logo logo-dark">
+                  <a href="/" className="logo logo-dark">
                     <span className="logo-sm">
                       <img src="../assets-back/images/logo-sm.png" alt="" height={22} />
                     </span>
@@ -313,6 +313,9 @@ document.body.appendChild(document.createElement("script")).src = "assets-back/j
                     </Link>
                   </li>
 
+
+
+
                   <li>
                     <Link to="/admin/ListOrganisation" className="waves-effect">
                       <i className="ti-home" /><span className="badge rounded-pill bg-primary float-end">2</span>
@@ -420,19 +423,24 @@ document.body.appendChild(document.createElement("script")).src = "assets-back/j
               <div className="mb-2">
                 <img src="../assets-back/images/layouts/layout-3.jpg" className="img-fluid img-thumbnail" alt="" />
               </div>
+              
               <div className="form-check form-switch mb-5">
                 <input type="checkbox" className="form-check-input theme-choice" id="rtl-mode-switch" data-appstyle="../assets-back/css/app-rtl.min.css" />
                 <label className="form-check-label" htmlFor="rtl-mode-switch">RTL Mode</label>
               </div>
+              
               <div className="d-grid">
                 <a href="https://1.envato.market/grNDB" className="btn btn-primary mt-3" target="_blank"><i className="mdi mdi-cart me-1" /> Purchase Now</a>
               </div>
             </div>
           </div> {/* end slimscroll-menu*/}
+  
         </div>
+        
         {/* /Right-bar */}
         {/* Right bar overlay*/}
         <div className="rightbar-overlay" />
+
     {/* JAVASCRIPT */}
 
   </div>
@@ -440,6 +448,7 @@ document.body.appendChild(document.createElement("script")).src = "assets-back/j
 
 
       </>
+
   );
 };
 

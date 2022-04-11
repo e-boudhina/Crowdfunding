@@ -6,7 +6,8 @@ const current_URI = process.env.LOCAL_URI ;
 //const current_URI = process.env.MONGO_URI ;
 const connectDB = async () => {
     try {
-        const conn = await mongoose.connect(current_URI);
+        const conn = await mongoose.connect(current_URI  ,
+            { useNewUrlParser: true, useUnifiedTopology: true });
         console.log(`MongoDB connected to => ${conn.connection.host.toUpperCase().bold} <=`.cyan.underline) //from colors dependency
     }catch (error){
         console.log(error);

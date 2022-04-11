@@ -31,9 +31,7 @@ function Listchapter(props) {
        <tr>
          <th scope="col">(#) Id</th>
          <th scope="col">Name</th>
-         <th scope="col">Date</th>
-         <th scope="col">Amount</th>
-         <th scope="col" colSpan={2}>Status</th>
+         <th scope="col" colSpan={2}>Published</th>
        </tr>
      </thead>
      <tbody>
@@ -47,8 +45,6 @@ function Listchapter(props) {
              <img src="assets/images/users/user-6.jpg" alt="" className="avatar-xs rounded-circle me-2" /> {tutorial.name}
            </div>
          </td>
-         <td>19/1/2019</td>
-         <td>$120</td>
          <td><span className="badge bg-success">{tutorial.createdAt}</span></td>
          <td>
            <div>

@@ -1,21 +1,21 @@
 //var createError = require('http-errors');
 var express = require('express');
-var  cors = require('cors');
+var cors = require('cors');
 var path = require('path');
 const db = require('./models')
-const mongoose =db.mongoose ; 
-const  dotenv = require('dotenv').config();
+const mongoose = db.mongoose;
+const dotenv = require('dotenv').config();
 const init_functions = require('./utils/init_functions')
 var imgModel = require('./models/Image/image.model');
 var fs = require('fs');
 
 const connectDB = require('./config/db')
 const color = require('colors')
-const {errorHandler} = require('./middlewares/Error/error_Middleware')
+const { errorHandler } = require('./middlewares/Error/error_Middleware')
 connectDB()
 
 
-const port = process.env.PORT || 5001 ;
+const port = process.env.PORT || 5001;
 
 var app = express();
 var corsOptions = {
@@ -27,20 +27,10 @@ app.set("view engine", "ejs");
 let reqPath = path.join(__dirname, '../client/public');
 console.log(reqPath);
 app.use(express.static(reqPath));
+app.use(express.static("public"));
 
-// var multer = require('multer');
-  
-// var storage = multer.diskStorage({
-//     destination: (req, file, cb) => {
-//         cb(null, 'uploads')
-//     },
-//     filename: (req, file, cb) => {
-//         cb(null, file.fieldname + '-' + Date.now())
-//     }
-// });
-  
-// var upload = multer({ storage: storage });
 
+var bodyParser = require('body-parser');
 
 // app.get('/image', (req, res) => {
 //   imgModel.find({}, (err, items) => {
@@ -56,7 +46,7 @@ app.use(express.static(reqPath));
 
 
 // app.post('/images', upload.single('image'), (req, res, next) => {
-  
+
 //   var obj = {
 
 //       name: req.body.name,
@@ -74,7 +64,7 @@ app.use(express.static(reqPath));
 //           // item.save();
 //           // res.send({ id: item.id})
 //           res.redirect(307,'/api/test/add');
-          
+
 //       }
 //   });
 // });
@@ -93,6 +83,8 @@ require('./routes/Project/Project.routes')(app);
 require('./routes/Organization/Organization.routes')(app);
 
 require('./routes/Learning/learning.routes')(app);
+require('./routes/event/events.routes')(app);
+
 
 // overriding express default error handler that return text/html( express assumes BY DEFAULT that you are using blade or twig templating engine)
 //It needs to be be defined after routes or else it will not work

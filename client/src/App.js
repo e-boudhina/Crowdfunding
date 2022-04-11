@@ -33,12 +33,23 @@ import Profileconsult from "./components/User/profileconsult.component"
 import Adminboard from "./pages/User/board-admin"
 
 import "react-datepicker/dist/react-datepicker.css"
+//import AddEvents from "./pages/Events/AddEvent" 
+
+import Home from "./pages/Home" 
+
+import EventList from "./components/Events/EventList";
+//import EventDetails from "./components/Events/EventDetails";
+import UpdateEvent from "./components/Events/UpdateEvent";
+
+
+
 
 import { allProjects } from "./actions/Projects/ProjectCrud.actions";
 import ListOrganisation from "./components/Organisation/ListOrganisation";
 import ListOrganisationForAdmin from "./components/Organisation/ListOrganisationForAdmin";
 import Add from "./components/Elearning/add-chapter.component";
 import Listchapter from "./components/Elearning/list-chapter.component";
+import Viewchapter from "./components/Elearning/view-chapter.components";
 import Verify_email from "./components/User/verify-email.component";
 
 import Users from "./components/User/ManageUsers/getUsers.component"
@@ -98,6 +109,7 @@ const App = () => {
             <Route path={"/eventsdet"} element={<EventDetails />} />
             <Route path={"/events"} element={<Events />} />
             <Route path={"/addevents"} element={<AddEvents />} />
+            <Route path={"/eventlist"} element={<EventList />} />
             <Route exact path={'/ListProject'} element={<ListPProject />} />
             <Route exact path={'/addProject'} element={<ProjectAdd />} />
             <Route exact path={'/addOrganisation'} element={<OrganisationAdd />} />
@@ -115,6 +127,7 @@ const App = () => {
             <Route  path={"/admin/listchapters"} element={< Listchapter/>}/>
             <Route  path={"/admin/ListProjectToValidate"} element={<ListProjectToValidate/>}/>
             <Route  path={"/admin/add"} element={<Add/>}/>
+            <Route  path={"/admin/:id"} element={< Viewchapter/>}/>
 
 
             <Route  path={"/admin/users"} element={<Users/>}/>

@@ -84,9 +84,42 @@ export const updateProfile =
         });
       }
     };
-
+    export const registerr =
+    (form) =>
+      (dispatch) => {
+        return AuthService.registerr(
+          form
+        ).then(
+          (response) => {
+            dispatch({
+              type: REGISTER_SUCCESS,
+            });
+            dispatch({
+              type: SET_MESSAGE,
+              payload: response.data.message,
+            });
+            return Promise.resolve();
+          },
+          (error) => {
+            const message =
+              (error.response &&
+                error.response.data &&
+                error.response.data.message) ||
+              error.message ||
+              error.toString();
+            dispatch({
+              type: REGISTER_FAIL,
+            });
+            dispatch({
+              type: SET_MESSAGE,
+              payload: message,
+            });
+            return Promise.reject();
+          }
+        );
+      };
 export const register =
-  (username, email, password, firstName, lastName, address, birthdate ,phone) =>
+  (username, email, password, firstName, lastName, address, birthdate ,phone,image) =>
     (dispatch) => {
       return AuthService.register(
         username,
@@ -95,7 +128,8 @@ export const register =
         firstName,
         lastName,
         address,
-        birthdate,phone
+        birthdate,phone,
+        image
       ).then(
         (response) => {
           dispatch({

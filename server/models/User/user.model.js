@@ -32,6 +32,11 @@ var UserSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "organization"
     }],
+    img:
+    {
+        data: Buffer,
+        contentType: String
+    }
   /*  gorvernorate: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Gorvernorate"

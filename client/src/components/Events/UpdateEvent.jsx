@@ -1,12 +1,14 @@
 import DatePicker from "react-datepicker"
-import { EventAdd } from "../../actions/eventActions";
+import { Update } from "../../actions/eventActions";
 import CheckButton from "react-validation/build/button";
 import Input from "react-validation/build/input";
 import { useDispatch, useSelector } from "react-redux";
 import axios from 'axios';
 import { Navigate } from 'react-router-dom';
-import { useNavigate } from 'react-router';
+import { useNavigate,useLocation } from 'react-router';
 import React, { useState, useRef } from "react";
+import { Link, useParams } from 'react-router-dom';
+import { useEffect } from "react";
 
 
 const required = (value) => {
@@ -19,9 +21,10 @@ const required = (value) => {
   }
 };
 
-const AddEvent = (props) => {
+const UpdateEvent = (props, { route, navigation }) => {
   const form = useRef();
   const checkBtn = useRef();
+  const location = useLocation();
   const [EventName, setEventName] = useState("");
   const [ EventDescription, setEventDescription] = useState("");
   const [StartDate, setStartDate] = useState("");
@@ -39,7 +42,7 @@ const dispatch = useDispatch();
     const EventDescription = e.target.value;
     setEventDescription(EventDescription);
   };
-  
+
   const onChangeStartDate= (e) => {
     const StartDate = e.target.value;
     setStartDate(StartDate);
@@ -49,45 +52,32 @@ const dispatch = useDispatch();
     setEndDate(EndDate);
   };
   
-  const handleAddEvent = (e) => {
+  const handleUpdateEvent = (e) => {
     e.preventDefault();
-    const formData =new FormData();
-    formData.append('EventName',EventName);
-    formData.append('EventDescription',EventDescription);
-    formData.append('StartDate',StartDate);
-    formData.append('EndDate',EndDate);
-    var object = {};
-    formData.forEach((value, key) => {
-        // Reflect.has in favor of: object.hasOwnProperty(key)
-        if(!Reflect.has(object, key)){
-            object[key] = value;
-            return;
-        }
-        if(!Array.isArray(object[key])){
-            object[key] = [object[key]];    
-        }
-        object[key].push(value);
-    });
-    var json = JSON.stringify(object)
-console.log("FORMDATA"+formData);
-console.log("AAAA "+json);
 
+    const formData = new FormData();
+    formData.append('EventName', EventName);
+    formData.append('EventDescription', EventDescription);
+    formData.append('StartDate', StartDate);
+    formData.append('EndDate', EndDate);
+
+
+
+    console.log(formData);
     
-  
-   
-    console.log(json);
-  
-      dispatch(EventAdd(json))
-      .then(() => {
-        navigate("/events")
-          })
-        .catch((e) => {
-          console.log(e);
+    dispatch(Update(location.state._id,formData))
+    
+        .then(() => {
+
+            console.log(formData);
+            navigate("/eventlist");
+           window.location.reload();
+         
+        }).
+        catch((e) => {
+            console.log(e);
         });
-    
-  
-    }
-
+};
     return(
         <section className="contact-form-area">
         <div className="container">
@@ -96,7 +86,7 @@ console.log("AAAA "+json);
               <div className="col-xl-8 col-lg-8">
                 <div className="section-title mb-55">
                   <p><span /> Events</p>
-                  <h1>Add your event</h1>
+                  <h1>Update your event</h1>
                 </div>
               </div>
               <div className="col-xl-4 col-lg-3 d-none d-xl-block ">
@@ -104,7 +94,7 @@ console.log("AAAA "+json);
               </div>
             </div>
             <div className="contact-form">
-              <form id="contact-form" onSubmit={handleAddEvent}>
+              <form id="contact-form" onSubmit={handleUpdateEvent}>
                 <div className="row">
                   <div className="col-lg-6">
                     <div className="form-box user-icon mb-30">
@@ -137,7 +127,7 @@ console.log("AAAA "+json);
                   <div className="col-lg-12">
                  
                     <div className="contact-btn text-center">
-                      <button className="btn" type="submit">Add Event <img src="assets/img/icon/arrow.png" alt="" /></button>
+                      <button className="btn" type="submit">Update Event <img src="assets/img/icon/arrow.png" alt="" /></button>
                     </div>
                   </div>
                 </div>
@@ -148,4 +138,4 @@ console.log("AAAA "+json);
         </div>
       </section>
     )}
-    export default AddEvent;
+    export default UpdateEvent;
