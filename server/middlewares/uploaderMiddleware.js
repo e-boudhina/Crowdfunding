@@ -1,4 +1,5 @@
 var fs = require('fs');
+const getFilePath = (path) => path.split(`public/`)[1];
 
 
 const uploaderMiddleware = (field, folder) => async (req, res, next) => {
@@ -21,7 +22,7 @@ const uploaderMiddleware = (field, folder) => async (req, res, next) => {
             if (error) throw error;
         });
 
-        res.locals[field] = newPath;
+        res.locals[field] = getFilePath(newPath);
 
         next();
     } catch (error) {
