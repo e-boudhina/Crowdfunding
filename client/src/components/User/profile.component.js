@@ -28,7 +28,7 @@ const Profile = (props) => {
   // console.log("is user logged in"+isLoggedIn)
 
 
-
+//currentInfos.image.data
 
 
 useEffect(() => {
@@ -44,13 +44,12 @@ useEffect(() => {
     setVerified(currentInfos.verified)
     setPhone(currentInfos.phone)
     setBirthDate(currentInfos.birthdate)
-    setImgData(currentInfos.image.data.data)
-    const bf = new Buffer.from(imgData).toString("base64");
- setImage(bf)
-    console.log("User is logged in (fom profile:22");
+    setImage(currentInfos.image.data)
+  //  const bf = new Buffer.from(imgData).toString("base64");
+ //setImage(bf)
+   // console.log("User is logged in (fom profile:22");
  }
-
- },[IsLoggedIn,currentInfos,navigate,imgData])  //dep hass"hom zeydin
+ },[IsLoggedIn,currentInfos,navigate,image])  //dep hass"hom zeydin
   
 
     /*if (!currentUser || !currentInfos) {
@@ -68,7 +67,7 @@ useEffect(() => {
               <div className="team mb-50">
                 <div className="team__thumb">
   
-                <img src={`data:image/png;base64,${image}`} />
+                <img src={`/profile-uploads/${image}`} alt="" />
                 </div>
                 <button onClick={navigateToEdit} type="button" className="btn btn-black w-100" > Edit profile </button>
               </div>

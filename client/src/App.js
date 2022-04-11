@@ -50,6 +50,8 @@ import ListOrganisationForAdmin from "./components/Organisation/ListOrganisation
 import Add from "./components/Elearning/add-chapter.component";
 import Listchapter from "./components/Elearning/list-chapter.component";
 import Viewchapter from "./components/Elearning/view-chapter.components";
+import ListCertificates from "./components/Elearning/list-certificates.component";
+import AddCertificate from "./components/Elearning/add-certificate.component";
 import Verify_email from "./components/User/verify-email.component";
 
 import Users from "./components/User/ManageUsers/getUsers.component"
@@ -125,11 +127,11 @@ const App = () => {
             <Route path={"/admin"} element={<Adminboard />}>
             <Route path={'/admin/ListOrganisation'} element={< ListOrganisationForAdmin/>} />
             <Route  path={"/admin/listchapters"} element={< Listchapter/>}/>
+            <Route  path={"/admin/listcertificates"} element={< ListCertificates/>}/>
             <Route  path={"/admin/ListProjectToValidate"} element={<ListProjectToValidate/>}/>
             <Route  path={"/admin/add"} element={<Add/>}/>
-            <Route  path={"/admin/:id"} element={< Viewchapter/>}/>
-
-
+            <Route  path={"/admin/addcertificate"} element={<AddCertificate/>}/>
+            <Route  path={"/admin/chapter/:id"} element={< Viewchapter/>}/>
             <Route  path={"/admin/users"} element={<Users/>}/>
             {/*I tried to use props but failed*/}
             <Route  path={"/admin/user/update/:username"} element={<UpdateUser/>}/>

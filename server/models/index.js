@@ -13,4 +13,5 @@ db.incubator = require("./User/incubator.model")
 db.admin = require("./User/admin.model")
 db.certificate = require("./Learning/certificate.model")
 db.chapter = require("./Learning/chapter.model")
+db.categorylearning = require("./Learning/category-learning.model")
 module.exports = db;

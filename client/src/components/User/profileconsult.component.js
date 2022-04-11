@@ -5,8 +5,8 @@ import {getUser } from "../../services/user.service"
 const Profileconsult = (props) => {
 
   const { username } = useParams();
-const [profile , setProfile] = useState({  firstName :"",lastName  :"", username :"", address :"", birthDate  :"",  email  :"",verified :"", phone  :"",} )
-
+const [profile , setProfile] = useState({  firstName :"",lastName  :"", username :"", address :"", birthDate  :"",  email  :"",verified :"", phone  :""} )
+const [image,setImage] = useState("")
 
 
 
@@ -14,11 +14,13 @@ const [profile , setProfile] = useState({  firstName :"",lastName  :"", username
 useEffect(() => {
  getUser(username).then( 
 (data) => {     
+  console.log(data);
   setProfile(data.data)
-console.log(data);}
+  setImage(data.data.img.data)
 
+}
 )
-console.log(window.location.origin);
+
 console.log(process.env.PUBLIC_URL);
 },[username])
 
@@ -31,7 +33,7 @@ console.log(process.env.PUBLIC_URL);
             <div className="col-g-5 col-lg-5">
               <div className="team mb-50">
                 <div className="team__thumb">
-                  <img src="../assets/img/team/team-details.jpg" alt="" />
+                <img src={`/profile-uploads/${image}`} alt="" />
                 </div>
               </div>
             </div>

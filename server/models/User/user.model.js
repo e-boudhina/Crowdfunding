@@ -34,7 +34,7 @@ var UserSchema = new mongoose.Schema({
     }],
     img:
     {
-        data: Buffer,
+        data: String,
         contentType: String
     }
   /*  gorvernorate: {

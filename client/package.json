@@ -35,7 +35,6 @@
     "react-redux": "^7.2.6",
     "react-router-dom": "^6.2.2",
     "react-scripts": "5.0.0",
-    "react-success-popup": "^1.1.2",
     "react-toastify": "^8.2.0",
     "react-validation": "^3.0.7",
     "reactstrap": "^9.0.1",
