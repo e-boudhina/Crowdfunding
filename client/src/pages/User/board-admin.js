@@ -3,7 +3,7 @@ import { Navigate , Link } from 'react-router-dom';
 import { useDispatch, useSelector  } from "react-redux";
 import { useNavigate  } from "react-router-dom";
 import { BrowserRouter as Router, Routes, Route , Outlet} from "react-router-dom";
-
+import "bootstrap/dist/css/bootstrap.min.css";
 const Dashboardadmin = (props) => {
   const navigate = useNavigate();
 
@@ -15,7 +15,9 @@ const Dashboardadmin = (props) => {
   const { infos: currentInfos } = useSelector((state) => state.auth);
   const { isLoggedIn: IsLoggedIn } = useSelector((state) => state.auth);
 
-
+function isUserAdmin () {
+  return currentUser.roles.includes("ROLE_ADMIN");
+  }
 useEffect(() => {
 
     if  ((!currentUser) || (!currentUser.roles.includes("ROLE_ADMIN"))){
@@ -297,6 +299,42 @@ document.body.appendChild(document.createElement("script")).src = "assets-back/j
                       <span>List  certificates</span>
                     </Link>
                   </li>
+                  <li>
+
+                    <Link to="/admin/users" className="waves-effect">
+                      <i className="ti-home" />
+                      <span>List  Users</span>
+                    </Link>
+                  </li>
+
+
+
+
+                  <li>
+                    <Link to="/admin/ListOrganisation" className="waves-effect">
+                      <i className="ti-home" /><span className="badge rounded-pill bg-primary float-end">2</span>
+                      <span>List  of organisation</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/admin/ListProjectToValidate" className="waves-effect">
+                      <i className="ti-home" /><span className="badge rounded-pill bg-primary float-end">2</span>
+                      <span>Validate new projects</span>
+                    </Link>
+                  </li>
+                  {/* <li>
+                    <Link to="/admin/ListProject" className="waves-effect">
+                      <i className="ti-home" /><span className="badge rounded-pill bg-primary float-end">2</span>
+                      <span>List  of projects</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/admin/ListProject" className="waves-effect">
+                      <i className="ti-home" /><span className="badge rounded-pill bg-primary float-end">2</span>
+                      <span>List  of projects to validate</span>
+                    </Link>
+                  </li> */}
+
                 </ul>
               </div>
               {/* Sidebar */}
@@ -334,7 +372,15 @@ document.body.appendChild(document.createElement("script")).src = "assets-back/j
     );
   
 
-    </>
+    {/* JAVASCRIPT */}
+
+
+        );
+
+
+      </>
+
   );
 };
-export default Dashboardadmin;
+
+export default Dashboardadmin

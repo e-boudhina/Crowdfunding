@@ -71,7 +71,7 @@ function Add(props) {
     setCertifID(e.target.value);
   };
   return (
-    <div className="card">
+    <div >
       <Row justify="center">
         <Col span="12">
           <Form className="card-body"

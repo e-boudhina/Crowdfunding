@@ -5,7 +5,9 @@ import {
      DELETE_ORGANISATION,
      UPDATE_ORGANISATION,
      GET_SINGLE_ORGANISATION,
-     GET_ORGANISATIONFORUSER
+     GET_ORGANISATIONFORUSER,
+     Follow_Organisation,
+     IS_FOLLOWED
      
   } from "./Type";
 //   import OrganisationService from "../services/auth.service";
@@ -101,6 +103,50 @@ import {
     );
   };
 
+
+
+  export const FollowOrganisation = (id,idOrganization) => async (dispatch) => {
+    // export const AddProject = (labelproject,projectdescriptiob,fundneeded,image) => (dispatch) => {
+      // return OrganisationService.AddProject(labelproject,projectdescriptiob,fundneeded,image).then(
+      return await OrganisationService.FollowOrganisation(id,idOrganization).then(
+        (response) => {
+          console.log(response);
+          dispatch({
+            
+            type: Follow_Organisation,
+          });
+          dispatch({
+            type: SET_MESSAGE,
+            payload: response.data.message,
+          });
+          return Promise.resolve();
+        }
+
+        
+      );
+    };
+
+
+    export const IsFollowed = (id,idOrganization) => async (dispatch) => {
+      // export const AddProject = (labelproject,projectdescriptiob,fundneeded,image) => (dispatch) => {
+        // return OrganisationService.AddProject(labelproject,projectdescriptiob,fundneeded,image).then(
+        return await OrganisationService.IsFollowed(id,idOrganization).then(
+          (response) => {
+            console.log(response);
+            dispatch({
+              
+              type: IS_FOLLOWED,
+            });
+            dispatch({
+              type: SET_MESSAGE,
+              payload: response.data.message,
+            });
+            return Promise.resolve();
+          }
+  
+          
+        );
+      };
 
   export const deleteOrganization = (id) =>  (dispatch) => {
     try {

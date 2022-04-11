@@ -15,10 +15,34 @@ const  allProjects= () => {
   return axios.get(API_URL + "all");
 };
 
+
+
+
+
+
+
+const  getprojectsByorg= (id) => {
+  return axios.get(API_URL + "getProjectOfOrg/"+id);
+};
+const  getFollowers= (id) => {
+  return axios.get(API_URL + "getFollowersOfOrg/"+id);
+};
+
 const  AddProject= (form) => {
 // const  AddProject= (labelproject,projectdescriptiob,fundneeded,image) => {
   return axios.post(API_URL + "add",form,config);
 };
+
+
+
+const  ValidateProject= (id) => {
+  // const  AddProject= (labelproject,projectdescriptiob,fundneeded,image) => {
+    return axios.post(API_URL + "validateProject/"+id);
+  };
+const  IgnoreProject= (id) => {
+  // const  AddProject= (labelproject,projectdescriptiob,fundneeded,image) => {
+    return axios.post(API_URL + "IgnoreProject/"+id);
+  };
 
 const remove = (id)=> {
 
@@ -32,6 +56,9 @@ const update = (id,form)=> {
 const getSingle = (id)=> {
   return axios.get(API_URL+"get/"+id);
 };
+const ProjectsToValidate = ()=> {
+  return axios.get(API_URL+"getProjectToValidate");
+};
 
 
 
@@ -40,7 +67,12 @@ export default  {
   AddProject,
   getSingle,
   remove,
-  update
+  update,
+  getprojectsByorg,
+  getFollowers,
+  ProjectsToValidate,
+  ValidateProject,
+  IgnoreProject
   // ,
   // login,
   // logout,

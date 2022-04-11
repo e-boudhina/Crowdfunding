@@ -88,11 +88,10 @@ function AddChapter() {
                   </option>
                 ))}
             </select>
-         
-            <label htmlFor="image">Image</label>
+            <label className="btn btn-secondary mb-4 mt-3" htmlFor="image"> Choose image </label>
                       <Input
                         type="file"
-                        className="form-control"
+                        id="image"
                         name="image"
                         validations={[required]}
                         onChange={(e) => {

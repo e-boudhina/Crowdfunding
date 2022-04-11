@@ -24,6 +24,8 @@ const Profile = (props) => {
  const { message } = useSelector((state) => state.message);
   const { infos: currentInfos } = useSelector((state) => state.auth);
   const { isLoggedIn: IsLoggedIn } = useSelector((state) => state.auth);
+  // const { verified: verified} = useSelector((state) => state.auth);
+  // console.log("is user logged in"+isLoggedIn)
 
 
 //currentInfos.image.data
@@ -47,7 +49,6 @@ useEffect(() => {
  //setImage(bf)
    // console.log("User is logged in (fom profile:22");
  }
-console.log(image);
  },[IsLoggedIn,currentInfos,navigate,image])  //dep hass"hom zeydin
   
 
@@ -104,7 +105,12 @@ console.log(image);
                 </div>
               </div>
             </div>
-            <button onClick={()=>{navigate("/addOrganisation") }}>Ajouter Organization</button>
+               <div className="col-12">
+           <div className="text-right my-2 pr-1">
+             <i style={{fontSize: '2rem', cursor: 'pointer', color: '#4bb543'}} onClick={() => {navigate('/addOrganisation')}} className="fas fa-plus-circle mx-auto" />
+           </div>
+         </div>
+       
 
 <ListOrganisationForUser/>
           </div>

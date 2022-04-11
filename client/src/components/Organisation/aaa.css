@@ -1,0 +1,24 @@
+input[type="file"] {
+    display: none;
+
+}
+
+.material-icons{
+
+width: 50px;
+
+}
+
+.photo{
+
+    height: 220px;
+    
+}
+
+/* label{
+color: white;
+height:60px;
+height:250px;
+
+
+} */

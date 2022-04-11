@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.1.1",
+    "@fortawesome/free-solid-svg-icons": "^6.1.1",
+    "@fortawesome/react-fontawesome": "^0.1.18",
     "@material-ui/core": "^4.12.3",
     "@material-ui/lab": "^4.0.0-alpha.60",
     "@reduxjs/toolkit": "^1.8.0",
@@ -18,6 +21,7 @@
     "css-loader": "^2.1.1",
     "draft-js": "^0.11.7",
     "draftjs-to-html": "^0.9.1",
+    "immutable": "^4.0.0",
     "jquery": "^3.6.0",
     "node-sass": "^7.0.1",
     "prop-types": "^15.7.2",

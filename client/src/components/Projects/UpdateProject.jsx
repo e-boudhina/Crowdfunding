@@ -103,20 +103,22 @@ function UpdateProject(props, { route, navigation }) {
         console.log(formData);
         //  formData.current.validateAll();
         // if (checkBtn.current.context._errors.length === 0) {
-        dispatch(updateProject(location.state.id,formData))
-        
-            .then(() => {
+      
 
-                console.log(formData);
-                navigate("/ListProject");
-                // props.history.push("/ListProject");
-                // window.location.reload();
-             
-            }).
-            catch((e) => {
-                console.log(e);
-            });
 
+            if (checkBtn.current.context._errors.length === 0) {
+                dispatch(updateProject(location.state.id,formData))
+                .then(() => {
+          
+                  navigate("/ListProject")
+                  window.location.reload();
+                })
+                .catch((e) => {
+                  setLoading(false);
+                });
+              } else {
+                setLoading(false);
+              }
 
          
 
@@ -132,52 +134,96 @@ function UpdateProject(props, { route, navigation }) {
     return (
 
 
+        <div class="login-area pt-120 pb-120">
+            
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    rel="stylesheet"></link>
+        
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2">
+                    <div class="basic-login">
+                        <h3 class="text-center mb-60">Update a project</h3>
+    
+        <Form onSubmit={handleUpdateProject}  ref={form} encType="multipart/form-data">
 
-        <Form onSubmit={handleUpdateProject} encType="multipart/form-data">
-
-            <label htmlFor="labelproject">labelproject</label>
-            <Input
-                type="text"
-                className="form-control"
-                name="labelproject"
-                value={labelproject}
-                onChange={onChangelabelproject}
-                validations={[required]} />
-
-
-            <label htmlFor="projectdescriptiob">projectdescriptiob</label>
-            <Input
-                type="text"
-                className="form-control"
-                name="projectdescriptiob"
-                value={projectdescriptiob}
-                onChange={onChangeprojectdescriptiob}
-                validations={[required]} />
+        <label htmlFor="labelproject">Project label <span>**</span></label>
+      <Input
+        type="text"
+        className="form-control"
+        name="labelproject"
+        value={labelproject}
+        onChange={onChangelabelproject}
+        validations={[required]}
+      />
 
 
-            <label htmlFor="fundneeded">funds needed</label>
-            <Input
-                type="text"
-                className="form-control"
-                name="fundneeded"
-                value={fundneeded}
-                onChange={onChangefundneeded}
-                validations={[required]} />
+      <label htmlFor="projectdescriptiob">Project description <span>**</span></label>
+      <Input
+        type="text"
+        className="form-control"
+        name="projectdescriptiob"
+        value={projectdescriptiob}
+        onChange={onChangeprojectdescriptiob}
+        validations={[required]}
+      />
 
-            <label htmlFor="image">Image upload</label>
-            <input
-                type="file"
-                name="image"
-                //  value={image}
-                id="image"
-                onChange={(e) => {
-                    setImage(e.target.files[0]);
-                }} />
 
-            <div>
-                <button type="submit">Submit</button>
+      <label htmlFor="fundneeded">Funds needed <span>**</span></label>
+      <Input
+        type="number"
+        className="form-control"
+        name="fundneeded"
+        value={fundneeded}
+        onChange={onChangefundneeded}
+        validations={[required]}
+      />
+
+<label for="image">Image uploader: <span>**</span> <span className="material-icons">
+add_a_photo
+</span></label>    
+  <input
+        type="file"
+        name="image"
+        // value={Image}
+        id="image"
+        onChange={(e) => {
+          setImage(e.target.files[0])
+        }}
+      />
+
+      <br></br>
+
+
+
+
+
+
+      <div class="mt-10"></div>
+      {/* <button class="btn btn-black w-100">Add project</button> */}
+      <div className="form-group">
+            <button className="btn btn-primary btn-block" disabled={loading}>
+              {loading && (
+                <span className="spinner-border spinner-border-sm"></span>
+              )}
+              <span>Add project</span>
+            </button>
+          </div>
+          {message && (
+            <div className="form-group">
+              <div className="alert alert-danger" role="alert">
+                {message}
+              </div>
             </div>
+          )}
+          <CheckButton style={{ display: "none" }} ref={checkBtn} />
         </Form>
+
+         </div>
+    </div>
+    </div>
+    </div>
+    </div>
 
     );
 }

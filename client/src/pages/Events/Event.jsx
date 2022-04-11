@@ -13,7 +13,7 @@ export default function Events(props){
                                   <h2>Our Event</h2>
                                   <div className="breadcrumb-list">
                                       <ul>
-                                          <li><a href="#">Home</a></li>
+                                          <li><a href="/">Home</a></li>
                                           <li><a href="#">Pages</a></li>
                                           <li>Event</li>
                                       </ul>
@@ -50,10 +50,10 @@ export default function Events(props){
                     <div className="basic-tab">
                       <ul className="nav tab-menu justify-content-center mb-50" id="eventTab" role="tablist">
                         <li className="nav-item">
-                          <a className="nav-link" id="home-tabe" data-toggle="tab" href="#homee" role="tab" aria-selected="false">day 01</a>
+                          <a className="nav-link" id="home-tabe" data-toggle="tab" href="#contacte" role="tab" aria-selected="false">day 01</a>
                         </li>
                         <li className="nav-item">
-                          <a className="nav-link" id="profile-tabe" data-toggle="tab" href="#profilee" role="tab" aria-selected="false">day 02</a>
+                          <a className="nav-link" id="profile-tabe" data-toggle="tab" href="#contacte" role="tab" aria-selected="false">day 02</a>
                         </li>
                         <li className="nav-item">
                           <a className="nav-link active show" id="contact-tabe" data-toggle="tab" href="#contacte" role="tab" aria-selected="true">day 03</a>
@@ -88,7 +88,7 @@ export default function Events(props){
                               </div>
                               <div className="col-lg-3 d-flex align-items-center justify-content-start justify-content-lg-end">
                                 <div className="event-btn">
-                                  <a href="#" className="btn-circle">join today</a>
+                                  <a href="/eventsdet" className="btn-circle">join today</a>
                                 </div>
                               </div>
                             </div>
@@ -120,7 +120,7 @@ export default function Events(props){
                               </div>
                               <div className="col-lg-3 d-flex align-items-center justify-content-start justify-content-lg-end">
                                 <div className="event-btn">
-                                  <a href="#" className="btn-circle">join today</a>
+                                  <a href="/eventsdet" className="btn-circle">join today</a>
                                 </div>
                               </div>
                             </div>
@@ -183,7 +183,7 @@ export default function Events(props){
                               </div>
                               <div className="col-lg-3 d-flex align-items-center justify-content-start justify-content-lg-end">
                                 <div className="event-btn">
-                                  <a href="#" className="btn-circle">join today</a>
+                                  <a href="/eventsdet" className="btn-circle">join today</a>
                                 </div>
                               </div>
                             </div>
@@ -218,7 +218,7 @@ export default function Events(props){
                               </div>
                               <div className="col-lg-3 d-flex align-items-center justify-content-start justify-content-lg-end">
                                 <div className="event-btn">
-                                  <a href="#" className="btn-circle">join today</a>
+                                  <a href="/eventsdet" className="btn-circle">join today</a>
                                 </div>
                               </div>
                             </div>
@@ -251,7 +251,7 @@ export default function Events(props){
                               </div>
                               <div className="col-lg-3 d-flex align-items-center justify-content-start justify-content-lg-end">
                                 <div className="event-btn">
-                                  <a href="#" className="btn-circle">join today</a>
+                                  <a href="/eventsdet" className="btn-circle">join today</a>
                                 </div>
                               </div>
                             </div>
@@ -284,7 +284,7 @@ export default function Events(props){
                               </div>
                               <div className="col-lg-3 d-flex align-items-center justify-content-start justify-content-lg-end">
                                 <div className="event-btn">
-                                  <a href="#" className="btn-circle">join today</a>
+                                  <a href="/eventsdet" className="btn-circle">join today</a>
                                 </div>
                               </div>
                             </div>
@@ -351,7 +351,7 @@ export default function Events(props){
                               </div>
                               <div className="col-lg-3 d-flex align-items-center justify-content-start justify-content-lg-end">
                                 <div className="event-btn">
-                                  <a href="#" className="btn-circle">join today</a>
+                                  <a href="/eventsdet" className="btn-circle">join today</a>
                                 </div>
                               </div>
                             </div>
@@ -416,7 +416,7 @@ export default function Events(props){
                               </div>
                               <div className="col-lg-3 d-flex align-items-center justify-content-start justify-content-lg-end">
                                 <div className="event-btn">
-                                  <a href="#" className="btn-circle">join today</a>
+                                  <a href="/eventsdet" className="btn-circle">join today</a>
                                 </div>
                               </div>
                             </div>
@@ -449,7 +449,7 @@ export default function Events(props){
                               </div>
                               <div className="col-lg-3 d-flex align-items-center justify-content-start justify-content-lg-end">
                                 <div className="event-btn">
-                                  <a href="#" className="btn-circle">join today</a>
+                                  <a href="/eventsdet" className="btn-circle">join today</a>
                                 </div>
                               </div>
                             </div>

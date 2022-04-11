@@ -3,7 +3,9 @@ import {
     GET_PROjECT,
     DELETE_PROJECT,
     UPDATE_PROJECT,
-    GET_SINGLE_PROJECT
+    GET_SINGLE_PROJECT,
+    GET_PROJECTS_ORG,
+    GET_PROJECTS_TO_VALIDATE
   } from "../../actions/Projects/Type";
 
 const initialState={
@@ -20,11 +22,25 @@ projects:[]
           ...state,
           projects: action.payload,
         };
+      case GET_PROJECTS_ORG:
+        return {
+          ...state,
+          projects: action.payload,
+        };
       case GET_SINGLE_PROJECT:
        console.log(action.payload);
         return {
           ...state,
           project: action.payload,
+
+        } ;
+     
+
+      case GET_PROJECTS_TO_VALIDATE:
+       console.log(action.payload);
+        return {
+          ...state,
+          projects: action.payload,
 
         } ;
 
