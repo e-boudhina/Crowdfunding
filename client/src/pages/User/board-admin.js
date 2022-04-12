@@ -15,7 +15,9 @@ const Dashboardadmin = (props) => {
   const { infos: currentInfos } = useSelector((state) => state.auth);
   const { isLoggedIn: IsLoggedIn } = useSelector((state) => state.auth);
 
-
+function isUserAdmin () {
+  return currentUser.roles.includes("ROLE_ADMIN");
+  }
 useEffect(() => {
 
     if  ((!currentUser) || (!currentUser.roles.includes("ROLE_ADMIN"))){
@@ -29,7 +31,7 @@ document.body.appendChild(document.createElement("script")).src = "assets-back/l
 document.body.appendChild(document.createElement("script")).src = "assets-back/libs/simplebar/simplebar.min.js";
 document.body.appendChild(document.createElement("script")).src = "assets-back/libs/node-waves/waves.min.js";
 document.body.appendChild(document.createElement("script")).src = "assets-back/js/app.js";
- },[currentUser])  //dep hass"hom zeydin
+ }) 
   
 
     /*if (!currentUser || !currentInfos) {
@@ -46,13 +48,15 @@ document.body.appendChild(document.createElement("script")).src = "assets-back/j
         <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
         <meta content="Themesbrand" name="author" />
         {/* App favicon */}
-        <link rel="shortcut icon" href="../assets-back/images/favicon.ico" />
+        <link rel="shortcut icon" href={`/assets-back/images/favicon.ico`} />
+
         {/* Bootstrap Css */}
-        <link href="../assets-back/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
+        <link href={`/assets-back/css/bootstrap.min.css`}  id="bootstrap-style" rel="stylesheet" type="text/css" />
         {/* Icons Css */}
-        <link href="../assets-back/css/icons.min.css" rel="stylesheet" type="text/css" />
+        <link href={`/assets-back/css/icons.min.cs`} rel="stylesheet" type="text/css" />
         {/* App Css*/}
-        <link href="../assets-back/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
+
+        <link href={`/assets-back/css/app.min.css`} id="app-style" rel="stylesheet" type="text/css" />
         {/* Begin page */}
         <div id="layout-wrapper">
           <header id="page-topbar">
@@ -60,38 +64,28 @@ document.body.appendChild(document.createElement("script")).src = "assets-back/j
               <div className="d-flex">
                 {/* LOGO */}
                 <div className="navbar-brand-box">
-                  <a href="/" className="logo logo-dark">
+                <a href="/" className="logo logo-dark">
                     <span className="logo-sm">
-                      <img src="../assets-back/images/logo-sm.png" alt="" height={22} />
+                      <img src={`/assets-back/images/logo-sm.png`} alt="" height={22} />
                     </span>
                     <span className="logo-lg">
-                      <img src="../assets-back/images/logo-dark.png" alt="" height={17} />
+                      <img src={`/assets-back/images/logo-dark.png`} alt="" height={17} />
                     </span>
                   </a>
                   <a href="index.html" className="logo logo-light">
                     <span className="logo-sm">
-                      <img src="../assets-back/images/logo-sm.png" alt="" height={22} />
+                      <img src={`/assets-back/images/logo-sm.png`} alt="" height={22} />
                     </span>
                     <span className="logo-lg">
-                      <img src="../assets-back/images/logo-light.png" alt="" height={18} />
+                      <img src={`/assets-back/images/logo-light.png`} alt="" height={18} />
                     </span>
                   </a>
                 </div>
-                <button type="button" className="btn btn-sm px-3 font-size-24 header-item waves-effect" id="vertical-menu-btn">
-                  <i className="mdi mdi-menu" />
-                </button>
+          
                 <div className="d-none d-sm-block">
                   <div className="dropdown pt-3 d-inline-block">
-                    <a className="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Create <i className="mdi mdi-chevron-down" />
-                    </a>
-                    <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                      <a className="dropdown-item" href="#">Action</a>
-                      <a className="dropdown-item" href="#">Another action</a>
-                      <a className="dropdown-item" href="#">Something else here</a>
-                      <div className="dropdown-divider" />
-                      <a className="dropdown-item" href="#">Separated link</a>
-                    </div>
+           
+                   
                   </div>
                 </div>
               </div>
@@ -122,28 +116,28 @@ document.body.appendChild(document.createElement("script")).src = "assets-back/j
                 </div>
                 <div className="dropdown d-none d-md-block ms-2">
                   <button type="button" className="btn header-item waves-effect" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img className="me-2" src="../assets-back/images/flags/us_flag.jpg" alt="Header Language" height={16} /> English <span className="mdi mdi-chevron-down" />
+                    <img className="me-2" src={`/assets-back/images/flags/us_flag.jpg`} alt="Header Language" height={16} /> English <span className="mdi mdi-chevron-down" />
                   </button>
                   <div className="dropdown-menu dropdown-menu-end">
                     {/* item*/}
                     <a href="javascript:void(0);" className="dropdown-item notify-item">
-                      <img src="../assets-back/images/flags/germany_flag.jpg" alt="user-image" className="me-1" height={12} /> <span className="align-middle"> German </span>
+                      <img src={`/assets-back/images/flags/germany_flag.jpg`} alt="user-image" className="me-1" height={12} /> <span className="align-middle"> German </span>
                     </a>
                     {/* item*/}
                     <a href="javascript:void(0);" className="dropdown-item notify-item">
-                      <img src="../assets-back/images/flags/italy_flag.jpg" alt="user-image" className="me-1" height={12} /> <span className="align-middle"> Italian </span>
+                      <img src={`/assets-back/images/flags/italy_flag.jpg`} alt="user-image" className="me-1" height={12} /> <span className="align-middle"> Italian </span>
                     </a>
                     {/* item*/}
                     <a href="javascript:void(0);" className="dropdown-item notify-item">
-                      <img src="../assets-back/images/flags/french_flag.jpg" alt="user-image" className="me-1" height={12} /> <span className="align-middle"> French </span>
+                      <img src={`/assets-back/images/flags/french_flag.jpg`} alt="user-image" className="me-1" height={12} /> <span className="align-middle"> French </span>
                     </a>
                     {/* item*/}
                     <a href="javascript:void(0);" className="dropdown-item notify-item">
-                      <img src="../assets-back/images/flags/spain_flag.jpg" alt="user-image" className="me-1" height={12} /> <span className="align-middle"> Spanish </span>
+                      <img src={`/assets-back/images/flags/spain_flag.jpg`} alt="user-image" className="me-1" height={12} /> <span className="align-middle"> Spanish </span>
                     </a>
                     {/* item*/}
                     <a href="javascript:void(0);" className="dropdown-item notify-item">
-                      <img src="../assets-back/images/flags/russia_flag.jpg" alt="user-image" className="me-1" height={12} /> <span className="align-middle"> Russian </span>
+                      <img src={`/assets-back/images/flags/russia_flag.jpg`} alt="user-image" className="me-1" height={12} /> <span className="align-middle"> Russian </span>
                     </a>
                   </div>
                 </div>
@@ -263,7 +257,7 @@ document.body.appendChild(document.createElement("script")).src = "assets-back/j
                 </div>
                 <div className="dropdown d-inline-block">
                   <button type="button" className="btn header-item waves-effect" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img className="rounded-circle header-profile-user" src="../assets-back/images/users/user-4.jpg" alt="Header Avatar" />
+                    <img className="rounded-circle header-profile-user" src={`/assets-back/images/users/user-4.jpg`} alt="Header Avatar" />
                   </button>
                   <div className="dropdown-menu dropdown-menu-end">
                     {/* item*/}
@@ -275,11 +269,7 @@ document.body.appendChild(document.createElement("script")).src = "assets-back/j
                     <a className="dropdown-item text-danger" href="#"><i className="bx bx-power-off font-size-17 align-middle me-1 text-danger" /> Logout</a>
                   </div>
                 </div>
-                <div className="dropdown d-inline-block">
-                  <button type="button" className="btn header-item noti-icon right-bar-toggle waves-effect">
-                    <i className="mdi mdi-cog-outline" />
-                  </button>
-                </div>
+      
               </div>
             </div>
           </header>
@@ -298,9 +288,15 @@ document.body.appendChild(document.createElement("script")).src = "assets-back/j
                     </Link>
                   </li>
                   <li>
-                    <Link to="/admin/listchapters" className="waves-effect">
+                    <Link to="/admin/addcertificate" className="waves-effect">
                       <i className="ti-home" /><span className="badge rounded-pill bg-primary float-end">2</span>
-                      <span>List  chapterr</span>
+                      <span>add  certificate</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/admin/listcertificates" className="waves-effect">
+                      <i className="ti-home" /><span className="badge rounded-pill bg-primary float-end">2</span>
+                      <span>List  certificates</span>
                     </Link>
                   </li>
                   <li>
@@ -310,6 +306,10 @@ document.body.appendChild(document.createElement("script")).src = "assets-back/j
                       <span>List  Users</span>
                     </Link>
                   </li>
+
+
+
+
                   <li>
                     <Link to="/admin/ListOrganisation" className="waves-effect">
                       <i className="ti-home" /><span className="badge rounded-pill bg-primary float-end">2</span>
@@ -351,30 +351,6 @@ document.body.appendChild(document.createElement("script")).src = "assets-back/j
                 {/* start page title */}
                 <div className="page-title-box">
                   <div className="row align-items-center">
-                    <div className="col-md-8">
-                      <h6 className="page-title">Starter Page</h6>
-                      <ol className="breadcrumb m-0">
-                        <li className="breadcrumb-item"><a href="#">Veltrix</a></li>
-                        <li className="breadcrumb-item"><a href="#">Pages</a></li>
-                        <li className="breadcrumb-item active" aria-current="page">Starter Page</li>
-                      </ol>
-                    </div>
-                    <div className="col-md-4">
-                      <div className="float-end d-none d-md-block">
-                        <div className="dropdown">
-                          <button className="btn btn-primary  dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i className="mdi mdi-cog me-2" /> Settings
-                          </button>
-                          <div className="dropdown-menu dropdown-menu-end">
-                            <a className="dropdown-item" href="#">Action</a>
-                            <a className="dropdown-item" href="#">Another action</a>
-                            <a className="dropdown-item" href="#">Something else here</a>
-                            <div className="dropdown-divider" />
-                            <a className="dropdown-item" href="#">Separated link</a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
                   </div>
                 </div>
                 {/* end page title */}
@@ -387,60 +363,24 @@ document.body.appendChild(document.createElement("script")).src = "assets-back/j
           {/* end main content*/}
         </div>
         {/* END layout-wrapper */}
-        {/* Right Sidebar */}
-        <div className="right-bar">
-          <div data-simplebar className="h-100">
-            <div className="rightbar-title px-3 py-4">
-              <a href="javascript:void(0);" className="right-bar-toggle float-end">
-                <i className="mdi mdi-close noti-icon" />
-              </a>
-              <h5 className="m-0">Settings</h5>
-            </div>
-            {/* Settings */}
-            <hr className="mt-0" />
-            <h6 className="text-center">Choose Layouts</h6>
-            <div className="p-4">
-              <div className="mb-2">
-                <img src="../assets-back/images/layouts/layout-1.jpg" className="img-fluid img-thumbnail" alt="" />
-              </div>
-              <div className="form-check form-switch mb-3">
-                <input type="checkbox" className="form-check-input theme-choice" id="light-mode-switch" defaultChecked />
-                <label className="form-check-label" htmlFor="light-mode-switch">Light Mode</label>
-              </div>
-              <div className="mb-2">
-                <img src="../assets-back/images/layouts/layout-2.jpg" className="img-fluid img-thumbnail" alt="" />
-              </div>
-              <div className="form-check form-switch mb-3">
-                <input type="checkbox" className="form-check-input theme-choice" id="dark-mode-switch" data-bsstyle="../assets-back/css/bootstrap-dark.min.css" data-appstyle="../assets-back/css/app-dark.min.css" />
-                <label className="form-check-label" htmlFor="dark-mode-switch">Dark Mode</label>
-              </div>
-              <div className="mb-2">
-                <img src="../assets-back/images/layouts/layout-3.jpg" className="img-fluid img-thumbnail" alt="" />
-              </div>
-              
-              <div className="form-check form-switch mb-5">
-                <input type="checkbox" className="form-check-input theme-choice" id="rtl-mode-switch" data-appstyle="../assets-back/css/app-rtl.min.css" />
-                <label className="form-check-label" htmlFor="rtl-mode-switch">RTL Mode</label>
-              </div>
-              
-              <div className="d-grid">
-                <a href="https://1.envato.market/grNDB" className="btn btn-primary mt-3" target="_blank"><i className="mdi mdi-cart me-1" /> Purchase Now</a>
-              </div>
-            </div>
-          </div> {/* end slimscroll-menu*/}
-  
-        </div>
-        
-        {/* /Right-bar */}
+        {/* Right Sidebar */}   {/* /Right-bar */}
         {/* Right bar overlay*/}
-        <div className="rightbar-overlay" />
+       
         {/* JAVASCRIPT */}
   
       </div>
     );
   
 
-    </>
+    {/* JAVASCRIPT */}
+
+
+        );
+
+
+      </>
+
   );
 };
-export default Dashboardadmin;
+
+export default Dashboardadmin

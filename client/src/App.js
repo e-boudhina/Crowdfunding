@@ -33,6 +33,16 @@ import Profileconsult from "./components/User/profileconsult.component"
 import Adminboard from "./pages/User/board-admin"
 
 import "react-datepicker/dist/react-datepicker.css"
+//import AddEvents from "./pages/Events/AddEvent" 
+
+import Home from "./pages/Home" 
+
+import EventList from "./components/Events/EventList";
+//import EventDetails from "./components/Events/EventDetails";
+import UpdateEvent from "./components/Events/UpdateEvent";
+
+
+
 
 import { allProjects } from "./actions/Projects/ProjectCrud.actions";
 import ListOrganisation from "./components/Organisation/ListOrganisation";
@@ -40,9 +50,12 @@ import ListOrganisationForAdmin from "./components/Organisation/ListOrganisation
 import Add from "./components/Elearning/add-chapter.component";
 import Listchapter from "./components/Elearning/list-chapter.component";
 import Viewchapter from "./components/Elearning/view-chapter.components";
+import ListCertificates from "./components/Elearning/list-certificates.component";
+import AddCertificate from "./components/Elearning/add-certificate.component";
 import Verify_email from "./components/User/verify-email.component";
 
-import Users from "./components/User/getUsers.component"
+import Users from "./components/User/ManageUsers/getUsers.component"
+import UpdateUser from "./components/User/ManageUsers/updateUser"
 
 import OrrganisationDetails from "./components/Organisation/OrganisationDetails";
 
@@ -98,6 +111,7 @@ const App = () => {
             <Route path={"/eventsdet"} element={<EventDetails />} />
             <Route path={"/events"} element={<Events />} />
             <Route path={"/addevents"} element={<AddEvents />} />
+            <Route path={"/eventlist"} element={<EventList />} />
             <Route exact path={'/ListProject'} element={<ListPProject />} />
             <Route exact path={'/addProject'} element={<ProjectAdd />} />
             <Route exact path={'/addOrganisation'} element={<OrganisationAdd />} />
@@ -113,12 +127,14 @@ const App = () => {
             <Route path={"/admin"} element={<Adminboard />}>
             <Route path={'/admin/ListOrganisation'} element={< ListOrganisationForAdmin/>} />
             <Route  path={"/admin/listchapters"} element={< Listchapter/>}/>
+            <Route  path={"/admin/listcertificates"} element={< ListCertificates/>}/>
             <Route  path={"/admin/ListProjectToValidate"} element={<ListProjectToValidate/>}/>
             <Route  path={"/admin/add"} element={<Add/>}/>
-            <Route  path={"/admin/:id"} element={< Viewchapter/>}/>
-
-
+            <Route  path={"/admin/addcertificate"} element={<AddCertificate/>}/>
+            <Route  path={"/admin/chapter/:id"} element={< Viewchapter/>}/>
             <Route  path={"/admin/users"} element={<Users/>}/>
+            {/*I tried to use props but failed*/}
+            <Route  path={"/admin/user/update/:username"} element={<UpdateUser/>}/>
             </Route>
 
           </Routes>

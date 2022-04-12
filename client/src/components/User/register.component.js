@@ -81,6 +81,8 @@ const Register = () => {
   const { infos: currentInfos } = useSelector((state) => state.auth);
   const { user: currentUser } = useSelector((state) => state.auth);
   const [image, setImage] = useState(null);
+
+  
   useEffect(() => {
     if (currentInfos) {
       setRegisterForm(false);
@@ -356,10 +358,12 @@ const Register = () => {
                     </div>
 
                     <div className="form-group">
-                      <label htmlFor="image">Image</label>
+                    <label htmlFor="image">Image</label>
+                      <label className="btn-border" htmlFor="image"> Choose image </label>
                       <Input
+                      id="image"
                         type="file"
-                        className="form-control"
+                        className="btn-border"
                         name="image"
                         validations={[required]}
                         onChange={(e) => {
@@ -384,6 +388,7 @@ const Register = () => {
           
                   
                     </div>
+                 
                   </div>
                 )}
                 {message && (
@@ -406,7 +411,9 @@ const Register = () => {
             {registerForm ? <> </> :  <button className="btn-border"  onClick={deleteUserHandler}>Delete </button>}
           </div>
         </div>
+        
       </div>
+    
     </div>
   );
 };

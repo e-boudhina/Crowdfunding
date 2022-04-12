@@ -19,18 +19,21 @@ exports.IncubatorBoard = (req, res) => {
 };
 
 exports.deleteUser = (req, res) => {
-  if (!req.body) {
-    return res.status(400).send({
-      message: "Data to delete can not be empty!",
-    });
+
+  //Add reroute condition if id not found for all requests that require params
+  const {userId} = req.params;
+
+  if (!userId) {
+    res.status(400);
+    throw Error("User Id is required");
   }
-  const id = req.body.id;
-  User.findByIdAndRemove(id)
+
+  User.findByIdAndRemove(userId)
     .then((data) => {
       if (!data) {
-        console.log("controller : 404 user not found " + id);
+        console.log("controller : 404 user not found " + userId);
         res.status(404).send({
-          message: `Cannot delete User  with id=${id}. Maybe User  was not found!`,
+          message: `Cannot delete User  with id=${userId}. Maybe User  was not found!`,
         });
       } else {
         res.send({
@@ -40,7 +43,7 @@ exports.deleteUser = (req, res) => {
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Could not delete User with id=" + id,
+        message: "Could not delete User with id=" + userId,
       });
     });
 };
@@ -122,6 +125,7 @@ exports.FindSingleProfile = (req, res) => {
           verified: 1,
           phone:1,
           roles: 1,
+          img:1,
         }
       ).populate("roles", "-__v").then
         (data => {
@@ -154,29 +158,177 @@ exports.searchUsers = async (req, res) => {
 };
 
 exports.makeAdmin = asyncHandler(async (req, res) => {
-  if (!req.body.username) {
+  const {id} = req.params;
+
+  if (!id) {
     res.status(400);
-    throw Error("username is required");
+    throw Error("User Id is required");
   }
   Role.findOne({ name: "admin" }, (err, role) => {
     if (err) {
-      res.status(500).send({ message: err });
-      return;
+      return res.status(500).send({ message: err });
     } else {
-      //PUT TEST HERE : IF HES ALEARDY ADMIN THEN RETURN WITH "ALREADY ADMIN"
-      console.log("user to be updated "+ req.body.username);
-      console.log("with roles "+ role );
-   User.updateOne(
-      { username: req.body.username}, 
-      { $push: { roles: role._id } }
-    ).exec(
-    res.status(200).send({message:"user is admin now!"}))}
+
+      User.findOne({_id: id}).then((user)=>{
+
+        if (!user){
+          return res.status(202).send({
+            message: `There is no user with that id!!`
+          });
+        }
+          //return res.status(200).send({ message: user.roles });
+            if (user.roles.includes(role._id)) {
+              return res.status(500).send({
+                message: `User ${user.username} has already been assigned to the role \'${role.name}\'`
+              });
+            }
+            //else
+        User.findByIdAndUpdate(
+           { _id: id},
+           { $push: { roles: role._id } }
+        ).then((user)=>{
+          console.log(user)
+          return res.status(202).send({
+            message: `User ${user.username} is now an Admin!`
+          });
+        })
+
+      }).catch((error)=>{
+        //The only error that will be handled here is the Cast to ObjectId failed for value since object id must respect mongo format of  a string containing  12 bytes or a string of 24 hex characters or an integer
+        console.log(error)
+        return res.status(202).send({
+          message: error
+        });
+
+      })
+      }
+    //The old code for reference
+   // User.updateOne(
+   //    { _id: id},
+   //    { $push: { roles: role._id } }
+   //  ).then((user)=>{
+   //    //Find another way to check if modified using callback
+   //    //console.log(user.modifiedCount !=1)
+   //    if(user.modifiedCount ===1){
+   //      return res.status(200).send({message:"User is  now admin!"})
+   //    }
+   //       return res.status(200).send({message:"There is no user with that id!"})
+   // }
+   // ).catch(error =>{
+   //      console.log(error)
+   //    })
+
+  })
+});
+
+
+
+
+
+exports.makeIncubator = asyncHandler(async (req, res) => {
+  const {id} = req.params;
+
+  if (!id) {
+    res.status(400);
+    throw Error("User Id is required");
+  }
+  Role.findOne({ name: "incubator" }, (err, role) => {
+    if (err) {
+      return res.status(500).send({ message: err });
+    } else {
+
+      User.findOne({_id: id}).then((user)=>{
+
+        if (!user){
+          return res.status(202).send({
+            message: `There is no user registered under that id!!`
+          });
+        }
+        //return res.status(200).send({ message: user.roles });
+        if (user.roles.includes(role._id)) {
+          return res.status(500).send({
+            message: `User ${user.username} has already been assigned to the role \'${role.name}\'`
+          });
+        }
+        //else
+        User.findByIdAndUpdate(
+            { _id: id},
+            { $push: { roles: role._id } }
+        ).then((user)=>{
+          console.log(user)
+          return res.status(202).send({
+            message: `User ${user.username} is now an Incubator!`
+          });
+        })
+
+      }).catch((error)=>{
+        //The only error that will be handled here is the Cast to ObjectId failed for value since object id must respect mongo format of  a string containing  12 bytes or a string of 24 hex characters or an integer
+        console.log(error)
+        return res.status(202).send({
+          message: error
+        });
+
+      })
+    }
+  })
+
+});
+
+exports.makeUser = asyncHandler(async (req, res) => {
+  const {id} = req.params;
+
+  if (!id) {
+    res.status(400);
+    throw Error("User Id is required");
+  }
+  Role.findOne({ name: "user" }, (err, role) => {
+    if (err) {
+      return res.status(500).send({ message: err });
+    } else {
+
+      User.findOne({_id: id}).then((user)=>{
+
+        if (!user){
+          return res.status(202).send({
+            message: `There is no user registered under that id!!`
+          });
+        }
+        //return res.status(200).send({ message: user.roles });
+        if (user.roles.includes(role._id) && user.roles.length ===1) {
+        //  console.log('user roles: '+user.roles.length)
+          return res.status(500).send({
+            message: `User ${user.username} has already been assigned to the role \'${role.name}\'`
+          });
+        }
+        //else
+        User.findByIdAndUpdate(
+            { _id: id},
+            { roles: role._id }
+        ).then((user)=>{
+          console.log(user)
+          return res.status(202).send({
+            message: `User ${user.username} is now a simple User!`
+          });
+        })
+
+      }).catch((error)=>{
+        //The only error that will be handled here is the Cast to ObjectId failed for value since object id must respect mongo format of  a string containing  12 bytes or a string of 24 hex characters or an integer
+        console.log(error)
+        return res.status(202).send({
+          message: error
+        });
+
+      })
+    }
   })
 
 
 });
 
-//Make Incubator:
+
+//All code for reference
+
+/*
 exports.makeIncubator = asyncHandler(async (req, res) => {
   //return res.status(400).send('here');
 
@@ -209,12 +361,11 @@ exports.makeIncubator = asyncHandler(async (req, res) => {
   });
 });
 
+*/
 
-
-//Make Incubator:
 exports.banUser = asyncHandler(async (req, res) => {
   //return res.status(400).send('here2');
-  const {username} = req.body;
+  const {username} = req.params;
 
   if (!username) {
     res.status(400);
@@ -239,9 +390,39 @@ User.findOne({username: username }).then((user)=>{
   })
   });
 
+exports.unbanUser = asyncHandler(async (req, res) => {
+  //return res.status(400).send('here2');
+  const {username} = req.params;
+
+  if (!username) {
+    res.status(400);
+    throw Error("username is required");
+  }
+
+  User.findOne({username: username }).then((user)=>{
+    if (!user)
+      return res.status(200).send({
+        message: `User \'${username}\' does not exist!`
+      });
+    if (!user.isBanned)
+      return res.status(200).send({
+        message: `User \'${username}\' is already unbanned!`
+      });
+    //else
+    user.isBanned =false
+    user.save()
+    return res.status(202).send({
+      message: `User \'${username}\' is now unbanned!`
+    });
+  })
+});
+
+
+
+
 exports.getUsers = asyncHandler(async (req, res) => {
   adminRole = await Role.findOne({name:'admin'},{name: 1});
-  users = await User.find({'roles': {$ne: adminRole._id}},{password :0});
+  users = await User.find({'roles': {$ne: adminRole._id}},{password :0}).populate("roles", "-__v");
 
   if (!users) {
     return res.status(200).send({
