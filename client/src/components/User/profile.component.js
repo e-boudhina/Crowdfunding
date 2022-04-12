@@ -20,7 +20,7 @@ const Profile = (props) => {
   const [phone, setPhone]= useState("")
   const [image,setImage]=useState("")
   const [imgData,setImgData] = useState("")
- // const { user: currentUser } = useSelector((state) => state.auth);
+  const { user: currentUser } = useSelector((state) => state.auth);
  const { message } = useSelector((state) => state.message);
   const { infos: currentInfos } = useSelector((state) => state.auth);
   const { isLoggedIn: IsLoggedIn } = useSelector((state) => state.auth);
@@ -33,7 +33,7 @@ const Profile = (props) => {
 
 useEffect(() => {
   console.log("is mounted ");
-  if (!IsLoggedIn) {  
+  if (!IsLoggedIn || !currentInfos || !currentUser)  {  
     navigate("/login"); 
   } else {   
     setFirstName(currentInfos.firstName)

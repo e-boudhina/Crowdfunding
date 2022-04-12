@@ -34,4 +34,6 @@ app.get("/api/learning/certificates/",controller.getAllCertificates);
 app.post("/api/learning/add-chapter-certificate/:certifId",controller.addChapterToCertificate)
 app.post("/api/learning/add-category-learning",controller.addCategorylearning);
 app.get("/api/learning/categories-learning/",controller.getCategorieslearning);
+app.delete("/api/learning/chapter/:chapterId", controller.deleteChapter);
+app.get("/api/learning/certificates-search/",controller.getCertificatePagination);
 } 

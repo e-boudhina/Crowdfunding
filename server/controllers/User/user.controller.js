@@ -49,10 +49,12 @@ exports.deleteUser = (req, res) => {
 };
 
 exports.updateUserProfile = asyncHandler(async (req, res) => {
+  console.log("Entering updateUserProfile with " + req.body);
   const user = await User.findOne({
     _id: req.body.id,
   }).populate("roles", "-__v");
   if (user) {
+    console.log('ABOUT TO MODIFY WITH '+req.body);
     user.id = req.body.id;
     user.firstName = req.body.firstName || user.firstName;
     user.lastName = req.body.lastName || user.lastName;
@@ -65,6 +67,10 @@ exports.updateUserProfile = asyncHandler(async (req, res) => {
         : user.password;
     user.phone = req.body.phone || user.phone;
     user.birthdate = req.body.birthdate || user.birthdate;
+    user.img={
+      data: req.file.filename,
+      contentType: 'image/png'
+  } || user.img;
 
     var authorities = [];
     for (let i = 0; i < user.roles.length; i++) {
@@ -72,6 +78,7 @@ exports.updateUserProfile = asyncHandler(async (req, res) => {
     }
     const updatedUser = await user.save();
     if (updatedUser) {
+      console.log("CALLED SERVICE  UPDATED USER");
       console.log(updatedUser);
     }
     res.json({
@@ -89,7 +96,8 @@ exports.updateUserProfile = asyncHandler(async (req, res) => {
         email: updatedUser.email,
         phone: updatedUser.phone,
         password: updatedUser.password,
-        birthdate: updatedUser.birthdate
+        birthdate: updatedUser.birthdate,
+        image : updatedUser.img
       },
     });
   } else {

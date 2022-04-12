@@ -36,38 +36,14 @@ export const deleteUser = (id) => async (dispatch) => {
 };
 
 export const updateProfile =
-  (
-    id,
-    email,
-    password,
-    firstName,
-    lastName,
-    address,
-    phone,
-    birthdate,
-    token
-  ) =>
+  (form) =>
     async (dispatch, getState) => {
-      const user = {
-        id,
-        email,
-        password,
-        firstName,
-        lastName,
-        address,
-        phone,
-        birthdate,
-      };
+ 
       try {
-        dispatch({ type: USER_UPDATE_REQUEST }); //esm fnct
-        const config = {
-          headers: {
-            "Content-Type": "application/json",
-            "x-access-token": `${token}`,
-          },
-        };
-        //  const { data } = await axios.post(API_URL+"/user/update", user, config)
-        const { data } = await updateUser(user);
+        console.log("Entered updateProfile in Actions");
+        console.log(JSON.stringify(form));
+        dispatch({ type: USER_UPDATE_REQUEST }); 
+        const { data } = await updateUser(form);
         localStorage.setItem("infos", JSON.stringify(data.infos));
         localStorage.setItem("user", JSON.stringify(data.user));
         dispatch({ type: USER_UPDATE_SUCCESS, payload: data });

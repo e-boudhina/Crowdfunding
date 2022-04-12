@@ -93,6 +93,8 @@ const Register = () => {
       setAddress(currentInfos.address);
       setEmail(currentInfos.email);
       setPhone(String(currentInfos.phone));
+      setImage(currentInfos.image);
+      console.log("update comp :"+JSON.stringify(currentInfos));
     } else {
       setFormTitle("Signup");
     }
@@ -153,32 +155,24 @@ const Register = () => {
 
 
 
+
   const handleUpdate = (e) => {
     e.preventDefault();
+    let formData = new FormData();
+    formData.append("id", currentUser.id);
+    formData.append("email", email);
+    formData.append("password", password);
+    formData.append("firstName", firstName);
+    formData.append("lastName", lastName);
+    formData.append("address", address);
+    formData.append("phone", phone);
+    formData.append("birthdate", birthdate);
+    formData.append("image", image);
     setSuccessful(false);
     form.current.validateAll();
     if (checkBtn.current.context._errors.length === 0) {
-
-      console.log(
-        "called " + currentUser.id,
-        email,
-        password,
-        firstName,
-        lastName,
-        address,
-        phone,
-        birthdate
-      );
-      dispatch(updateProfile(
-          currentUser.id,
-          email,
-          password,
-          firstName,
-          lastName,
-          address,
-          phone,
-          birthdate,
-          currentUser.accessToken    )
+      console.log(JSON.stringify(formData));
+      dispatch(updateProfile(formData)
       )
         .then(() => {
           //Clearing the message is done using useEffect return
@@ -193,7 +187,7 @@ const Register = () => {
 
   const handleRegister = (e) => {
     e.preventDefault();
-    const formData = new FormData();
+    let formData = new FormData();
     formData.append("username", username);
     formData.append("firstName", firstName);
     formData.append("lastName", lastName);
@@ -352,6 +346,7 @@ const Register = () => {
                         className="form-control"
                         name="password"
                         value={password}
+                        validations={[requiredPassword]}
                         onChange={onChangePassword}
                 
                       />
@@ -365,10 +360,9 @@ const Register = () => {
                         type="file"
                         className="btn-border"
                         name="image"
-                        validations={[required]}
                         onChange={(e) => {
                           setImage(e.target.files[0])
-                          console.log(e.target.files[0]);
+                          console.log(e.target.files[0])
                       }}
                       />
                     </div>

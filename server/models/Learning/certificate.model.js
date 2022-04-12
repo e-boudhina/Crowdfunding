@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 var certificateSchema = new mongoose.Schema({
 name:String , 
@@ -15,4 +16,5 @@ chapters:[{
 }]
 },
 { timestamps: true })
-module.exports = mongoose.model('Certificate', certificateSchema,'Certificates')
+certificateSchema.plugin(mongoosePaginate);
+module.exports =mongoose.model('Certificate', certificateSchema,'Certificates')

@@ -2,8 +2,24 @@ const { authJwt } = require("../../middlewares");
 const controller = require("../../controllers/User/user.controller");
 const verifiedAccount_Middleware = require("../../middlewares/User/verifiedAccount_Middleware");
 const verify_Admin = require("../../middlewares/User/verifyAdmin");
-
+var path = require('path');
 module.exports = function(app) {
+  var multer = require('multer');
+  
+  var storage = multer.diskStorage({
+      destination: (req, file, cb) => {
+          console.log("FIELDNAME "+file.fieldname);
+          cb(null,path.join(__dirname, '../../../client/public/profile-uploads'))
+      },
+      filename: (req, file, cb) => {
+          console.log("ORIGINAL NAME "+file.originalname);
+          cb(null, file.originalname )
+  
+      }
+  
+  }
+  );
+  var upload = multer({ storage: storage });
     app.use(function(req, res, next) {
       res.header(
         "Access-Control-Allow-Headers",
@@ -17,7 +33,7 @@ module.exports = function(app) {
     app.get( "/api/test/inc", [authJwt.verifyToken, authJwt.isIncubator],controller.IncubatorBoard );
     app.get("/api/test/admin", [authJwt.verifyToken, authJwt.isAdmin],  controller.adminBoard );
 
-    app.post("/api/user/update", controller.updateUserProfile);
+    app.post("/api/user/update", upload.single('image'),controller.updateUserProfile);
     app.delete("/api/user/:userId", controller.deleteUser);
     app.get("/api/user/searchusers/:keyword",controller.searchUsers);
     //Getting all users

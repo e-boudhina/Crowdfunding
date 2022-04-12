@@ -2,6 +2,7 @@ const db = require("../../models");
 const Chapter = db.chapter;
 const Certificate = db.certificate;
 const asyncHandler = require("express-async-handler");
+const { chapter } = require("../../models");
 const Category = db.categorylearning
 
 
@@ -196,3 +197,59 @@ exports.getCategorieslearning = async(req, res) => {
         .send({ message: "Error retrieving Categories" });
     });
 }
+
+exports.deleteChapter = (req, res) => {
+  const {chapterId} = req.params;
+  if (!chapterId) {
+    res.status(400);
+    throw Error("chapter Id is required");
+  } 
+  Chapter.findByIdAndRemove(chapterId)
+    .then((data) => {
+      if (!data) {
+        console.log("controller : 404 chapter not found " + chapterId);
+        res.status(404).send({
+          message: `Cannot delete chapter  with id=${chapterId}. Maybe chapter  was not found!`,
+        });
+      } else {
+        res.send({
+          message: "chapter was deleted successfully!",
+        });
+      }
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: "Could not delete chapter with id=" + chapterId,
+      });
+    });
+};
+
+
+const getPagination = (page, size) => {
+  const limit = size ? +size : 3;
+  const offset = page ? page * limit : 0;
+  return { limit, offset };
+};
+// Retrieve all Tutorials from the database.
+exports.getCertificatePagination = (req, res) => {
+  const { page, size, name } = req.query;
+  var condition = name
+    ? { name: { $regex: new RegExp(name), $options: "i" } }
+    : {};
+  const { limit, offset } = getPagination(page, size);
+  Certificate.paginate(condition, { offset, limit })
+    .then((data) => {
+      res.send({
+        totalItems: data.totalDocs,
+        certificates: data.docs,
+        totalPages: data.totalPages,
+        currentPage: data.page - 1,
+      });
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving certificates.",
+      });
+    });
+};

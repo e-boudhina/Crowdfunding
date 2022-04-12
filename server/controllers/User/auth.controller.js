@@ -78,7 +78,6 @@ const signup = asyncHandler(async (req, res,next) => {
     // it had an error and a buffer as return callback
 
   });
-console.log('/uploads/'+req.file.filename);
   user.save(async (err, user) => {
     if (err) {
       res.status(500).send({ message: err });
