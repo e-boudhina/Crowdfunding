@@ -1,1 +1,3 @@
-export default (path) => "http://localhost:5000/" + path
+const getImageUrl = (path) => "http://localhost:5000/" + path;
+
+export default getImageUrl;

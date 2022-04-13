@@ -1,74 +1,24 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { Update, RemoveEvent } from "../../actions/eventActions";
-import EventService from "../../services/event.service";
-import { useNavigate } from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {useParams} from "react-router-dom";
+import eventService from "../../services/event.service";
+import getImageUrl from "../../helpers/getImageUrl";
 
 const EventDetails = (props) => {
-  const initialEventState = {
-    id: null,
-    EventName: "",
-    EventDescription: "",
-  };
+  const [event, setEvent] = useState();
+  const {id} = useParams();
+  console.log(id);
 
-  const navigate = useNavigate();
-  const [event, setEvent] = useState(props.event);
+  const getEventDetails = (eventId) => {
+    eventService
+      .getEventById(eventId)
+      .then(({data}) => setEvent(data))
+      .catch((err) => console.log(err));
+  };
+  useEffect(() => {
+    getEventDetails(id);
+  }, [id]);
 
-  const [currentEvent, setCurrentEvent] = useState(initialEventState);
-  const [message, setMessage] = useState("");
-  const dispatch = useDispatch();
-  const getEvent = (id) => {
-    EventService.get(id)
-      .then((response) => {
-        setCurrentEvent(response.data);
-        console.log(response.data);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  };
-  // useEffect(() => {
-  // getEvent(props.match.params.id);
-  //}, [props.match.params.id]);
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setCurrentEvent({ ...currentEvent, [name]: value });
-  };
-  const updateStatus = (status) => {
-    const data = {
-      id: currentEvent.id,
-      EventName: currentEvent.EventName,
-      EventDescription: currentEvent.EventDescription,
-    };
-    dispatch(Update(currentEvent.id, data))
-      .then((response) => {
-        console.log(response);
-        setCurrentEvent({ ...currentEvent, published: status });
-        setMessage("The status was updated successfully!");
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  };
-  const updateContent = () => {
-    dispatch(Update(currentEvent.id, currentEvent))
-      .then((response) => {
-        console.log(response);
-        setMessage("The event was updated successfully!");
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  };
-  const removeEvent = () => {
-    dispatch(RemoveEvent(currentEvent.id))
-      .then(() => {
-        props.history.push("/events");
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  };
+  if (!event) return <div>loading</div>;
 
   return (
     <main>
@@ -76,7 +26,7 @@ const EventDetails = (props) => {
       <section
         className="page-title-area pt-320 pb-140"
         data-background="assets/img/bg/breadcumb.jpg"
-        style={{ backgroundImage: 'url("assets/img/bg/breadcumb.jpg")' }}
+        style={{backgroundImage: 'url("assets/img/bg/breadcumb.jpg")'}}
       >
         <div className="container">
           <div className="row">
@@ -106,20 +56,16 @@ const EventDetails = (props) => {
           <div className="row">
             <div className="col-lg-7">
               <div className="event-time-wrapper mb-30">
-                <img src="assets/img/event/details/event1.jpg" alt="" />
+                <img src={getImageUrl(event.picture)} alt="" />
                 <div className="event-count">
                   <ul className="pb-10">
                     <li>
                       <h3>Start</h3>
-                      <span>Sep 8th, 2017</span>
+                      <span>{event.StartDate}</span>
                     </li>
                     <li>
                       <h3>End</h3>
-                      <span>Sep 9th, 2017</span>
-                    </li>
-                    <li>
-                      <h3>Time</h3>
-                      <span>8:00 AM - 11:00 AM</span>
+                      <span>{event.EndDate}</span>
                     </li>
                   </ul>
                   <div className="event-timer">
@@ -150,10 +96,7 @@ const EventDetails = (props) => {
             <div className="col-lg-5">
               <div className="event-day-time pl-15">
                 <div className="section-title mb-35">
-                  <p>
-                    <span /> funding rebound program
-                  </p>
-                  <h1>Fundraising Event</h1>
+                  <h1>{event.EventName}</h1>
                 </div>
                 <ul className="event-place pt-35 pb-15 mb-30">
                   <li>
@@ -163,30 +106,15 @@ const EventDetails = (props) => {
                     <span>Sponsor</span>: Robert Bruce Co.
                   </li>
                 </ul>
-                <p>
-                  Raffles have been a staple fundraiser throughout the decades.
-                  They are simple and require little effort. The raffle can be
-                  presented and advertised through websites, social medias, and
-                  emailing lists. Having a landing page for the event provides
-                  background information, and it can also offer more festivities
-                  for the event if videos and pictures are featured on said
-                  landing page. Chance2Win is an online program that sets up
-                  virtual raffles, but their service fees are on the expensive
-                  side, especially for smaller nonprofits. Fortunately, setting
-                  up a raffle through your website is inexpensive and quite
-                  easy.
-                </p>
+                <p>{event.EventDescription}</p>
                 <p>This is the event description</p>
-                <a className="btn">
-                  Join
-                  <img src="assets/img/icon/arrow.png" alt="" />
-                </a>
+                <a className="btn">Join</a>
                 <br />
                 &nbsp;
                 <i
                   className="fa fa-trash"
                   onClick={() => props.delete(event._id)}
-                  style={{ fontSize: "48px", color: "red", cursor: "pointer" }}
+                  style={{fontSize: "48px", color: "red", cursor: "pointer"}}
                 >
                   &nbsp;
                 </i>
@@ -345,7 +273,7 @@ const EventDetails = (props) => {
                       <div
                         id="contact-map"
                         className="map mb-30"
-                        style={{ position: "relative", overflow: "hidden" }}
+                        style={{position: "relative", overflow: "hidden"}}
                       >
                         <div
                           style={{
@@ -357,7 +285,7 @@ const EventDetails = (props) => {
                             backgroundColor: "rgb(229, 227, 223)",
                           }}
                         >
-                          <div style={{ overflow: "hidden" }} />
+                          <div style={{overflow: "hidden"}} />
                           <div
                             className="gm-style"
                             style={{
@@ -593,7 +521,7 @@ const EventDetails = (props) => {
                                   >
                                     <span
                                       id="9D32A86A-3DA2-4C80-BDD6-0AE5970D28B3"
-                                      style={{ display: "none" }}
+                                      style={{display: "none"}}
                                     >
                                       To navigate, press the arrow keys.
                                     </span>

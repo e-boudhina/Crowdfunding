@@ -6,6 +6,8 @@ import { useDispatch } from "react-redux";
 import Input from "../Form/Input";
 import Validators from "../../helpers/formValidator";
 import getImageUrl from "../../helpers/getImageUrl";
+import ControlledDatePicker from "../ControlledDatePicker";
+import ControlledMediaPicker from "../CotrolledImagePicker";
 
 const EventForm = ({ id }) => {
   const isAddMode = !id;
@@ -33,12 +35,6 @@ const EventForm = ({ id }) => {
         className="card card-body mt-2"
         onSubmit={formMethods.handleSubmit(onSubmit)}
       >
-        <img
-          height={100}
-          width={100}
-          alt="img"
-          src={getImageUrl(formMethods.watch("picture"))}
-        ></img>
         <Input
           label={"EventName"}
           name={"EventName"}
@@ -50,16 +46,21 @@ const EventForm = ({ id }) => {
           type="textarea"
           validate={Validators([{ validation: "required" }])}
         />
-        <Input
-          label={"StartDate"}
-          name={"StartDate"}
-          type="date"
+        <ControlledDatePicker
+          withFullScreenPortal={false}
+          label="StartDate"
+          name="StartDate"
           validate={Validators([{ validation: "required" }])}
         />
-        <Input
-          label={"endDate"}
-          name={"endDate"}
-          type="date"
+        <ControlledDatePicker
+          withFullScreenPortal={false}
+          label="EndDate"
+          name="EndDate"
+          validate={Validators([{ validation: "required" }])}
+        />
+        <ControlledMediaPicker
+          label="Event picture"
+          name="picture"
           validate={Validators([{ validation: "required" }])}
         />
         <button className="btn btn-primary mb-1" type="submit">

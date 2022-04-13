@@ -7,6 +7,7 @@ import axios from "axios";
 import { Navigate } from "react-router-dom";
 import { useNavigate } from "react-router";
 import React, { useState, useRef } from "react";
+import EventForm from "../../components/Events/EventForm";
 
 const required = (value) => {
   if (!value) {
@@ -96,8 +97,9 @@ const AddEvent = (props) => {
             </div>
             <div className="col-xl-4 col-lg-3 d-none d-xl-block "></div>
           </div>
-          <div className="contact-form">
-            <form id="contact-form" onSubmit={handleAddEvent}>
+          <EventForm />
+
+          {/* <form id="contact-form" onSubmit={handleAddEvent}>
               <div className="row">
                 <div className="col-lg-6">
                   <div className="form-box user-icon mb-30">
@@ -155,9 +157,8 @@ const AddEvent = (props) => {
                   </div>
                 </div>
               </div>
-            </form>
-            <p className="ajax-response text-center" />
-          </div>
+            </form> */}
+          <p className="ajax-response text-center" />
         </div>
       </div>
     </section>
