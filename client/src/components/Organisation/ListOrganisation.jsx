@@ -20,6 +20,7 @@ function ListOrganisation(){
  // clear message when changing location
  const dispatch = useDispatch();
  const navigate =useNavigate();
+ const [query, setQuery] = useState("")
 
 // const deletee=(id)=>{
 //   dispatch(deleteProject(id))
@@ -51,7 +52,7 @@ const { message } = useSelector(state => state.message);
     }, []);
     const organisations = useSelector((state) => state.organisations);
     console.log(organisations.Organisations); 
-    
+    const listSearched=[]
 
     const [status, setStatus] = useState(false)
 
@@ -92,7 +93,57 @@ const { message } = useSelector(state => state.message);
 
               
           <div>
-             
+
+          <div>
+
+<br></br>
+
+          <h3>
+         List of Projects:
+        </h3>
+        <div className="col-lg-8">
+        <div className="widget mb-40">
+            <div className="widget-title-box mb-30">
+              <span className="animate-border" />
+              <h3 className="widget-title">Search Projects</h3>
+            </div>
+            <form className="search-form">
+            <input placeholder="Enter organisation Title" onChange={event => setQuery(event.target.value)} />
+          
+            </form>
+          </div>
+        </div>
+     
+      {
+  organisations.Organisations.filter((organisation) => {
+  if (organisation.description.toLowerCase().includes(query.toLowerCase())) {
+    listSearched.push(organisation);
+    console.log(organisation);
+    }
+
+    else if (organisation.name.toLowerCase().includes(query.toLowerCase())) {
+      listSearched.push(organisation);
+      console.log(organisation);
+      }
+
+     else  if (organisation.adress.toLowerCase().includes(query.toLowerCase())) {
+        listSearched.push(organisation);
+        console.log(organisation);
+        }
+    //  else   if (organisation.phone.toLowerCase().includes(query.toLowerCase())) {
+    //       listSearched.push(organisation);
+    //       console.log(organisation);
+    //       }
+  
+  }
+  
+  
+  )
+  
+}
+    </div>
+
+{ console.log(listSearched)}
 
 
 
@@ -117,7 +168,10 @@ const { message } = useSelector(state => state.message);
       <div className="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
         <div className="row">
           {
-organisations.Organisations.map((element)=>{
+
+
+
+listSearched.map((element)=>{
   console.log(element);
   
   // <SingleProject/>

@@ -69,9 +69,31 @@ useEffect(() => {
     return (
       
       <div className="tab-content" id="myTabContent">
+
+{/* 
+<h3>
+         List of organisation:
+        </h3>
+        <div className="col-lg-8">
+        <div className="widget mb-40">
+            <div className="widget-title-box mb-30">
+              <span className="animate-border" />
+              <h3 className="widget-title">Search organisation</h3>
+
+              
+            </div>
+            <form className="search-form">
+              <input type="text" placeholder="Search" />
+              <button type="submit"><i className="fas fa-search" /></button>
+            </form>
+          </div>
+        </div> */}
           <h3>
           <strong>My organisations :</strong>
         </h3>
+
+
+        
       <div className="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
         <div className="row">
           {

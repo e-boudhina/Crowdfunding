@@ -3,14 +3,27 @@ import { useParams, useNavigate } from "react-router-dom";
 import LearningService from "../../services/Learning.service";
 import draftToHtml from "draftjs-to-html";
 import { Editor, EditorState, convertFromRaw } from "draft-js";
-import c from "./content.json"
+// import c from "./content.json"
 const ViewChapter = (props) => {
   const { id } = useParams();
 
   const initialChapterState = {
     _id: null,
     name: "",
-    content: {},
+    content: {
+      "blocks": [
+          {
+              "key": "7isfv",
+              "text": "This is it",
+              "type": "unstyled",
+              "depth": 0,
+              "inlineStyleRanges": [],
+              "entityRanges": [],
+              "data": {}
+          }
+      ],
+      "entityMap": {}
+  },
     createdAt: "",
     updatedAt: "",
   };
@@ -18,9 +31,10 @@ const ViewChapter = (props) => {
   const [currentChapter, setCurrentChapter] = useState(
     initialChapterState
   );
-  const [content , setContent ] =useState(c)
+  const [content , setContent ] =useState(initialChapterState.content)
   const [editorState, setEditorState] = useState(
     EditorState.createEmpty()
+  
   );
 
   const getChapter = (id) => {

@@ -128,18 +128,19 @@ const OrganisationAdd = (props) => {
         formData.append('email', email);
 
 
-        if (checkBtn.current.context._errors.length === 0) {
+        // if (checkBtn.current.context._errors.length === 0) {
             dispatch(AddOrganisation(formData))
             .then(() => {
       
               console.log(formData);
             //   props.history.push("/profile");
 
-            setTimeout(()=>{
+            setTimeout(()=>
                 //dispatch(clearMessage())
+              
                     navigate("/profile")
-            }
-            ,5000)
+            
+            ,200)
 
             
              
@@ -148,9 +149,9 @@ const OrganisationAdd = (props) => {
             .catch((e) => {
               setLoading(false);
             });
-          } else {
-            setLoading(false);
-          }
+        //    else {
+        //     setLoading(false);
+        //   }
 
         //  formData.current.validateAll();
         // if (checkBtn.current.context._errors.length === 0) {
