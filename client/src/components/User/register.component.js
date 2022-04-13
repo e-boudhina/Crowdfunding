@@ -1,11 +1,17 @@
-import React, { useState, useRef, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate  } from "react-router-dom";
+import React, {useState, useRef, useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {useNavigate} from "react-router-dom";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
-import { isEmail } from "validator";
-import { register,registerr, updateProfile , deleteUser , logout} from "../../actions/auth";
+import {isEmail} from "validator";
+import {
+  register,
+  registerr,
+  updateProfile,
+  deleteUser,
+  logout,
+} from "../../actions/auth";
 import DatePicker from "react-datepicker";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
@@ -69,17 +75,17 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   //const [passwordModified, setPasswordModified] = useState(false);
-  var passwordModified = false ;
+  var passwordModified = false;
   const [birthdate, setBirthdate] = useState(new Date());
   const [successful, setSuccessful] = useState(false);
-  const { message } = useSelector((state) => state.message);
+  const {message} = useSelector((state) => state.message);
   const dispatch = useDispatch();
   let navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [formTitle, setFormTitle] = useState("");
   const [registerForm, setRegisterForm] = useState(true);
-  const { infos: currentInfos } = useSelector((state) => state.auth);
-  const { user: currentUser } = useSelector((state) => state.auth);
+  const {infos: currentInfos} = useSelector((state) => state.auth);
+  const {user: currentUser} = useSelector((state) => state.auth);
   const [image, setImage] = useState(null);
 
   
@@ -97,8 +103,10 @@ const Register = () => {
       setFormTitle("Signup");
     }
     //Using return is like using componentWillUnmount hook
-     return () => {dispatch(clearMessage())}
-  },[currentInfos]);
+    return () => {
+      dispatch(clearMessage());
+    };
+  }, [currentInfos]);
 
   const onChangeUsername = (e) => {
     const username = e.target.value;
@@ -112,7 +120,7 @@ const Register = () => {
     const lastName = e.target.value;
     setLastName(lastName);
   };
- 
+
   const onChangeAddress = (e) => {
     const address = e.target.value;
     setAddress(address);
@@ -125,19 +133,19 @@ const Register = () => {
     const password = e.target.value;
     setPassword(password);
     if (password) {
-      passwordModified = true ;
+      passwordModified = true;
     } else {
-      passwordModified = false ;
+      passwordModified = false;
     }
   };
   const vpassword = (value) => {
-    if ( (value.length>0) && (value.length < 4 || value.length > 40)   ){
-        return (
-          <div className="alert alert-danger" role="alert">
-            The password must be between 4 and 40 characters.
-          </div>
-        );
-      }
+    if (value.length > 0 && (value.length < 4 || value.length > 40)) {
+      return (
+        <div className="alert alert-danger" role="alert">
+          The password must be between 4 and 40 characters.
+        </div>
+      );
+    }
   };
   const requiredPassword = (value) => {
     if (!value && !currentUser) {
@@ -149,16 +157,11 @@ const Register = () => {
     }
   };
 
-
-
-
-
   const handleUpdate = (e) => {
     e.preventDefault();
     setSuccessful(false);
     form.current.validateAll();
     if (checkBtn.current.context._errors.length === 0) {
-
       console.log(
         "called " + currentUser.id,
         email,
@@ -169,7 +172,8 @@ const Register = () => {
         phone,
         birthdate
       );
-      dispatch(updateProfile(
+      dispatch(
+        updateProfile(
           currentUser.id,
           email,
           password,
@@ -178,11 +182,12 @@ const Register = () => {
           address,
           phone,
           birthdate,
-          currentUser.accessToken    )
+          currentUser.accessToken
+        )
       )
         .then(() => {
           //Clearing the message is done using useEffect return
-          navigate("/profile")
+          navigate("/profile");
           setSuccessful(true);
         })
         .catch(() => {
@@ -209,26 +214,25 @@ const Register = () => {
     form.current.validateAll();
 
     if (checkBtn.current.context._errors.length === 0) {
-      setIsLoading(true)
+      setIsLoading(true);
       dispatch(
-       // register(username, email, password, firstName, lastName, address,birthdate,phone,image)
-       registerr(formData)
+        // register(username, email, password, firstName, lastName, address,birthdate,phone,image)
+        registerr(formData)
       )
         .then(() => {
-          console.log('done')
-          setIsLoading(false)
+          console.log("done");
+          setIsLoading(false);
           setSuccessful(true);
           // dispatch(clearMessage())
-          setTimeout(()=>{
-                navigate('/login');
-              }
-              ,5000)
+          setTimeout(() => {
+            navigate("/login");
+          }, 5000);
           //You can pust clear message here you need to put it on component unmount
           //dispatch(clearMessage())
         })
         .catch((error) => {
-          console.log("here")
-          setIsLoading(false)
+          console.log("here");
+          setIsLoading(false);
           setSuccessful(false);
         });
     }
@@ -238,19 +242,19 @@ const Register = () => {
     dispatch(deleteUser(currentUser.id))
       .then(() => {
         console.log("register component delete user-> then ");
-      
-          dispatch(logout());
-     
-      //  props.history.push("/tutorials");
-     // navigate("/login")
+
+        dispatch(logout());
+
+        //  props.history.push("/tutorials");
+        // navigate("/login")
       })
-      .catch(e => {
+      .catch((e) => {
         console.log(e);
       });
   };
 
-  if (isLoading){
-    return <Spinner/>
+  if (isLoading) {
+    return <Spinner />;
   }
   return (
     <div className="login-area pt-120 pb-120">
@@ -261,7 +265,7 @@ const Register = () => {
               <h3 className="text-center mb-60">{formTitle}</h3>
 
               <Form
-              enctype="multipart/form-data"
+                enctype="multipart/form-data"
                 onSubmit={registerForm ? handleRegister : handleUpdate}
                 ref={form}
               >
@@ -285,7 +289,6 @@ const Register = () => {
                         name="firstName"
                         value={firstName}
                         onChange={onChangeFirstName}
-                   
                       />
 
                       <label htmlFor="lastName "> Last name : </label>
@@ -295,7 +298,6 @@ const Register = () => {
                         name="lastName"
                         value={lastName}
                         onChange={onChangeLastName}
-                
                       />
 
                       <label htmlFor="address "> Address : </label>
@@ -305,7 +307,6 @@ const Register = () => {
                         name="address"
                         value={address}
                         onChange={onChangeAddress}
-                     
                       />
 
                       <label htmlFor="birthdate "> Birthdate : </label>
@@ -315,10 +316,9 @@ const Register = () => {
                         name="birthdate"
                         value={birthdate}
                         onChange={(birthdate) => setBirthdate(birthdate)}
-               
                       />
 
-<label htmlFor="phone "> Phone number : </label>
+                      <label htmlFor="phone "> Phone number : </label>
                       <PhoneInput
                         name="phone"
                         country={"tn"}
@@ -339,11 +339,8 @@ const Register = () => {
                         name="email"
                         value={email}
                         onChange={onChangeEmail}
-                  
                       />
                     </div>
-          
-
 
                     <div className="form-group">
                       <label htmlFor="password"> Password</label>
@@ -353,7 +350,6 @@ const Register = () => {
                         name="password"
                         value={password}
                         onChange={onChangePassword}
-                
                       />
                     </div>
 
@@ -365,15 +361,12 @@ const Register = () => {
                         type="file"
                         className="btn-border"
                         name="image"
-                        validations={[required]}
                         onChange={(e) => {
-                          setImage(e.target.files[0])
+                          setImage(e.target.files[0]);
                           console.log(e.target.files[0]);
-                      }}
+                        }}
                       />
                     </div>
-
-
 
                     <div className="form-group">
                       {registerForm ? (
@@ -383,10 +376,7 @@ const Register = () => {
                       )}
                       <div className="or-divide">
                         <span>or</span>
-                        </div>
-
-          
-                  
+                      </div>
                     </div>
                  
                   </div>
@@ -405,10 +395,16 @@ const Register = () => {
                     </div>
                   </div>
                 )}
-                <CheckButton style={{ display: "none" }} ref={checkBtn} />
+                <CheckButton style={{display: "none"}} ref={checkBtn} />
               </Form>
             </div>
-            {registerForm ? <> </> :  <button className="btn-border"  onClick={deleteUserHandler}>Delete </button>}
+            {registerForm ? (
+              <> </>
+            ) : (
+              <button className="btn-border" onClick={deleteUserHandler}>
+                Delete{" "}
+              </button>
+            )}
           </div>
         </div>
         
