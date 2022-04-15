@@ -66,19 +66,16 @@ const signup = asyncHandler(async (req, res, next) => {
     username: req.body.username,
     email: req.body.email,
     password: bcrypt.hashSync(req.body.password, 8),
-<<<<<<< HEAD
      verifyEmailToken: await generate_custom_token(),
      img: {
       data: req.file.filename,
       contentType: 'image/png'
   }
-=======
-    verifyEmailToken: await generate_custom_token(),
     //    img: {
     //     data: fs.readFileSync(path.join(process.cwd()+'/uploads/'+req.file.filename)),
     //     contentType: 'image/png'
     // }
->>>>>>> Events
+
     // verifyEmailToken: crypto.randomBytes(32).toString("hex") // this function can be either used synchronously or asynchronously
     //Read more about transforming an async function to a normal function
     // it had an error and a buffer as return callback
