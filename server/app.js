@@ -86,6 +86,9 @@ require('./routes/Learning/learning.routes')(app);
 require('./routes/event/events.routes')(app);
 
 
+//Services routes
+app.use('/api/furniture', require('./routes/Services/furniture.routes'))
+
 // overriding express default error handler that return text/html( express assumes BY DEFAULT that you are using blade or twig templating engine)
 //It needs to be be defined after routes or else it will not work
 app.use(errorHandler);
