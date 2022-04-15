@@ -71,6 +71,7 @@ const signup = asyncHandler(async (req, res, next) => {
       data: req.file.filename,
       contentType: 'image/png'
   }
+
     //    img: {
     //     data: fs.readFileSync(path.join(process.cwd()+'/uploads/'+req.file.filename)),
     //     contentType: 'image/png'

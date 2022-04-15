@@ -7,42 +7,20 @@ import { allProjects,RetrieveProjectsByOrg } from "../../actions/Projects/Projec
 import  SingleProject  from "./SingleProjectForUser";
 import React, { useState, useEffect } from "react";
 import { deleteProject } from "../../actions/Projects/ProjectCrud.actions";
+import  SingleProjectForUser  from "./SingleProjectForUser";
 
 
 
 
-function ListProject(){
+export default function ListProjectsOfUser(){
   
   
- // clear message when changing location
+
  const dispatch = useDispatch();
  const navigate =useNavigate();
- const location = useLocation();
-
- const ownerName=location.state.ownerName
-
-const deletee=(id)=>{
-  dispatch(deleteProject(id))
-
-// if (error) {
-//   console.log("Problem with the api");
-// } else {
-//   console.log("good job");
-  
-// navigate("/ListProject");
-window.location.reload();
-}
-
-
-
-    // useEffect(() => {
-    //   history.listen((location) => {
-    //     dispatch(clearMessage()); // clear message when changing location
-    //   });
-    // }, [dispatch]);
-    
+ 
     useEffect(() => {
-      dispatch(RetrieveProjectsByOrg(location.state.id));
+      dispatch(allProjects());
     }, []);
     const projects = useSelector((state) => state.projects);
     console.log(projects); 
@@ -81,11 +59,6 @@ window.location.reload();
       <div className="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
         <div className="row">
 
-        <div className="col-11">
-           <div className="text-right my-2 pr-1">
-             <i style={{fontSize: '2rem', cursor: 'pointer', color: '#4bb543'}} onClick={() => {navigate('/addProject',{state:{id:location.state.id}})}} className="fas fa-plus-circle mx-auto" />
-           </div>
-         </div>
           {
 projects.projects.map((element)=>{
   
@@ -95,7 +68,7 @@ projects.projects.map((element)=>{
   return(
 
     (element.status===1)?
-          <SingleProject delete={deletee} project={element} owner={ownerName}></SingleProject>
+          <SingleProjectForUser project={element}></SingleProjectForUser>
           : <></>
     
     )  
@@ -118,4 +91,4 @@ projects.projects.map((element)=>{
 
 
 
-export default ListProject;
+// export default ListProjectsOfUser;

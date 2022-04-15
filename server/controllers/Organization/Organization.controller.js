@@ -2,6 +2,10 @@ const db = require("../../models");
 var fs = require('fs');
 const uploader= require("../../ImageUploader");
 const Image= require("../../models/Image/image.model");
+const asyncHandler = require("express-async-handler");
+var arrayList = require('array-list')
+
+
 // const { default: organisationReducers } = require("../../../client/src/reducers/Organisations/organisation.reducers");
 const Project = db.Project;
 const User = db.user;
@@ -263,6 +267,39 @@ exports.allForUser = (req, res) => {
   });
   };
 
+  
+                  
+  exports.allOrganisationOwners = asyncHandler(async (req, res) => {
+    var list = arrayList()
+
+    User.find({}, (err, user) => {
+      if (user) {
+        console.log(user);            // The below two lines will add the newly saved review's 
+           // ObjectID to the the User's reviews array field
+          //  res.json(user)
+
+user.forEach((element)=>{
+if(element.aa.length!=0){
+list.push(element)
+
+}
+
+}
+
+
+  
+)
+res.json(list)
+
+
+
+      }
+     
+     });
+    
+    }
+     )
+
 
                     
 exports.getOrgByid = (req, res) => {
@@ -276,3 +313,4 @@ exports.getOrgByid = (req, res) => {
         }
             });
   };
+

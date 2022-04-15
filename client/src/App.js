@@ -12,6 +12,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ProjectDetails from "./components/Projects/ProjectDetails"
 import ListPProject from "./components/Projects/ListProject"
+import ListProjectsOfUser from "./components/Projects/ListProjectsOfUser"
 import UpdateProject from "./components/Projects/UpdateProject"
 import ListProjectToValidate from "./components/Projects/ListProjectToValidate"
 import OrganisationAdd from "./components/Organisation/AddOrganisation"
@@ -97,7 +98,9 @@ const App = () => {
 
           {/*{ isVerified ? redirect():''}*/}
           <Route path={"/"} element={<><Header /><Footer /></>} >
+            
             <Route path={"/profile"} element={<Profile />} />
+            <Route path={""} element={<Home />} />
             <Route path={"/u/:username"} element={<Profileconsult />} />
             <Route path={"/login"} element={<Login />} />
             <Route path={"/register"} element={<Register />} />
@@ -105,6 +108,7 @@ const App = () => {
             <Route path={"/reset-password"} element={<Reset_password />} />
             <Route path={"/new-password/:token"} element={<New_password />} />
             <Route path={"/verify-email/:token"} element={<Verify_email />} />
+            <Route path={"/ListProjectsOfUser"} element={<ListProjectsOfUser />} />
 
             <Route exact path={"/ProjectDetails"} element={<ProjectDetails />} />
             <Route path={"/eventsdet"} element={<EventDetails />} />
