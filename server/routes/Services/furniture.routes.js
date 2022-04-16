@@ -1,8 +1,9 @@
 const express = require('express')
 const router = express.Router()
 const {getAllFurniture, createFurniture, updateFurniture, deleteFurniture} = require('../../controllers/Services/furniture.controller')
+const { authJwt } = require("../../middlewares");
 
-//Secureing these routes will be done later
+//Securing these routes will be done later
 router.get('/', getAllFurniture)
 router.post('/', createFurniture)
 router.put('/:furnitureId',updateFurniture)

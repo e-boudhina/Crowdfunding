@@ -1,6 +1,7 @@
 const asyncHandler = require('express-async-handler')
 const Furniture = require ('../../models/Services/furniture')
 
+
 const getAllFurniture = asyncHandler(async (req, res) =>{
     Furniture.find({}, (error,result)=>{
         if (error) {
@@ -29,7 +30,7 @@ const createFurniture = asyncHandler(async (req, res) =>{
         type: type
     })
     if (furniture){
-        res.status(200).json(
+       return  res.status(200).json(
             {
                 message:"Furniture added successfully", furniture}
         )

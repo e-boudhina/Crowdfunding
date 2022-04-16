@@ -25,7 +25,7 @@ app.use(cors(corsOptions));
 
 app.set("view engine", "ejs");
 let reqPath = path.join(__dirname, '../client/public');
-console.log(reqPath);
+//console.log(reqPath);
 app.use(express.static(reqPath));
 app.use(express.static("public"));
 
@@ -88,6 +88,7 @@ require('./routes/event/events.routes')(app);
 
 //Services routes
 app.use('/api/furniture', require('./routes/Services/furniture.routes'))
+app.use('/api/userRequests', require('./routes/Services/userRequests.routes'))
 
 // overriding express default error handler that return text/html( express assumes BY DEFAULT that you are using blade or twig templating engine)
 //It needs to be be defined after routes or else it will not work
