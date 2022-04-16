@@ -36,4 +36,6 @@ app.post("/api/learning/add-category-learning",controller.addCategorylearning);
 app.get("/api/learning/categories-learning/",controller.getCategorieslearning);
 app.delete("/api/learning/chapter/:chapterId", controller.deleteChapter);
 app.get("/api/learning/certificates-search/",controller.getCertificatePagination);
+app.post("/api/learning/progress-certif/",controller.ProgressCertif)
+app.get("/api/learning/get-progress/",controller.getProgression)
 } 

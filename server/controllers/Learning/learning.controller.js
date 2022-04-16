@@ -1,6 +1,7 @@
 const db = require("../../models");
 const Chapter = db.chapter;
 const Certificate = db.certificate;
+const Progression = db.progression;
 const asyncHandler = require("express-async-handler");
 const { chapter } = require("../../models");
 const Category = db.categorylearning
@@ -90,7 +91,7 @@ exports.addCertificate = (req, res) => {
 
 exports.getCertificate = (req, res) => {
   const id = req.params.id;
-  Certificate.findById(id)
+  Certificate.findById(id).populate("chapters")
     .then((data) => {
       if (!data)
         res
@@ -106,7 +107,7 @@ exports.getCertificate = (req, res) => {
 };
 
 exports.getAllCertificates = (req, res) => {
-  Certificate.find().populate("chapters")
+  Certificate.find().populate("chapters").populate("category")
     .then((data) => {
       if (!data)
         res.status(404).send({ message: "Not found Certificate with id " });
@@ -237,8 +238,9 @@ exports.getCertificatePagination = (req, res) => {
     ? { name: { $regex: new RegExp(name), $options: "i" } }
     : {};
   const { limit, offset } = getPagination(page, size);
-  Certificate.paginate(condition, { offset, limit })
+  Certificate.paginate(condition, { offset, limit , populate:"category" })
     .then((data) => {
+      console.log(data);
       res.send({
         totalItems: data.totalDocs,
         certificates: data.docs,
@@ -253,3 +255,81 @@ exports.getCertificatePagination = (req, res) => {
       });
     });
 };
+
+exports.getProgression = asyncHandler(async (req, res) => {
+  const id = req.body._id;
+  Progression.findById(id).populate("user").populate("certificate")
+    .then((data) => {
+      if (!data)
+        res
+          .status(404)
+          .send({ message: "Not found Progression with id " + id });
+      else res.send(data);
+    })
+    .catch((err) => {
+      res
+        .status(500)
+        .send({ message: "Error retrieving Progression with id=" + id });
+    });
+})
+
+exports.ProgressCertif = asyncHandler(async (req, res) => {
+  if (!req.body.user) {
+    res.status(400);
+    throw Error("user id is required");
+  }
+  if (!req.body.certificate) {
+    res.status(400);
+    throw Error("certificate id is required");
+  }
+  if (!req.body.currentChapter) {
+    res.status(400);
+    throw Error("chapter id is required");
+  }
+  Progression.findOne({ certificate : req.body.certificate , user : req.body.user }).exec((err, prog) => {
+    if (err) {
+      return res.status(400).send({ message: err });
+    }
+    if (!prog) {  //ken famech progress yasna3 progress
+      const progression = new Progression({
+        user: req.body.user,
+        certificate: req.body.certificate,
+        currentChapter : req.body.currentChapter,
+        isCompleted : 0 ,
+      });
+      progression
+        .save(progression)
+        .then((data) => {
+          res.send(data);
+        })
+        .catch((err) => {
+          res.status(500).send({
+            message:
+              err.message || "Some error occurred while creating the progression.",
+          });
+        });
+    }
+    if (prog) { //ken fama progress bech imodify 7asb el chapter li khlatlou
+      if (!prog.isCompleted) {
+      Progression.updateOne({ 
+       certificate : req.body.certificate , user : req.body.user 
+      }, {
+        currentChapter: req.body.currentChapter,
+        isCompleted: req.body.isCompleted ?  req.body.isCompleted : 0  //fel component , if it's last chapter completed , set this to 1
+      }).then((data) => {
+        res.send(data);
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while updating the progression.",
+        });
+      });
+    }
+    else {
+      res.status(400).send({ message: "Certificate already completed" });
+    }
+  }
+  }) //end user find
+  
+})

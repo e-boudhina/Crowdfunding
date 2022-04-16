@@ -33,7 +33,7 @@ console.log(process.env.PUBLIC_URL);
             <div className="col-g-5 col-lg-5">
               <div className="team mb-50">
                 <div className="team__thumb">
-                <img src={`/profile-uploads/${image}`} alt="" />
+                <img src={`/profile-uploads/${image}`} alt={`/profile-uploads/alternative-profile.png`} />
                 </div>
               </div>
             </div>

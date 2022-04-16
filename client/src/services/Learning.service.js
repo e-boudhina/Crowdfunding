@@ -24,6 +24,17 @@ export const getAllChapters = () => {
     console.log("SERVICE CALLED "+JSON.stringify(certificate));
     return axios.post(API_URL+"/add-certificate/", certificate,config   )
   }
+  export const paginateCertificates = async (params) => {
+    console.log("SERVICE CALLED "+JSON.stringify(params));
+    const data=await axios.get(API_URL+"/certificates-search/", { params }, { headers: authHeader()   })
+    console.log(data.data);
+    return data.data;
+  }
+  export const getCertificate =  (id) => {
+const data =   axios.get(API_URL+"/certificate/"+id, { headers: authHeader()   })
+    return data
+  }
+  
   /*export const getCertificates = (id) => {
 axios.get(API_URL+"/certificates/", { headers: authHeader()   })
 .then(resp => {
@@ -37,5 +48,5 @@ axios.get(API_URL+"/certificates/", { headers: authHeader()   })
   }*/
 
 
-  export default {getAllChapters,getChapter,getCertificates
+  export default {getAllChapters,getChapter,getCertificates,getCertificate
   };

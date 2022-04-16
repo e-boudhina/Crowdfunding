@@ -100,93 +100,20 @@ function Header() {
                 <div className="header__menu f-right">
                   <nav id="mobile-menu" style={{ display: "block" }}>
                     <ul>
-                      <li>
-                        <a href="index.html">Home</a>
-                        <ul className="submenu">
-                          <li>
-                            <a href="index.html">Home style 1</a>
-                          </li>
-                          <li>
-                            <a href="index-2.html">Home style 2</a>
-                          </li>
-                          <li>
-                            <a href="index-3.html">Home style 3</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li>
-                        <a href="#">Pages</a>
-                        <ul className="submenu">
-                          <li>
-                            <a href="team.html">Volunteer</a>
-                          </li>
-                          <li>
-                            <a href="team-detail.html">Volunteer Details</a>
-                          </li>
-                          <li>
-                            <a href="progress.html">Progress Explore</a>
-                          </li>
-                          <li>
-                            <a href="progress-done.html">Progress Done</a>
-                          </li>
-                          <li>
-                            <a href="fund-details.html">Fund Details</a>
-                          </li>
-                          <li>
-                            <a href="events.html">Event</a>
-                          </li>
-                          <li>
-                            <a href="events-details.html">Event Details</a>
-                          </li>
-                          <li>
-                            <a href="portfolio.html">Portfolio</a>
-                          </li>
-                      
-                       
-                          <li>
-                            <a href="we-do.html">Service</a>
-                          </li>
-                          <li>
-                            <a href="support.html">Support</a>
-                          </li>
-                          <li>
-                            <a href="contact.html">Contact</a>
-                          </li>
-                        </ul>
-                      </li>
+                     
                       <li>
                         <a href="progress.html">Explore</a>
                       </li>
+                     
                       <li>
-                        <a href="shop.html">Shop</a>
-                        <ul className="submenu">
-                          <li>
-                            <a href="shop.html">Shop Default</a>
+                            {" "}
+                            <Link to={"/certificates"} className="nav-link">
+                              {" "}
+                              Courses {" "}
+                            </Link>{" "}
                           </li>
-                          <li>
-                            <a href="category.html">Shop With Category</a>
-                          </li>
-                          <li>
-                            <a href="product-details.html">Product Details</a>
-                          </li>
-                          <li>
-                            <a href="cart.html">Shopping Cart</a>
-                          </li>
-                          <li>
-                            <a href="checkout.html">Checkout</a>
-                          </li>
-                          <li>
-                            <a href="wishlist.html">Wishlist</a>
-                          </li>
-                          <li>
-                            <a href="login.html">Login</a>
-                          </li>
-                          <li>
-                            <a href="register.html">Register</a>
-                          </li>
-                        </ul>
-                      </li>
                    {   
+                   
                     (currentUser)?
                        (currentUser.roles.includes("ROLE_ADMIN")) ?
                           <li>

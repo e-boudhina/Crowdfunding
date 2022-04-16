@@ -31,19 +31,12 @@ import "react-toastify/dist/ReactToastify.css";
 import Notfound from "./components/404.jsx";
 import Profileconsult from "./components/User/profileconsult.component"
 import Adminboard from "./pages/User/board-admin"
-
 import "react-datepicker/dist/react-datepicker.css"
 //import AddEvents from "./pages/Events/AddEvent" 
-
 import Home from "./pages/Home" 
-
 import EventList from "./components/Events/EventList";
 //import EventDetails from "./components/Events/EventDetails";
 import UpdateEvent from "./components/Events/UpdateEvent";
-
-
-
-
 import { allProjects } from "./actions/Projects/ProjectCrud.actions";
 import ListOrganisation from "./components/Organisation/ListOrganisation";
 import ListOrganisationForAdmin from "./components/Organisation/ListOrganisationForAdmin";
@@ -53,13 +46,11 @@ import Viewchapter from "./components/Elearning/view-chapter.components";
 import ListCertificates from "./components/Elearning/list-certificates.component";
 import AddCertificate from "./components/Elearning/add-certificate.component";
 import Verify_email from "./components/User/verify-email.component";
-
 import Users from "./components/User/ManageUsers/getUsers.component"
 import UpdateUser from "./components/User/ManageUsers/updateUser"
-
 import OrrganisationDetails from "./components/Organisation/OrganisationDetails";
-
-
+import ListCertificatesUser from "./components/Elearning/list-certificates-user.component";
+import ViewCertification from "./pages/Elearning/view-certification"
 const App = () => {
 
    const redirect = ()=>{
@@ -119,6 +110,8 @@ const App = () => {
             <Route exact path={'/updateProject'} element={<UpdateProject />} />
             <Route exact path={'/updateOrganisation'} element={<UppdateOrganisation />} />
             <Route exact path={'/organisationDetails'} element={<OrrganisationDetails />} />
+            <Route path={"/certificates"} element={<ListCertificatesUser />} />
+            <Route path={"/certificate/:id"} element={<ViewCertification />} />
             {/* <Route exact path={'/ListOrganisationForAdmin'} element={<ListOrganisationForAdmin />} /> */}
             <Route path={"/*"} element={<Notfound />} />
             </Route>
