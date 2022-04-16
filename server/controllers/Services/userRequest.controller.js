@@ -46,7 +46,7 @@ const getIncubatorRequestsByIncubatorId = asyncHandler(async (req, res) =>{
         throw new Error('Please provide a valid userId')
     }
 
-    userRequest.find({incubatorId: incuboatorid}, (error, result)=>{
+    userRequest.find({incubatorId: incubatorid}, (error, result)=>{
         if (error) {
             return res.status(500).send(
                 {
@@ -70,13 +70,13 @@ const createUserRequest = asyncHandler(async (req, res) =>{
     //Extracting user id
     const {userid} = req.headers
     //extracting body fields
-    const {desired_Location, preferred_Starting_Date, expected_Ending_Date, furniture } = req.body;
+    const {desired_Location, preferred_Starting_Date, expected_Ending_Date, number_Of_Employees, furniture } = req.body;
    // return  res.status(200).json("here"+type)
    //  return  res.status(200).json({
    //      message : req.body
    //  })
 
-    if(!userid || !desired_Location || !preferred_Starting_Date || !expected_Ending_Date || !furniture){
+    if(!userid || !desired_Location || !preferred_Starting_Date || !expected_Ending_Date || !number_Of_Employees|| !furniture){
          res.status(400)
          throw new Error('Please provide all fields')
      }
@@ -86,9 +86,10 @@ const createUserRequest = asyncHandler(async (req, res) =>{
         //the form is on its own
         userId: userid,
         desired_Location: desired_Location,
-        furniture: furniture,
         preferred_Starting_Date: preferred_Starting_Date,
         expected_Ending_Date: expected_Ending_Date,
+        number_Of_Employees: number_Of_Employees,
+        furniture: furniture
     })
     //console.log(userRequestToBeCreated)
 
@@ -112,6 +113,10 @@ const approveUserRequest = asyncHandler(async (req, res) =>{
     if(!incubatorid ){
         res.status(400)
         throw new Error('Please provide a valid incubatorId')
+    }
+    if(!userRequestId ){
+        res.status(400)
+        throw new Error('Please provide a valid userRequestId')
     }
 
     const retrievedUserRequest = await userRequest.findById(userRequestId);
@@ -156,6 +161,10 @@ const rejectUserRequest = asyncHandler(async (req, res) =>{
     if(!incubatorid ){
         res.status(400)
         throw new Error('Please provide a valid incubatorId')
+    }
+    if(!userRequestId ){
+        res.status(400)
+        throw new Error('Please provide a valid userRequestId')
     }
 
     const retrievedUserRequest = await userRequest.findById(userRequestId);

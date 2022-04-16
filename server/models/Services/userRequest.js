@@ -1,12 +1,16 @@
 const mongoose = require('mongoose')
 
 var userRequestSchema = new mongoose.Schema({
-
+    /* if you are going to add something about office space you mush add a custom field and make
+        furniture optional and test on it when creating if its there then its custom -
+        maybe even make another model for office space  that can be either furnished based on the number of employees or not furnished if the user selects to opt out from it
+     */
     userId: String,
     incubatorId: String,
     desired_Location: String,
     preferred_Starting_Date: Date,
     expected_Ending_Date: Date,
+    number_Of_Employees: Number,
     furniture: [{
                     //I have tried so many times and in different ways to make this work, this was the only way I managed to do it, and I can not explain why it works
                   furnitureId:{
