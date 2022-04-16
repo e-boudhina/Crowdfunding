@@ -3,7 +3,28 @@ const userRequest = require ('../../models/Services/userRequest')
 const Furniture = require("../../models/Services/furniture");
 
 const getAllUserRequests = asyncHandler(async (req, res) =>{
-    userRequest.find({}, (error,result)=>{
+    userRequest.find({}, (error, result)=>{
+        if (error) {
+            return res.status(500).send(
+                {
+                    message: err
+                }
+            );
+        }
+        //else
+        return res.status(200).send(result);
+    })
+
+});
+// you can use jwt is Incubator middleware and check if the user is incubator or normal user and based on that you either search by user id or incubatorId - Combine 2 method into one
+const getUserRequestsByUserId = asyncHandler(async (req, res) =>{
+    const {userid} = req.headers
+    if(!userid ){
+        res.status(400)
+        throw new Error('Please provide a valid userId')
+    }
+
+    userRequest.find({userId: userid}, (error, result)=>{
         if (error) {
             return res.status(500).send(
                 {
@@ -17,28 +38,59 @@ const getAllUserRequests = asyncHandler(async (req, res) =>{
 
 });
 
+const getIncubatorRequestsByIncubatorId = asyncHandler(async (req, res) =>{
+
+    const {incubatorid} = req.headers
+    if(!incubatorid ){
+        res.status(400)
+        throw new Error('Please provide a valid userId')
+    }
+
+    userRequest.find({incubatorId: incuboatorid}, (error, result)=>{
+        if (error) {
+            return res.status(500).send(
+                {
+                    message: err
+                }
+            );
+        }
+        //else
+        return res.status(200).send(result);
+    })
+
+});
 const createUserRequest = asyncHandler(async (req, res) =>{
 
-    //const {type} = req.body;
+    // you can add a middleware to check something in headers or it could be done here
+
+    /*
+    Note that headers can not be sent in uppercase in the "headers segment" so is you send userId => it will be converted automatic to lower case "userid"
+    I had troubles with this trying to find where the problem was. That being said the "parameters" can be upper or lower case. DO not confuse the two of them
+    */
+    //Extracting user id
+    const {userid} = req.headers
+    //extracting body fields
+    const {desired_Location, preferred_Starting_Date, expected_Ending_Date, furniture } = req.body;
    // return  res.status(200).json("here"+type)
    //  return  res.status(200).json({
-   //      message : req.headers
+   //      message : req.body
    //  })
 
-    // if(!type){
-    //     res.status(400)
-    //     throw new Error('Please provide a furniture type field')
-    // }
-
+    if(!userid || !desired_Location || !preferred_Starting_Date || !expected_Ending_Date || !furniture){
+         res.status(400)
+         throw new Error('Please provide all fields')
+     }
+    // console.log('passing')
     const userRequestToBeCreated =  await userRequest.create({
          //user id will be sent in headers
         //the form is on its own
-        userId: req.headers.userid,
-        desired_Location: req.body.desired_Location,
-        furniture: req.body.furniture
+        userId: userid,
+        desired_Location: desired_Location,
+        furniture: furniture,
+        preferred_Starting_Date: preferred_Starting_Date,
+        expected_Ending_Date: expected_Ending_Date,
     })
-    console.log(userRequestToBeCreated)
-
+    //console.log(userRequestToBeCreated)
 
     if (userRequestToBeCreated){
         return  res.status(200).json(
@@ -52,7 +104,15 @@ const createUserRequest = asyncHandler(async (req, res) =>{
 });
 
 const approveUserRequest = asyncHandler(async (req, res) =>{
+    //Fetching user request id params
     const {userRequestId} = req.params;
+    //Fetching incubator id
+    const {incubatorid} = req.headers
+
+    if(!incubatorid ){
+        res.status(400)
+        throw new Error('Please provide a valid incubatorId')
+    }
 
     const retrievedUserRequest = await userRequest.findById(userRequestId);
 
@@ -75,7 +135,7 @@ const approveUserRequest = asyncHandler(async (req, res) =>{
 
     //else proceed with approval
     //the option "new : ?" returns the document as it was before update was applied when set to "false". If you set new: true, findOneAndUpdate() will instead give you the object after update was applied.
-    approvedUserRequest= await userRequest.findByIdAndUpdate(userRequestId, {status: true},{new:true});
+    approvedUserRequest= await userRequest.findByIdAndUpdate(userRequestId, {incubatorId: incubatorid, status: true},{new:true});
     if (!approvedUserRequest)
         return res.status(500).send("There was an error while updating");
 
@@ -88,7 +148,15 @@ const approveUserRequest = asyncHandler(async (req, res) =>{
 });
 
 const rejectUserRequest = asyncHandler(async (req, res) =>{
+    //Fetching user request id params
     const {userRequestId} = req.params;
+    //Fetching incubator id
+    const {incubatorid} = req.headers
+
+    if(!incubatorid ){
+        res.status(400)
+        throw new Error('Please provide a valid incubatorId')
+    }
 
     const retrievedUserRequest = await userRequest.findById(userRequestId);
 
@@ -111,7 +179,7 @@ const rejectUserRequest = asyncHandler(async (req, res) =>{
 
     //else proceed with approval
     //the option "new : ?" returns the document as it was before update was applied when set to "false". If you set new: true, findOneAndUpdate() will instead give you the object after update was applied.
-    rejectedUserRequest= await userRequest.findByIdAndUpdate(userRequestId, {status: false},{new:true});
+    rejectedUserRequest= await userRequest.findByIdAndUpdate(userRequestId, {incubatorId: incubatorid, status: false},{new:true});
     if (!rejectedUserRequest)
         return res.status(500).send("There was an error while updating");
 
@@ -123,4 +191,11 @@ const rejectUserRequest = asyncHandler(async (req, res) =>{
 
 });
 
-module.exports =  {getAllUserRequests, createUserRequest, approveUserRequest,rejectUserRequest}
+module.exports =  {
+    getAllUserRequests,
+    createUserRequest,
+    approveUserRequest,
+    rejectUserRequest,
+    getUserRequestsByUserId,
+    getIncubatorRequestsByIncubatorId
+}

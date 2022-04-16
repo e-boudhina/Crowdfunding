@@ -9,6 +9,7 @@ router.get('/', getAllUserRequests)
 router.post('/', createUserRequest)
 router.get('/approve/:userRequestId',approveUserRequest)
 router.get('/reject/:userRequestId',rejectUserRequest)
+router.get('/:userId',rejectUserRequest)
 //router.delete('/:furnitureId', deleteFurniture)
 
 module.exports = router

@@ -5,8 +5,8 @@ var userRequestSchema = new mongoose.Schema({
     userId: String,
     incubatorId: String,
     desired_Location: String,
-    preferred_starting_date: Date,
-    renting_period: Date,
+    preferred_Starting_Date: Date,
+    expected_Ending_Date: Date,
     furniture: [{
                     //I have tried so many times and in different ways to make this work, this was the only way I managed to do it, and I can not explain why it works
                   furnitureId:{
