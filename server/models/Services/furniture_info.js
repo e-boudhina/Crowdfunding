@@ -1,11 +1,11 @@
 const mongoose = require('mongoose')
 
 var furnitureInfoSchema = new mongoose.Schema({
-        furniture: {
+        furnitureId: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Furniture'
         },
-    quantity: Integer
+        quantity: Number,
     }
 )
 

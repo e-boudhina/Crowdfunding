@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 var furnitureSchema = new mongoose.Schema({
-type: String
+type: String,
 },
     {
         timestamps: true

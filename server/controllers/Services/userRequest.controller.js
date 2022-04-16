@@ -21,7 +21,9 @@ const createUserRequest = asyncHandler(async (req, res) =>{
 
     //const {type} = req.body;
    // return  res.status(200).json("here"+type)
-    //return  res.status(200).json(req.body)
+   //  return  res.status(200).json({
+   //      message : req.headers
+   //  })
 
     // if(!type){
     //     res.status(400)
@@ -31,9 +33,13 @@ const createUserRequest = asyncHandler(async (req, res) =>{
     const userRequestToBeCreated =  await userRequest.create({
          //user id will be sent in headers
         //the form is on its own
-        //userId: req.headers.userId,
+        userId: req.headers.userid,
+        desired_Location: req.body.desired_Location,
         furniture: req.body.furniture
     })
+    console.log(userRequestToBeCreated)
+
+
     if (userRequestToBeCreated){
         return  res.status(200).json(
             {
@@ -57,7 +63,7 @@ const approveUserRequest = asyncHandler(async (req, res) =>{
             }
         )
     }
-    console.log(retrievedUserRequest.status ===true)
+    //console.log(retrievedUserRequest.status ===true)
     //else check if userRequest is already approved
     if (retrievedUserRequest.status){
         return res.status(200).json(
@@ -66,7 +72,6 @@ const approveUserRequest = asyncHandler(async (req, res) =>{
             }
         )
     }
-    console.log("passing")
 
     //else proceed with approval
     //the option "new : ?" returns the document as it was before update was applied when set to "false". If you set new: true, findOneAndUpdate() will instead give you the object after update was applied.
@@ -82,5 +87,40 @@ const approveUserRequest = asyncHandler(async (req, res) =>{
 
 });
 
+const rejectUserRequest = asyncHandler(async (req, res) =>{
+    const {userRequestId} = req.params;
 
-module.exports =  {getAllUserRequests, createUserRequest, approveUserRequest}
+    const retrievedUserRequest = await userRequest.findById(userRequestId);
+
+    if (!retrievedUserRequest){
+        return res.status(200).json(
+            {
+                message: `There is no userRequest registered under the id ${userRequestId}`
+            }
+        )
+    }
+
+    //else check if userRequest is already approved
+    if (!retrievedUserRequest.status){
+        return res.status(200).json(
+            {
+                message: `Request ${userRequestId} has already been rejected! `
+            }
+        )
+    }
+
+    //else proceed with approval
+    //the option "new : ?" returns the document as it was before update was applied when set to "false". If you set new: true, findOneAndUpdate() will instead give you the object after update was applied.
+    rejectedUserRequest= await userRequest.findByIdAndUpdate(userRequestId, {status: false},{new:true});
+    if (!rejectedUserRequest)
+        return res.status(500).send("There was an error while updating");
+
+    //else
+    return res.status(200).json(
+        {
+            message:"UserRequest has been rejected!", rejectedUserRequest}
+    )
+
+});
+
+module.exports =  {getAllUserRequests, createUserRequest, approveUserRequest,rejectUserRequest}

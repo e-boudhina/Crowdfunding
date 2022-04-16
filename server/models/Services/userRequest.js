@@ -4,10 +4,16 @@ var userRequestSchema = new mongoose.Schema({
 
     userId: String,
     incubatorId: String,
-    desired_Address: String,
+    desired_Location: String,
+    preferred_starting_date: Date,
+    renting_period: Date,
     furniture: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "FurnitureInfo",
+                    //I have tried so many times and in different ways to make this work, this was the only way I managed to do it, and I can not explain why it works
+                  furnitureId:{
+                                  type: mongoose.Schema.Types.ObjectId,
+                                  ref: "FurnitureInfo"
+                  },
+                    quantity: Number
     }
 
     ],
