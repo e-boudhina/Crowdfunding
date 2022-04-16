@@ -8,4 +8,4 @@ type: String
     }
     )
 
-module.exports = mongoose.model('furniture', furnitureSchema, 'furniture')
+module.exports = mongoose.model('Furniture', furnitureSchema, 'Furniture')
