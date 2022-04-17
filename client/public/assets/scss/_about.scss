@@ -1,0 +1,120 @@
+// about
+.about-community{
+    & p{
+        font-size: 16px;
+        line-height: 28px;
+    }
+}
+.about-community-text{
+    padding-left: 60px;
+    @media #{$lg}{
+        padding: 0;
+    }
+    @media #{$md}{
+        padding: 0;
+    }
+    @media #{$xs}{
+        padding: 0;
+    }
+    & p{
+        font-size: 16px;
+        line-height: 28px;
+    }
+}
+.overview{
+    padding: 115px;
+    margin-bottom: -100px;
+    position: relative;
+    z-index: 9;
+    background-size: cover;
+    @media #{$lg}{
+        margin-bottom: 0;
+        margin-bottom: 120px;
+    }
+    @media #{$md}{
+        margin-bottom: 0;
+        margin-bottom: 120px;
+        padding: 50px;
+    }
+    @media #{$xs}{
+        margin-bottom: 0;
+        margin-bottom: 120px;
+        padding: 30px;
+    }
+    & p{
+        margin: 0;
+        font-size: 40px;
+        color: $white;
+        line-height: 1.4;
+        font-weight: 300;
+        @media #{$md}{
+            font-size: 30px;
+        }
+        @media #{$xs}{
+            font-size: 25px;
+        }
+    }
+}
+.mission-img{
+    & img{
+        max-width: inherit;
+        margin-left: -190px;
+        @media #{$lg}{
+            margin-left: 0;
+        }
+        @media #{$md}{
+            margin-left: 0;
+        }
+        @media #{$xs}{
+            margin-left: 0;
+            width: 100%;
+        }
+    }
+}
+.mission-text{
+    & .section-title{
+        & h1{
+            font-size: 60px;
+            padding-right: 60px;
+            @media #{$xs}{
+                font-size: 40px;
+            }
+        }
+    }
+    & p{
+        font-size: 16px;
+        line-height: 28px;
+    }
+}
+.testimonial-active{
+    padding: 120px;
+    border-radius: 20px;
+    margin-top: -100px;
+    @media #{$md}{
+        padding: 50px;
+    }
+    @media #{$xs}{
+        padding: 30px;
+        margin-top: -50px;
+    }
+}
+.testimonial-item{
+    & p{
+        font-size: 40px;
+        line-height: 1.4;
+        font-weight: 300;
+        color: $white;
+        @media #{$xs}{
+            font-size: 20px;
+        }
+    }
+    & span{
+        font-weight: 600;
+        font-size: 40px;
+        font-family: $poppins;
+        color: $white;
+        @media #{$xs}{
+            font-size: 20px;
+        }
+    }
+}

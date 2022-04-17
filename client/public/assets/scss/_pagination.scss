@@ -1,0 +1,55 @@
+// pagination
+.basic-pagination{
+    & ul{
+        display: block;
+        & li{
+            display: inline-block;
+            @media #{$xs}{
+                margin-bottom: 10px;
+            }
+            & a{
+                height: 70px;
+                width: 70px;
+                background: $white;
+                color: #9990b8;
+                font-size: 16px;
+                font-weight: 500;
+                border-radius: 50%;
+                line-height: 70px;
+                margin: 0 5px;
+                display: inline-block;
+                text-align: center;
+                &:hover{
+                    background: $theme-color;
+                    color: $white;
+                }
+            }
+        }
+    }
+}
+.basic-pagination-2{
+    & ul{
+        & li{
+            & a{
+                background: transparent;
+                color: #9990b8;
+                border: 2px solid #eaebec;
+                height: 60px;
+                width: 60px;
+                line-height: 56px;
+                &:hover{
+                    background: $theme-color;
+                    color: $white;
+                    border-color: $theme-color;
+                }
+            }
+            &.active{
+                & a{
+                    background: $theme-color;
+                    color: $white;
+                    border-color: $theme-color;
+                }
+            }
+        }
+    }
+}

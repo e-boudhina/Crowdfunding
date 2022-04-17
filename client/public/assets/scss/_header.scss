@@ -1,0 +1,454 @@
+/* 2.header */
+.header-transparent{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 99;
+    @media #{$xs}{
+        margin-top: 30px;
+        padding-top: 0;
+    }
+}
+.header__logo {
+    @media #{$md}{
+        margin-top: 14px;
+    }
+    @media #{$xs}{
+        margin-top: 14px;
+    }
+}
+.login-btn {
+	background: #e7f3ff;
+    padding: 20px 25px;
+        &:hover{
+            background: $theme-color;
+            color: $white;
+        }
+}
+.header-box{
+    @media #{$lg}{
+        padding: 0 15px;
+    }
+    @media #{$md}{
+        padding: 0 20px;
+    }
+    @media #{$xs}{
+        padding: 0 15px;
+    }
+    @media #{$sm}{
+        padding: 0 15px;
+    }
+}
+.header{
+    &__menu{
+        & ul{
+            & li{
+                display: inline-block;
+                margin-left: 30px;
+                position: relative;
+                @media #{$lg}{
+                    margin-left: 18px;
+                }
+                & a{
+                    color: $body-color;
+                    font-weight: 500;
+                    padding: 48px 0;
+                    display: block;
+                    font-size: 14px;
+                }
+                &:hover{
+                    & > a{
+                      color: $theme-color;
+                    }
+                }
+                & ul.submenu{
+                    position: absolute;
+                    background: $white;
+                    width: 250px;
+                    top: 110%;
+                    left: 0;
+                    opacity: 0;
+                    visibility: hidden;
+                    padding: 25px 0;
+                    @include transition(.3s);
+                    border-top: 5px solid $theme-color-2;
+                    box-shadow: 0 0 10px 3px rgba(0,0,0,.05);
+                    z-index: 99;;
+                    & li{
+                        margin: 0;
+                        display: block;
+                        &:hover > a{
+                            color: $theme-color;
+                        }
+                        & a{
+                           padding: 11px 30px;
+                        }
+                        & ul.submenu{
+                           left: 100%;
+                           top: 0;
+                           opacity: 0;
+                            visibility: hidden;
+                        }
+                        &:hover >  ul.submenu{
+                            opacity: 1;
+                            visibility: visible;
+                        }
+                    }
+                }
+                &:hover ul.submenu{
+                    opacity: 1;
+                    visibility: visible;
+                    top: 96%;
+                }
+            }
+        }
+    }
+}
+
+.header__right{
+    margin-left: 40px;
+    overflow: hidden;
+    @media #{$lg}{
+        margin-left: 20px;
+    }
+    @media #{$md}{
+        margin-right: 65px;
+        margin-left: 0;
+    }
+    @media #{$xs}{
+        margin-right: 65px;
+        margin-left: 0;
+    }
+}
+.header__icon{
+    margin-left: 20px;
+    transition: .3s;
+    @media #{$lg}{
+        margin-left: 15px;
+    }
+    @media #{$md}{
+        margin-left: 15px;
+        margin-top: 18px;
+    }
+    @media #{$xs}{
+        margin-left: 15px;
+        margin-top: 18px;
+    }
+    & a{
+        height: 60px;
+        display: inline-block;
+    }
+}
+
+// header-no-bg
+.header-top-area{
+    @media #{$laptop}{
+        padding: 0 30px;
+    }
+}
+.header-2-style {
+    & .header-no-bg{
+        @media #{$laptop}{
+            padding: 0 30px;
+        }
+        & .header__menu{
+            & ul{
+                & li{
+                    display: inline-block;
+                    margin-left: 30px;
+                    position: relative;
+                    @media #{$lg}{
+                        margin-left: 18px;
+                    }
+                    & a{
+                        color: #d5d7d8;
+                        font-weight: 500;
+                        padding: 50px 0;
+                        display: block;
+                        font-size: 14px;
+                        text-transform: uppercase;
+                        line-height: 1;
+                    }
+                    &:hover{
+                        & > a{
+                        color: $theme-color;
+                        }
+                    }
+                    & ul.submenu{
+                        position: absolute;
+                        background: $white;
+                        width: 250px;
+                        top: 110%;
+                        left: 0;
+                        opacity: 0;
+                        visibility: hidden;
+                        padding: 25px 0;
+                        @include transition(.3s);
+                        border-top: 5px solid $theme-color-2;
+                        box-shadow: 0 0 10px 3px rgba(0,0,0,.05);
+                        & li{
+                            margin: 0;
+                            display: block;
+                            &:hover > a{
+                                color: $theme-color;
+                            }
+                            & a{
+                            padding: 11px 30px;
+                            color: $body-color;
+                            text-transform: capitalize;
+                            }
+                            & ul.submenu{
+                            left: 100%;
+                            top: 0;
+                            opacity: 0;
+                                visibility: hidden;
+                            }
+                            &:hover >  ul.submenu{
+                                opacity: 1;
+                                visibility: visible;
+                            }
+                        }
+                    }
+                    &:hover ul.submenu{
+                        opacity: 1;
+                        visibility: visible;
+                        top: 96%;
+                    }
+                }
+            }
+        }
+    }
+}
+.header-no-bg{
+    @media #{$laptop}{
+        padding: 0 30px;
+    }
+    & .header__menu{
+        & ul{
+            & li{
+                display: inline-block;
+                margin-left: 30px;
+                position: relative;
+                @media #{$lg}{
+                    margin-left: 18px;
+                }
+                & a{
+                    color: $body-color;
+                    font-weight: 500;
+                    padding: 50px 0;
+                    display: block;
+                    font-size: 14px;
+                    text-transform: uppercase;
+                    line-height: 1;
+                }
+                &:hover{
+                    & > a{
+                      color: $theme-color;
+                    }
+                }
+                & ul.submenu{
+                    position: absolute;
+                    background: $white;
+                    width: 250px;
+                    top: 110%;
+                    left: 0;
+                    opacity: 0;
+                    visibility: hidden;
+                    padding: 25px 0;
+                    @include transition(.3s);
+                    border-top: 5px solid $theme-color-2;
+                    box-shadow: 0 0 10px 3px rgba(0,0,0,.05);
+                    & li{
+                        margin: 0;
+                        display: block;
+                        &:hover > a{
+                            color: $theme-color;
+                        }
+                        & a{
+                           padding: 11px 30px;
+                           color: $body-color;
+                           text-transform: capitalize;
+                        }
+                        & ul.submenu{
+                           left: 100%;
+                           top: 0;
+                           opacity: 0;
+                            visibility: hidden;
+                        }
+                        &:hover >  ul.submenu{
+                            opacity: 1;
+                            visibility: visible;
+                        }
+                    }
+                }
+                &:hover ul.submenu{
+                    opacity: 1;
+                    visibility: visible;
+                    top: 96%;
+                }
+            }
+        }
+    }
+}
+
+.header-no-bg {
+    & .login-btn {
+        background: $theme-color;
+        color: $white;
+        &:hover{
+            background: $theme-color-2;
+            color: $white;
+        }
+    }
+}
+
+
+// header 3
+.header-top-area{
+    @media #{$md}{
+        padding: 0 20px;
+    }
+    @media #{$xs}{
+
+    }
+}
+.header-cta{
+    & span{
+        color: $white;
+        margin-right: 40px;
+        font-size: 14px;
+        display: inline-block;
+        @media #{$md}{
+            margin-right: 20px;
+        }
+        & i{
+            margin-right: 5px;
+        }
+    }
+}
+.header-social-icon{
+    margin-top: 18px;
+    & a{
+        color: $white;
+        margin-left: 20px;
+        font-size: 14px;
+    }
+}
+.language{
+    & ul{
+        & li{
+            position: relative;
+            & a{
+                color: $white;
+                font-size: 14px;
+                padding: 20px 0;
+                display: inline-block;
+                line-height: 1;
+            }
+            & ul.submenu{
+                position: absolute;
+                background: $white;
+                width: 150px;
+                top: 110%;
+                left: 0;
+                opacity: 0;
+                visibility: hidden;
+                padding: 25px 0;
+                @include transition(.3s);
+                border-top: 5px solid $theme-color-2;
+                box-shadow: 0 0 10px 3px rgba(0,0,0,.05);
+                z-index: 99;
+                & li{
+                    margin: 0;
+                    display: block;
+                    &:hover > a{
+                        color: $theme-color;
+                    }
+                    & a{
+                        padding: 11px 30px;
+                        color: $body-color;
+                    }
+                    & ul.submenu{
+                        left: 100%;
+                        top: 0;
+                        opacity: 0;
+                        visibility: hidden;
+                    }
+                    &:hover >  ul.submenu{
+                        opacity: 1;
+                        visibility: visible;
+                    }
+                }
+            }
+            &:hover ul.submenu{
+                opacity: 1;
+                visibility: visible;
+                top: 96%;
+            }
+        }
+    }
+}
+.login-btn.theme-bg {
+	background: $theme-color;
+    color: $white;
+    &:hover{
+        background: $theme-color-2;
+    }
+}
+
+
+.sticky-menu {
+	left: 0;
+	margin: auto;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	box-shadow: 0 0 60px 0 rgba(0, 0, 0, .07);
+	z-index: 99999;
+	-webkit-animation: 300ms ease-in-out 0s normal none 1 running fadeInDown;
+	animation: 300ms ease-in-out 0s normal none 1 running fadeInDown;
+	-webkit-box-shadow: 0 10px 15px rgba(25, 25, 25, 0.1);
+    background: $white;
+}
+
+.sticky-menu .header__menu nav > ul > li > a {
+    padding: 32px 0;
+}
+.sticky-menu .header__icon {
+	margin-top: 15px;
+}
+.sticky-menu .header-box {
+	padding: 0;
+}
+// transparent
+.header-2-style.sticky-menu .header__menu nav > ul > li > a  {
+    padding: 35px 0;
+}
+.header-2-style.sticky-menu {
+	background: #140F26;
+	margin-top: 0;
+    padding: 0 65px;
+    @media #{$lg}{
+        padding: 0 15px;
+    }
+    @media #{$md}{
+        padding: 0 30px;
+    }
+    @media #{$xs}{
+        padding: 0 0px;
+    }
+}
+.header-transparent.sticky-menu .header-box {
+    padding: 0px;
+}
+.header-transparent.sticky-menu .header__icon {
+    margin-top: 13px;
+}
+// no bg
+.header-no-bg.sticky-menu .header__menu nav > ul > li > a {
+    padding: 35px 0;
+}
+.header-no-bg.sticky-menu .header__icon {
+    margin-top: 12px;
+}

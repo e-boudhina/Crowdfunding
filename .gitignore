@@ -1,0 +1,6 @@
+client/public/*
+client/src/bezkoder.css
+client/src/components/User/test.js
+
+client/package-lock.json
+node_modules

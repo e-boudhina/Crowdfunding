@@ -1,0 +1,138 @@
+// breadcrumb
+.page-title-area {
+	background-size: cover;
+    background-position: center center;
+
+}
+.page-title{
+    & h2{
+        font-size: 70px;
+        line-height: 1.2;
+        margin-bottom: 10px;
+        letter-spacing: -2px;
+        @media #{$xs}{
+            font-size: 50px;
+        }
+    }
+    & p{
+        font-size: 16px;
+        line-height: 28px;
+        margin-bottom: 35px;
+        padding-right: 20px;
+    }
+}
+.page-title-white{
+    & h2{
+        font-size: 70px;
+        line-height: 1.2;
+        margin-bottom: 25px;
+        color: $white;
+        @media #{$md}{
+            font-size: 50px;
+        }
+        @media #{$xs}{
+            font-size: 40px;
+        }
+    }
+    & p{
+        font-size: 16px;
+        line-height: 28px;
+        margin-bottom: 35px;
+        color: $white;
+        padding: 0 65px;
+        @media #{$xs}{
+            padding: 0px;
+        }
+
+    }
+    & .breadcrumb-list{
+        & ul{
+            & li{
+                display: inline-block;
+                padding:0 20px;
+                font-size: 16px;
+                color: $white;
+                position: relative;
+                &:first-child{
+                    padding-left: 0;
+                    &:before{
+                        display: none;
+                    }
+                }
+                & a{
+                    color: $white;
+                }
+                &:before{
+                    content: ">";
+                    left: -4px;
+                    top: 0;
+                    position: absolute;
+                    color: $white;
+                }
+            }
+        }
+    }
+}
+
+
+.breadcrumb-list{
+    & ul{
+        & li{
+            display: inline-block;
+            padding:0 20px;
+            font-size: 16px;
+            color: $theme-color;
+            position: relative;
+            &:first-child{
+                padding-left: 0;
+                &:before{
+                    display: none;
+                }
+            }
+            & a{
+                color: $body-color;
+            }
+            &:before{
+                content: ">";
+                left: -4px;
+                top: 0;
+                position: absolute;
+                color: $body-color;
+            }
+        }
+    }
+}
+
+.faq-form{
+    padding: 0 50px;
+    & form{
+        position: relative;
+        & input{
+            width: 100%;
+            height: 80px;
+            border: 0;
+            padding: 0 50px;
+            font-weight: 400;
+            border-radius: 50px;
+            @media #{$xs}{
+                padding: 0 30px;
+            }
+        }
+        & button{
+            position: absolute;
+            top: 0;
+            right: -13px;
+            border-radius: 50px;
+            height: 100%;
+            padding: 0 50px;
+            @media #{$xs}{
+                position: static;
+                margin-top: 10px;
+                height: 80px;
+            }
+        }
+    }
+}
+.faq-form input::-moz-placeholder,.faq-form input::placeholder{color: #7c9ebf;}
+
+
