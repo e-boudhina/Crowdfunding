@@ -5,6 +5,7 @@ const asyncHandler = require('express-async-handler')
 const userRequest = require ('../../models/Services/userRequest')
 
 const verify_UserRequestValidity =  asyncHandler(async (req, res, next) => {
+    // we are setting this as an argument that does not belong to the body, headers or params which a new thing that I learned you can set anything into the request in a middleware
     let userid = req.headers["userid"];
     if (!userid) {
         return res.status(403).send({ message: "Please make sure that you include a valid userid in you request !" });

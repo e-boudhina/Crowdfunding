@@ -39,8 +39,10 @@ const getUserRequestsByUserId = asyncHandler(async (req, res) =>{
 });
 
 const getIncubatorRequestsByIncubatorId = asyncHandler(async (req, res) =>{
-
-    const {incubatorid} = req.headers
+     // return  res.status(200).json({
+     //     message : req.userId
+     //  })
+    const incubatorid = req.userId
     if(!incubatorid ){
         res.status(400)
         throw new Error('Please provide a valid userId')
@@ -105,11 +107,16 @@ const createUserRequest = asyncHandler(async (req, res) =>{
 });
 
 const approveUserRequest = asyncHandler(async (req, res) =>{
+
     //Fetching user request id params
     const {userRequestId} = req.params;
     //Fetching incubator id
-    const {incubatorid} = req.headers
-
+    const incubatorid = req.userId
+    // return res.status(200).json(
+    //     {
+    //         message: incubatorid
+    //     }
+    // )
     if(!incubatorid ){
         res.status(400)
         throw new Error('Please provide a valid incubatorId')
@@ -153,6 +160,12 @@ const approveUserRequest = asyncHandler(async (req, res) =>{
 });
 
 const rejectUserRequest = asyncHandler(async (req, res) =>{
+
+    // return res.status(200).json(
+    //     {
+    //         message: req.headers
+    //     }
+    // )
     //Fetching user request id params
     const {userRequestId} = req.params;
     //Fetching incubator id
@@ -177,8 +190,14 @@ const rejectUserRequest = asyncHandler(async (req, res) =>{
         )
     }
 
-    //else check if userRequest is already approved
-    if (!retrievedUserRequest.status){
+    //else check if userRequest is already rejected
+    // return res.status(200).json(
+    //     {
+    //         message: retrievedUserRequest.status !==undefined
+    //     }
+    // )
+    //You mush use this syntax since it can be undefined. As such you can not  use "!="
+    if (retrievedUserRequest.status ===false){
         return res.status(200).json(
             {
                 message: `Request ${userRequestId} has already been rejected! `
