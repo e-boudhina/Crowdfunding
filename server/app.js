@@ -25,7 +25,9 @@ app.use(cors(corsOptions));
 
 app.set("view engine", "ejs");
 let reqPath = path.join(__dirname, '../client/public');
+
 console.log(reqPath);
+
 app.use(express.static(reqPath));
 app.use(express.static("public"));
 

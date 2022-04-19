@@ -21,12 +21,12 @@ verifyToken = (req, res, next) => {
     //This line below is extremely important, instead of sending both the "token" and the "user id" from the local storage you simply send the token.
     // The token itself belongs to a user when you use the decode function it will send back the userId of that token or even the user if you want it to
     req.userId = decoded.id; // please make sure that it is in the headers and not in the body
-  // currently there are 3 arguments in the decoded Id, iat and exp, is it possible to add more
-  //   return res.status(200).json(
-  //       {
-  //         message: decoded
-  //       }
-  //   )
+    // currently there are 3 arguments in the decoded Id, iat and exp, is it possible to add more
+    //   return res.status(200).json(
+    //       {
+    //         message: decoded
+    //       }
+    //   )
     //req.userRoles = decoded.roles;
     /* example request:
     when yo console log a request you will find a lot of information, you are going to most likely use headers, params or body to pull data from a form
@@ -48,7 +48,6 @@ verifyToken = (req, res, next) => {
   },
         userId: '62332d55f330a2f577a7f56a',                    <================== this is the result of "eq.userId = decoded.id" it does NOT belong to BODY or PARAMS nor the HEADERS
   },
-
      */
     // res.currentUser = await User.findOne(decode.id);
     //Proceed to next middleware if it exists or move on to the controller for the request to be processed
@@ -67,23 +66,23 @@ isAdmin = (req, res, next) => {
       return;
     }
     Role.find(
-      {
-        _id: { $in: user.roles }
-      },
-      (err, roles) => {
-        if (err) {
-          res.status(500).send({ message: err });
-          return;
-        }
-        for (let i = 0; i < roles.length; i++) {
-          if (roles[i].name === "admin") {
-            next();
+        {
+          _id: { $in: user.roles }
+        },
+        (err, roles) => {
+          if (err) {
+            res.status(500).send({ message: err });
             return;
           }
+          for (let i = 0; i < roles.length; i++) {
+            if (roles[i].name === "admin") {
+              next();
+              return;
+            }
+          }
+          res.status(403).send({ message: "Require Admin Role!" });
+          return;
         }
-        res.status(403).send({ message: "Require Admin Role!" });
-        return;
-      }
     );
   });
 };
@@ -95,25 +94,25 @@ isIncubator = (req, res, next) => {
       return;
     }
     Role.find(
-      {
-        _id: { $in: user.roles }
-      },
-      (err, roles) => {
-        if (err) {
-          res.status(500).send({ message: err });
-          return;
-        }
-        for (let i = 0; i < roles.length; i++) {
-          if (roles[i].name === "incubator" || roles[i].name === "admin") {
-            //Adding field to request
-            //req.isIncubator = true
-            next();
+        {
+          _id: { $in: user.roles }
+        },
+        (err, roles) => {
+          if (err) {
+            res.status(500).send({ message: err });
             return;
           }
+          for (let i = 0; i < roles.length; i++) {
+            if (roles[i].name === "incubator" || roles[i].name === "admin") {
+              //Adding field to request
+              //req.isIncubator = true
+              next();
+              return;
+            }
+          }
+          res.status(403).send({ message: "Require Incubator Role!" });
+          return;
         }
-        res.status(403).send({ message: "Require Incubator Role!" });
-        return;
-      }
     );
   });
 };
