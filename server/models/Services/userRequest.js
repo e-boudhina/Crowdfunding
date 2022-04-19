@@ -11,6 +11,7 @@ var userRequestSchema = new mongoose.Schema({
     preferred_Starting_Date: Date,
     expected_Ending_Date: Date,
     number_Of_Employees: Number,
+    furnished_Requirement: Boolean,
     furniture: [{
                     //I have tried so many times and in different ways to make this work, this was the only way I managed to do it, and I can not explain why it works
                   furnitureId:{

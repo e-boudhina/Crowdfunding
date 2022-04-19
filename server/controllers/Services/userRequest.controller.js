@@ -70,29 +70,64 @@ const createUserRequest = asyncHandler(async (req, res) =>{
     I had troubles with this trying to find where the problem was. That being said the "parameters" can be upper or lower case. DO not confuse the two of them
     */
     //Extracting user id
-    const {userid} = req.headers
+    const userid = req.userId
     //extracting body fields
-    const {desired_Location, preferred_Starting_Date, expected_Ending_Date, number_Of_Employees, furniture } = req.body;
+    const {desired_Location, preferred_Starting_Date, expected_Ending_Date, number_Of_Employees, furniture, furnished_Requirement } = req.body;
    // return  res.status(200).json("here"+type)
    //  return  res.status(200).json({
-   //      message : req.body
+   //     list:  furniture?.length,
+   //    //requirement : furnished_Requirement ===undefined,
+   //      sent: (!furniture && furnished_Requirement) || (furniture && !furnished_Requirement)
    //  })
 
-    if(!userid || !desired_Location || !preferred_Starting_Date || !expected_Ending_Date || !number_Of_Employees|| !furniture){
+    // if(!furnished_Requirement){
+    //     if(furnished_Requirement===true){
+    //
+    //     }else if(furnished_Requirement ===false){
+    //
+    //     }
+    //     res.status(400)
+    //     throw new Error('Please provide primary fields')
+    // }
+    //Only one of these should exist but not both
+    if(!((!furniture && furnished_Requirement) || (furniture && !furnished_Requirement)))
+    {
+        res.status(400)
+        throw new Error('Please provide primary fields - Either furniture or furnished_Requirement is required but NOT both')
+    }
+    if(!userid || !desired_Location || !preferred_Starting_Date || !expected_Ending_Date || !number_Of_Employees){
          res.status(400)
-         throw new Error('Please provide all fields')
+         throw new Error('Please provide secondary fields')
      }
-    // console.log('passing')
-    const userRequestToBeCreated =  await userRequest.create({
-         //user id will be sent in headers
-        //the form is on its own
-        userId: userid,
-        desired_Location: desired_Location,
-        preferred_Starting_Date: preferred_Starting_Date,
-        expected_Ending_Date: expected_Ending_Date,
-        number_Of_Employees: number_Of_Employees,
-        furniture: furniture
-    })
+    var userRequestToBeCreated;
+    //This method can be optimised to shorten the code
+    if(!furnished_Requirement)
+    {
+         userRequestToBeCreated =  await userRequest.create({
+            //user id will be sent in headers
+            //the form is on its own
+            userId: userid,
+            desired_Location: desired_Location,
+            preferred_Starting_Date: preferred_Starting_Date,
+            expected_Ending_Date: expected_Ending_Date,
+            number_Of_Employees: number_Of_Employees,
+            furniture: furniture
+        })
+
+    }else {
+        //even though you did not specify the array of furniture it will get returned in the result by default
+         userRequestToBeCreated =  await userRequest.create({
+            //user id will be sent in headers
+            //the form is on its own
+            userId: userid,
+            desired_Location: desired_Location,
+            preferred_Starting_Date: preferred_Starting_Date,
+            expected_Ending_Date: expected_Ending_Date,
+            number_Of_Employees: number_Of_Employees,
+            furnished_Requirement: furnished_Requirement
+        })
+    }
+
     //console.log(userRequestToBeCreated)
 
     if (userRequestToBeCreated){
