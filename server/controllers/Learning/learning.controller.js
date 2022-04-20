@@ -22,7 +22,7 @@ exports.addChapter = (req, res) => {
       console.log("Calling certif update wit hID  " + req.body.certifId);
       Certificate.updateOne(
         { _id: req.body.certifId },
-        { $push: { chapters: chapter._id } }
+        { $push: { chapters: chapter._id },$set : {published : true} }
       ).exec(res.send(data));
     })
     .catch((err) => {
@@ -69,6 +69,7 @@ exports.addCertificate = (req, res) => {
   console.log(req.body);
   const certificate = new Certificate({
     name: req.body.name,
+    published : false ,
     category: req.body.category,
     tutor: req.body.tutor,
     img: {
@@ -132,10 +133,10 @@ exports.addChapterToCertificate = asyncHandler(async (req, res) => {
     if (err) {
       return;
     } else {
-      console.log(chapter);
+      console.log("ABOUT TO UPDATE CERTIF ");
       Certificate.updateOne(
-        { _id: req.params.certifId },
-        { $push: { chapters: chapter._id } }
+        { _id: req.params.certifId  },
+        {$set : { published : true},  $push: { chapters: chapter._id } }
       ).exec(
         res.status(200).send({ message: "chapter " + chapter.name + "added!" })
       );
@@ -235,8 +236,8 @@ const getPagination = (page, size) => {
 exports.getCertificatePagination = (req, res) => {
   const { page, size, name } = req.query;
   var condition = name
-    ? { name: { $regex: new RegExp(name), $options: "i" } }
-    : {};
+    ? { published : true ,name: { $regex: new RegExp(name), $options: "i" } }
+    : {published : true};
   const { limit, offset } = getPagination(page, size);
   Certificate.paginate(condition, { offset, limit , populate:"category" })
     .then((data) => {
@@ -257,19 +258,31 @@ exports.getCertificatePagination = (req, res) => {
 };
 
 exports.getProgression = asyncHandler(async (req, res) => {
-  const id = req.body._id;
-  Progression.findById(id).populate("user").populate("certificate")
+  console.log("Called controller with data "+req.body);
+  console.log("Called controller with data "+ req.query.user);
+  console.log("Called controller with data "+ req.query.certificate);
+  Progression.find({user:req.query.user , certificate:req.query.certificate}).populate({
+    path: 'certificate',
+    populate: [
+        {
+            path: 'chapters',
+            model: 'Chapter',
+        }
+    ]
+})
     .then((data) => {
-      if (!data)
+      if (!data || data.length === 0)
         res
           .status(404)
-          .send({ message: "Not found Progression with id " + id });
-      else res.send(data);
+          .send({ message: "Not found Progression " });
+      else {
+        console.log("Get progression data : " + data);
+        res.send(data); }
     })
     .catch((err) => {
       res
         .status(500)
-        .send({ message: "Error retrieving Progression with id=" + id });
+        .send({ message: "Error retrieving Progression with "});
     });
 })
 

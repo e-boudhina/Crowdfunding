@@ -26,28 +26,11 @@ const ViewChapter = (props) => {
     createdAt: "",
     updatedAt: "",
   };
-  const [currentChapter, setCurrentChapter] = useState(
-    initialChapterState
-  );
-  const [content , setContent ] =useState(initialChapterState.content)
+
   const [editorState, setEditorState] = useState(
     EditorState.createEmpty()
   );
-
-  const getChapter = (id) => {
-    LearningService.getChapter(id)
-      .then((response) => {
-        setCurrentChapter(response.data);
-     //   console.log(c);
-        setContent(JSON.parse(currentChapter.content));
-     //   console.log(JSON.parse(currentChapter.content));
-     setEditorState (( EditorState.createWithContent(convertFromRaw(content))));
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  }; 
-
+    const  [chapname,setChapname] = useState("")
   useEffect(() => {
     let chap = {
       _id: null,
@@ -56,22 +39,28 @@ const ViewChapter = (props) => {
       createdAt: "",
       updatedAt: "",
     };
+  
     let cnt = {} ;
-    LearningService.getChapter(id)
+    let idchap = props.chapter  ? props.chapter : id
+    LearningService.getChapter(idchap)
     .then((response) => {
       chap = response.data;
       cnt = JSON.parse(chap.content);
+      setChapname(chap.name)
       setEditorState (( EditorState.createWithContent(convertFromRaw(cnt))));
+      console.log("CHAP = "+ JSON.stringify(chap));
+      console.log("PROPS VIEW CHAPT = "+props.chapter)
     })
     .catch((e) => {
       console.log(e);
     });
 
 
-  }, [id]); 
+  }, [id,props.chapter]); 
 
   return (
     <div>
+     <div className="author-text text-center"> <h2> { JSON.stringify(chapname)}</h2> </div>
    <Editor editorState={editorState} readOnly={true} />
     </div>
   );

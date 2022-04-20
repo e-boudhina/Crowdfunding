@@ -9,24 +9,36 @@ import {
   Outlet,
 } from "react-router-dom";
 import ListChaptersUser from "../../components/Elearning/list-chapters-user.component";
-import LearningService
- from "../../services/Learning.service";
-
+import LearningService from "../../services/Learning.service";
+import ViewChapter from "../../components/Elearning/view-chapter.components";
+import { current } from "@reduxjs/toolkit";
+import { getProgress, updateProgress } from "../../actions/Learning/Learning";
 
 const ViewCertification = (props) => {
+  const [currentChapter, setCurrentChapter] = useState("");
+  const [prevChapter, setPrevChapter] = useState("");
+  const [nextChapter, setNextChapter] = useState("");
   const navigate = useNavigate();
   const { id } = useParams();
-  const [certif , setCertif ] = useState({});
- // let certif = {}
-  useEffect( () => {
-    LearningService.getCertificate(id).then(  (data) => {
-   setCertif(data.data)
-   console.log(data.data);
-   }).catch((error) => {
-    console.log(error);
-  })
-   console.log(certif);
-  },[id]);
+  const [certif, setCertif] = useState({});
+  const [isEngaged, setIsEngaged] = useState(false);
+  const { user: currentUser } = useSelector((state) => state.auth);
+
+  //const [progress, setProgress] = useState({});
+  const progress = useSelector((state) => state.progress);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    async function fetchMyAPI() {
+      let response = await LearningService.getCertificate(id);
+      setCertif(response.data);
+    }
+    fetchMyAPI();
+    //  dispatch(getProgress(currentUser.id,id))
+    //console.log(progress.progress[0].currentChapter);
+    // console.log(progress.isEngaged);
+  }, [id, currentUser.id, progress]);
+
   return (
     <div className="blog-area pt-120 pb-80">
       <div className="container">
@@ -34,45 +46,61 @@ const ViewCertification = (props) => {
           <div className="col-lg-8">
             <article className="postbox post format-image mb-40">
               <div className="postbox__text bg-none">
-                
                 <h3 className="blog-title">
-    {certif.name}
+                  {certif.name}{" "}
+                  {progress.isEngaged ? <h6>- In progress </h6> : <></>}
                 </h3>
                 <div className="post-text mb-20">
-                
-                </div>
-                
-                <div className="row">
-                  <div className="col-12">
-                    <div className="navigation-border pt-50 mt-40" />
-                  </div>
-                  <div className="col-xl-5 col-lg-5 col-md-5">
-                    <div className="bakix-navigation b-next-post text-left mb-30">
-                      <span>
-                        <a href="#">Next Post</a>
-                      </span>
-                      <h4>
-                        <a href="#">Tips on Minimalist</a>
-                      </h4>
-                    </div>
-                  </div>
-                  <div className="col-xl-2 col-lg-2 col-md-2 ">
-                    <div className="bakix-filter text-left text-md-center mb-30">
-                      <a href="#">
-                        <img src="assets/img/icon/filter.png" alt="" />
-                      </a>
-                    </div>
-                  </div>
-                  <div className="col-xl-5 col-lg-5 col-md-5">
-                    <div className="bakix-navigation b-next-post text-left text-md-right  mb-30">
-                      <span>
-                        <a href="#">Next Post</a>
-                      </span>
-                      <h4>
-                        <a href="#">Tips on Minimalist</a>
-                      </h4>
-                    </div>
-                  </div>
+                  {progress.isEngaged ? (
+                    <section className="widget mb-40">
+                      <ViewChapter chapter={"62594040b636cad5ba542950"} />
+                      <div className="row">
+                        <div className="col-12">
+                          <div className="navigation-border pt-50 mt-40" />
+                        </div>
+                        <div className="col-xl-5 col-lg-5 col-md-5">
+                          <div className="bakix-navigation b-next-post text-left mb-30">
+                            <span>
+                              <a href="#">Next Post</a>
+                            </span>
+                            <h4>
+                              <a href="#">Tips on Minimalist</a>
+                            </h4>
+                          </div>
+                        </div>
+                        <div className="col-xl-2 col-lg-2 col-md-2 ">
+                          <div className="bakix-filter text-left text-md-center mb-30">
+                            <a href="#">
+                              <img src="assets/img/icon/filter.png" alt="" />
+                            </a>
+                          </div>
+                        </div>
+                        <div className="col-xl-5 col-lg-5 col-md-5">
+                          <div className="bakix-navigation b-next-post text-left text-md-right  mb-30">
+                            <span>
+                              <button> Next Chapter</button>
+                            </span>
+                            <h4>
+                              <a href="#">{nextChapter}</a>
+                            </h4>
+                          </div>
+                        </div>
+                      </div>
+                    </section>
+                  ) : (
+                    <section className="widget mb-40">
+                      <div>
+                     
+                      </div>
+                      <div className="row">
+                     
+                          <div className="navigation-border pt-50 mt-40 " />
+                        </div>
+        <h4>  You haven't started this certification yet. </h4>  
+                          <button className="btn btn-black w-100"> Begin the course</button>
+                   
+                    </section>
+                  )}
                 </div>
               </div>
               <div className="author mt-80 mb-40">
@@ -141,7 +169,7 @@ const ViewCertification = (props) => {
                 </div>
               </div>
             </div>
-<ListChaptersUser chapters={certif.chapters}/>
+            <ListChaptersUser chapters={certif.chapters} />
             <div className="widget mb-40">
               <div className="widget-title-box mb-30">
                 <span className="animate-border" />
@@ -178,6 +206,6 @@ const ViewCertification = (props) => {
       </div>
     </div>
   );
-}
+};
 
 export default ViewCertification;

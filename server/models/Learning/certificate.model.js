@@ -4,6 +4,7 @@ const mongoosePaginate = require('mongoose-paginate-v2');
 var certificateSchema = new mongoose.Schema({
 name:String , 
 tutor: String,
+published : Boolean,
 img:
 {
     data: String,

@@ -7,6 +7,10 @@ const config ={
   headers:{
     'content-type': 'multipart/form-data'
 }}
+const config2 ={
+  headers:{
+    'content-type': 'application/json'
+}}
 
 export const getAllChapters = () => {
     return axios.get(API_URL+"/chapters/", { headers: authHeader()   })
@@ -21,20 +25,30 @@ export const getAllChapters = () => {
     return axios.get(API_URL+"/categories-learning/", { headers: authHeader()   })
   }
   export const AddCertificate = (certificate) => {
-    console.log("SERVICE CALLED "+JSON.stringify(certificate));
     return axios.post(API_URL+"/add-certificate/", certificate,config   )
   }
   export const paginateCertificates = async (params) => {
-    console.log("SERVICE CALLED "+JSON.stringify(params));
     const data=await axios.get(API_URL+"/certificates-search/", { params }, { headers: authHeader()   })
-    console.log(data.data);
     return data.data;
   }
   export const getCertificate =  (id) => {
 const data =   axios.get(API_URL+"/certificate/"+id, { headers: authHeader()   })
     return data
   }
-  
+
+  export const getProgress =   (params) => {
+    console.log(params);
+    const settings = {
+      method: 'POST',
+      body: JSON.stringify(params),
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      }
+    }
+return   axios.get(API_URL+"/get-progress/",{params}, { headers: authHeader()   })
+
+      }
   /*export const getCertificates = (id) => {
 axios.get(API_URL+"/certificates/", { headers: authHeader()   })
 .then(resp => {
@@ -48,5 +62,5 @@ axios.get(API_URL+"/certificates/", { headers: authHeader()   })
   }*/
 
 
-  export default {getAllChapters,getChapter,getCertificates,getCertificate
+  export default {getAllChapters,getChapter,getCertificates,getCertificate,getProgress
   };

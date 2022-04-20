@@ -60,3 +60,8 @@ export const RETRIEVE_Event = "RETRIEVE_Event";
 export const UPDATE_Event = "UPDATE_Event";
 export const DELETE_Event = "DELETE_Event";
 
+export const GET_PROGRESS = "GET_PROGRESS" 
+export const UPDATE_PROGRESS = "UPDATE_PROGRESS"
+export const RESET_PROGRESS= "RESET_PROGRESS"
+export const ENGAGED = "ENGAGED"
+export const NOT_ENGAGED = "NOT_ENGAGED"

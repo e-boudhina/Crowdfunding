@@ -1,9 +1,14 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { getCertificates,paginateCertificates } from "../../services/Learning.service";
+import { Link , useNavigate } from "react-router-dom";
+import { getCertificates,getProgress,paginateCertificates } from "../../services/Learning.service";
 import "./elearning.css";
 import Pagination from "@material-ui/lab/Pagination";
+import { useDispatch, useSelector } from "react-redux";
+import { getProgress as gp , updateProgress } from "../../actions/Learning/Learning";
+
+
 function ListCertificatesUser(props) {
 
   const [certifs, setCertifs] = useState([]);
@@ -13,7 +18,9 @@ function ListCertificatesUser(props) {
   const [count, setCount] = useState(0);
   const [pageSize, setPageSize] = useState(3);
   const pageSizes = [3, 6, 9];
-
+const dispatch = useDispatch();
+const navigate = useNavigate();
+const { user: currentUser } = useSelector((state) => state.auth);
   const onChangeSearchName = (e) => {
     const searchName = e.target.value;
     setSearchName(searchName);
@@ -80,7 +87,10 @@ function ListCertificatesUser(props) {
         console.log(e);
       });
   };
-
+const goCertif =(id)=> {
+ dispatch(gp(currentUser.id,id))
+navigate(`/certificate/${id}`);
+}
   return (
    
     <div>
@@ -228,10 +238,9 @@ function ListCertificatesUser(props) {
                         <div className="product__content text-center pt-35">
   
                           <span className="pro-cat"><a href={"/certificate/"+certif._id}>{certif.category.name}</a></span>
-                          <Link className="pro-title"
-                          to={"/certificate/"+certif._id}  >
+                          <a className="pro-title"    onClick={()=>goCertif(certif._id)}  >
                           <h4 className="pro-title">{certif.name} </h4>
-                          </Link>
+                          </a>
                           <div className="price">
                             <span>{certif.createdAt}</span>
                           </div>
