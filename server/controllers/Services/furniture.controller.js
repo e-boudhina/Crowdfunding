@@ -32,7 +32,7 @@ const createFurniture = asyncHandler(async (req, res) =>{
     if (furniture){
        return  res.status(200).json(
             {
-                message:"Furniture added successfully", furniture}
+                message:"ListFurniture added successfully", furniture}
         )
     }
         //else
@@ -74,7 +74,7 @@ const updateFurniture = asyncHandler(async (req, res) =>{
     //else
         return res.status(200).json(
             {
-                message:"Furniture updated successfully", updatedFurniture}
+                message:"ListFurniture updated successfully", updatedFurniture}
         )
 
 });

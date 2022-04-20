@@ -58,6 +58,9 @@ import Users from "./components/User/ManageUsers/getUsers.component"
 import UpdateUser from "./components/User/ManageUsers/updateUser"
 
 import OrrganisationDetails from "./components/Organisation/OrganisationDetails";
+import ListFurniture from "./components/Services/ManageFurniture/ListFurniture";
+import AddFurniture from "./components/Services/ManageFurniture/AddFurniture";
+import EditFurniture from "./components/Services/ManageFurniture/EditFurniture";
 
 
 const App = () => {
@@ -135,6 +138,12 @@ const App = () => {
             <Route  path={"/admin/users"} element={<Users/>}/>
             {/*I tried to use props but failed*/}
             <Route  path={"/admin/user/update/:username"} element={<UpdateUser/>}/>
+
+              {/*ListFurniture routes*/}
+              <Route  path={"/admin/furniture"} element={<ListFurniture/>}/>
+              <Route  path={"/admin/furniture/add"} element={<AddFurniture/>}/>
+              <Route  path={"/admin/furniture/edit/:id"} element={<EditFurniture/>}/>
+
             </Route>
 
           </Routes>
