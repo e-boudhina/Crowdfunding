@@ -47,7 +47,6 @@ const data =   axios.get(API_URL+"/certificate/"+id, { headers: authHeader()   }
       }
     }
 return   axios.get(API_URL+"/get-progress/",{params}, { headers: authHeader()   })
-
       }
   /*export const getCertificates = (id) => {
 axios.get(API_URL+"/certificates/", { headers: authHeader()   })
@@ -60,7 +59,9 @@ axios.get(API_URL+"/certificates/", { headers: authHeader()   })
   console.error(err);
 });
   }*/
+  export const getCategories = async () => {
+    return  await axios.get(API_URL+"/categories-learning/"  )
+      }
 
-
-  export default {getAllChapters,getChapter,getCertificates,getCertificate,getProgress
+  export default {getAllChapters,getChapter,getCertificates,getCertificate,getProgress,getCategories
   };

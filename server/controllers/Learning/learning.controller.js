@@ -234,12 +234,29 @@ const getPagination = (page, size) => {
 };
 // Retrieve all Tutorials from the database.
 exports.getCertificatePagination = (req, res) => {
-  const { page, size, name } = req.query;
+  const { page, size, name , categoriesFilter } = req.query;
+  var condition_cat = categoriesFilter 
+  ? { category : { $in: categoriesFilter.split(",") } }
+  : {};
   var condition = name
     ? { published : true ,name: { $regex: new RegExp(name), $options: "i" } }
-    : {published : true};
+    : {};
+ var finale = {}
+
+console.log("COntrooller categories "+categoriesFilter);
+
+ if (name && categoriesFilter) {
+Object.assign(finale,condition,condition_cat,{published : true })
+ }  else if (name) {
+  Object.assign(finale,condition,{published : true })
+ } else if (categoriesFilter) {
+  Object.assign(finale,condition_cat,{published : true })
+ } else {
+   {Object.assign(finale , {published : true })}
+ }
+console.log(finale);
   const { limit, offset } = getPagination(page, size);
-  Certificate.paginate(condition, { offset, limit , populate:"category" })
+  Certificate.paginate(finale, { offset, limit , populate:"category" })
     .then((data) => {
       console.log(data);
       res.send({
