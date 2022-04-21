@@ -14,6 +14,7 @@ import ViewChapter from "../../components/Elearning/view-chapter.components";
 import { current } from "@reduxjs/toolkit";
 import { getProgress, updateProgress } from "../../actions/Learning/Learning";
 
+
 const ViewCertification = (props) => {
   const [currentChapter, setCurrentChapter] = useState("");
   const [prevChapter, setPrevChapter] = useState("");
@@ -39,6 +40,13 @@ const ViewCertification = (props) => {
     // console.log(progress.isEngaged);
   }, [id, currentUser.id, progress]);
 
+  const beginCertif = async () => {
+   await LearningService.progressCertif(currentUser.id , certif._id ,certif.chapters[0] ).then(
+    dispatch(getProgress(currentUser.id,id))
+   )
+    console.log("User : "+currentUser.id +" Certif id : "+ certif._id +" chapter id : "+certif.chapters[0]._id);
+
+  }
   return (
     <div className="blog-area pt-120 pb-80">
       <div className="container">
@@ -53,7 +61,7 @@ const ViewCertification = (props) => {
                 <div className="post-text mb-20">
                   {progress.isEngaged ? (
                     <section className="widget mb-40">
-                      <ViewChapter chapter={"62594040b636cad5ba542950"} />
+                      <ViewChapter chapter={progress.progress[0].currentChapter} />
                       <div className="row">
                         <div className="col-12">
                           <div className="navigation-border pt-50 mt-40" />
@@ -97,7 +105,7 @@ const ViewCertification = (props) => {
                           <div className="navigation-border pt-50 mt-40 " />
                         </div>
         <h4>  You haven't started this certification yet. </h4>  
-                          <button className="btn btn-black w-100"> Begin the course</button>
+                          <button onClick={()=> beginCertif()} className="btn btn-black w-100"> Begin the course</button>
                    
                     </section>
                   )}

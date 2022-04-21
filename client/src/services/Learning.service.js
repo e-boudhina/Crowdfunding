@@ -63,5 +63,9 @@ axios.get(API_URL+"/certificates/", { headers: authHeader()   })
     return  await axios.get(API_URL+"/categories-learning/"  )
       }
 
-  export default {getAllChapters,getChapter,getCertificates,getCertificate,getProgress,getCategories
+      export const progressCertif = async (user , certificate , currentChapter ) =>{
+        const body = { user , certificate , currentChapter}
+        return await axios.post(API_URL+"/progress-certif/",body)
+      }
+  export default {getAllChapters,getChapter,getCertificates,getCertificate,getProgress,getCategories,progressCertif
   };

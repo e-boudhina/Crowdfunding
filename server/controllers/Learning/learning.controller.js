@@ -331,6 +331,7 @@ exports.ProgressCertif = asyncHandler(async (req, res) => {
         .save(progression)
         .then((data) => {
           res.send(data);
+          console.log("added progression "+data);
         })
         .catch((err) => {
           res.status(500).send({
@@ -341,13 +342,14 @@ exports.ProgressCertif = asyncHandler(async (req, res) => {
     }
     if (prog) { //ken fama progress bech imodify 7asb el chapter li khlatlou
       if (!prog.isCompleted) {
-      Progression.updateOne({ 
+      Progression.findOneAndUpdate({ 
        certificate : req.body.certificate , user : req.body.user 
       }, {
         currentChapter: req.body.currentChapter,
         isCompleted: req.body.isCompleted ?  req.body.isCompleted : 0  //fel component , if it's last chapter completed , set this to 1
       }).then((data) => {
         res.send(data);
+        console.log("progression updated "+JSON.stringify(data));
       })
       .catch((err) => {
         res.status(500).send({
