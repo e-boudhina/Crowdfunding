@@ -3,17 +3,19 @@ const userRequest = require ('../../models/Services/userRequest')
 const Furniture = require("../../models/Services/furniture");
 
 const getAllUserRequests = asyncHandler(async (req, res) =>{
-    userRequest.find({}, (error, result)=>{
-        if (error) {
-            return res.status(500).send(
-                {
-                    message: err
-                }
-            );
-        }
+    userRequests = await userRequest.find().populate("userId").populate("incubatorId").populate({path:'furniture', populate: { path: "_id", model: 'Furniture'}} );
+
+    // userRequest.find({}, (error, result)=>{
+    //     if (error) {
+    //         return res.status(500).send(
+    //             {
+    //                 message: err
+    //             }
+    //         );
+    //     }
         //else
-        return res.status(200).send(result);
-    })
+        return res.status(200).send(userRequests);
+    // })
 
 });
 // you can use jwt is Incubator middleware and check if the user is incubator or normal user and based on that you either search by user id or incubatorId - Combine 2 method into one
@@ -25,8 +27,11 @@ const getUserRequestsByUserId = asyncHandler(async (req, res) =>{
     }
 //populate("roles", "-__v")
 // .populate("userId", {username:1}
-    usersRequests = await userRequest.find({userId: userid}).populate("userId", "-__v");
-
+//     populate({path: "furniture._id"}).exec();
+    userRequests = await userRequest.find({userId: userid}).populate("userId");
+    // return res.status(200).send({
+    //     objects: userRequests
+    // })
     // userRequest.find({userId: userid}, (error, result)=>{
     //     if (error) {
     //         return res.status(500).send(

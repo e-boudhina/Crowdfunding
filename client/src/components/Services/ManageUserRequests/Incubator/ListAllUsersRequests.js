@@ -45,7 +45,7 @@ const ListUserRequests = () =>{
                     <div className="postbox__text p-50 m-5">
                         <div className="post-meta mb-15">
                             <span><i className="far fa-calendar-check" /> {uR.createdAt} </span>
-                            <span><a href="#"><i className="far fa-user" />{uR.userId}</a></span>
+                            <span><a href="#"><i className="far fa-user" />{uR.userId.username}</a></span>
                         </div>
                         <h3 className="blog-title">
                             <a onClick={()=>view(uR)}>

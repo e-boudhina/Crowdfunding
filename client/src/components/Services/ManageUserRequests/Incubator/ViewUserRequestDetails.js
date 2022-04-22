@@ -3,6 +3,7 @@ import React from "react";
 import {useLocation, useNavigate} from "react-router-dom";
 import {approveUserRequest, rejectUserRequest} from "../../../../services/UserRequests.js/UserRequest.service";
 import {toast} from "react-toastify";
+import { If, Then, ElseIf, Else } from 'react-if-elseif-else-render';
 
 
 
@@ -63,7 +64,7 @@ const ViewUserRequestDetails = () =>{
                         <div className="postbox__text p-50 m-5">
                             <div className="post-meta mb-15">
                                 <span><i className="far fa-calendar-check" /> Recieved on "{currentRequest.createdAt}" </span>
-                                <span><a href="#"><i className="far fa-user" />Requested By "{currentRequest._id}" </a></span>
+                                <span><a href="#"><i className="far fa-user" />Requested By "{currentRequest.userId.username}" </a></span>
                             </div>
                             <div className="table-responsive">
                                 <h4>Request  details</h4>
@@ -88,15 +89,16 @@ const ViewUserRequestDetails = () =>{
                                     </tbody>
                                 </table>
                             </div>
+                            <If condition={currentRequest.furniture.length > 0}>
+                                <Then>
                             <h4>User Request additional information on furniture</h4>
-
 
                             {/*If request has funriture*/}
                             <div className="table-content table-responsive">
                                 <table className="table">
                                     <thead>
                                     <tr>
-                                        <th className="product-thumbnail">Images</th>
+                                        <th className="product-thumbnail"> #Furniture id</th>
                                         <th className="product-subtotal">Furniture Type</th>
                                         <th className="product-quantity">Quantity</th>
 
@@ -105,9 +107,9 @@ const ViewUserRequestDetails = () =>{
                                     <tbody>
                                     {currentRequest.furniture && currentRequest.furniture.map((f, index) => (
                                     <tr>
-                                        <td className="product-thumbnail"><a href="#"><img src="assets/img/shop/cart/img1.jpg" alt="" /></a></td>
+                                        <td className="product-thumbnail">{f._id._id}</td>
 
-                                        <td className="product-wis-btn"> {f.type}</td>
+                                        <td className="product-wis-btn"> {f._id.type}</td>
                                         <td className="product-subtotal">{f.quantity}</td>
 
                                     </tr>
@@ -115,16 +117,21 @@ const ViewUserRequestDetails = () =>{
                                     </tbody>
                                 </table>
                             </div>
-                            <div >
-                            {/*<td className="product-wis-btn">*/}
-                            {/*    <a onClick={()=>accept(currentRequest._id)} className="btn btn-border" ><i className="fa fa-times" /></a>*/}
-                                <a onClick={()=>accept(currentRequest._id)} className="btn-border"><i className="fa fa-check"/></a>&nbsp;
+                                </Then>
 
-                                {/*</td>*/}
-                            {/*<td className="product-wis-btn">*/}
+                                    <ElseIf condition={currentRequest.furnished_Requirement ===true}>
+                                    <h4>User is requesting a Furnished Office Space</h4>
+                                    </ElseIf>
+                                    <Else>
+                                        <h4>User is requesting an empty Office Space</h4>
+                                    </Else>
+                            </If>
+
+                                <div className="d-flex justify-content-center m-2">
+                                <a onClick={()=>accept(currentRequest._id)} className="btn-border"><i className="fa fa-check"/></a>&nbsp;
                                 <a onClick={()=>deny(currentRequest._id)} className="btn-border"><i className="fa fa-times"/></a>
-                            {/*</td>*/}
-                            </div>
+                                </div>
+
                         </div>
 
 
