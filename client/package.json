@@ -31,6 +31,7 @@
     "react-dom": "^17.0.2",
     "react-draft-wysiwyg": "^1.14.7",
     "react-icons": "^4.3.1",
+    "react-if-elseif-else-render": "^1.0.2",
     "react-phone-input-2": "^2.15.0",
     "react-redux": "^7.2.6",
     "react-router-dom": "^6.2.2",

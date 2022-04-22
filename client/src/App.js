@@ -61,6 +61,10 @@ import OrrganisationDetails from "./components/Organisation/OrganisationDetails"
 import ListFurniture from "./components/Services/ManageFurniture/ListFurniture";
 import AddFurniture from "./components/Services/ManageFurniture/AddFurniture";
 import EditFurniture from "./components/Services/ManageFurniture/EditFurniture";
+import ListInternUserRequests from "./components/Services/ManageUserRequests/Incubator/ListIntern.UserRequests";
+import ListUserRequests from "./components/Services/ManageUserRequests/Incubator/ListAllUsersRequests";
+import ViewUserRequestDetails from "./components/Services/ManageUserRequests/Incubator/ViewUserRequestDetails";
+
 
 
 const App = () => {
@@ -100,7 +104,7 @@ const App = () => {
           <Routes>
 
             {/*{ isVerified ? redirect():''}*/}
-            <Route  path={"/"} element={<><Header /><Footer/></>} > 
+            <Route  path={"/"} element={<><Header /><Footer/></>} >
             <Route path={"/profile"} element={<Profile />} />
             <Route path={"/u/:username"} element={<Profileconsult />} />
             <Route path={"/login"} element={<Login />} />
@@ -123,10 +127,16 @@ const App = () => {
             <Route exact path={'/updateOrganisation'} element={<UppdateOrganisation />} />
             <Route exact path={'/organisationDetails'} element={<OrrganisationDetails />} />
             {/* <Route exact path={'/ListOrganisationForAdmin'} element={<ListOrganisationForAdmin />} /> */}
-            <Route path={"/*"} element={<Notfound />} />
+
+              {/*/!*UserRequests routes* for the intern/}*/}
+              <Route  path={"/services/userRequests"} element={<ListUserRequests/>}/>
+              <Route  path={"/services/userRequests/view/:id"} element={<ViewUserRequestDetails/>}/>
+
+
+              <Route path={"/*"} element={<Notfound />} />
             </Route>
 
-    
+
             <Route path={"/admin"} element={<Adminboard />}>
             <Route path={'/admin/ListOrganisation'} element={< ListOrganisationForAdmin/>} />
             <Route  path={"/admin/listchapters"} element={< Listchapter/>}/>
@@ -143,6 +153,9 @@ const App = () => {
               <Route  path={"/admin/furniture"} element={<ListFurniture/>}/>
               <Route  path={"/admin/furniture/add"} element={<AddFurniture/>}/>
               <Route  path={"/admin/furniture/edit/:id"} element={<EditFurniture/>}/>
+
+
+
 
             </Route>
 

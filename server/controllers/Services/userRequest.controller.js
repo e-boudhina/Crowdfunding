@@ -23,18 +23,22 @@ const getUserRequestsByUserId = asyncHandler(async (req, res) =>{
         res.status(400)
         throw new Error('Please provide a valid userId')
     }
+//populate("roles", "-__v")
+// .populate("userId", {username:1}
+    usersRequests = await userRequest.find({userId: userid}).populate("userId", "-__v");
 
-    userRequest.find({userId: userid}, (error, result)=>{
-        if (error) {
-            return res.status(500).send(
-                {
-                    message: err
-                }
-            );
-        }
+    // userRequest.find({userId: userid}, (error, result)=>{
+    //     if (error) {
+    //         return res.status(500).send(
+    //             {
+    //                 message: err
+    //             }
+    //         );
+    //     }
         //else
-        return res.status(200).send(result);
-    })
+
+        return res.status(200).send(userRequests);
+    // })
 
 });
 
@@ -204,7 +208,7 @@ const rejectUserRequest = asyncHandler(async (req, res) =>{
     //Fetching user request id params
     const {userRequestId} = req.params;
     //Fetching incubator id
-    const {incubatorid} = req.headers
+    const incubatorid = req.userId
 
     if(!incubatorid ){
         res.status(400)

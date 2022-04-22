@@ -5,8 +5,16 @@ var userRequestSchema = new mongoose.Schema({
             furniture optional and test on it when creating if its there then its custom -
             maybe even make another model for office space  that can be either furnished based on the number of employees or not furnished if the user selects to opt out from it
          */
-        userId: String,
-        incubatorId: String,
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+    },
+    incubatorId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+    },
+    //     userId: String,
+    //     incubatorId: String,
         desired_Location: String,
         preferred_Starting_Date: Date,
         expected_Ending_Date: Date,
