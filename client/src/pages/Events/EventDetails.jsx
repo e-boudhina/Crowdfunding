@@ -1,17 +1,17 @@
-import React, {useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import eventService from "../../services/event.service";
 import getImageUrl from "../../helpers/getImageUrl";
 
 const EventDetails = (props) => {
   const [event, setEvent] = useState();
-  const {id} = useParams();
+  const { id } = useParams();
   console.log(id);
 
   const getEventDetails = (eventId) => {
     eventService
       .getEventById(eventId)
-      .then(({data}) => setEvent(data))
+      .then(({ data }) => setEvent(data))
       .catch((err) => console.log(err));
   };
   useEffect(() => {
@@ -26,7 +26,7 @@ const EventDetails = (props) => {
       <section
         className="page-title-area pt-320 pb-140"
         data-background="assets/img/bg/breadcumb.jpg"
-        style={{backgroundImage: 'url("assets/img/bg/breadcumb.jpg")'}}
+        style={{ backgroundImage: 'url("assets/img/bg/breadcumb.jpg")' }}
       >
         <div className="container">
           <div className="row">
@@ -114,7 +114,7 @@ const EventDetails = (props) => {
                 <i
                   className="fa fa-trash"
                   onClick={() => props.delete(event._id)}
-                  style={{fontSize: "48px", color: "red", cursor: "pointer"}}
+                  style={{ fontSize: "48px", color: "red", cursor: "pointer" }}
                 >
                   &nbsp;
                 </i>
@@ -273,7 +273,7 @@ const EventDetails = (props) => {
                       <div
                         id="contact-map"
                         className="map mb-30"
-                        style={{position: "relative", overflow: "hidden"}}
+                        style={{ position: "relative", overflow: "hidden" }}
                       >
                         <div
                           style={{
@@ -285,7 +285,7 @@ const EventDetails = (props) => {
                             backgroundColor: "rgb(229, 227, 223)",
                           }}
                         >
-                          <div style={{overflow: "hidden"}} />
+                          <div style={{ overflow: "hidden" }} />
                           <div
                             className="gm-style"
                             style={{
@@ -304,7 +304,7 @@ const EventDetails = (props) => {
                               tabIndex={0}
                               aria-label="Map"
                               aria-roledescription="map"
-                              role="group"
+                              role="region"
                               style={{
                                 position: "absolute",
                                 zIndex: 0,
@@ -520,8 +520,8 @@ const EventDetails = (props) => {
                                     }}
                                   >
                                     <span
-                                      id="9D32A86A-3DA2-4C80-BDD6-0AE5970D28B3"
-                                      style={{display: "none"}}
+                                      id="3B5DD7B7-14D2-453C-94FC-E30AD5B1D883"
+                                      style={{ display: "none" }}
                                     >
                                       To navigate, press the arrow keys.
                                     </span>

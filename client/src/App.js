@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate, Redirect } from "react-router-dom";
+
 // import "./bezkoder.css";
 //import "./bezkoder.css";
 import Login from "./components/User/login.component";
@@ -41,8 +42,6 @@ import Home from "./pages/Home"
 import EventList from "./pages/Events/EventList";
 //import EventDetails from "./components/Events/EventDetails";
 import UpdateEvent from "./pages/Events/UpdateEvent";
-
-
 
 
 import { allProjects } from "./actions/Projects/ProjectCrud.actions";
@@ -90,15 +89,14 @@ const App = () => {
 
   return (
     <>
-      <Router history={history} >
 
 
-
+      <Router history={history}>
         <Routes>
 
           {/*{ isVerified ? redirect():''}*/}
           <Route path={"/"} element={<><Header /><Footer /></>} >
-            
+
             <Route path={"/profile"} element={<Profile />} />
             <Route path={""} element={<Home />} />
             <Route path={"/u/:username"} element={<Profileconsult />} />
@@ -123,6 +121,34 @@ const App = () => {
             <Route exact path={'/updateProject'} element={<UpdateProject />} />
             <Route exact path={'/updateOrganisation'} element={<UppdateOrganisation />} />
             <Route exact path={'/organisationDetails'} element={<OrrganisationDetails />} />
+            <Route path={"/add-events"} element={<AddEvents />} />
+            <Route path={"/event-list"} element={<EventList />} />
+            <Route path={"/update/:id"} element={<UpdateEvent />} />
+            <Route path={"/home"} element={<Home />} />
+            <Route exact path={"/ListProject"} element={<ListPProject />} />
+            <Route exact path={"/addProject"} element={<ProjectAdd />} />
+            <Route
+              exact
+              path={"/addOrganisation"}
+              element={<OrganisationAdd />}
+            />
+            <Route
+              exact
+              path={"/ListOrganisation"}
+              element={<ListOrganisation />}
+            />
+            <Route exact path={"/updateProject"} element={<UpdateProject />} />
+            <Route
+              exact
+              path={"/updateOrganisation"}
+              element={<UppdateOrganisation />}
+            />
+            <Route
+              exact
+              path={"/organisationDetails"}
+              element={<OrrganisationDetails />}
+            />
+
             {/* <Route exact path={'/ListOrganisationForAdmin'} element={<ListOrganisationForAdmin />} /> */}
             <Route path={"/*"} element={<Notfound />} />
           </Route>
