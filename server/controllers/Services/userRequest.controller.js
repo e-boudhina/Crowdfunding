@@ -20,15 +20,15 @@ const getAllUserRequests = asyncHandler(async (req, res) =>{
 });
 // you can use jwt is Incubator middleware and check if the user is incubator or normal user and based on that you either search by user id or incubatorId - Combine 2 method into one
 const getUserRequestsByUserId = asyncHandler(async (req, res) =>{
-    const {userid} = req.headers
-    if(!userid ){
+    const {userId} = req
+    if(!userId ){
         res.status(400)
         throw new Error('Please provide a valid userId')
     }
 //populate("roles", "-__v")
 // .populate("userId", {username:1}
 //     populate({path: "furniture._id"}).exec();
-    userRequests = await userRequest.find({userId: userid}).populate("userId");
+    userRequests = await userRequest.find({userId: userId}).populate("userId").populate("incubatorId").populate({path:'furniture', populate: { path: "_id", model: 'Furniture'}} );
     // return res.status(200).send({
     //     objects: userRequests
     // })
@@ -57,17 +57,19 @@ const getIncubatorRequestsByIncubatorId = asyncHandler(async (req, res) =>{
         throw new Error('Please provide a valid userId')
     }
 
-    userRequest.find({incubatorId: incubatorid}, (error, result)=>{
-        if (error) {
-            return res.status(500).send(
-                {
-                    message: err
-                }
-            );
-        }
+    userRequests = await userRequest.find({incubatorId: incubatorid}).populate("userId").populate("incubatorId").populate({path:'furniture', populate: { path: "_id", model: 'Furniture'}} );
+
+    // userRequest.find({incubatorId: incubatorid}, (error, result)=>{
+    //     if (error) {
+    //         return res.status(500).send(
+    //             {
+    //                 message: err
+    //             }
+    //         );
+    //     }
         //else
-        return res.status(200).send(result);
-    })
+        return res.status(200).send(userRequests);
+    // })
 
 });
 const createUserRequest = asyncHandler(async (req, res) =>{

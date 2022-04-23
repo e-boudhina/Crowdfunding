@@ -61,11 +61,15 @@ import OrrganisationDetails from "./components/Organisation/OrganisationDetails"
 import ListFurniture from "./components/Services/ManageFurniture/ListFurniture";
 import AddFurniture from "./components/Services/ManageFurniture/AddFurniture";
 import EditFurniture from "./components/Services/ManageFurniture/EditFurniture";
-import ListInternUserRequests from "./components/Services/ManageUserRequests/Incubator/ListIntern.UserRequests";
+import ListInternUserRequests from "./components/Services/ManageUserRequests/Incubator/ListIncubator.UserRequests";
 import ListUserRequests from "./components/Services/ManageUserRequests/Incubator/ListAllUsersRequests";
 import ViewUserRequestDetails from "./components/Services/ManageUserRequests/Incubator/ViewUserRequestDetails";
+import AddUserRequest from "./components/Services/ManageUserRequests/User/AddUserRequest";
+import ListUser_UserRequests from "./components/Services/ManageUserRequests/User/ListUser.UserRequests";
+import ViewUser_UserRequestDetails from "./components/Services/ManageUserRequests/User/ViewUserRequestDetails";
+import ListIncubatorUserRequests from "./components/Services/ManageUserRequests/Incubator/ListIncubator.UserRequests";
 
-
+// const dotenv = require('')
 
 const App = () => {
 
@@ -128,9 +132,16 @@ const App = () => {
             <Route exact path={'/organisationDetails'} element={<OrrganisationDetails />} />
             {/* <Route exact path={'/ListOrganisationForAdmin'} element={<ListOrganisationForAdmin />} /> */}
 
-              {/*/!*UserRequests routes* for the intern/}*/}
+              {/*/!*UserRequests routes* for the incubator/}*/}
               <Route  path={"/services/userRequests"} element={<ListUserRequests/>}/>
               <Route  path={"/services/userRequests/view/:id"} element={<ViewUserRequestDetails/>}/>
+              <Route  path={"/services/userRequests/incubator/view/:id"} element={<ViewUserRequestDetails/>}/>
+              <Route  path={"/services/userRequests/incubator"} element={<ListIncubatorUserRequests/>}/>
+
+              {/*User requests routes for user*/}
+              <Route  path={"/services/userRequests/add"} element={<AddUserRequest/>}/>
+              <Route  path={"/services/userRequests/user"} element={<ListUser_UserRequests/>}/>
+              <Route  path={"/services/userRequests/user/view/:id"} element={<ViewUser_UserRequestDetails/>}/>
 
 
               <Route path={"/*"} element={<Notfound />} />

@@ -4,17 +4,16 @@ import {useLocation, useNavigate} from "react-router-dom";
 import {approveUserRequest, rejectUserRequest} from "../../../../services/UserRequests.js/UserRequest.service";
 import {toast} from "react-toastify";
 import { If, Then, ElseIf, Else } from 'react-if-elseif-else-render';
+import {Link} from "@material-ui/core";
 
 
 
-const ViewUserRequestDetails = () =>{
+const ViewUser_UserRequestDetails = () =>{
 
 
     const navigate = useNavigate()
 
     const location = useLocation()
-    const currentPath = location.pathname
-    console.log(location.pathname)
     const currentRequest= location.state
     console.log(currentRequest)
 
@@ -49,7 +48,7 @@ const ViewUserRequestDetails = () =>{
                 <div className="row align-items-center">
                     <div className="col-xl-9 col-lg-8">
                         <div className="section-title mb-65">
-                            <p><span /> User Request</p>
+                            <p><span /> All Available User Request</p>
                         </div>
                     </div>
                     <div className="col-xl-3 col-lg-4 d-none d-xl-block">
@@ -66,7 +65,7 @@ const ViewUserRequestDetails = () =>{
                         <div className="postbox__text p-50 m-5">
                             <div className="post-meta mb-15">
                                 <span><i className="far fa-calendar-check" /> Received on "{currentRequest.createdAt}" </span>
-                                <span><a href="#"><i className="far fa-user" />Requested By "{currentRequest.userId.username}" </a></span>
+                                <span><a href="#"><i className="far fa-user" />Approved By "{currentRequest.incubatorId?currentRequest.incubatorId.username:'Your request is still Pending'}" </a></span>
                             </div>
                             <div className="table-responsive">
                                 <h4>Request  details</h4>
@@ -129,14 +128,6 @@ const ViewUserRequestDetails = () =>{
                                     </Else>
                             </If>
 
-                            <If condition={currentPath.indexOf("incubator") === -1}>
-                                <Then>
-                                <div className="d-flex justify-content-center m-2">
-                                <a onClick={()=>accept(currentRequest._id)} className="btn-border"><i className="fa fa-check"/></a>&nbsp;
-                                <a onClick={()=>deny(currentRequest._id)} className="btn-border"><i className="fa fa-times"/></a>
-                                </div>
-                                </Then>
-                            </If>
 
                         </div>
 
@@ -149,4 +140,4 @@ const ViewUserRequestDetails = () =>{
         </section>
     )
 }
-export default ViewUserRequestDetails
+export default ViewUser_UserRequestDetails

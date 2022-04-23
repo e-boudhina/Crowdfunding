@@ -5,6 +5,12 @@ const API_URL = "http://localhost:5000/api/userRequests/";
 const getUserRequests = () => {
     return axios.get(API_URL, { headers: authHeader()})
 }
+const getUser_UserRequests = () => {
+    return axios.get(API_URL+"user", { headers: authHeader()})
+}
+const getIncubator_UserRequests = () => {
+    return axios.get(API_URL+"incubator", { headers: authHeader()})
+}
 const addUserRequest = (userRequest) => {
     return axios.post(API_URL, userRequest,{ headers: authHeader()})
 }
@@ -22,4 +28,4 @@ const rejectUserRequest = (id) => {
 //     return axios.delete(API_URL+id, { headers: authHeader()})
 // }
 
-export {getUserRequests, addUserRequest,approveUserRequest,rejectUserRequest}
+export {getUserRequests, addUserRequest,approveUserRequest,rejectUserRequest,getUser_UserRequests, getIncubator_UserRequests}
