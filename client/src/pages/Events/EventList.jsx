@@ -1,11 +1,11 @@
 import React from "react";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import useEventList from "./useEventList";
 import EventsHeader from "./EventsHeader";
 
 const EventList = (props) => {
   const {
-    events: {page, hasNextPage, items, totalItems, totalPages},
+    events: { page, hasNextPage, items, totalItems, totalPages },
     removeEvent,
     handlePageChange,
   } = useEventList();
@@ -129,7 +129,7 @@ const EventList = (props) => {
                       <div className="col-lg-3 d-flex align-items-center justify-content-start justify-content-lg-end">
                         <div className="event-btn">
                           <a
-                            href={"/eventsdet/" + el._id}
+                            href={"/eventsdet/" + el._d}
                             className="btn-circle"
                           >
                             join today

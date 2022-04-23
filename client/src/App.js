@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from "react";
-import {useDispatch, useSelector} from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   BrowserRouter as Router,
   Routes,
@@ -13,8 +13,8 @@ import {
 import Login from "./components/User/login.component";
 import Register from "./components/User/register.component";
 import Profile from "./components/User/profile.component";
-import {clearMessage} from "./actions/message";
-import {history} from "./helpers/history";
+import { clearMessage } from "./actions/message";
+import { history } from "./helpers/history";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ProjectDetails from "./components/Projects/ProjectDetails";
@@ -27,7 +27,7 @@ import UppdateOrganisation from "./components/Organisation/UpdateOrganisation";
 import Reset_password from "./components/User/reset-password.component";
 import New_password from "./components/User/new-password.component";
 import AddEvents from "./pages/Events/AddEvent";
-import {ToastContainer} from "react-toastify";
+import { ToastContainer } from "react-toastify";
 
 import ProjectAdd from "./components/Projects/addProject";
 import Events from "./pages/Events/Event";
@@ -47,7 +47,7 @@ import EventList from "./pages/Events/EventList";
 //import EventDetails from "./components/Events/EventDetails";
 import UpdateEvent from "./pages/Events/UpdateEvent";
 
-import {allProjects} from "./actions/Projects/ProjectCrud.actions";
+import { allProjects } from "./actions/Projects/ProjectCrud.actions";
 import ListOrganisation from "./components/Organisation/ListOrganisation";
 import ListOrganisationForAdmin from "./components/Organisation/ListOrganisationForAdmin";
 import Add from "./components/Elearning/add-chapter.component";
@@ -86,6 +86,7 @@ const App = () => {
 
   return (
     <>
+
       <Router history={history}>
         <Routes>
           {/*{ isVerified ? redirect():''}*/}
@@ -117,7 +118,7 @@ const App = () => {
             <Route path={"/add-events"} element={<AddEvents />} />
             <Route path={"/event-list"} element={<EventList />} />
             <Route path={"/update/:id"} element={<UpdateEvent />} />
-
+            <Route path={"/home"} element={<Home />} />
             <Route exact path={"/ListProject"} element={<ListPProject />} />
             <Route exact path={"/addProject"} element={<ProjectAdd />} />
             <Route
