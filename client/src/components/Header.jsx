@@ -62,16 +62,16 @@ function Header() {
       />
       {/* Place favicon.png in the root directory */}
       {/* CSS here */}
-      <link rel="stylesheet" href="../assets/css/bootstrap.min.css" />
-      <link rel="stylesheet" href="../assets/css/owl.carousel.min.css" />
-      <link rel="stylesheet" href="../assets/css/animate.min.css" />
-      <link rel="stylesheet" href="../assets/css/magnific-popup.css" />
-      <link rel="stylesheet" href="../assets/css/fontawesome-all.min.css" />
-      <link rel="stylesheet" href="../assets/css/flaticon.css" />
-      <link rel="stylesheet" href="../assets/css/meanmenu.css" />
-      <link rel="stylesheet" href="../assets/css/slick.css" />
-      <link rel="stylesheet" href="../assets/css/style.css" />
-      <link rel="stylesheet" href="../assets/css/responsive.css" />
+      <link rel="stylesheet" href={process.env.PUBLIC_URL+'/assets/css/bootstrap.min.css'} />
+      <link rel="stylesheet" href={process.env.PUBLIC_URL+'/assets/css/owl.carousel.min.css'} />
+      <link rel="stylesheet" href={process.env.PUBLIC_URL+'/assets/css/animate.min.css'} />
+      <link rel="stylesheet" href={process.env.PUBLIC_URL+'/assets/css/magnific-popup.css'} />
+      <link rel="stylesheet" href={process.env.PUBLIC_URL+'/assets/css/fontawesome-all.min.css'} />
+      <link rel="stylesheet" href={process.env.PUBLIC_URL+'/assets/css/flaticon.css'} />
+      <link rel="stylesheet" href={process.env.PUBLIC_URL+'/assets/css/meanmenu.css'} />
+      <link rel="stylesheet" href={process.env.PUBLIC_URL+'/assets/css/slick.css'} />
+      <link rel="stylesheet" href={process.env.PUBLIC_URL+'/assets/css/style.css'} />
+      <link rel="stylesheet" href={process.env.PUBLIC_URL+'/assets/css/responsive.css'} />
       <div id="preloader" style={{ display: "none" }}>
         <div className="preloader">
           <span />
