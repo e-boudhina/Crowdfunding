@@ -129,7 +129,7 @@ const EventList = (props) => {
                       <div className="col-lg-3 d-flex align-items-center justify-content-start justify-content-lg-end">
                         <div className="event-btn">
                           <a
-                            href={"/eventsdet/" + el._d}
+                            href={"/eventsdet/" + el._id}
                             className="btn-circle"
                           >
                             join today

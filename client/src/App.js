@@ -8,6 +8,7 @@ import {
   useNavigate,
   Redirect,
 } from "react-router-dom";
+import chatbot, { Chatbot } from "react-chatbot-kit";
 // import "./bezkoder.css";
 //import "./bezkoder.css";
 import Login from "./components/User/login.component";
@@ -59,6 +60,9 @@ import Users from "./components/User/getUsers.component";
 
 import OrrganisationDetails from "./components/Organisation/OrganisationDetails";
 
+import "./App.css"
+
+import Chat from "./components/Chat";
 const App = () => {
   const redirect = () => {
     //navigate('/')
@@ -85,21 +89,31 @@ const App = () => {
   // dispatch(allProjects());
 
   return (
+
     <>
 
+
+
       <Router history={history}>
+
         <Routes>
           {/*{ isVerified ? redirect():''}*/}
           <Route
             path={"/"}
             element={
               <>
+
                 <Header />
+
                 <Footer />
+
               </>
             }
+
           >
+
             <Route path={"/profile"} element={<Profile />} />
+
             <Route path={"/u/:username"} element={<Profileconsult />} />
             <Route path={"/login"} element={<Login />} />
             <Route path={"/register"} element={<Register />} />
