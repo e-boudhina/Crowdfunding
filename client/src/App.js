@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate, Redirect } from "react-router-dom";
 
+import chatbot, { Chatbot } from "react-chatbot-kit";
 // import "./bezkoder.css";
 //import "./bezkoder.css";
 import Login from "./components/User/login.component";
@@ -60,6 +61,10 @@ import UpdateUser from "./components/User/ManageUsers/updateUser"
 import OrrganisationDetails from "./components/Organisation/OrganisationDetails";
 
 
+import "./App.css"
+
+import Chat from "./components/Chat";
+
 const App = () => {
 
   const redirect = () => {
@@ -88,17 +93,35 @@ const App = () => {
   // dispatch(allProjects());
 
   return (
+
     <>
 
 
       <Router history={history}>
-        <Routes>
 
-          {/*{ isVerified ? redirect():''}*/}
-          <Route path={"/"} element={<><Header /><Footer /></>} >
+
+        {/*{ isVerified ? redirect():''}*/}
+        <Routes path={"/"} element={<><Header /><Footer /></>} >
+
+          <Route path={"/profile"} element={<Profile />} />
+          <Route path={""} element={<Home />} />
+          <Route
+            path={"/"}
+            element={
+              <>
+
+                <Header />
+
+                <Footer />
+
+              </>
+            }
+
+          >
 
             <Route path={"/profile"} element={<Profile />} />
-            <Route path={""} element={<Home />} />
+
+
             <Route path={"/u/:username"} element={<Profileconsult />} />
             <Route path={"/login"} element={<Login />} />
             <Route path={"/register"} element={<Register />} />

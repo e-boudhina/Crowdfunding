@@ -2,11 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import eventService from "../../services/event.service";
 import getImageUrl from "../../helpers/getImageUrl";
+import { Navigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 const EventDetails = (props) => {
   const [event, setEvent] = useState();
   const { id } = useParams();
   console.log(id);
+  const { user: currentUser } = useSelector((state) => state.auth);
 
   const getEventDetails = (eventId) => {
     eventService
@@ -19,7 +22,9 @@ const EventDetails = (props) => {
   }, [id]);
 
   if (!event) return <div>loading</div>;
-
+  if (!currentUser) {
+    return <Navigate to="/login" />;
+  }
   return (
     <main>
       {/* page-title-area start */}
