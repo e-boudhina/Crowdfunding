@@ -111,7 +111,6 @@ const App = () => {
               <>
 
                 <Header />
-
                 <Footer />
 
               </>
