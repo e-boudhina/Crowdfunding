@@ -1,7 +1,10 @@
 const asyncHandler = require('express-async-handler')
 const userRequest = require ('../../models/Services/userRequest')
+const User = require ('../../models/User/user.model')
 const Furniture = require("../../models/Services/furniture");
-
+const transport = require("../../config/nodemailer");
+const userRequestStatusNotificationEmailTemplate =require('../../Templates/Emails/userRequestStatusNotificationEmail')
+const VerificationEmailTemplateTemplate = require("../../Templates/Emails/VerificationEmail");
 const getAllUserRequests = asyncHandler(async (req, res) =>{
     userRequests = await userRequest.find({status: undefined}).populate("userId").populate("incubatorId").populate({path:'furniture', populate: { path: "_id", model: 'Furniture'}} );
 
@@ -100,7 +103,7 @@ const createUserRequest = asyncHandler(async (req, res) =>{
     //     res.status(400)
     //     throw new Error('Please provide primary fields')
     // }
-    //Only one of these should exist but not both
+    //Only one of these should exist but not both XOR logical comparison
     if(!((!furniture && furnished_Requirement) || (furniture && !furnished_Requirement)))
     {
         res.status(400)
@@ -158,11 +161,7 @@ const approveUserRequest = asyncHandler(async (req, res) =>{
     const {userRequestId} = req.params;
     //Fetching incubator id
     const incubatorid = req.userId
-    // return res.status(200).json(
-    //     {
-    //         message: incubatorid
-    //     }
-    // )
+
     if(!incubatorid ){
         res.status(400)
         throw new Error('Please provide a valid incubatorId')
@@ -194,13 +193,36 @@ const approveUserRequest = asyncHandler(async (req, res) =>{
     //else proceed with approval
     //the option "new : ?" returns the document as it was before update was applied when set to "false". If you set new: true, findOneAndUpdate() will instead give you the object after update was applied.
     approvedUserRequest= await userRequest.findByIdAndUpdate(userRequestId, {incubatorId: incubatorid, status: true},{new:true});
+
     if (!approvedUserRequest)
         return res.status(500).send("There was an error while updating");
 
+    const approvedUserId = approvedUserRequest.userId;
+    const approvedIncubatorId = approvedUserRequest.incubatorId;
+    fetchedUser = await User.findById(approvedUserId)
+    fetchedIncubator = await User.findById(approvedIncubatorId)
+
     //else
+    // console.log("Sending Approved Email...")
+    //
+    // console.log("user info", fetchedUser)
+    // console.log("incubator info", fetchedIncubator)
+    // return res.status(200).json(
+    //     {
+    //         request: approvedUserRequest,
+    //         fetchedUser: fetchedUser,
+    //         fetchedIncubator : fetchedIncubator
+    //     }
+    // )
+
+    await transport.sendMail(userRequestStatusNotificationEmailTemplate(fetchedUser,fetchedIncubator,approvedUserRequest))
+        .then(() => console.log('Notification email Sent Successfully!'))
+        .catch(error => {
+            console.log(error)
+        });
     return res.status(200).json(
         {
-            message:"UserRequest has been approved!", approvedUserRequest}
+            message:"UserRequest has been approved! User has just been notified", approvedUserRequest}
     )
 
 });
@@ -258,10 +280,21 @@ const rejectUserRequest = asyncHandler(async (req, res) =>{
         return res.status(500).send("There was an error while updating");
 
     //else
+
+    const rejectedUserId = rejectedUserRequest.userId;
+    const rejectedIncubatorId = rejectedUserRequest.incubatorId;
+    fetchedUser = await User.findById(rejectedUserId)
+    fetchedIncubator = await User.findById(rejectedIncubatorId)
+    await transport.sendMail(userRequestStatusNotificationEmailTemplate(fetchedUser,fetchedIncubator,rejectedUserRequest))
+        .then(() => console.log('Notification email Sent Successfully!'))
+        .catch(error => {
+            console.log(error)
+        });
     return res.status(200).json(
         {
-            message:"UserRequest has been rejected!", rejectedUserRequest}
+            message:"UserRequest has been rejected! User has just been notified", rejectedUserRequest}
     )
+
 
 });
 

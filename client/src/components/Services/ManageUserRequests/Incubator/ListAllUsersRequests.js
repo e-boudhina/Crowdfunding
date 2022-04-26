@@ -84,7 +84,7 @@ const ListUserRequests = () =>{
                 </div>
 
                 ))}
-                {userRequests.length ===0 ?<h3 className="blog-title" >There are now pending userRequests Yet</h3>:""}
+                {userRequests.length ===0 ?<h3 className="blog-title" >There are no pending userRequests Yet</h3>:""}
             </div>
         </section>
     )

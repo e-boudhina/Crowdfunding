@@ -120,7 +120,7 @@ console.log('/uploads/'+req.file.filename);
 
           //sending email
           //if you remove the await the rest of the code will continue and a success message will be returned even though and error can be raised
-          // However if you remove it the request will be much faster
+          // you can however  remove it to make the request will be much faster
           console.log("Sending VerificationEmail Email...")
           await transport.sendMail(VerificationEmailTemplateTemplate(user))
               .then(() => console.log('Verification Email Sent Successfully!'))
