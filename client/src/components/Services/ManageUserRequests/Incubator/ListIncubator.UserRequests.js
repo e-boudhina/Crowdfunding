@@ -83,6 +83,8 @@ const ListIncubatorUserRequests = () =>{
 
 
                             ))}
+                            {userRequests.length ===0 ?<h3 className="blog-title" >There still have not approved or rejected any userRequests Yet</h3>:""}
+
                             {/*{ users ?'':'There are no user yer'}*/}
 
 

@@ -81,7 +81,7 @@ const ListUser_UserRequests = () =>{
 
 
                     ))}
-                    {/*{ users ?'':'There are no user yer'}*/}
+                    {userRequests.length ===0 ?<h3 className="blog-title" >There still have not submitted any Requests Yet</h3>:""}
 
 
                     </tbody>

@@ -3,7 +3,7 @@ const userRequest = require ('../../models/Services/userRequest')
 const Furniture = require("../../models/Services/furniture");
 
 const getAllUserRequests = asyncHandler(async (req, res) =>{
-    userRequests = await userRequest.find().populate("userId").populate("incubatorId").populate({path:'furniture', populate: { path: "_id", model: 'Furniture'}} );
+    userRequests = await userRequest.find({status: undefined}).populate("userId").populate("incubatorId").populate({path:'furniture', populate: { path: "_id", model: 'Furniture'}} );
 
     // userRequest.find({}, (error, result)=>{
     //     if (error) {

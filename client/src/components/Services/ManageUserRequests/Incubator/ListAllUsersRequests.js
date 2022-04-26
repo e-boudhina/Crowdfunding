@@ -55,15 +55,15 @@ const ListUserRequests = () =>{
                                     <Then>
                                         <If condition={uR.furnished_Requirement}>
                                             <Then>
-                                                User is requesting a furnished Office Space
+                                                Requesting a furnished Office Space
                                             </Then>
                                             <Else>
-                                                User is requesting an Empty Office Space
+                                                Requesting an Empty Office Space
                                             </Else>
                                             </If>
                                     </Then>
                                     <Else>
-                                        User is requesting a custom Office Space
+                                        Requesting a custom Office Space
                                     </Else>
                                     </If>
 
@@ -71,11 +71,11 @@ const ListUserRequests = () =>{
                             </a>
                         </h3>
                         <div className="post-text mb-20">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-                                aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.</p>
+                            <p> {uR.userId.firstName +" "+uR.userId.lastName} request is pending your review <br/>
+                            You can email this user : {uR.userId.email} or call him directly at : {uR.userId.phone}</p>
                         </div>
                         <div className="read-more mt-30">
-                            <a href="#" className="btn btn-black">View Details</a>
+                            <a onClick={()=>view(uR)} className="btn btn-black">View Details</a>
                         </div>
                     </div>
                     {/*    </div>*/}
@@ -84,6 +84,7 @@ const ListUserRequests = () =>{
                 </div>
 
                 ))}
+                {userRequests.length ===0 ?<h3 className="blog-title" >There are now pending userRequests Yet</h3>:""}
             </div>
         </section>
     )

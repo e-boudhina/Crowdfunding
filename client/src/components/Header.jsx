@@ -6,6 +6,7 @@ import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import getAllUsers from "../services/user.service";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import { If, Then, ElseIf, Else } from "react-if-elseif-else-render";
 
 function Header() {
   const navigate = useNavigate();
@@ -186,6 +187,43 @@ function Header() {
                           </li>
                         </ul>
                       </li>
+
+                      <li>
+                        <a href="#">Services</a>
+                        <ul className="submenu">
+                          <If condition={currentUser && currentUser.roles.includes("ROLE_ADMIN")}>
+                              <Then>
+                                <li>
+                                  <a href="team.html">Manage furniture</a>
+                                </li>
+                              </Then>
+                          </If>
+
+                          <If condition={currentUser && currentUser.roles.includes("ROLE_INCUBATOR")}>
+                            <Then>
+                              <li>
+                                <Link to={'./services/userRequests'}>Manage All UserRequests</Link>
+                                <Link to={'./services/userRequests/incubator'}>Manage Your UserRequests</Link>
+                              </li>
+                            </Then>
+                          </If>
+
+                          <If condition={currentUser && currentUser.roles.includes("ROLE_USER")}>
+                            <Then>
+                              <li>
+                                <Link to={'./services/userRequests/user'}>View submitted requests</Link>
+                              </li>
+                              <li>
+                                <Link to={'./services/userRequests/add'}>Submit a New Request</Link>
+                              </li>
+                            </Then>
+                          </If>
+
+
+                        </ul>
+                      </li>
+
+
                    {   
                     (currentUser)?
                        (currentUser.roles.includes("ROLE_ADMIN")) ?

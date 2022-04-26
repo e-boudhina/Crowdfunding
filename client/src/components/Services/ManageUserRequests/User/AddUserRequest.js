@@ -9,6 +9,7 @@ import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { If, Then, ElseIf, Else } from "react-if-elseif-else-render";
+import {addUserRequest} from "../../../../services/UserRequests.js/UserRequest.service";
 
 const AddUserRequest = () => {
     //retrieved database furniture
@@ -132,8 +133,26 @@ const AddUserRequest = () => {
     const handleAdd = (e) => {
         e.preventDefault();
         const params = normalizeParams(data)
-        console.log("++++++++++++++++++++++++++++++++++++++Data to send",params)
+        //console.log("++++++++++++++++++++++++++++++++++++++Data to send",params)
+        addUserRequest(params).then(
+            (res) => {
+                const msg = res.data.message
+                if (msg.includes("Your previous")) {
+                    toast.info(res.data.message)
+                }else {
+                    toast.success(res.data.message)
+                }
 
+                // console.log(res.data.message)
+                navigate('../services/userRequests/user')
+            })
+            .catch(
+                (error) =>{
+                toast.error(error.message)
+                toast.error(error.response.data.message)
+                console.log(error.response)
+                }
+            )
 
 
         //console.log(showCustomFurnitureForm === true);
@@ -163,10 +182,10 @@ const AddUserRequest = () => {
         }
     };
     const vType = (value) => {
-        if (value.length < 4 || value.length > 15) {
+        if (value.length < 4 || value.length > 30) {
             return (
                 <div className="alert alert-danger" role="alert">
-                    The type must be between 4 and 15 characters.
+                    The type must be between 4 and 30 characters.
                 </div>
             );
         }
@@ -271,9 +290,11 @@ const AddUserRequest = () => {
                     </div>
 
                     <div className="row">
-                        <div className="col">
-                            Select The Type Of office you like:
-                            <div className="furnished_Requirement">
+                        <div className="col mt-4">
+
+                            <label className="form-label"><h4>Select The Type Of office you like:</h4></label>
+
+                            <div className="form-check">
                                 <input
                                     type="checkbox"
                                     id="false_Furnished_Requirement"
@@ -281,28 +302,41 @@ const AddUserRequest = () => {
                                     onClick={() =>
                                         handleSelectOffice("false_Furnished_Requirement")
                                     }
+                                    className="form-check-input"
                                 />
-                                Empty Office Space
-                                <input
+                                <label className="form-check-label"> Empty Office Space</label>
+                            </div>
+
+                            <div className="form-check">
+
+                            <input
                                     type="checkbox"
                                     id="true_Furnished_Requirement"
                                     checked={data.officeType === "true_Furnished_Requirement"}
                                     onClick={() =>
                                         handleSelectOffice("true_Furnished_Requirement")
                                     }
+                                    className="form-check-input"
                                 />
-                                Furnished Office Space
-                                <input
+                                <label className="form-check-label"> Furnished Office Space</label>
+
+                            </div>
+
+                            <div className="form-check">
+
+                            <input
                                     type="checkbox"
                                     id="custom"
                                     checked={data.officeType === "custom"}
                                     onClick={() => handleSelectOffice("custom")}
-                                />
-                                Custom
+                                    className="form-check-input"
+
+                            />
+                                <label className="form-check-label"> Custom</label>
+
+
                             </div>
-                            {/*<View>*/}
-                            {/*    <RadioButton id="furnished_Requirement" value="true">test</RadioButton>*/}
-                            {/*</View>*/}
+
                         </div>
                     </div>
 
@@ -326,7 +360,7 @@ const AddUserRequest = () => {
                                     {/*showcase them like this*/}
                                     <h4>
                                         Please select the furniture you would like to obtain along
-                                        with the quantity and click Add
+                                        with the quantity
                                     </h4>
 
                                     {/*If request has funriture*/}
@@ -367,10 +401,10 @@ const AddUserRequest = () => {
                                 </div>
                             </div>
                         </Then>
-                        <Else>
-                            Nothing to show{" "}
-                            {showCustomFurnitureForm === false ? "false" : "true"}
-                        </Else>
+                        {/*<Else>*/}
+                        {/*    Nothing to show{" "}*/}
+                        {/*    {showCustomFurnitureForm === false ? "false" : "true"}*/}
+                        {/*</Else>*/}
                     </If>
                     <div className="row">
                         <div className="col">
