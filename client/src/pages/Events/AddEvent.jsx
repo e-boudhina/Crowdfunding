@@ -162,6 +162,9 @@ const AddEvent = (props) => {
               </div>
             </form> */}
           <p className="ajax-response text-center" />
+          <a href={"/event-list/"} className="btn btn-secondary mb-4 mt-3">
+            Go to list
+          </a>
         </div>
       </div>
     </section>

@@ -59,7 +59,7 @@ import Users from "./components/User/ManageUsers/getUsers.component"
 import UpdateUser from "./components/User/ManageUsers/updateUser"
 
 import OrrganisationDetails from "./components/Organisation/OrganisationDetails";
-
+import { Navigate } from "react-router-dom";
 
 import "./App.css"
 
@@ -68,7 +68,7 @@ import Chat from "./components/Chat";
 const App = () => {
 
   const redirect = () => {
-    //navigate('/')
+    Navigate('/home')
     // window.location.reload()
   }
   //const navigate = useNavigate();
