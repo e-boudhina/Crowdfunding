@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 const EventDetails = (props) => {
   const [event, setEvent] = useState();
   const { id } = useParams();
-  console.log(id);
+  //console.log(id);
   const { user: currentUser } = useSelector((state) => state.auth);
 
   const getEventDetails = (eventId) => {
@@ -16,6 +16,10 @@ const EventDetails = (props) => {
       .getEventById(eventId)
       .then(({ data }) => setEvent(data))
       .catch((err) => console.log(err));
+  };
+  const Join = () => {
+    // tried to use use effect instead of navigate to refresh the page after delete but failed console.log('delete')
+    eventService.JoinEvent();
   };
   useEffect(() => {
     getEventDetails(id);
@@ -113,7 +117,9 @@ const EventDetails = (props) => {
                 </ul>
                 <p>{event.EventDescription}</p>
                 <p>This is the event description</p>
-                <a className="btn">Join</a>
+                <button className="btn" onClick={Join}>
+                  Join
+                </button>
                 <br />
                 &nbsp;
                 <i
