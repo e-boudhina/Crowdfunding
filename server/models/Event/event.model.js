@@ -6,6 +6,7 @@ var EventSchema = mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User'
         },
+        qrCode: { type: String, required: false },
         EventName: { type: String, required: true },
         EventDescription: { type: String, required: true },
         picture: { type: String, required: true },

@@ -4,6 +4,7 @@ const EventEmailTemplate = require('../../Templates/Emails/EventsEmail');
 const transport = require("../../config/nodemailer");
 var mongoose = require('mongoose');
 const db = require("../../models");
+const GenerateQrCode = require("../../helpers/GenerateQrcode");
 
 const User = db.user;
 
@@ -18,6 +19,12 @@ const createEvent = async (req, res) => {
       picture,
     };
     const newevent = await eventModel.create(data);
+    const qrCode = await GenerateQrCode(newevent._id, userId);
+    console.log({ qrCode });
+    newevent.qrCode = qrCode;
+
+    console.log({ newevent });
+    await newevent.save();
 
     res.send(newevent);
   } catch (error) {

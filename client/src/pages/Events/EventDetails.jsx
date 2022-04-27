@@ -4,6 +4,7 @@ import eventService from "../../services/event.service";
 import getImageUrl from "../../helpers/getImageUrl";
 import { Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import Modal from "../../components/Modal";
 
 const EventDetails = (props) => {
   const [event, setEvent] = useState();
@@ -17,6 +18,8 @@ const EventDetails = (props) => {
       .then(({ data }) => setEvent(data))
       .catch((err) => console.log(err));
   };
+  const [showQrCode, setShowQrCode] = useState(false);
+
   const Join = () => {
     // tried to use use effect instead of navigate to refresh the page after delete but failed console.log('delete')
     eventService.JoinEvent();
@@ -31,11 +34,16 @@ const EventDetails = (props) => {
   }
   return (
     <main>
+      <Modal closeModal={() => setShowQrCode(false)} isOpen={showQrCode}>
+        <div className="d-flex justify-content-center align-items-center">
+          <img width={300} src={getImageUrl(event.qrCode)} alt="" />
+        </div>
+      </Modal>
       {/* page-title-area start */}
       <section
         className="page-title-area pt-320 pb-140"
         data-background="assets/img/bg/breadcumb.jpg"
-        style={{ backgroundImage: 'url("assets/img/bg/breadcumb.jpg")' }}
+        style={{ backgroundImage: 'url("/assets/img/bg/breadcumb.jpg")' }}
       >
         <div className="container">
           <div className="row">
@@ -117,7 +125,7 @@ const EventDetails = (props) => {
                 </ul>
                 <p>{event.EventDescription}</p>
                 <p>This is the event description</p>
-                <button className="btn" onClick={Join}>
+                <button className="btn" onClick={() => setShowQrCode(true)}>
                   Join
                 </button>
                 <br />
