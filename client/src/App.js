@@ -131,7 +131,7 @@ const App = () => {
             <Route path={"/ListProjectsOfUser"} element={<ListProjectsOfUser />} />
 
             <Route exact path={"/ProjectDetails"} element={<ProjectDetails />} />
-            <Route path={"/eventsdet"} element={<EventDetails />} />
+            <Route path={"/eventsdet/:id"} element={<EventDetails />} />
             <Route path={"/events"} element={<Events />} />
             <Route path={"/addevents"} element={<AddEvents />} />
             <Route path={"/eventlist"} element={<EventList />} />
