@@ -31,6 +31,7 @@ const ControlledDatePicker = ({
             onChange={onChange}
             value={value}
             errors={fieldError}
+            dateFormat='yyyy/MM/dd'
           />
         );
       }}
