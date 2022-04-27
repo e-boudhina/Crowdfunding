@@ -3,8 +3,10 @@ import { useParams, useNavigate } from "react-router-dom";
 import LearningService from "../../services/Learning.service";
 import draftToHtml from "draftjs-to-html";
 import { Editor, EditorState, convertFromRaw } from "draft-js";
+import { useDispatch, useSelector } from "react-redux";
 //import c from "./content.json"
 const ViewChapter = (props) => {
+  const progress = useSelector((state) => state.progress);
   const { id } = useParams();
   const initialChapterState = {
     _id: null,
@@ -31,6 +33,9 @@ const ViewChapter = (props) => {
     EditorState.createEmpty()
   );
     const  [chapname,setChapname] = useState("")
+const [chapid , setChapid] = useState(progress.currentChapter._id)
+
+
   useEffect(() => {
     let chap = {
       _id: null,
@@ -39,24 +44,23 @@ const ViewChapter = (props) => {
       createdAt: "",
       updatedAt: "",
     };
-  
     let cnt = {} ;
-    let idchap = props.chapter  ? props.chapter : id
+   let idchap = progress.currentChapter._id  ?progress.currentChapter._id : id
+   //setChapid(progress.currentChapter._id  ? progress.currentChapter._id : id)
+   //setChapid(props.chapter  ? props.chapter : id)
     LearningService.getChapter(idchap)
     .then((response) => {
       chap = response.data;
       cnt = JSON.parse(chap.content);
       setChapname(chap.name)
       setEditorState (( EditorState.createWithContent(convertFromRaw(cnt))));
-      console.log("CHAP = "+ JSON.stringify(chap));
-      console.log("PROPS VIEW CHAPT = "+props.chapter)
     })
     .catch((e) => {
       console.log(e);
     });
 
 
-  }, [id,props.chapter]); 
+  }, [id,props.chapter,progress.currentChapter._id]); 
 
   return (
     <div>

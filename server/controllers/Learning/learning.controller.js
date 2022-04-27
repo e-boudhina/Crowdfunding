@@ -278,7 +278,8 @@ exports.getProgression = asyncHandler(async (req, res) => {
   console.log("Called controller with data "+req.body);
   console.log("Called controller with data "+ req.query.user);
   console.log("Called controller with data "+ req.query.certificate);
-  Progression.find({user:req.query.user , certificate:req.query.certificate}).populate({
+  Progression.find({user:req.query.user , certificate:req.query.certificate}).populate(
+{
     path: 'certificate',
     populate: [
         {
@@ -286,7 +287,12 @@ exports.getProgression = asyncHandler(async (req, res) => {
             model: 'Chapter',
         }
     ]
-})
+}
+  ).populate(
+    {
+      path:'currentChapter',
+    }
+  )
     .then((data) => {
       if (!data || data.length === 0)
         res

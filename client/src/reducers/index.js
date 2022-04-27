@@ -21,5 +21,5 @@ export default combineReducers({   //t'importi el reducers li bech  yetaamlou ma
   followers,
   owner  ,
    events ,
-   progress
+   progress,
 });

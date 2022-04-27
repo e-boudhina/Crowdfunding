@@ -1,7 +1,10 @@
 /* eslint-disable import/no-anonymous-default-export */
 import axios from "axios";
 import authHeader from "./auth-header";
-import { useSelector  } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setChaptersAction } from "../actions/Learning/Learning"
+
+
 const API_URL = "http://localhost:5000/api/learning";
 const config ={
   headers:{
@@ -31,8 +34,9 @@ export const getAllChapters = () => {
     const data=await axios.get(API_URL+"/certificates-search/", { params }, { headers: authHeader()   })
     return data.data;
   }
-  export const getCertificate =  (id) => {
-const data =   axios.get(API_URL+"/certificate/"+id, { headers: authHeader()   })
+  export const getCertificate = async  (id) => {
+const data =  await axios.get(API_URL+"/certificate/"+id, { headers: authHeader()   })
+
     return data
   }
 
@@ -63,9 +67,10 @@ axios.get(API_URL+"/certificates/", { headers: authHeader()   })
     return  await axios.get(API_URL+"/categories-learning/"  )
       }
 
-      export const progressCertif = async (user , certificate , currentChapter ) =>{
-        const body = { user , certificate , currentChapter}
-        return await axios.post(API_URL+"/progress-certif/",body)
+      export const progressCertif =  (user , certificate , currentChapter , isCompleted) =>{
+        const body = { user , certificate , currentChapter , isCompleted}
+        console.log("SERVICE : Progressing service");
+        return  axios.post(API_URL+"/progress-certif/",body)
       }
   export default {getAllChapters,getChapter,getCertificates,getCertificate,getProgress,getCategories,progressCertif
   };

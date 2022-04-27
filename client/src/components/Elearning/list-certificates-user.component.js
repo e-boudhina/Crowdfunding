@@ -6,6 +6,7 @@ import LearningService, {
   getCertificates,
   getProgress,
   paginateCertificates,
+  setCertif
 } from "../../services/Learning.service";
 import "./elearning.css";
 import Pagination from "@material-ui/lab/Pagination";
@@ -13,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getProgress as gp,
   updateProgress,
+  setCurrentChapter , setCertif as sc,resetProgress
 } from "../../actions/Learning/Learning";
 
 
@@ -30,7 +32,8 @@ function ListCertificatesUser(props) {
   const [categories, setCategories] = useState("");
   const [categoriesFilter, setCategoriesFilter] = useState("");
   //let categoriesFilter ="";
-
+  const [certif, setCertif] = useState({});
+  
   const onChangeSearchName = (e) => {
     const searchName = e.target.value;
     setSearchName(searchName);
@@ -57,7 +60,6 @@ function ListCertificatesUser(props) {
 
    const getAll =  () => {
     const params =  getRequestParams(searchName, page, pageSize , categoriesFilter);
-    console.log("params to be sent "+JSON.stringify(params));
     paginateCertificates(params)
       .then((response) => {
         const { certificates, totalPages } = response;
@@ -74,17 +76,10 @@ function ListCertificatesUser(props) {
     getAll();
     LearningService.getCategories().then((response) => {
       setCategories(response.data);
-      console.log(response.data);
+      dispatch(resetProgress())
     });
     // retrieveCertificates();
-  }, [page, pageSize,categoriesFilter]);
-
-  const refreshList = () => {
-    getAll();
-    console.log(certifs);
-    //  setCurre(null);
-    setCurrentIndex(-1);
-  };
+  }, [page, pageSize,categoriesFilter ,searchName]);
 
   const handlePageChange = (event, value) => {
     setPage(value);
@@ -95,17 +90,13 @@ function ListCertificatesUser(props) {
     setPage(1);
   };
 
-  const retrieveCertificates = () => {
-    getCertificates()
-      .then((response) => {
-        setCertifs(response.data);
-        console.log(response.data);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  };
-  const goCertif = (id) => {
+  async function fetchMyAPI(id) {
+    let response = await LearningService.getCertificate(id);
+    dispatch(sc(response.data));
+    dispatch(setCurrentChapter(response.data.chapters[0]));
+  }
+  const goCertif = async (id) => {
+    fetchMyAPI(id);
     dispatch(gp(currentUser.id, id));
     navigate(`/certificate/${id}`);
   };

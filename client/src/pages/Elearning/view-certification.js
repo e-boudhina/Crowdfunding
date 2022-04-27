@@ -1,79 +1,192 @@
 import React, { useState, useEffect } from "react";
 import { Navigate, Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Outlet,
-} from "react-router-dom";
 import ListChaptersUser from "../../components/Elearning/list-chapters-user.component";
 import LearningService from "../../services/Learning.service";
 import ViewChapter from "../../components/Elearning/view-chapter.components";
-import { current } from "@reduxjs/toolkit";
-import { getProgress, updateProgress } from "../../actions/Learning/Learning";
-
+import {
+  getProgress,
+  setChaptersAction,
+  updateProgress,
+  setCurrentChapter,
+} from "../../actions/Learning/Learning";
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import Button from '@material-ui/core/Button';
+import Alert from 'react-bootstrap/Alert'
+const emptyChapter = {
+  _id: null,
+  name: "",
+  content: {
+    blocks: [
+      {
+        key: "7isfv",
+        text: "This is it",
+        type: "unstyled",
+        depth: 0,
+        inlineStyleRanges: [],
+        entityRanges: [],
+        data: {},
+      },
+    ],
+    entityMap: {},
+  },
+  createdAt: "",
+  updatedAt: "",
+};
 
 const ViewCertification = (props) => {
-  const [currentChapter, setCurrentChapter] = useState("");
-  const [prevChapter, setPrevChapter] = useState("");
-  const [nextChapter, setNextChapter] = useState("");
-  const navigate = useNavigate();
   const { id } = useParams();
   const [certif, setCertif] = useState({});
-  const [isEngaged, setIsEngaged] = useState(false);
   const { user: currentUser } = useSelector((state) => state.auth);
-
-  //const [progress, setProgress] = useState({});
   const progress = useSelector((state) => state.progress);
+  const currentChapter = useSelector((state) => state.progress.currentChapter);
+  const chapters = useSelector((state) => state.progress.certif.chapters) 
+  const [show, setShow] = useState(false);
   const dispatch = useDispatch();
+  const [nextDisabled, setNextDisabled] = useState(false);
+  const [prevDisabled, setPrevDisabled] = useState(true);
 
   useEffect(() => {
-    async function fetchMyAPI() {
-      let response = await LearningService.getCertificate(id);
-      setCertif(response.data);
-    }
-    fetchMyAPI();
-    //  dispatch(getProgress(currentUser.id,id))
-    //console.log(progress.progress[0].currentChapter);
-    // console.log(progress.isEngaged);
-  }, [id, currentUser.id, progress]);
+  }, [
+    id,
+    currentUser.id,
+    progress.progress,
+    chapters,
+    currentChapter,
+  ]);
 
   const beginCertif = async () => {
-   await LearningService.progressCertif(currentUser.id , certif._id ,certif.chapters[0] ).then(
-    dispatch(getProgress(currentUser.id,id))
-   )
-    console.log("User : "+currentUser.id +" Certif id : "+ certif._id +" chapter id : "+certif.chapters[0]._id);
+    //this will update the progress in the DB
+    await LearningService.progressCertif(
+      currentUser.id,
+      progress.certif._id,
+      progress.certif.chapters[0]._id
+    ).then(
+      //this will feftch the progress intro the store
+      dispatch(getProgress(currentUser.id, id))
+    );
+  };
 
+const progressCertif = (isCompleted,chapter) => {
+   LearningService.progressCertif(
+    currentUser.id,
+    progress.certif._id,
+chapter._id ,
+    isCompleted
+    ).then(
+      dispatch(setCurrentChapter(chapter  ))
+    )
+    console.log("Setting next now ");
+    dispatch(getProgress(currentUser.id, id))
   }
+
+
+  const ConfirmProgressCertif = () => {
+  confirmAlert({
+    title: 'Confirm',
+    message: 'Are you sure to progress ?',
+    buttons: [
+      {
+        label: 'Yes',
+        onClick: () => { 
+          if (!(chapters[chapters.indexOf(currentChapter) + 1]) ) {
+            progressCertif(true, chapters[chapters.indexOf(currentChapter) ])
+            setShow(true);
+            setNextDisabled(true);
+          }     else 
+          {
+            progressCertif(false, chapters[chapters.indexOf(currentChapter) + 1])
+          }
+          setPrevDisabled(false);
+      }
+         },
+      {
+        label: 'No',
+        onClick: () => alert('Click No')
+      }
+    ]
+  });
+  }
+  const setNextPost = () => {
+    if (nextDisabled){
+      console.log("Next is disabled");
+    } else {
+      if (
+      ( chapters.indexOf(progress.currentChapter) + 1 >  chapters.map(object => object._id).indexOf(progress.progress.currentChapter._id) )
+     //  && !(progress.progress.isCompleted) 
+      ) {
+        ConfirmProgressCertif()
+      } else {
+        if (chapters[chapters.indexOf(currentChapter) + 1]) {
+          dispatch(setCurrentChapter(chapters[chapters.indexOf(currentChapter) + 1]));
+          setPrevDisabled(false);
+          if (!(chapters[chapters.indexOf(currentChapter) + 2]) && progress.progress.isCompleted ) {
+            setNextDisabled(true);
+          }
+        }
+      }
+
+    } 
+  };
+
+
+  const setPrevPost = () => {
+    if (!prevDisabled) {
+      if (chapters[chapters.indexOf(currentChapter) - 1]) {
+        dispatch(
+          setCurrentChapter(chapters[chapters.indexOf(currentChapter) - 1])
+        );
+        if (!chapters[chapters.indexOf(currentChapter) - 2]) {
+          setPrevDisabled(true);
+        }
+        setNextDisabled(false);
+      }
+    } else console.log("Prev is disabled");
+  };
+
   return (
     <div className="blog-area pt-120 pb-80">
       <div className="container">
         <div className="row">
           <div className="col-lg-8">
+          <Alert show={show} variant="success">
+        <Alert.Heading>Congratulations</Alert.Heading>
+        <p>
+    You just completed this certification.
+        </p>
+        <hr />
+        <div className="d-flex justify-content-end">
+          <Button onClick={() => setShow(false)} variant="outline-success">
+            Close 
+          </Button>
+        </div>
+      </Alert>
+
             <article className="postbox post format-image mb-40">
               <div className="postbox__text bg-none">
                 <h3 className="blog-title">
-                  {certif.name}{" "}
-                  {progress.isEngaged ? <h6>- In progress </h6> : <></>}
+                  {progress.certif.name}{" "}
+                  {progress.isEngaged && progress.progress.isCompleted ?<h6> Completed </h6> :  <></>}
+                  { progress.isEngaged && !progress.progress.isCompleted ? <h6>  In progress </h6> :  <></>}
+                  { !progress.isEngaged  ? <h6> - Not started</h6> :  <></>}
                 </h3>
                 <div className="post-text mb-20">
+   
                   {progress.isEngaged ? (
                     <section className="widget mb-40">
-                      <ViewChapter chapter={progress.progress[0].currentChapter} />
+                      <ViewChapter chapter={currentChapter} />
                       <div className="row">
                         <div className="col-12">
                           <div className="navigation-border pt-50 mt-40" />
                         </div>
                         <div className="col-xl-5 col-lg-5 col-md-5">
-                          <div className="bakix-navigation b-next-post text-left mb-30">
+                          <div className="bakix-navigation b-next-post text-left text-md-right  mb-30">
                             <span>
-                              <a href="#">Next Post</a>
+                              <button  className={prevDisabled ? "btn-border" : "btn btn-primary"} onClick={() => setPrevPost()}>
+                              Previous Chapter
+                              </button>
                             </span>
-                            <h4>
-                              <a href="#">Tips on Minimalist</a>
-                            </h4>
+                         
                           </div>
                         </div>
                         <div className="col-xl-2 col-lg-2 col-md-2 ">
@@ -86,10 +199,17 @@ const ViewCertification = (props) => {
                         <div className="col-xl-5 col-lg-5 col-md-5">
                           <div className="bakix-navigation b-next-post text-left text-md-right  mb-30">
                             <span>
-                              <button> Next Chapter</button>
+                              <button    className={ !chapters[chapters.indexOf(currentChapter) + 1] && progress.progress.isCompleted ? " btn-border" : "btn btn-primary"} onClick={() => setNextPost()}>
+                                {" "}
+                               { !chapters[chapters.indexOf(currentChapter) + 1] ?  <>Complete chapter </> :  <> Next Chapter </> } 
+                              </button>
                             </span>
                             <h4>
-                              <a href="#">{nextChapter}</a>
+                              <a href="#">
+                                {
+                                  //Prev Chapter : {prevChapter.name} / Current chapter :  {chapter.name} /  next Chapter : {nextChapter.name}
+                                }{" "}
+                              </a>
                             </h4>
                           </div>
                         </div>
@@ -97,16 +217,17 @@ const ViewCertification = (props) => {
                     </section>
                   ) : (
                     <section className="widget mb-40">
-                      <div>
-                     
-                      </div>
+                      <div></div>
                       <div className="row">
-                     
-                          <div className="navigation-border pt-50 mt-40 " />
-                        </div>
-        <h4>  You haven't started this certification yet. </h4>  
-                          <button onClick={()=> beginCertif()} className="btn btn-black w-100"> Begin the course</button>
-                   
+                        <div className="navigation-border pt-50 mt-40 " />
+                      </div>
+                      <h4> You haven't started this certification yet. </h4>
+                      <button 
+                        onClick={() => beginCertif()}
+                        className="btn btn-black w-100">
+                        {" "}
+                        Begin the course
+                      </button>
                     </section>
                   )}
                 </div>
@@ -146,38 +267,15 @@ const ViewCertification = (props) => {
             </article>
           </div>
           <div className="col-lg-4">
-            <div className="widget mb-40">
-              <div className="widget-title-box mb-30">
-                <span className="animate-border" />
-                <h3 className="widget-title">About Me</h3>
-              </div>
-              <div className="about-me text-center">
-                <img src="assets/img/blog/details/me.png" alt="" />
-                <h4>Zulia Maron Duo</h4>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
-                  do eiusmod tempor incididunt ut labore.
-                </p>
-                <div className="widget-social-icon">
-                  <a href="#">
-                    <i className="fab fa-facebook-f" />
-                  </a>
-                  <a href="#">
-                    <i className="fab fa-twitter" />
-                  </a>
-                  <a href="#">
-                    <i className="fab fa-behance" />
-                  </a>
-                  <a href="#">
-                    <i className="fab fa-linkedin-in" />
-                  </a>
-                  <a href="#">
-                    <i className="fab fa-youtube" />
-                  </a>
-                </div>
-              </div>
-            </div>
-            <ListChaptersUser chapters={certif.chapters} />
+            {
+              //     {chapter} {nextChapter} {prevChapter}
+            }
+            <ListChaptersUser
+              chapter={(chapter) => console.log()}
+              nextChapter={(chapter) => console.log()}
+              prevChapter={(chapter) => console.log()}
+              chapters={progress.certif.chapters}
+            />
             <div className="widget mb-40">
               <div className="widget-title-box mb-30">
                 <span className="animate-border" />
