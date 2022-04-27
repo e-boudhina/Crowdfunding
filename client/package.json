@@ -42,6 +42,7 @@
     "react-dropzone": "11.3.2",
     "react-hook-form": "^7.29.0",
     "react-icons": "^4.3.1",
+    "react-if-elseif-else-render": "^1.0.2",
     "react-phone-input-2": "^2.15.0",
     "react-qr-reader": "^3.0.0-beta-1",
     "react-redux": "^7.2.6",

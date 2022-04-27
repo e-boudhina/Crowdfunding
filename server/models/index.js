@@ -14,4 +14,7 @@ db.admin = require("./User/admin.model")
 db.certificate = require("./Learning/certificate.model")
 db.chapter = require("./Learning/chapter.model")
 db.categorylearning = require("./Learning/category-learning.model")
+// what is the purpose of this file?
+// db.furniture = require('./Services/furniture')
+//db.userRuest = require('./Services/userRequest')
 module.exports = db;
