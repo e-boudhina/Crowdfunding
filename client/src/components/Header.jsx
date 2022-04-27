@@ -133,7 +133,7 @@ function Header() {
                               <a href="fund-details.html">Fund Details</a>
                             </li>
                             <li>
-                              <a href="/events">Event</a>
+                              <a href="/event-list">Event</a>
                             </li>
                             <li>
                               <a href="events-details.html">Event Details</a>

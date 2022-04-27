@@ -14,9 +14,8 @@ const uploaderMiddleware = (field, folder) => async (req, res, next) => {
     fs.mkdirSync(`${process.env.IMAGE_STORAGE_LOCATION}/${folder}` || "img", {
       recursive: true,
     });
-    const newPath = `${
-      process.env.IMAGE_STORAGE_LOCATION
-    }/${folder}/${filename}.${mimetype.split("/")[1]}`;
+    const newPath = `${process.env.IMAGE_STORAGE_LOCATION
+      }/${folder}/${filename}.${mimetype.split("/")[1]}`;
 
     fs.rename(oldPath, newPath, (error) => {
       if (error) throw error;
