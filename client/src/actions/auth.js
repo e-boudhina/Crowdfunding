@@ -35,16 +35,12 @@ export const deleteUser = (id) => async (dispatch) => {
   }
 };
 
-export const updateProfile =
-  (form) =>
-    async (dispatch, getState) => {
- 
+export const updateProfile = (form) => async (dispatch, getState) => {
       try {
         console.log("Entered updateProfile in Actions");
-        console.log(JSON.stringify(form));
         dispatch({ type: USER_UPDATE_REQUEST }); 
         const { data } = await updateUser(form);
-        localStorage.setItem("infos", JSON.stringify(data.infos));
+       localStorage.setItem("infos", JSON.stringify(data.infos)); 
         localStorage.setItem("user", JSON.stringify(data.user));
         dispatch({ type: USER_UPDATE_SUCCESS, payload: data });
       } catch (error) {
@@ -63,10 +59,9 @@ export const updateProfile =
     export const registerr =
     (form) =>
       (dispatch) => {
-        return AuthService.registerr(
-          form
-        ).then(
+        return AuthService.registerr(  form ).then(
           (response) => {
+            console.log(form)
             dispatch({
               type: REGISTER_SUCCESS,
             });

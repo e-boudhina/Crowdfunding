@@ -32,8 +32,8 @@ module.exports = function(app) {
     app.get("/api/test/user", [authJwt.verifyToken, verifiedAccount_Middleware], controller.userBoard);
     app.get( "/api/test/inc", [authJwt.verifyToken, authJwt.isIncubator],controller.IncubatorBoard );
     app.get("/api/test/admin", [authJwt.verifyToken, authJwt.isAdmin],  controller.adminBoard );
-
-    app.post("/api/user/update", upload.single('image'),controller.updateUserProfile);
+ 
+    //app.post("/api/user/update", [upload.single('image')] ,controller.updateUserProfile);
     app.delete("/api/user/:userId", controller.deleteUser);
     app.get("/api/user/searchusers/:keyword",controller.searchUsers);
     //Getting all users

@@ -1,17 +1,23 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate  } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
-import { register,registerr, updateProfile , deleteUser , logout} from "../../actions/auth";
+import {
+  register,
+  registerr,
+  updateProfile,
+  deleteUser,
+  logout,
+} from "../../actions/auth";
 import DatePicker from "react-datepicker";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-import {clearMessage} from "../../actions/message";
+import { clearMessage } from "../../actions/message";
 import Spinner from "../Spinner";
-
+import "./image-preview.css";
 const required = (value) => {
   if (!value) {
     return (
@@ -69,7 +75,7 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   //const [passwordModified, setPasswordModified] = useState(false);
-  var passwordModified = false ;
+  var passwordModified = false;
   const [birthdate, setBirthdate] = useState(new Date());
   const [successful, setSuccessful] = useState(false);
   const { message } = useSelector((state) => state.message);
@@ -81,8 +87,8 @@ const Register = () => {
   const { infos: currentInfos } = useSelector((state) => state.auth);
   const { user: currentUser } = useSelector((state) => state.auth);
   const [image, setImage] = useState(null);
+  const [imageChanged, setImageChanged] = useState(false);
 
-  
   useEffect(() => {
     if (currentInfos) {
       setRegisterForm(false);
@@ -93,14 +99,17 @@ const Register = () => {
       setAddress(currentInfos.address);
       setEmail(currentInfos.email);
       setPhone(String(currentInfos.phone));
-      setImage(currentInfos.image);
-      console.log("update comp :"+JSON.stringify(currentInfos));
+      //  setImage(currentInfos.image);
+      setPassword(currentInfos.password);
+      console.log("update comp :" + JSON.stringify(currentInfos));
     } else {
       setFormTitle("Signup");
     }
     //Using return is like using componentWillUnmount hook
-     return () => {dispatch(clearMessage())}
-  },[currentInfos]);
+    return () => {
+      dispatch(clearMessage());
+    };
+  }, [currentInfos]);
 
   const onChangeUsername = (e) => {
     const username = e.target.value;
@@ -114,7 +123,7 @@ const Register = () => {
     const lastName = e.target.value;
     setLastName(lastName);
   };
- 
+
   const onChangeAddress = (e) => {
     const address = e.target.value;
     setAddress(address);
@@ -127,19 +136,19 @@ const Register = () => {
     const password = e.target.value;
     setPassword(password);
     if (password) {
-      passwordModified = true ;
+      passwordModified = true;
     } else {
-      passwordModified = false ;
+      passwordModified = false;
     }
   };
   const vpassword = (value) => {
-    if ( (value.length>0) && (value.length < 4 || value.length > 40)   ){
-        return (
-          <div className="alert alert-danger" role="alert">
-            The password must be between 4 and 40 characters.
-          </div>
-        );
-      }
+    if (value.length < 4) {
+      return (
+        <div className="alert alert-danger" role="alert">
+          The password must be at least 4 charachters .
+        </div>
+      );
+    }
   };
   const requiredPassword = (value) => {
     if (!value && !currentUser) {
@@ -150,11 +159,6 @@ const Register = () => {
       );
     }
   };
-
-
-
-
-
 
   const handleUpdate = (e) => {
     e.preventDefault();
@@ -167,16 +171,18 @@ const Register = () => {
     formData.append("address", address);
     formData.append("phone", phone);
     formData.append("birthdate", birthdate);
-    formData.append("image", image);
+    image ? formData.append("image", image) : console.log("no image");
     setSuccessful(false);
     form.current.validateAll();
     if (checkBtn.current.context._errors.length === 0) {
-      console.log(JSON.stringify(formData));
-      dispatch(updateProfile(formData)
-      )
+      console.log(formData);
+      for (var [key, value] of formData.entries()) {
+        console.log(key, value);
+      }
+      dispatch(updateProfile(formData))
         .then(() => {
           //Clearing the message is done using useEffect return
-          navigate("/profile")
+          navigate("/profile");
           setSuccessful(true);
         })
         .catch(() => {
@@ -198,31 +204,32 @@ const Register = () => {
     formData.append("birthdate", birthdate);
     formData.append("image", image);
     console.log(formData);
-
+    for (var [key, value] of formData.entries()) {
+      console.log(key, value);
+    }
     setSuccessful(false);
     form.current.validateAll();
 
     if (checkBtn.current.context._errors.length === 0) {
-      setIsLoading(true)
+      setIsLoading(true);
       dispatch(
-       // register(username, email, password, firstName, lastName, address,birthdate,phone,image)
-       registerr(formData)
+        // register(username, email, password, firstName, lastName, address,birthdate,phone,image)
+        registerr(formData)
       )
         .then(() => {
-          console.log('done')
-          setIsLoading(false)
+          console.log("done");
+          setIsLoading(false);
           setSuccessful(true);
           // dispatch(clearMessage())
-          setTimeout(()=>{
-                navigate('/login');
-              }
-              ,5000)
+          setTimeout(() => {
+            navigate("/login");
+          }, 5000);
           //You can pust clear message here you need to put it on component unmount
           //dispatch(clearMessage())
         })
         .catch((error) => {
-          console.log("here")
-          setIsLoading(false)
+          console.log("here");
+          setIsLoading(false);
           setSuccessful(false);
         });
     }
@@ -232,19 +239,19 @@ const Register = () => {
     dispatch(deleteUser(currentUser.id))
       .then(() => {
         console.log("register component delete user-> then ");
-      
-          dispatch(logout());
-     
-      //  props.history.push("/tutorials");
-     // navigate("/login")
+
+        dispatch(logout());
+
+        //  props.history.push("/tutorials");
+        // navigate("/login")
       })
-      .catch(e => {
+      .catch((e) => {
         console.log(e);
       });
   };
 
-  if (isLoading){
-    return <Spinner/>
+  if (isLoading) {
+    return <Spinner />;
   }
   return (
     <div className="login-area pt-120 pb-120">
@@ -255,10 +262,9 @@ const Register = () => {
               <h3 className="text-center mb-60">{formTitle}</h3>
 
               <Form
-              enctype="multipart/form-data"
+                enctype="multipart/form-data"
                 onSubmit={registerForm ? handleRegister : handleUpdate}
-                ref={form}
-              >
+                ref={form}>
                 {!successful && (
                   <div>
                     <div className="form-group">
@@ -279,7 +285,7 @@ const Register = () => {
                         name="firstName"
                         value={firstName}
                         onChange={onChangeFirstName}
-                   
+                        validations={[required, vname]}
                       />
 
                       <label htmlFor="lastName "> Last name : </label>
@@ -289,7 +295,7 @@ const Register = () => {
                         name="lastName"
                         value={lastName}
                         onChange={onChangeLastName}
-                
+                        validations={[required, vname]}
                       />
 
                       <label htmlFor="address "> Address : </label>
@@ -299,7 +305,7 @@ const Register = () => {
                         name="address"
                         value={address}
                         onChange={onChangeAddress}
-                     
+                        validations={[required, vaddress]}
                       />
 
                       <label htmlFor="birthdate "> Birthdate : </label>
@@ -309,10 +315,9 @@ const Register = () => {
                         name="birthdate"
                         value={birthdate}
                         onChange={(birthdate) => setBirthdate(birthdate)}
-               
                       />
 
-<label htmlFor="phone "> Phone number : </label>
+                      <label htmlFor="phone "> Phone number : </label>
                       <PhoneInput
                         name="phone"
                         country={"tn"}
@@ -333,11 +338,9 @@ const Register = () => {
                         name="email"
                         value={email}
                         onChange={onChangeEmail}
-                  
+                        validations={[required, validEmail]}
                       />
                     </div>
-          
-
 
                     <div className="form-group">
                       <label htmlFor="password"> Password</label>
@@ -346,28 +349,37 @@ const Register = () => {
                         className="form-control"
                         name="password"
                         value={password}
-                        validations={[requiredPassword]}
+                        validations={[requiredPassword, vpassword]}
                         onChange={onChangePassword}
-                
                       />
                     </div>
 
-                    <div className="form-group">
-                    <label htmlFor="image">Image</label>
-                      <label className="btn-border" htmlFor="image"> Choose image </label>
-                      <Input
-                      id="image"
-                        type="file"
-                        className="btn-border"
-                        name="image"
-                        onChange={(e) => {
-                          setImage(e.target.files[0])
-                          console.log(e.target.files[0])
-                      }}
-                      />
+                    <div className="form-group ">
+                      <label htmlFor="image">Image</label>
+                      <label className="btn-border" htmlFor="image">
+                        {" "}
+                        Choose image{" "}
+                      </label>
+                      <div className="row">
+                        <Input
+                          id="image"
+                          type="file"
+                          className="btn-border"
+                          name="image"
+                          onChange={(e) => {
+                            setImage(e.target.files[0]);
+                            console.log(e.target.files[0]);
+                          }}
+                        />
+                        <div className="thumbnail">
+                          {image ? (
+                            <img src={URL.createObjectURL(image)} alt="No image selected" />
+                          ) : (
+                            <></>
+                          )}
+                        </div>
+                      </div>
                     </div>
-
-
 
                     <div className="form-group">
                       {registerForm ? (
@@ -377,12 +389,8 @@ const Register = () => {
                       )}
                       <div className="or-divide">
                         <span>or</span>
-                        </div>
-
-          
-                  
+                      </div>
                     </div>
-                 
                   </div>
                 )}
                 {message && (
@@ -393,8 +401,7 @@ const Register = () => {
                           ? "alert alert-success"
                           : "alert alert-danger"
                       }
-                      role="alert"
-                    >
+                      role="alert">
                       {message}
                     </div>
                   </div>
@@ -402,12 +409,16 @@ const Register = () => {
                 <CheckButton style={{ display: "none" }} ref={checkBtn} />
               </Form>
             </div>
-            {registerForm ? <> </> :  <button className="btn-border"  onClick={deleteUserHandler}>Delete </button>}
+            {registerForm ? (
+              <> </>
+            ) : (
+              <button className="btn-border " onClick={deleteUserHandler}>
+                Delete{" "}
+              </button>
+            )}
           </div>
         </div>
-        
       </div>
-    
     </div>
   );
 };

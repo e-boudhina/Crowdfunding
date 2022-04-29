@@ -25,6 +25,10 @@ export const resetProgress = (  ) => ( dispatch ) => {
   dispatch({
     type: RESET_PROGRESS,
   });
+  dispatch({
+    type: NOT_ENGAGED,
+    payload: false,
+  });
 }
 export const setCurrentChapter = ( chapter ) => ( dispatch ) => {
   console.log("Called action set current chapter with "+JSON.stringify(chapter));

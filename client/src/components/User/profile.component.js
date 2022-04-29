@@ -67,7 +67,7 @@ useEffect(() => {
               <div className="team mb-50">
                 <div className="team__thumb">
   
-                <img src={`/profile-uploads/${image}`} alt={`/profile-uploads/alternative-profile`} />
+                <img src={`/profile-uploads/${image}`} alt={`/profile-uploads/alternative-profile.png`} />
                 </div>
                 <button onClick={navigateToEdit} type="button" className="btn btn-black w-100" > Edit profile </button>
               </div>

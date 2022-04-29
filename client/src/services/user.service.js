@@ -26,7 +26,9 @@ const getAllUsers = (keyword) => {
 }
 export const updateUser = (user) => {
   console.log("updateUser in Service");
-  console.log(JSON.stringify(user));
+  for (var [key, value] of user.entries()) { 
+    console.log(key, value);
+   }
   return  axios.post(API_URL+"update", user , config)
 }
 export const getUser  =  (username) =>{
