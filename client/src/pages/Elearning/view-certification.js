@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Navigate, Link, useParams } from "react-router-dom";
+import { Navigate, Link, useParams,useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import ListChaptersUser from "../../components/Elearning/list-chapters-user.component";
 import LearningService from "../../services/Learning.service";
@@ -35,8 +35,9 @@ const emptyChapter = {
 };
 
 const ViewCertification = (props) => {
+  let navigate = useNavigate();
+  const { infos: currentInfos } = useSelector((state) => state.auth);
   const { id } = useParams();
-  const [certif, setCertif] = useState({});
   const { user: currentUser } = useSelector((state) => state.auth);
   const progress = useSelector((state) => state.progress);
   const currentChapter = useSelector((state) => state.progress.currentChapter);
@@ -49,7 +50,7 @@ const ViewCertification = (props) => {
   useEffect(() => {
   }, [
     id,
-    currentUser.id,
+   // currentUser.id,
     progress.progress,
     chapters,
     currentChapter,
@@ -168,10 +169,26 @@ chapter._id ,
                   {progress.certif.name}{" "}
                   {progress.isEngaged && progress.progress.isCompleted ?<h6> Completed </h6> :  <></>}
                   { progress.isEngaged && !progress.progress.isCompleted ? <h6>  In progress </h6> :  <></>}
-                  { !progress.isEngaged  ? <h6> - Not started</h6> :  <></>}
+                  { !progress.isEngaged && currentInfos ? <h6> - Not started</h6> :  <></>}
                 </h3>
                 <div className="post-text mb-20">
    
+{ !currentInfos ?
+  <section className="widget mb-40">
+                      <div></div>
+                      <div className="row">
+                        <div className="navigation-border pt-50 mt-40 " />
+                      </div>
+                      <h4> Please login to start this course </h4>
+                      <button 
+                        onClick={() => navigate("/login")}
+                        className="btn btn-black w-100">
+                        {" "}
+                       Login
+                      </button>
+                    </section>
+                    :
+<> 
                   {progress.isEngaged ? (
                     <section className="widget mb-40">
                       <ViewChapter chapter={currentChapter} />
@@ -204,13 +221,6 @@ chapter._id ,
                                { !chapters[chapters.indexOf(currentChapter) + 1] ?  <>Complete chapter </> :  <> Next Chapter </> } 
                               </button>
                             </span>
-                            <h4>
-                              <a href="#">
-                                {
-                                  //Prev Chapter : {prevChapter.name} / Current chapter :  {chapter.name} /  next Chapter : {nextChapter.name}
-                                }{" "}
-                              </a>
-                            </h4>
                           </div>
                         </div>
                       </div>
@@ -230,6 +240,11 @@ chapter._id ,
                       </button>
                     </section>
                   )}
+                  </>
+
+                  }
+
+
                 </div>
               </div>
               <div className="author mt-80 mb-40">

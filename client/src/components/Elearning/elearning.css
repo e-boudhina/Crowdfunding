@@ -4,3 +4,10 @@
       overflow:hidden;
       
   }
+  .rdw-editor-toolbar.rich-text__toolbar {
+    display: none;
+  }
+  
+  .rdw-editor-wrapper:focus-within .rich-text__toolbar {
+    display: flex;
+  }

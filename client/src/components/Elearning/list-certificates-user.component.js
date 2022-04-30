@@ -97,7 +97,9 @@ function ListCertificatesUser(props) {
   }
   const goCertif = async (id) => {
     fetchMyAPI(id);
-    dispatch(gp(currentUser.id, id));
+    if (currentUser) { 
+    dispatch(gp(currentUser.id, id)); 
+    }
     navigate(`/certificate/${id}`);
   };
 

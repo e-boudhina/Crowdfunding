@@ -73,7 +73,7 @@ const Register = () => {
   const [address, setAddress] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState(null);
   //const [passwordModified, setPasswordModified] = useState(false);
   var passwordModified = false;
   const [birthdate, setBirthdate] = useState(new Date());
@@ -100,7 +100,7 @@ const Register = () => {
       setEmail(currentInfos.email);
       setPhone(String(currentInfos.phone));
       //  setImage(currentInfos.image);
-      setPassword(currentInfos.password);
+     // setPassword(currentInfos.password);
       console.log("update comp :" + JSON.stringify(currentInfos));
     } else {
       setFormTitle("Signup");
@@ -165,7 +165,7 @@ const Register = () => {
     let formData = new FormData();
     formData.append("id", currentUser.id);
     formData.append("email", email);
-    formData.append("password", password);
+   password ? formData.append("password", password) : console.log();
     formData.append("firstName", firstName);
     formData.append("lastName", lastName);
     formData.append("address", address);

@@ -8,10 +8,9 @@ import { addPost } from "../../actions/postAction";
 //ant part
 import { Row, Col, Form, Input, Button, notification } from "antd";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import { login } from "../../actions/auth";
-import { checkPropTypes } from "prop-types";
-import { SHOW_ALL_POSTS, NOTIFICATION } from "../../actions/type";
 import { getCertificates } from "../../services/Learning.service";
+import axios from "axios";
+
 
 function Add(props) {
   const dispatch = useDispatch();
@@ -69,7 +68,40 @@ function Add(props) {
   const HandelChange = (e) => {
     console.log(e.target.value);
     setCertifID(e.target.value);
-  };
+  }; 
+  const uploadCallback =   (file) => {
+    return new Promise((resolve, reject) => {
+      const data = new FormData();
+      data.append("image", file)
+      axios.post("http://localhost:5000/api/learning/upload-image", data).then(responseImage => {
+        console.log(responseImage);
+           resolve({ data: { link: "" } });
+      })
+   });
+}
+function uploadImageCallBack(file) {
+  return new Promise(
+    (resolve, reject) => {
+      const xhr = new XMLHttpRequest(); // eslint-disable-line no-undef
+      xhr.open('POST', 'http://localhost:5000/api/learning/upload-image');
+    //  xhr.setRequestHeader('Authorization', 'Client-ID 8d26ccd12712fca');
+      const data = new FormData(); // eslint-disable-line no-undef
+      data.append('image', file);
+      xhr.send(data);
+      xhr.addEventListener('load', () => {
+        const response = JSON.parse(xhr.responseText);
+        resolve(response);
+        console.log(response);
+      });
+      xhr.addEventListener('error', () => {
+        const error = JSON.parse(xhr.responseText);
+        reject(error);
+      });
+    },
+  );
+}
+
+
   return (
     <div >
       <Row justify="center">
@@ -92,6 +124,12 @@ function Add(props) {
                 onEditorStateChange={handleEditorChange}
                 wrapperClassName="demo-wrapper"
                 editorClassName="form-control form-control-lg mb-4"
+                toolbar={{
+                  image: {
+                    uploadCallback: uploadImageCallBack,
+                    alt: { present: true, mandatory: false },
+                  },
+                }}
               />
             </Form.Item>
             <div className="d-flex actions clearfix w-50">

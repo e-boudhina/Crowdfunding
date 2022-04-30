@@ -16,15 +16,31 @@ module.exports = function(app) {
   
   }
   );
+  var storage_2 = multer.diskStorage({
+    destination: (req, file, cb) => {
+        console.log("FIELDNAME "+file.fieldname);
+        cb(null,path.join(__dirname, '../../../client/public/chapter-uploads'))
+    },
+    filename: (req, file, cb) => {
+        console.log("ORIGINAL NAME "+file.originalname +Date.now() );
+        cb(null, file.fieldname + Date.now() + file.originalname  )
+
+    }
+      
+}
+);
   var upload = multer({ storage: storage });
+  var upload_2 = multer({ storage: storage_2 });
 
     app.use(function(req, res, next) {
       res.header(
         "Access-Control-Allow-Headers",
         "x-access-token, Origin, Content-Type, Accept"
-      );
+      ); 
       next();
     });
+
+
 app.post("/api/learning/add-chapter",controller.addChapter);
 app.get("/api/learning/chapter/:id",controller.getChapter);
 app.get("/api/learning/chapters/",controller.getAllChapters);
@@ -38,4 +54,5 @@ app.delete("/api/learning/chapter/:chapterId", controller.deleteChapter);
 app.get("/api/learning/certificates-search/",controller.getCertificatePagination);
 app.post("/api/learning/progress-certif/",controller.ProgressCertif)
 app.get("/api/learning/get-progress/",controller.getProgression)
-} 
+app.post("/api/learning/upload-image",upload_2.single('image'),controller.addImage);
+}  

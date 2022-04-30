@@ -6,7 +6,7 @@ import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import getAllUsers from "../services/user.service";
 import CircularProgress from "@material-ui/core/CircularProgress";
-
+import { resetProgress } from "../actions/Learning/Learning";
 function Header() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -45,7 +45,10 @@ function Header() {
   const logOut = () => {
     dispatch(logout());
   };
-
+const goDashboard = () => {
+  dispatch(resetProgress());
+//  navigate("/admin");
+}
   return (
     <>
     <div>
@@ -118,7 +121,7 @@ function Header() {
                        (currentUser.roles.includes("ROLE_ADMIN")) ?
                           <li>
                             {" "}
-                            <Link to={"/admin"} className="nav-link">
+                            <Link to={"/admin"}   onClick={goDashboard} className="nav-link">
                               {" "}
                               ADMIN DASHBOARD{" "}
                             </Link>{" "}

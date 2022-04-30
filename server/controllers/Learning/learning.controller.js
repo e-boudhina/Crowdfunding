@@ -371,3 +371,31 @@ exports.ProgressCertif = asyncHandler(async (req, res) => {
   }) //end user find
   
 })
+
+exports.addImage = (req, res) => {
+ /* const certificate = new Certificate({
+    name: req.body.name,
+    published : false ,
+    category: req.body.category,
+    tutor: req.body.tutor,
+    img: {
+      data: req.file.filename,
+      contentType: 'image/png'
+  }
+  });
+  certificate
+    .save(certificate)
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while creating the certificate.",
+      });
+    });*/
+    const responseImage =  {data : { link: req.file.path }} 
+    console.log(responseImage);
+   return res.send(req.file) ;
+   
+ }; 
