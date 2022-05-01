@@ -78,8 +78,8 @@ const ViewChapter = (props) => {
    <Editor 
    editorState={editorState} 
    readOnly={true} 
-    wrapperClassName="demo-wrapper"
-    editorClassName="form-control form-control-lg mb-4"
+   wrapperClassName="demo-wrapper"
+   editorClassName="demo-editor"
     toolbarClassName="rich-text__toolbar"
 
      
