@@ -78,14 +78,14 @@ const Register = () => {
   var passwordModified = false;
   const [birthdate, setBirthdate] = useState(new Date());
   const [successful, setSuccessful] = useState(false);
-  const { message } = useSelector((state) => state.message);
+  const {message} = useSelector((state) => state.message);
   const dispatch = useDispatch();
   let navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [formTitle, setFormTitle] = useState("");
   const [registerForm, setRegisterForm] = useState(true);
-  const { infos: currentInfos } = useSelector((state) => state.auth);
-  const { user: currentUser } = useSelector((state) => state.auth);
+  const {infos: currentInfos} = useSelector((state) => state.auth);
+  const {user: currentUser} = useSelector((state) => state.auth);
   const [image, setImage] = useState(null);
   const [imageChanged, setImageChanged] = useState(false);
 
@@ -406,7 +406,7 @@ const Register = () => {
                     </div>
                   </div>
                 )}
-                <CheckButton style={{ display: "none" }} ref={checkBtn} />
+                <CheckButton style={{display: "none"}} ref={checkBtn} />
               </Form>
             </div>
             {registerForm ? (

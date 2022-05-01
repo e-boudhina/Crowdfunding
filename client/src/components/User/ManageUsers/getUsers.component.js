@@ -53,7 +53,7 @@ const Users = () => {
 
     return(
         <div className="card-body">
-            <h4 className="card-title mb-4">Latest Transaction</h4>
+            <h4 className="card-title mb-4">Your Users List</h4>
             <div className="table-responsive">
                 <table className="table table-hover table-centered table-nowrap mb-0">
                     <thead>
@@ -73,7 +73,8 @@ const Users = () => {
                             <th scope="row">{user._id}</th>
                             <td>
                                 <div>
-                                    <img src="assets/images/users/user-6.jpg" alt="" className="avatar-xs rounded-circle me-2" /> {user.username}
+                                    {/*<img src="assets/images/users/user-6.jpg" alt="" className="avatar-xs rounded-circle me-2" /> */}
+                                    {user.username}
                                 </div>
                             </td>
                             <td>{user.email}</td>

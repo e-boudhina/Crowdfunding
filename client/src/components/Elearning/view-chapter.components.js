@@ -38,8 +38,13 @@ const ViewChapter = (props) => {
     updatedAt: "",
   };
 
+  const [currentChapter, setCurrentChapter] = useState(
+    initialChapterState
+  );
+  const [content , setContent ] =useState(initialChapterState.content)
   const [editorState, setEditorState] = useState(
     EditorState.createEmpty()
+  
   );
     const  [chapname,setChapname] = useState("")
     const imagePlugin = createImagePlugin();

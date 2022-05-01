@@ -7,6 +7,8 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import getAllUsers from "../services/user.service";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { resetProgress } from "../actions/Learning/Learning";
+import { If, Then, ElseIf, Else } from "react-if-elseif-else-render";
+
 function Header() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -65,16 +67,16 @@ const goDashboard = () => {
       />
       {/* Place favicon.png in the root directory */}
       {/* CSS here */}
-      <link rel="stylesheet" href="../assets/css/bootstrap.min.css" />
-      <link rel="stylesheet" href="../assets/css/owl.carousel.min.css" />
-      <link rel="stylesheet" href="../assets/css/animate.min.css" />
-      <link rel="stylesheet" href="../assets/css/magnific-popup.css" />
-      <link rel="stylesheet" href="../assets/css/fontawesome-all.min.css" />
-      <link rel="stylesheet" href="../assets/css/flaticon.css" />
-      <link rel="stylesheet" href="../assets/css/meanmenu.css" />
-      <link rel="stylesheet" href="../assets/css/slick.css" />
-      <link rel="stylesheet" href="../assets/css/style.css" />
-      <link rel="stylesheet" href="../assets/css/responsive.css" />
+      <link rel="stylesheet" href={process.env.PUBLIC_URL+'/assets/css/bootstrap.min.css'} />
+      <link rel="stylesheet" href={process.env.PUBLIC_URL+'/assets/css/owl.carousel.min.css'} />
+      <link rel="stylesheet" href={process.env.PUBLIC_URL+'/assets/css/animate.min.css'} />
+      <link rel="stylesheet" href={process.env.PUBLIC_URL+'/assets/css/magnific-popup.css'} />
+      <link rel="stylesheet" href={process.env.PUBLIC_URL+'/assets/css/fontawesome-all.min.css'} />
+      <link rel="stylesheet" href={process.env.PUBLIC_URL+'/assets/css/flaticon.css'} />
+      <link rel="stylesheet" href={process.env.PUBLIC_URL+'/assets/css/meanmenu.css'} />
+      <link rel="stylesheet" href={process.env.PUBLIC_URL+'/assets/css/slick.css'} />
+      <link rel="stylesheet" href={process.env.PUBLIC_URL+'/assets/css/style.css'} />
+      <link rel="stylesheet" href={process.env.PUBLIC_URL+'/assets/css/responsive.css'} />
       <div id="preloader" style={{ display: "none" }}>
         <div className="preloader">
           <span />
@@ -115,6 +117,43 @@ const goDashboard = () => {
                               Courses {" "}
                             </Link>{" "}
                           </li>
+                 
+                      <li>
+                        <a href="#">Services</a>
+                        <ul className="submenu">
+                          <If condition={currentUser && currentUser.roles.includes("ROLE_ADMIN")}>
+                              <Then>
+                                <li>
+                                  <a href="team.html">Manage furniture</a>
+                                </li>
+                              </Then>
+                          </If>
+
+                          <If condition={currentUser && currentUser.roles.includes("ROLE_INCUBATOR")}>
+                            <Then>
+                              <li>
+                                <Link to={'./services/userRequests'}>Manage All UserRequests</Link>
+                                <Link to={'./services/userRequests/incubator'}>Manage Your UserRequests</Link>
+                              </li>
+                            </Then>
+                          </If>
+
+                          <If condition={currentUser && currentUser.roles.includes("ROLE_USER")}>
+                            <Then>
+                              <li>
+                                <Link to={'./services/userRequests/user'}>View submitted requests</Link>
+                              </li>
+                              <li>
+                                <Link to={'./services/userRequests/add'}>Submit a New Request</Link>
+                              </li>
+                            </Then>
+                          </If>
+
+
+                        </ul>
+                      </li>
+
+
                    {   
                    
                     (currentUser)?

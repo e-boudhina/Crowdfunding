@@ -110,8 +110,11 @@ function UpdateProject(props, { route, navigation }) {
                 dispatch(updateProject(location.state.id,formData))
                 .then(() => {
           
-                  navigate("/ListProject")
-                  window.location.reload();
+                    setTimeout(()=>{
+                        //dispatch(clearMessage())
+                            navigate("/ListProject")
+                    }
+                    ,5000)
                 })
                 .catch((e) => {
                   setLoading(false);

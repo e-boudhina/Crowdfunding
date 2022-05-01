@@ -128,22 +128,30 @@ const OrganisationAdd = (props) => {
         formData.append('email', email);
 
 
-        if (checkBtn.current.context._errors.length === 0) {
+        // if (checkBtn.current.context._errors.length === 0) {
             dispatch(AddOrganisation(formData))
             .then(() => {
       
               console.log(formData);
             //   props.history.push("/profile");
-            navigate("/profile")
-              window.location.reload();
+
+            setTimeout(()=>
+                //dispatch(clearMessage())
+              
+                    navigate("/profile")
+            
+            ,200)
+
+            
+             
             //   
             })
             .catch((e) => {
               setLoading(false);
             });
-          } else {
-            setLoading(false);
-          }
+        //    else {
+        //     setLoading(false);
+        //   }
 
         //  formData.current.validateAll();
         // if (checkBtn.current.context._errors.length === 0) {

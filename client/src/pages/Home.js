@@ -1,9 +1,10 @@
 
-
+import Chat from "../components/Chat"
 export default function Home() {
     return (
 
         <body>
+            <Chat></Chat>
             <section className="hero-area ">
                 <div className="hero-height" data-background="assets/img/slider/slider-bg-shape.png" style={{ backgroundImage: 'url("assets/img/slider/slider-bg-shape.png")' }}>
                     <div className="container">
@@ -34,6 +35,7 @@ export default function Home() {
                         </div>
                     </div>
                 </div>
+
                 <div className="hero-img-area">
                     <div className="container">
                         <div className="row">
@@ -313,8 +315,8 @@ export default function Home() {
                         </div>
                     </div>
                 </div>
-               
-        
+
+
             </section>
         </body>
     )

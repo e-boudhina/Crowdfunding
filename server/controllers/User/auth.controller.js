@@ -9,12 +9,10 @@ const asyncHandler = require("express-async-handler");
 const crypto = require("crypto");
 const buffer = require("buffer");
 const transport = require("../../config/nodemailer");
-var fs = require('fs');
-var path = require('path');
-const ResetPasswordEmailTemplate =require('../../Templates/Emails/ResetPasswordEmail')
-const VerificationEmailTemplateTemplate =require('../../Templates/Emails/VerificationEmail')
-
-
+var fs = require("fs");
+var path = require("path");
+const ResetPasswordEmailTemplate = require("../../Templates/Emails/ResetPasswordEmail");
+const VerificationEmailTemplateTemplate = require("../../Templates/Emails/VerificationEmail");
 
 const makeAdmin = asyncHandler(async (req, res) => {
   if (!username) {
@@ -31,7 +29,7 @@ const makeAdmin = asyncHandler(async (req, res) => {
           res.status(500).send({ message: err });
           return;
         }
-        user.roles.push  (role._id);
+        user.roles.push(role._id);
         user.save((err) => {
           if (err) {
             res.status(500).send({ message: err });
@@ -43,7 +41,7 @@ const makeAdmin = asyncHandler(async (req, res) => {
     );
 });
 
-const signup = asyncHandler(async (req, res,next) => {
+const signup = asyncHandler(async (req, res, next) => {
   //Getting form fields
   const { username, email, password } = req.body;
   //check if form contains required fields
@@ -114,13 +112,13 @@ const signup = asyncHandler(async (req, res,next) => {
         user.roles = [role._id];
         user.save(async (err) => {
           if (err) {
-            res.status(500).send({message: err});
+            res.status(500).send({ message: err });
             return;
           }
 
           //sending email
           //if you remove the await the rest of the code will continue and a success message will be returned even though and error can be raised
-          // However if you remove it the request will be much faster
+          // you can however  remove it to make the request will be much faster
           console.log("Sending VerificationEmail Email...")
           await transport.sendMail(VerificationEmailTemplateTemplate(user))
               .then(() => console.log('Verification Email Sent Successfully!'))
@@ -128,7 +126,10 @@ const signup = asyncHandler(async (req, res,next) => {
                 console.log(error)
               });
 
-          res.send({message: "User was registered successfully! Please check your inbox for email verification"});
+          res.send({
+            message:
+              "User was registered successfully! Please check your inbox for email verification",
+          });
         });
       });
     }
@@ -191,7 +192,7 @@ const signin = asyncHandler(async (req, res) => {
           email: user.email,
           password: user.password,
           phone: user.phone,
-        image: user.img
+          image: user.img,
         },
       });
     });
@@ -205,44 +206,46 @@ const reset_password = asyncHandler(async (req, res) => {
     throw Error("Please provide a username");
   }
   //start
-    const generatedResetPasswordToken = await generate_custom_token();
-    //fetching the username email
-    //Is there another way to write this besides chaining it using then?
-    User.findOne({ username: username }).then((user) => {
-      if (!user) {
-        // if you do not put return the request will be sent back but the rest of the code will continue to execute, which will cause an error
-        return res.status(200).send({
-          message: `There is no user registered under the username : "${username}"`,
-        });
-      }
-      // console.log('this line')
-      // if user exists
-      user.resetPasswordToken = generatedResetPasswordToken;
-      // Token will be valid for one hour ( in milliseconds)
-      user.resetPasswordExpireToken = Date.now() + 3600000;
-      user.save().then(async (result) => {
-        // console.log(result)
-        //if user saved
+  const generatedResetPasswordToken = await generate_custom_token();
+  //fetching the username email
+  //Is there another way to write this besides chaining it using then?
+  User.findOne({ username: username }).then((user) => {
+    if (!user) {
+      // if you do not put return the request will be sent back but the rest of the code will continue to execute, which will cause an error
+      return res.status(200).send({
+        message: `There is no user registered under the username : "${username}"`,
+      });
+    }
+    // console.log('this line')
+    // if user exists
+    user.resetPasswordToken = generatedResetPasswordToken;
+    // Token will be valid for one hour ( in milliseconds)
+    user.resetPasswordExpireToken = Date.now() + 3600000;
+    user.save().then(async (result) => {
+      // console.log(result)
+      //if user saved
 
-        //I  restructured this file for the third time by moving the templates to the templates directory + moved the node mail transport configuration to the "conf" directory.
-        // I exported the Templates as function that take mailOptions dynamically  and exported them to be used here it to decreased the load here and minimize the code.
-        console.log("Sending Reset Password Email...")
-        await transport.sendMail(ResetPasswordEmailTemplate(user))
-            .then(()=> console.log('Reset Password Email Sent Successfully!'))
-             .catch(error => { console.log(error)});
-        res.status(200).send({
-          message: "Reset password email sent, please check your email!",
+      //I  restructured this file for the third time by moving the templates to the templates directory + moved the node mail transport configuration to the "conf" directory.
+      // I exported the Templates as function that take mailOptions dynamically  and exported them to be used here it to decreased the load here and minimize the code.
+      console.log("Sending Reset Password Email...");
+      await transport
+        .sendMail(ResetPasswordEmailTemplate(user))
+        .then(() => console.log("Reset Password Email Sent Successfully!"))
+        .catch((error) => {
+          console.log(error);
         });
-
+      res.status(200).send({
+        message: "Reset password email sent, please check your email!",
       });
     });
+  });
 
   //end
   // (async () => {
   //   console.log(await generate_custom_token())
   // })()
   // these 2 method return the same value
-   //console.log( await generate_custom_token())
+  //console.log( await generate_custom_token())
   // generate_custom_token().then(data => {
   //   console.log(data);
   // });
@@ -250,7 +253,6 @@ const reset_password = asyncHandler(async (req, res) => {
   // res.status(200).send({
   //   message: "end point reached!",
   // });
-
 });
 
 const new_password = asyncHandler(async (req, res) => {
@@ -333,23 +335,27 @@ const verify_email = asyncHandler(async (req, res) => {
 //TO be developed later to make the code shorter
 // can a const function returns a value using return?
 const generate_custom_token = async () => {
-
-  return await new Promise ((resolve, reject) => {
+  return await new Promise((resolve, reject) => {
     crypto.randomBytes(32, (err, buffer) => {
       //console.log("before converting: ", buffer)
       // Output : <Buffer 09 c6 b8 38 33 c2 c1 65 3d 6f 58 08 b6 9e 09 68 ec b8 bf 1d 60 c2 6e 25 be d3 a0 5d 3b 08 b8 00>
       if (err) {
-        reject('error generating token');
+        reject("error generating token");
       }
-      resolve(buffer.toString('hex'));
+      resolve(buffer.toString("hex"));
       //console.log("After converting: ", buffer.toString('hex) value)
       // Output: 09c6b83833c2c1653d6f5808b69e0968ecb8bf1d60c26e25bed3a05d3b08b800
     });
-  })
-}
-
-
+  });
+};
 
 //Defining the functions as consts than exporting them as an array like this is much easier than exporting them one by one
 // you can simply look into module.export and see what are you exporting without scanning the entire file
-module.exports = { signup, signin, reset_password, new_password, verify_email, makeAdmin };
+module.exports = {
+  signup,
+  signin,
+  reset_password,
+  new_password,
+  verify_email,
+  makeAdmin,
+};
