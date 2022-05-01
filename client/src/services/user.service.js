@@ -4,7 +4,10 @@ import authHeader from "./auth-header";
 import { useSelector  } from "react-redux";
 const TEST_API_URL = "http://localhost:5000/api/test/";
 const API_URL = "http://localhost:5000/api/user/";
-
+const config ={
+  headers:{
+    'content-type': 'multipart/form-data'
+}}
 
 const getPublicContent = () => {
   return axios.get(TEST_API_URL + "all");
@@ -22,7 +25,11 @@ const getAllUsers = (keyword) => {
   return axios.get("http://localhost:5000/api/user/searchusers/"+keyword, { headers: authHeader()   })
 }
 export const updateUser = (user) => {
-  return  axios.post(API_URL+"update", user , authHeader())
+  console.log("updateUser in Service");
+  for (var [key, value] of user.entries()) { 
+    console.log(key, value);
+   }
+  return  axios.post(API_URL+"update", user , config)
 }
 export const getUser  =  (username) =>{
   return   axios.get(API_URL+username, authHeader()  )

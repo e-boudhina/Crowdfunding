@@ -139,8 +139,11 @@ function UppdateOrganisation(props, { route, navigation }) {
                  .then(() => {
                 console.log(formData);
 
-                navigate("/profile")
-                window.location.reload();
+                setTimeout(()=>{
+                    //dispatch(clearMessage())
+                        navigate("/profile")
+                }
+                ,5000)
         
              
             })

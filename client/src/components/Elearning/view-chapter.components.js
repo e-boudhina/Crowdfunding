@@ -1,16 +1,39 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import LearningService from "../../services/Learning.service";
-import draftToHtml from "draftjs-to-html";
-import { Editor, EditorState, convertFromRaw } from "draft-js";
-import c from "./content.json"
-const ViewChapter = (props) => {
-  const { id } = useParams();
+import './elearning.css'
+import {  EditorState, convertFromRaw} from "draft-js";
+import { Editor } from "react-draft-wysiwyg";
+import { useDispatch, useSelector } from "react-redux";
+import createImagePlugin from '@draft-js-plugins/image';
+import '../../../node_modules/@draft-js-plugins/image/lib/plugin.css'
+import createImageRenderPlugin from 'draft-js-image-render-plugin';
 
+
+//import c from "./content.json"
+const ViewChapter = (props) => {
+
+
+
+  const progress = useSelector((state) => state.progress);
+  const { id } = useParams();
   const initialChapterState = {
     _id: null,
     name: "",
-    content: {},
+    content: {
+      "blocks": [
+          {
+              "key": "7isfv",
+              "text": "This is it",
+              "type": "unstyled",
+              "depth": 0,
+              "inlineStyleRanges": [],
+              "entityRanges": [],
+              "data": {}
+          }
+      ],
+      "entityMap": {}
+  },
     createdAt: "",
     updatedAt: "",
   };
@@ -18,26 +41,17 @@ const ViewChapter = (props) => {
   const [currentChapter, setCurrentChapter] = useState(
     initialChapterState
   );
-  const [content , setContent ] =useState(c)
+  const [content , setContent ] =useState(initialChapterState.content)
   const [editorState, setEditorState] = useState(
     EditorState.createEmpty()
+  
   );
-
-  const getChapter = (id) => {
-    LearningService.getChapter(id)
-      .then((response) => {
-        setCurrentChapter(response.data);
-     //   console.log(c);
-        setContent(JSON.parse(currentChapter.content));
-     //   console.log(JSON.parse(currentChapter.content));
-     setEditorState (( EditorState.createWithContent(convertFromRaw(content))));
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  }; 
+    const  [chapname,setChapname] = useState("")
+    const imagePlugin = createImagePlugin();
+     const imageRenderPlugin = createImageRenderPlugin();
 
   useEffect(() => {
+    
     let chap = {
       _id: null,
       name: "",
@@ -46,24 +60,36 @@ const ViewChapter = (props) => {
       updatedAt: "",
     };
     let cnt = {} ;
-    LearningService.getChapter(id)
+   let idchap = progress.currentChapter._id  ?progress.currentChapter._id : id
+    LearningService.getChapter(idchap)
     .then((response) => {
-    //  setCurrentChapter(response.data);
-      //setContent(JSON.parse(currentChapter.content));
       chap = response.data;
       cnt = JSON.parse(chap.content);
+      setChapname(chap.name)
       setEditorState (( EditorState.createWithContent(convertFromRaw(cnt))));
+   console.log("content "+chap.content);
+
     })
     .catch((e) => {
       console.log(e);
-    });
+    })
 
-
-  }, [id]); 
+  
+  }, [id,props.chapter,progress.currentChapter._id]); 
 
   return (
     <div>
-   <Editor editorState={editorState} readOnly={true} />
+     <div className="author-text text-center"> <h2> { JSON.stringify(chapname)}</h2> </div>
+   <Editor 
+   editorState={editorState} 
+   readOnly={true} 
+   wrapperClassName="demo-wrapper"
+   editorClassName="demo-editor"
+    toolbarClassName="rich-text__toolbar"
+
+     
+  />
+
     </div>
   );
 };

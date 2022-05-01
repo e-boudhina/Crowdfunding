@@ -1,7 +1,9 @@
 const db = require("../../models");
 const Chapter = db.chapter;
 const Certificate = db.certificate;
+const Progression = db.progression;
 const asyncHandler = require("express-async-handler");
+const { chapter } = require("../../models");
 const Category = db.categorylearning
 
 
@@ -20,7 +22,7 @@ exports.addChapter = (req, res) => {
       console.log("Calling certif update wit hID  " + req.body.certifId);
       Certificate.updateOne(
         { _id: req.body.certifId },
-        { $push: { chapters: chapter._id } }
+        { $push: { chapters: chapter._id },$set : {published : true} }
       ).exec(res.send(data));
     })
     .catch((err) => {
@@ -67,6 +69,7 @@ exports.addCertificate = (req, res) => {
   console.log(req.body);
   const certificate = new Certificate({
     name: req.body.name,
+    published : false ,
     category: req.body.category,
     tutor: req.body.tutor,
     img: {
@@ -89,7 +92,7 @@ exports.addCertificate = (req, res) => {
 
 exports.getCertificate = (req, res) => {
   const id = req.params.id;
-  Certificate.findById(id)
+  Certificate.findById(id).populate("chapters")
     .then((data) => {
       if (!data)
         res
@@ -105,7 +108,7 @@ exports.getCertificate = (req, res) => {
 };
 
 exports.getAllCertificates = (req, res) => {
-  Certificate.find().populate("chapters")
+  Certificate.find().populate("chapters").populate("category")
     .then((data) => {
       if (!data)
         res.status(404).send({ message: "Not found Certificate with id " });
@@ -130,10 +133,10 @@ exports.addChapterToCertificate = asyncHandler(async (req, res) => {
     if (err) {
       return;
     } else {
-      console.log(chapter);
+      console.log("ABOUT TO UPDATE CERTIF ");
       Certificate.updateOne(
-        { _id: req.params.certifId },
-        { $push: { chapters: chapter._id } }
+        { _id: req.params.certifId  },
+        {$set : { published : true},  $push: { chapters: chapter._id } }
       ).exec(
         res.status(200).send({ message: "chapter " + chapter.name + "added!" })
       );
@@ -196,3 +199,203 @@ exports.getCategorieslearning = async(req, res) => {
         .send({ message: "Error retrieving Categories" });
     });
 }
+
+exports.deleteChapter = (req, res) => {
+  const {chapterId} = req.params;
+  if (!chapterId) {
+    res.status(400);
+    throw Error("chapter Id is required");
+  } 
+  Chapter.findByIdAndRemove(chapterId)
+    .then((data) => {
+      if (!data) {
+        console.log("controller : 404 chapter not found " + chapterId);
+        res.status(404).send({
+          message: `Cannot delete chapter  with id=${chapterId}. Maybe chapter  was not found!`,
+        });
+      } else {
+        res.send({
+          message: "chapter was deleted successfully!",
+        });
+      }
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: "Could not delete chapter with id=" + chapterId,
+      });
+    });
+};
+
+
+const getPagination = (page, size) => {
+  const limit = size ? +size : 3;
+  const offset = page ? page * limit : 0;
+  return { limit, offset };
+};
+// Retrieve all Tutorials from the database.
+exports.getCertificatePagination = (req, res) => {
+  const { page, size, name , categoriesFilter } = req.query;
+  var condition_cat = categoriesFilter 
+  ? { category : { $in: categoriesFilter.split(",") } }
+  : {};
+  var condition = name
+    ? { published : true ,name: { $regex: new RegExp(name), $options: "i" } }
+    : {};
+ var finale = {}
+
+console.log("COntrooller categories "+categoriesFilter);
+
+ if (name && categoriesFilter) {
+Object.assign(finale,condition,condition_cat,{published : true })
+ }  else if (name) {
+  Object.assign(finale,condition,{published : true })
+ } else if (categoriesFilter) {
+  Object.assign(finale,condition_cat,{published : true })
+ } else {
+   {Object.assign(finale , {published : true })}
+ }
+console.log(finale);
+  const { limit, offset } = getPagination(page, size);
+  Certificate.paginate(finale, { offset, limit , populate:"category" })
+    .then((data) => {
+      console.log(data);
+      res.send({
+        totalItems: data.totalDocs,
+        certificates: data.docs,
+        totalPages: data.totalPages,
+        currentPage: data.page - 1,
+      });
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving certificates.",
+      });
+    });
+};
+
+exports.getProgression = asyncHandler(async (req, res) => {
+  console.log("Called controller with data "+req.body);
+  console.log("Called controller with data "+ req.query.user);
+  console.log("Called controller with data "+ req.query.certificate);
+  Progression.find({user:req.query.user , certificate:req.query.certificate}).populate(
+{
+    path: 'certificate',
+    populate: [
+        {
+            path: 'chapters',
+            model: 'Chapter',
+        }
+    ]
+}
+  ).populate(
+    {
+      path:'currentChapter',
+    }
+  )
+    .then((data) => {
+      if (!data || data.length === 0)
+        res
+          .status(404)
+          .send({ message: "Not found Progression " });
+      else {
+        console.log("Get progression data : " + data);
+        res.send(data); }
+    })
+    .catch((err) => {
+      res
+        .status(500)
+        .send({ message: "Error retrieving Progression with "});
+    });
+})
+
+exports.ProgressCertif = asyncHandler(async (req, res) => {
+  if (!req.body.user) {
+    res.status(400);
+    throw Error("user id is required");
+  }
+  if (!req.body.certificate) {
+    res.status(400);
+    throw Error("certificate id is required");
+  }
+  if (!req.body.currentChapter) {
+    res.status(400);
+    throw Error("chapter id is required");
+  }
+  Progression.findOne({ certificate : req.body.certificate , user : req.body.user }).exec((err, prog) => {
+    if (err) {
+      return res.status(400).send({ message: err });
+    }
+    if (!prog) {  //ken famech progress yasna3 progress
+      const progression = new Progression({
+        user: req.body.user,
+        certificate: req.body.certificate,
+        currentChapter : req.body.currentChapter,
+        isCompleted : 0 ,
+      });
+      progression
+        .save(progression)
+        .then((data) => {
+          res.send(data);
+          console.log("added progression "+data);
+        })
+        .catch((err) => {
+          res.status(500).send({
+            message:
+              err.message || "Some error occurred while creating the progression.",
+          });
+        });
+    }
+    if (prog) { //ken fama progress bech imodify 7asb el chapter li khlatlou
+      if (!prog.isCompleted) {
+      Progression.findOneAndUpdate({ 
+       certificate : req.body.certificate , user : req.body.user 
+      }, {
+        currentChapter: req.body.currentChapter,
+        isCompleted: req.body.isCompleted ?  req.body.isCompleted : 0  //fel component , if it's last chapter completed , set this to 1
+      }).then((data) => {
+        res.send(data);
+        console.log("progression updated "+JSON.stringify(data));
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while updating the progression.",
+        });
+      });
+    }
+    else {
+      res.status(400).send({ message: "Certificate already completed" });
+    }
+  }
+  }) //end user find
+  
+})
+
+exports.addImage = (req, res) => {
+ /* const certificate = new Certificate({
+    name: req.body.name,
+    published : false ,
+    category: req.body.category,
+    tutor: req.body.tutor,
+    img: {
+      data: req.file.filename,
+      contentType: 'image/png'
+  }
+  });
+  certificate
+    .save(certificate)
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while creating the certificate.",
+      });
+    });*/
+    const responseImage =  {data : { link: req.file.path }} 
+    console.log(responseImage);
+   return res.send(req.file) ;
+   
+ }; 

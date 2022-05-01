@@ -322,6 +322,14 @@ document.body.appendChild(document.createElement("script")).src = "assets-back/j
                       <span>Validate new projects</span>
                     </Link>
                   </li>
+
+                  <li>
+                    <Link to="/admin/furniture" className="waves-effect">
+                      <i className="ti-home" /><span className="badge rounded-pill bg-primary float-end">2</span>
+                      <span>List furniture</span>
+                    </Link>
+                  </li>
+
                   {/* <li>
                     <Link to="/admin/ListProject" className="waves-effect">
                       <i className="ti-home" /><span className="badge rounded-pill bg-primary float-end">2</span>

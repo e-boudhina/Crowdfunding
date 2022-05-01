@@ -229,6 +229,7 @@ exports.geyFollowersOfOrg = (req, res) => {
     function (err, organisation) {
   
   console.log(organisation);
+  console.log(organisation.userFollowing);
   
   organisation.userFollowing.forEach(element => {
     console.log(organisation);
@@ -240,7 +241,7 @@ list.push(element);
 
 
 });
-list.push(list.length);
+// list.push(list.length);
 // res.send({message:list.length})
 res.json(list)
       // prints "The author is Ian Fleming"

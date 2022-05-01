@@ -9,7 +9,6 @@ const config ={
 }}
 
 const registerr = (form) => {
-  console.log("AUTH SERVICE image"+JSON.stringify(form));
   return axios.post(API_URL + "/auth/signup", form,config);
 };
 

@@ -6,6 +6,8 @@ import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import getAllUsers from "../services/user.service";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import { resetProgress } from "../actions/Learning/Learning";
+import { If, Then, ElseIf, Else } from "react-if-elseif-else-render";
 
 function Header() {
   const navigate = useNavigate();
@@ -45,7 +47,10 @@ function Header() {
   const logOut = () => {
     dispatch(logout());
   };
-
+const goDashboard = () => {
+  dispatch(resetProgress());
+//  navigate("/admin");
+}
   return (
     <>
     <div>
@@ -62,16 +67,16 @@ function Header() {
       />
       {/* Place favicon.png in the root directory */}
       {/* CSS here */}
-      <link rel="stylesheet" href="../assets/css/bootstrap.min.css" />
-      <link rel="stylesheet" href="../assets/css/owl.carousel.min.css" />
-      <link rel="stylesheet" href="../assets/css/animate.min.css" />
-      <link rel="stylesheet" href="../assets/css/magnific-popup.css" />
-      <link rel="stylesheet" href="../assets/css/fontawesome-all.min.css" />
-      <link rel="stylesheet" href="../assets/css/flaticon.css" />
-      <link rel="stylesheet" href="../assets/css/meanmenu.css" />
-      <link rel="stylesheet" href="../assets/css/slick.css" />
-      <link rel="stylesheet" href="../assets/css/style.css" />
-      <link rel="stylesheet" href="../assets/css/responsive.css" />
+      <link rel="stylesheet" href={process.env.PUBLIC_URL+'/assets/css/bootstrap.min.css'} />
+      <link rel="stylesheet" href={process.env.PUBLIC_URL+'/assets/css/owl.carousel.min.css'} />
+      <link rel="stylesheet" href={process.env.PUBLIC_URL+'/assets/css/animate.min.css'} />
+      <link rel="stylesheet" href={process.env.PUBLIC_URL+'/assets/css/magnific-popup.css'} />
+      <link rel="stylesheet" href={process.env.PUBLIC_URL+'/assets/css/fontawesome-all.min.css'} />
+      <link rel="stylesheet" href={process.env.PUBLIC_URL+'/assets/css/flaticon.css'} />
+      <link rel="stylesheet" href={process.env.PUBLIC_URL+'/assets/css/meanmenu.css'} />
+      <link rel="stylesheet" href={process.env.PUBLIC_URL+'/assets/css/slick.css'} />
+      <link rel="stylesheet" href={process.env.PUBLIC_URL+'/assets/css/style.css'} />
+      <link rel="stylesheet" href={process.env.PUBLIC_URL+'/assets/css/responsive.css'} />
       <div id="preloader" style={{ display: "none" }}>
         <div className="preloader">
           <span />
@@ -100,98 +105,62 @@ function Header() {
                 <div className="header__menu f-right">
                   <nav id="mobile-menu" style={{ display: "block" }}>
                     <ul>
-                      <li>
-                        <a href="index.html">Home</a>
-                        <ul className="submenu">
-                          <li>
-                            <a href="index.html">Home style 1</a>
-                          </li>
-                          <li>
-                            <a href="index-2.html">Home style 2</a>
-                          </li>
-                          <li>
-                            <a href="index-3.html">Home style 3</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li>
-                        <a href="#">Pages</a>
-                        <ul className="submenu">
-                          <li>
-                            <a href="team.html">Volunteer</a>
-                          </li>
-                          <li>
-                            <a href="team-detail.html">Volunteer Details</a>
-                          </li>
-                          <li>
-                            <a href="progress.html">Progress Explore</a>
-                          </li>
-                          <li>
-                            <a href="progress-done.html">Progress Done</a>
-                          </li>
-                          <li>
-                            <a href="fund-details.html">Fund Details</a>
-                          </li>
-                          <li>
-                            <a href="events.html">Event</a>
-                          </li>
-                          <li>
-                            <a href="events-details.html">Event Details</a>
-                          </li>
-                          <li>
-                            <a href="portfolio.html">Portfolio</a>
-                          </li>
-                      
-                       
-                          <li>
-                            <a href="we-do.html">Service</a>
-                          </li>
-                          <li>
-                            <a href="support.html">Support</a>
-                          </li>
-                          <li>
-                            <a href="contact.html">Contact</a>
-                          </li>
-                        </ul>
-                      </li>
+                     
                       <li>
                         <a href="progress.html">Explore</a>
                       </li>
+                     
                       <li>
-                        <a href="shop.html">Shop</a>
+                            {" "}
+                            <Link to={"/certificates"} className="nav-link">
+                              {" "}
+                              Courses {" "}
+                            </Link>{" "}
+                          </li>
+                 
+                      <li>
+                        <a href="#">Services</a>
                         <ul className="submenu">
-                          <li>
-                            <a href="shop.html">Shop Default</a>
-                          </li>
-                          <li>
-                            <a href="category.html">Shop With Category</a>
-                          </li>
-                          <li>
-                            <a href="product-details.html">Product Details</a>
-                          </li>
-                          <li>
-                            <a href="cart.html">Shopping Cart</a>
-                          </li>
-                          <li>
-                            <a href="checkout.html">Checkout</a>
-                          </li>
-                          <li>
-                            <a href="wishlist.html">Wishlist</a>
-                          </li>
-                          <li>
-                            <a href="login.html">Login</a>
-                          </li>
-                          <li>
-                            <a href="register.html">Register</a>
-                          </li>
+                          <If condition={currentUser && currentUser.roles.includes("ROLE_ADMIN")}>
+                              <Then>
+                                <li>
+                                  <a href="team.html">Manage furniture</a>
+                                </li>
+                              </Then>
+                          </If>
+
+                          <If condition={currentUser && currentUser.roles.includes("ROLE_INCUBATOR")}>
+                            <Then>
+                              <li>
+                                <Link to={'./services/userRequests'}>Manage All UserRequests</Link>
+                                <Link to={'./services/userRequests/incubator'}>Manage Your UserRequests</Link>
+                              </li>
+                            </Then>
+                          </If>
+
+                          <If condition={currentUser && currentUser.roles.includes("ROLE_USER")}>
+                            <Then>
+                              <li>
+                                <Link to={'./services/userRequests/user'}>View submitted requests</Link>
+                              </li>
+                              <li>
+                                <Link to={'./services/userRequests/add'}>Submit a New Request</Link>
+                              </li>
+                            </Then>
+                          </If>
+
+
                         </ul>
                       </li>
+
+
                    {   
+                   
                     (currentUser)?
                        (currentUser.roles.includes("ROLE_ADMIN")) ?
                           <li>
                             {" "}
-                            <Link to={"/admin"} className="nav-link">
+                            <Link to={"/admin"}   onClick={goDashboard} className="nav-link">
                               {" "}
                               ADMIN DASHBOARD{" "}
                             </Link>{" "}

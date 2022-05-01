@@ -117,7 +117,11 @@ const AddOrganisation1 = (props) => {
                 console.log(formData);
                 // props.history.push("/ListProject");
                 // window.location.reload();
-                navigate("/profile")
+                setTimeout(()=>{
+                    //dispatch(clearMessage())
+                        navigate("/profile")
+                }
+                ,5000)
             }).
             catch((e) => {
                 console.log(e);

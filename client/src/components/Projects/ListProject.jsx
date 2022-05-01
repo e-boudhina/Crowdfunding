@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from 'react-router';
 
 // import { dispatch  } from "react-redux";
 import { allProjects,RetrieveProjectsByOrg } from "../../actions/Projects/ProjectCrud.actions";
-import  SingleProject  from "./SingleProject";
+import  SingleProject  from "./SingleProjectForUser";
 import React, { useState, useEffect } from "react";
 import { deleteProject } from "../../actions/Projects/ProjectCrud.actions";
 
@@ -52,6 +52,7 @@ window.location.reload();
   }
     // console.log(projects.projects[0]._id); 
     return (
+        <body>
       <div className="container">
       <div>
       <br></br>
@@ -110,6 +111,7 @@ projects.projects.map((element)=>{
       </div>
       
       </div>
+      </body>
     )
 
 }
