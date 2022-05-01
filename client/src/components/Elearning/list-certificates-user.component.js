@@ -147,7 +147,7 @@ function ListCertificatesUser(props) {
         <div className="tag">
         {categories &&
                   categories.map((cat, index) => (
-          <a  onClick={() => onSelectCategory(cat._id)} href="#">        {cat.name}</a>
+          <a  onClick={() => onSelectCategory(cat._id)}>        {cat.name}</a>
           ))}
          
         </div>

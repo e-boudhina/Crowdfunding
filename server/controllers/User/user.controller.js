@@ -4,6 +4,7 @@ const User = db.user;
 const Role = db.role;
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
+const { json } = require("express");
 
 exports.allAccess = (req, res) => {
   res.status(200).send("Public Content.");
@@ -48,7 +49,7 @@ exports.deleteUser = (req, res) => {
 };
 
 exports.updateUserProfile = asyncHandler(async (req, res, next) => {
-  console.log("Entering updateUserProfile with " )
+  console.log("Entering updateUserProfile with "+JSON.stringify(req.body) )
   const user = await User.findOne({
     _id: req.body.id,
   }).populate("roles", "-__v");
@@ -58,9 +59,9 @@ exports.updateUserProfile = asyncHandler(async (req, res, next) => {
     user.lastName = req.body.lastName || user.lastName;
     user.email = req.body.email || user.email;
     user.verified = req.body.verified || user.verified;
-    user.address = req.body.address;
+    user.address = req.body.address || user.address;
     user.password =
-       req.body.password !== null
+     ( req.body.password !== "" )
         ?  bcrypt.hashSync(req.body.password, 8)
         : user.password;
     user.phone = req.body.phone || user.phone;

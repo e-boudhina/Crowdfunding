@@ -64,6 +64,7 @@ const vaddress = (value) => {
   }
 };
 
+
 const Register = () => {
   const form = useRef();
   const checkBtn = useRef();
@@ -73,9 +74,9 @@ const Register = () => {
   const [address, setAddress] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState(null);
-  //const [passwordModified, setPasswordModified] = useState(false);
-  var passwordModified = false;
+  const [password, setPassword] = useState("");
+  const [passwordModified, setPasswordModified] = useState(false);
+  //var passwordModified = false;
   const [birthdate, setBirthdate] = useState(new Date());
   const [successful, setSuccessful] = useState(false);
   const {message} = useSelector((state) => state.message);
@@ -135,14 +136,10 @@ const Register = () => {
   const onChangePassword = (e) => {
     const password = e.target.value;
     setPassword(password);
-    if (password) {
-      passwordModified = true;
-    } else {
-      passwordModified = false;
-    }
+    if (password !=="")   setPasswordModified(true)
   };
   const vpassword = (value) => {
-    if (value.length < 4) {
+    if (value.length < 4 && passwordModified ){
       return (
         <div className="alert alert-danger" role="alert">
           The password must be at least 4 charachters .
@@ -165,7 +162,8 @@ const Register = () => {
     let formData = new FormData();
     formData.append("id", currentUser.id);
     formData.append("email", email);
-   password ? formData.append("password", password) : console.log();
+  // password !== "" ? 
+   formData.append("password", password) // : console.log("Password not modified");
     formData.append("firstName", firstName);
     formData.append("lastName", lastName);
     formData.append("address", address);

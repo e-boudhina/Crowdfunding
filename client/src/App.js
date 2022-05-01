@@ -111,22 +111,9 @@ const App = () => {
 
 
         {/*{ isVerified ? redirect():''}*/}
-        <Routes path={"/"} element={<><Header /><Footer /></>} >
-
+        <Routes >
+        <Route  path={"/"} element={<><Header /><Footer/></>} > 
           <Route path={"/profile"} element={<Profile />} />
-          <Route path={""} element={<Home />} />
-          <Route
-            path={"/"}
-            element={
-              <>
-
-                <Header />
-                <Footer />
-
-              </>
-            }
-
-          >
 
             <Route path={"/u/:username"} element={<Profileconsult />} />
             <Route path={"/login"} element={<Login />} />
