@@ -49,7 +49,7 @@ const Users = () => {
     const paginate = (pageNumber)=>setCurrentPage(pageNumber)
 
     //console.log(users)
-    useEffect(async () => {
+    useEffect( () => {
         dispatch(get_Users())
         if (message)
         toast.success(message).then(dispatch(clearMessage()))
