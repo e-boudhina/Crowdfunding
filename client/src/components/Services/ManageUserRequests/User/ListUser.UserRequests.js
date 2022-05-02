@@ -3,6 +3,7 @@ import React, {useEffect, useState} from "react";
 import {useLocation, useNavigate} from "react-router-dom";
 import {getUser_UserRequests, getUserRequests} from "../../../../services/UserRequests.js/UserRequest.service";
 import { If, Then, ElseIf, Else } from 'react-if-elseif-else-render';
+import Pagination from "../../../Pagination";
 
 
 const ListUser_UserRequests = () =>{
@@ -11,6 +12,16 @@ const ListUser_UserRequests = () =>{
     const [userRequests, setUserRequests] = useState([])
     const navigate = useNavigate()
     const location = useLocation()
+
+    //Pagination
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage, setItemsPerPage] = useState(3);
+    const indexOfLastItem = currentPage* itemsPerPage
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage
+    const currentItems = userRequests.slice(indexOfFirstItem, indexOfLastItem)
+
+    //Change page
+    const paginate = (pageNumber)=>setCurrentPage(pageNumber)
 
     useEffect(() => {
         retrieveUserRequests();
@@ -47,7 +58,7 @@ const ListUser_UserRequests = () =>{
                     <tbody>
 
                     {userRequests &&
-                    userRequests.map((uR, index) => (
+                    currentItems.map((uR, index) => (
                         <tr>
                             <th scope="row">{uR._id}</th>
                             <td>{uR.createdAt}</td>
@@ -86,6 +97,8 @@ const ListUser_UserRequests = () =>{
 
                     </tbody>
                 </table>
+                <Pagination itemsPerPage={itemsPerPage} totalItems={userRequests.length} paginate={paginate}/>
+
             </div>
         </div>
 
