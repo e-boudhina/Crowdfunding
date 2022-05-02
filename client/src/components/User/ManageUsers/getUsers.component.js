@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
 import {clearMessage} from "../../../actions/message";
-import Pagination from "../../../Pagination";
+import Pagination from "../../Pagination";
 
 
 const Users = () => {

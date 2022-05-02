@@ -5,6 +5,7 @@ import {
     getUser_UserRequests
 } from "../../../../services/UserRequests.js/UserRequest.service";
 import {Else, If, Then} from "react-if-elseif-else-render";
+import Pagination from "../../../Pagination";
 
 
 
@@ -15,6 +16,16 @@ const ListIncubatorUserRequests = () =>{
     const [userRequests, setUserRequests] = useState([])
     const navigate = useNavigate()
     const location = useLocation()
+
+    //Pagination
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage, setItemsPerPage] = useState(3);
+    const indexOfLastItem = currentPage* itemsPerPage
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage
+    const currentItems = userRequests.slice(indexOfFirstItem, indexOfLastItem)
+
+    //Change page
+    const paginate = (pageNumber)=>setCurrentPage(pageNumber)
 
     useEffect(() => {
         retrieveUserRequests();
@@ -51,7 +62,7 @@ const ListIncubatorUserRequests = () =>{
                             <tbody>
 
                             {userRequests &&
-                            userRequests.map((uR, index) => (
+                            currentItems.map((uR, index) => (
                                 <tr>
                                     <th scope="row">{uR._id}</th>
                                     <td>{uR.createdAt}</td>
@@ -92,6 +103,8 @@ const ListIncubatorUserRequests = () =>{
 
                             </tbody>
                         </table>
+                        <Pagination itemsPerPage={itemsPerPage} totalItems={userRequests.length} paginate={paginate}/>
+
                     </div>
                 </div>
 

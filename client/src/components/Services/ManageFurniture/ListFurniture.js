@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {getFurniture, deleteFurniture, updateFurniture} from "../../../services/Furniture/Furniture.service";
 import {useLocation, useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
-import Pagination from "../../../Pagination";
+import Pagination from "../../Pagination";
 
 
 const ListFurniture = () =>{
@@ -56,7 +56,8 @@ const ListFurniture = () =>{
     return (
     <div className="container">
         <div className="card-body">
-            <h4 className="card-title mb-4">Furniture</h4>  <a onClick={()=>add()} className="btn btn-success btn-sm float-end">Add new</a>&nbsp;
+            <h4 className="card-title mb-4">Furniture <a onClick={()=>add()} className="btn btn-success btn-sm float-end">Add new</a>&nbsp;</h4>
+
             <div className="table-responsive">
                 <table className="table table-hover table-centered table-nowrap mb-0">
                     <thead>

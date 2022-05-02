@@ -291,7 +291,7 @@ useEffect(() => {
                   <li>
                     <Link to="/admin/addcertificate" className="waves-effect">
                       <i className="ti-home" /><span className="badge rounded-pill bg-primary float-end">2</span>
-                      <span>add  certificate</span>
+                      <span>Add  certificate</span>
                     </Link>
                   </li>
                   <li>

@@ -81,7 +81,7 @@ const ListUser_UserRequests = () =>{
 
 
                     ))}
-                    {userRequests.length ===0 ?<h3 className="blog-title" >You have not submitted any Requests Yet</h3>:""}
+                    {userRequests.length ===0 ?<h3 className="blog-title" style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>You have not submitted any Requests Yet</h3>:""}
 
 
                     </tbody>

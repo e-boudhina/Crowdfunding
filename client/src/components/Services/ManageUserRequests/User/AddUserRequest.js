@@ -14,31 +14,6 @@ import {addUserRequest} from "../../../../services/UserRequests.js/UserRequest.s
 const AddUserRequest = () => {
     //retrieved database furniture
     const [furniture, setFurniture] = useState([]);
-    //Furniture to be sent in the request
-    const [requestedFurniture, setRequestedFurniture] = useState([]);
-
-    //setting qu
-    const [quantity, setQuantity] = useState(0);
-
-    function updateRequestedFurniture(id, qte) {
-        // console.log("before");
-        // console.log(requestedFurniture);
-
-        const newFurnitureData = [...requestedFurniture];
-        // let array = []
-        newFurnitureData.push({
-            _id: id,
-            quantity: qte,
-        });
-        setRequestedFurniture(newFurnitureData);
-
-        // console.log("id = "+id+" and qte = "+qte)
-
-        //  set
-        // console.log("After adding");
-        // console.log(requestedFurniture);
-        // setData[furniture]=requestedFurniture
-    }
 
     useEffect(() => {
         retrieveFurniture();
@@ -77,11 +52,10 @@ const AddUserRequest = () => {
         const newData = { ...data };
         newData[e.target.id] = e.target.value;
         setData(newData);
-        console.log("here");
+       // console.log("here");
         // console.log(e.target.id)
         // console.log(e.target.value)
-
-        console.log(data);
+        //console.log(data);
     }
     function officeSpaceType(e) {
         const newData = { ...data };
@@ -127,13 +101,20 @@ const AddUserRequest = () => {
 
         //increase you don't select office type
         return {
-            ...data
+            desired_Location: data.desired_Location,
+            preferred_Starting_Date: data.preferred_Starting_Date,
+            expected_Ending_Date:  data.expected_Ending_Date,
+            number_Of_Employees:  data.number_Of_Employees,
         }
     }
     const handleAdd = (e) => {
         e.preventDefault();
         const params = normalizeParams(data)
-        //console.log("++++++++++++++++++++++++++++++++++++++Data to send",params)
+        console.log("++++++++++++++++++++++++++++++++++++++Data to send",params)
+     if(data.officeType==="") {
+         toast.info("Please select one of the three available office options")
+     }else
+     {
         addUserRequest(params).then(
             (res) => {
                 const msg = res.data.message
@@ -142,7 +123,6 @@ const AddUserRequest = () => {
                 }else {
                     toast.success(res.data.message)
                 }
-
                 // console.log(res.data.message)
                 navigate('../services/userRequests/user')
             })
@@ -153,7 +133,7 @@ const AddUserRequest = () => {
                 console.log(error.response)
                 }
             )
-
+     }
 
         //console.log(showCustomFurnitureForm === true);
 
