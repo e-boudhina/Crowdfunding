@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import {getFurniture, deleteFurniture, updateFurniture} from "../../../services/Furniture/Furniture.service";
 import {useLocation, useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
+import Pagination from "../../../Pagination";
 
 
 const ListFurniture = () =>{
@@ -10,6 +11,16 @@ const ListFurniture = () =>{
     const [furniture, setFurniture] = useState([])
     const navigate = useNavigate()
     const location = useLocation()
+
+    //Pagination
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage, setItemsPerPage] = useState(3);
+    const indexOfLastItem = currentPage* itemsPerPage
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage
+    const currentItems = furniture.slice(indexOfFirstItem, indexOfLastItem)
+
+    //Change page
+    const paginate = (pageNumber)=>setCurrentPage(pageNumber)
 
     useEffect(() => {
         retrieveFurniture();
@@ -57,7 +68,7 @@ const ListFurniture = () =>{
                     </thead>
                     <tbody>
 
-                    {furniture && furniture.map((f, index) => (
+                    {furniture && currentItems.map((f, index) => (
                         <tr key={index}>
                             <th scope="row">{f._id}</th>
 
@@ -82,6 +93,7 @@ const ListFurniture = () =>{
 
                     </tbody>
                 </table>
+                <Pagination itemsPerPage={itemsPerPage} totalItems={furniture.length} paginate={paginate}/>
             </div>
         </div>
     </div>

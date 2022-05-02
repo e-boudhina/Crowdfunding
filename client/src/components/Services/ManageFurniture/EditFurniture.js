@@ -68,7 +68,7 @@ const EditFurniture = () => {
                 <Form onSubmit={handleUpdate} ref={form}>
                     <div className="row">
                         <div className="col">
-                            <label htmlFor="type">Type</label>
+                            <label className="mb-2" htmlFor="type">Type</label>
 
                             <Input
                                 id="newType"
@@ -81,7 +81,7 @@ const EditFurniture = () => {
 
                         </div>
 
-                        <div className="form-group">
+                        <div className="form-group" style={{display: 'flex',  justifyContent:'center', alignItems:'center', marginTop:'10px'}}>
                             <button className="btn btn-primary btn-block" >
                                 <span>Update</span>
                             </button>

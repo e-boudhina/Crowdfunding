@@ -1,10 +1,10 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {get_Users, ban_User, unban_User, delete_User, make_Admin,make_Incubator,make_User} from "../../../actions/User/user";
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
-import {Link} from "@material-ui/core";
 import {toast} from "react-toastify";
 import {clearMessage} from "../../../actions/message";
+import Pagination from "../../../Pagination";
 
 
 const Users = () => {
@@ -37,7 +37,18 @@ const Users = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const users = useSelector((state) => state.users);
-    console.log(users)
+
+    //Pagination
+    const [currentPage, setCurrentPage] = useState(1);
+    const [usersPerPage, setUsersPerPage] = useState(3);
+    const indexOfLastUser = currentPage* usersPerPage
+    const indexOfFirstUser = indexOfLastUser - usersPerPage
+    const currentUsers = users.users.slice(indexOfFirstUser, indexOfLastUser)
+
+    //Change page
+    const paginate = (pageNumber)=>setCurrentPage(pageNumber)
+
+    //console.log(users)
     useEffect(async () => {
         dispatch(get_Users())
         if (message)
@@ -68,8 +79,8 @@ const Users = () => {
                     <tbody>
 
                     {users &&
-                    users.users.map((user, index) => (
-                        <tr>
+                    currentUsers.map((user, index) => (
+                        <tr key={index}>
                             <th scope="row">{user._id}</th>
                             <td>
                                 <div>
@@ -82,7 +93,7 @@ const Users = () => {
                             {/*<td><span className="badge bg-success">{tutorial.createdAt}</span></td>*/}
                             <td>
                                 <div>
-                                    <a onClick={()=>update(user)}  className="btn btn-primary btn-sm">Edit</a>&nbsp;
+                                    {/*<a onClick={()=>update(user)}  className="btn btn-primary btn-sm">Edit</a>&nbsp;*/}
                                     {/*<Link className="btn btn-primary btn-sm"*/}
                                     {/*    to={`/admin/user/update/${user.username}`}*/}
                                     {/*    state={{ ...user }}*/}
@@ -110,6 +121,7 @@ const Users = () => {
 
                     </tbody>
                 </table>
+                <Pagination itemsPerPage={usersPerPage} totalItems={users.users.length} paginate={paginate}/>
             </div>
         </div>
     )
