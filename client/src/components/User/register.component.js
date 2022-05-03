@@ -15,9 +15,11 @@ import {
 import DatePicker from "react-datepicker";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-import { clearMessage } from "../../actions/message";
+import { clearMessage, setMessage } from "../../actions/message";
 import Spinner from "../Spinner";
 import "./image-preview.css";
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 const required = (value) => {
   if (!value) {
     return (
@@ -218,10 +220,8 @@ const Register = () => {
           console.log("done");
           setIsLoading(false);
           setSuccessful(true);
-          // dispatch(clearMessage())
-          setTimeout(() => {
-            navigate("/login");
-          }, 5000);
+        //   dispatch(clearMessage())
+          navigate("/login");
           //You can pust clear message here you need to put it on component unmount
           //dispatch(clearMessage())
         })
@@ -232,21 +232,35 @@ const Register = () => {
         });
     }
   };
+
   const deleteUserHandler = () => {
-    console.log("clicked delete user");
-    dispatch(deleteUser(currentUser.id))
-      .then(() => {
-        console.log("register component delete user-> then ");
-
-        dispatch(logout());
-
-        //  props.history.push("/tutorials");
-        // navigate("/login")
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+    confirmAlert({
+      title: 'Confirm to submit',
+      message: 'Are you sure to do this.',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => { 
+            dispatch(deleteUser(currentUser.id))
+              .then(() => {
+                console.log("register component delete user-> then ")
+                dispatch(logout())
+                navigate("/login");
+              })
+              .catch((e) => {
+                console.log(e);
+              })
+           }
+          },
+        {
+          label: 'No',
+          onClick: () => alert('Click No')
+        }
+      ]
+    });
   };
+
+
 
   if (isLoading) {
     return <Spinner />;

@@ -66,17 +66,17 @@ const goDashboard = () => {
         href="../assets/img/favicon.png"
       />
       {/* Place favicon.png in the root directory */}
-      {/* CSS here */}
-      <link rel="stylesheet" href={process.env.PUBLIC_URL+'/assets/css/bootstrap.min.css'} />
-      <link rel="stylesheet" href={process.env.PUBLIC_URL+'/assets/css/owl.carousel.min.css'} />
-      <link rel="stylesheet" href={process.env.PUBLIC_URL+'/assets/css/animate.min.css'} />
-      <link rel="stylesheet" href={process.env.PUBLIC_URL+'/assets/css/magnific-popup.css'} />
-      <link rel="stylesheet" href={process.env.PUBLIC_URL+'/assets/css/fontawesome-all.min.css'} />
-      <link rel="stylesheet" href={process.env.PUBLIC_URL+'/assets/css/flaticon.css'} />
-      <link rel="stylesheet" href={process.env.PUBLIC_URL+'/assets/css/meanmenu.css'} />
-      <link rel="stylesheet" href={process.env.PUBLIC_URL+'/assets/css/slick.css'} />
-      <link rel="stylesheet" href={process.env.PUBLIC_URL+'/assets/css/style.css'} />
-      <link rel="stylesheet" href={process.env.PUBLIC_URL+'/assets/css/responsive.css'} />
+      {/* CSS here */} 
+      <link rel="stylesheet" href={`/assets/css/bootstrap.min.css`} />
+      <link rel="stylesheet" href={`/assets/css/owl.carousel.min.css`} />
+      <link rel="stylesheet" href={`/assets/css/animate.min.css`} />
+      <link rel="stylesheet" href={`/assets/css/magnific-popup.css`} />
+      <link rel="stylesheet" href={`/assets/css/fontawesome-all.min.css`} />
+      <link rel="stylesheet" href={`/assets/css/flaticon.css`} />
+      <link rel="stylesheet" href={`/assets/css/meanmenu.css`} />
+      <link rel="stylesheet" href={`/assets/css/slick.css`} />
+      <link rel="stylesheet" href={`/assets/css/style.css`} />
+      <link rel="stylesheet" href={`/assets/css/responsive.css`} />
       <div id="preloader" style={{ display: "none" }}>
         <div className="preloader">
           <span />
@@ -97,7 +97,7 @@ const goDashboard = () => {
               <div className="col-xl-2 col-lg-2 col-md-3 col-5 d-flex align-items-center">
                 <div className="header__logo">
                   <a href="index.html">
-                    <img src="../assets/img/logo/logo.png" alt="" />
+                    <img src="../assets/img/logo/123.png" alt="" />
                   </a>
                 </div>
               </div>
@@ -117,7 +117,8 @@ const goDashboard = () => {
                               Courses {" "}
                             </Link>{" "}
                           </li>
-                 
+                          <If condition={currentUser && currentUser.roles.includes("ROLE_ADMIN")}>
+                              <Then>
                       <li>
                         <a href="#">Services</a>
                         <ul className="submenu">
@@ -152,7 +153,8 @@ const goDashboard = () => {
 
                         </ul>
                       </li>
-
+                      </Then>
+                          </If>
 
                    {   
                    
@@ -211,7 +213,7 @@ const goDashboard = () => {
                         <Autocomplete
                       
                           id="asynchronous-demo"
-                          style={{ width: 300 }}
+                          style={{ width: 300 , height : 100}}
                           open={open}
                           onOpen={() => {
                             setOpen(true);
@@ -243,7 +245,7 @@ const goDashboard = () => {
                           renderInput={(params) => (
                             <TextField
                               {...params}
-                              label="Asynchronous"
+                              label="Search users"
                               variant="outlined"
                               onChange={(ev) => {
                                 if (

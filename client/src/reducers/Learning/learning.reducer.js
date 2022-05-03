@@ -11,7 +11,8 @@ import {
   SET_MESSAGE,
   SET_PREVIOUS_CHAPTER,
   CLEAR_CHAPTERS,
-  SET_CERTIF
+  SET_CERTIF,
+  SET_CERTIFS
 } from "../../actions/type";
 const emptyChapter = {
   _id: null,
@@ -61,7 +62,8 @@ const initialState = {
   currentChapter: emptyChapter,
   nextChapter: emptyChapter,
   previousChapter: emptyChapter,
-  certif:{}
+  certif:{},
+  certificates :[]
 };
 
 export default function (state = initialState, action) {
@@ -77,6 +79,11 @@ export default function (state = initialState, action) {
         ...state,
         chapters: payload,
       };
+      case SET_CERTIFS:
+        return {
+          ...state,
+          certificates: payload,
+        };
 
     case SET_CURRENT_CHAPTER:
       return {

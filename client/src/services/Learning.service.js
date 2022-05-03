@@ -72,5 +72,10 @@ axios.get(API_URL+"/certificates/", { headers: authHeader()   })
         console.log("SERVICE : Progressing service");
         return  axios.post(API_URL+"/progress-certif/",body)
       }
+      
+      export const getUserProgressions = async (params) => {
+        const data=await axios.get(API_URL+"/get-user-progresses/", { params }, { headers: authHeader()   })
+        return data.data;
+      }
   export default {getAllChapters,getChapter,getCertificates,getCertificate,getProgress,getCategories,progressCertif
   };

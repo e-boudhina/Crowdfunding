@@ -55,4 +55,6 @@ app.get("/api/learning/certificates-search/",controller.getCertificatePagination
 app.post("/api/learning/progress-certif/",controller.ProgressCertif)
 app.get("/api/learning/get-progress/",controller.getProgression)
 app.post("/api/learning/upload-image",upload_2.single('image'),controller.addImage);
+app.delete("/api/learning/certificate/:id", controller.deleteCertificate);
+app.get("/api/learning/get-user-progresses/",controller.userProgressionsPagination) 
 }  

@@ -4,7 +4,7 @@ import { useDispatch, useSelector  } from "react-redux";
 import { useNavigate  } from "react-router-dom";
 import ListOrganisationForUser from "../Organisation/ListOrganisationForUser"
 import {Buffer} from 'buffer';
-
+import Userprofilecertificates from "../Elearning/user-profile-certificates.component"
 const Profile = (props) => {
   const navigate = useNavigate();
 
@@ -105,13 +105,14 @@ useEffect(() => {
                 </div>
               </div>
             </div>
-               <div className="col-12">
+              
+       
+<Userprofilecertificates/>
+<div className="col-12">
            <div className="text-right my-2 pr-1">
              <i style={{fontSize: '2rem', cursor: 'pointer', color: '#4bb543'}} onClick={() => {navigate('/addOrganisation')}} className="fas fa-plus-circle mx-auto" />
            </div>
          </div>
-       
-
 <ListOrganisationForUser/>
           </div>
         </div>
