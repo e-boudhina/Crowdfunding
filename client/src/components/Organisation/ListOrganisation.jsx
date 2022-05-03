@@ -105,7 +105,7 @@ const { message } = useSelector(state => state.message);
         <div className="widget mb-40">
             <div className="widget-title-box mb-30">
               <span className="animate-border" />
-              <h3 className="widget-title">Search Projects</h3>
+              <h3 className="widget-title">Search Organisations</h3>
             </div>
             <form className="search-form">
             <input placeholder="Enter organisation Title" onChange={event => setQuery(event.target.value)} />
@@ -116,20 +116,20 @@ const { message } = useSelector(state => state.message);
      
       {
   organisations.Organisations.filter((organisation) => {
-  if (organisation.description.toLowerCase().includes(query.toLowerCase())) {
-    listSearched.push(organisation);
-    console.log(organisation);
-    }
+  // if (organisation.description.toLowerCase().includes(query.toLowerCase())) {
+  //   listSearched.push(organisation);
+  //   console.log(organisation);
+  //   }
 
-    else if (organisation.name.toLowerCase().includes(query.toLowerCase())) {
+    if (organisation.name.toLowerCase().includes(query.toLowerCase())) {
       listSearched.push(organisation);
       console.log(organisation);
       }
 
-     else  if (organisation.adress.toLowerCase().includes(query.toLowerCase())) {
-        listSearched.push(organisation);
-        console.log(organisation);
-        }
+    //  else  if (organisation.adress.toLowerCase().includes(query.toLowerCase())) {
+    //     listSearched.push(organisation);
+    //     console.log(organisation);
+    //     }
     //  else   if (organisation.phone.toLowerCase().includes(query.toLowerCase())) {
     //       listSearched.push(organisation);
     //       console.log(organisation);
@@ -169,17 +169,15 @@ const { message } = useSelector(state => state.message);
         <div className="row">
           {
 
-
-
+ (listSearched.length==1)?  <SingleOranisation organisation={listSearched} />
+ :
 listSearched.map((element)=>{
-  console.log(element);
-  
-  // <SingleProject/>
+
 
   return(
 
     
-    <SingleOranisation organisation={element} ></SingleOranisation>
+    <SingleOranisation organisation={element} />
     // <SingleOranisation delete={deletee} organisation={element} ></SingleOranisation>
   )  
   }

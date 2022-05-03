@@ -54,14 +54,7 @@ function ProjectDetails(props) {
             <h2>{fundneeded}</h2>
             <span>Target</span>
           </div>
-          <div className="fund-count  ">
-            <h2>300</h2>
-            <span>Backers</span>
-          </div>
-          <div className="fund-count  ">
-            <h2>07</h2>
-            <span>Days To Go</span>
-          </div>
+       
         </div>
       </div>
       <div className="fund-text mb-50">

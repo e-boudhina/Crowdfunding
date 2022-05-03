@@ -11,6 +11,8 @@ var OrganisationSchema = new mongoose.Schema({
     Secteur: String,
     ownerName:String,
     Image:String,
+    dateCreation:Date,
+    LieuCreation:String,
     userFollowing: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"

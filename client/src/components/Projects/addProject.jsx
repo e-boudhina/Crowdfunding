@@ -5,6 +5,8 @@ import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from 'react-router';
+import DatePicker from "react-datepicker";
+
 import '../Organisation/aaa.css'
 
 
@@ -29,6 +31,8 @@ const ProjectAdd = (props) => {
   const [fundneeded, setFundneeded] = useState(0);
   const [image, setImage] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [LieuCreation, setLieuCreation] = useState("");
+  const [dateCreation, setDateCreation] = useState();
 
 
 
@@ -45,6 +49,10 @@ const ProjectAdd = (props) => {
   const onChangelabelproject = (e) => {
     const labelproject = e.target.value;
     setLabelproject(labelproject);
+  };
+  const aaaa = (e) => {
+    const LieuCreation = e.target.value;
+    setLieuCreation(LieuCreation);
   };
   const onChangeprojectdescriptiob = (e) => {
     const projectdescriptiob = e.target.value;
@@ -85,6 +93,8 @@ const ProjectAdd = (props) => {
     formData.append('projectdescriptiob', projectdescriptiob);
     formData.append('fundneeded', fundneeded);
     formData.append('organisation', location.state.id);
+    formData.append('LieuCreation', LieuCreation);
+    formData.append('dateCreation', dateCreation);
 
 
     if (checkBtn.current.context._errors.length === 0) {
@@ -163,6 +173,23 @@ rel="stylesheet"></link>
         onChange={onChangeprojectdescriptiob}
         validations={[required]}
       />
+          <label htmlFor="LieuCreation">LieuCreation <span>**</span></label>
+      <Input
+        type="text"
+        className="form-control"
+        name="LieuCreation"
+        value={LieuCreation}
+        onChange={aaaa}
+        validations={[required]}
+      />
+         <label htmlFor="dateCreation "> Creation date of this project : </label>
+                      <DatePicker
+                        selected={dateCreation}
+                        className="form-control"
+                        name="dateCreation"
+                        value={dateCreation}
+                        onChange={(dateCreation) => setDateCreation(dateCreation)}
+                      />
 
 
       <label htmlFor="fundneeded">Funds needed <span>**</span></label>

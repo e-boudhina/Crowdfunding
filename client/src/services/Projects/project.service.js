@@ -52,6 +52,9 @@ const remove = (id)=> {
 const update = (id,form)=> {
   return axios.put(API_URL+"update/"+id,form,config);
 };
+const updateProjectFundRaised = (id,form)=> {
+  return axios.post(API_URL+"updateProjectFundRaised/"+id,form,config);
+};
 
 const getSingle = (id)=> {
   return axios.get(API_URL+"get/"+id);
@@ -72,7 +75,8 @@ export default  {
   getFollowers,
   ProjectsToValidate,
   ValidateProject,
-  IgnoreProject
+  IgnoreProject,
+  updateProjectFundRaised
   // ,
   // login,
   // logout,

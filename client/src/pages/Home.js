@@ -1,7 +1,73 @@
+import { Navigate } from 'react-router-dom';
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useNavigate } from 'react-router';
+import { allProjects, RetrieveProject } from "../actions/Projects/ProjectCrud.actions";
+import SingleProjectForUser from "../components/Projects/SingleProjectForUser";
+import Pagination from "../components/Projects/Pagination";
+import React, { useState, useEffect, useCallback } from "react";
+
 
 
 export default function Home() {
+    const dispatch = useDispatch();
+    const location = useLocation();
+
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const [postsPerPage] = useState(3);
+
+
+
+
+
+    const [keyword, setKeyword] = useState("");
+
+
+
+
+    // const handlePageChange = useCallback(
+    //     (page) => {
+    //       dispatch(allProjects({page, keyword}));
+    //     },
+    //     [dispatch, keyword]
+    //   );
+
+
+    useEffect(() => {
+
+        dispatch(allProjects());
+
+    }, []);
+
+
+
+    //   console.log(projects);
+    const essaie = useSelector((state) => state.projects);
+    const projects = essaie.projects
+    const indexOfLastPost = currentPage * postsPerPage;
+    const indexOfFirstPost = indexOfLastPost - postsPerPage;
+    const currentProjects = projects.slice(indexOfFirstPost, indexOfLastPost);
+    console.log(currentProjects);
+
+
+    // Change page
+    const paginate = (pageNumber) => {
+        // window.location.reload(false);
+        setCurrentPage(pageNumber);
+       
+    };
+
+
+
+
+
+
+
     return (
+
+
+
+
 
         <body>
             <section className="hero-area ">
@@ -48,241 +114,63 @@ export default function Home() {
             </section>
             <section className="causes-area grey-bg pt-120 pb-120">
                 <div className="container">
+
+
                     <div className="row align-items-center">
                         <div className="col-xl-12">
                             <div className="section-title text-center mb-60">
-                                <p><span /> Popular causes</p>
-                                <h1>Back Before The Time Expires</h1>
+                                <p><span /> List of projects</p>
+                                <h1>You can donate to a project whenever you like</h1>
                             </div>
+                        </div>
+
+                        <div className="widget mb-40">
+                            <div className="widget-title-box mb-30">
+                                <span className="animate-border" />
+                                <h3 className="widget-title">Search Projects</h3>
+                            </div>
+                            <form className="search-form">
+                                <input type="text" placeholder="Search" />
+                                <button type="submit"><i className="fas fa-search" /></button>
+                            </form>
                         </div>
                     </div>
                     <div className="row">
-                        <div className="col-xl-4 col-lg-4 col-md-6">
-                            <div className="causes white-bg mb-30">
-                                <div className="causes__img">
-                                    <img src="assets/img/causes/project1.jpg" alt="" />
-                                    <div className="causes-heart">
-                                        <a href="#"><i className="far fa-heart" /></a>
-                                    </div>
-                                </div>
-                                <div className="causes__caption">
-                                    <div className="causes-tag mb-20">
-                                        <a href="#">Technology</a>
-                                    </div>
-                                    <h4><a href="fund-details.html">Onda MX App: Mexico City art
-                                        guide &amp; living archive.</a></h4>
-                                    <div className="causes-progress mb-25">
-                                        <div className="progress">
-                                            <div className="progress-bar w-75" role="progressbar" aria-valuenow={60} aria-valuemin={0} aria-valuemax={100} />
-                                        </div>
-                                        <div className="causes-count mt-15 fix">
-                                            <div className="count-number f-left text-left">
-                                                <h2>$32,678</h2>
-                                                <span>Pledged</span>
-                                            </div>
-                                            <div className="count-number f-right text-right">
-                                                <h2>$33,467</h2>
-                                                <span>Target</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="causes-meta fix">
-                                        <span className="f-left">by <a href="#">romada D.</a></span>
-                                        <span className="f-right">at <a href="#">london</a></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-xl-4 col-lg-4 col-md-6">
-                            <div className="causes white-bg mb-30">
-                                <div className="causes__img">
-                                    <img src="assets/img/causes/project4.jpg" alt="" />
-                                    <div className="causes-heart">
-                                        <a href="#"><i className="far fa-heart" /></a>
-                                    </div>
-                                </div>
-                                <div className="causes__caption">
-                                    <div className="causes-tag mb-20">
-                                        <a href="#">architecture</a>
-                                    </div>
-                                    <h4><a href="fund-details.html">Postcard Club - Revive Snail
-                                        Mail One Postcard at a Time!</a></h4>
-                                    <div className="causes-progress mb-25">
-                                        <div className="progress">
-                                            <div className="progress-bar w-75" role="progressbar" aria-valuenow={60} aria-valuemin={0} aria-valuemax={100} />
-                                        </div>
-                                        <div className="causes-count mt-15 fix">
-                                            <div className="count-number f-left text-left">
-                                                <h2>$32,678</h2>
-                                                <span>Pledged</span>
-                                            </div>
-                                            <div className="count-number f-right text-right">
-                                                <h2>$33,467</h2>
-                                                <span>Target</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="causes-meta fix">
-                                        <span className="f-left">by <a href="#">romada D.</a></span>
-                                        <span className="f-right">at <a href="#">london</a></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-xl-4 col-lg-4 col-md-6">
-                            <div className="causes white-bg mb-30">
-                                <div className="causes__img">
-                                    <img src="assets/img/causes/project2.jpg" alt="" />
-                                    <div className="causes-heart">
-                                        <a href="#"><i className="far fa-heart" /></a>
-                                    </div>
-                                </div>
-                                <div className="causes__caption">
-                                    <div className="causes-tag mb-20">
-                                        <a href="#">design</a>
-                                    </div>
-                                    <h4><a href="fund-details.html">My Hero Academia Chibi All
-                                        Might Socks.</a></h4>
-                                    <div className="causes-progress mb-25">
-                                        <div className="progress">
-                                            <div className="progress-bar w-75" role="progressbar" aria-valuenow={60} aria-valuemin={0} aria-valuemax={100} />
-                                        </div>
-                                        <div className="causes-count mt-15 fix">
-                                            <div className="count-number f-left text-left">
-                                                <h2>$32,678</h2>
-                                                <span>Pledged</span>
-                                            </div>
-                                            <div className="count-number f-right text-right">
-                                                <h2>$33,467</h2>
-                                                <span>Target</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="causes-meta fix">
-                                        <span className="f-left">by <a href="#">romada D.</a></span>
-                                        <span className="f-right">at <a href="#">london</a></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-xl-4 col-lg-4 col-md-6">
-                            <div className="causes white-bg mb-30">
-                                <div className="causes__img">
-                                    <img src="assets/img/causes/project3.jpg" alt="" />
-                                    <div className="causes-heart">
-                                        <a href="#"><i className="far fa-heart" /></a>
-                                    </div>
-                                </div>
-                                <div className="causes__caption">
-                                    <div className="causes-tag mb-20">
-                                        <a href="#">Music</a>
-                                    </div>
-                                    <h4><a href="fund-details.html">Postcard Club - Revive Snail
-                                        One Postcard at a Time!</a></h4>
-                                    <div className="causes-progress mb-25">
-                                        <div className="progress">
-                                            <div className="progress-bar w-75" role="progressbar" aria-valuenow={60} aria-valuemin={0} aria-valuemax={100} />
-                                        </div>
-                                        <div className="causes-count mt-15 fix">
-                                            <div className="count-number f-left text-left">
-                                                <h2>$32,678</h2>
-                                                <span>Pledged</span>
-                                            </div>
-                                            <div className="count-number f-right text-right">
-                                                <h2>$33,467</h2>
-                                                <span>Target</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="causes-meta fix">
-                                        <span className="f-left">by <a href="#">romada D.</a></span>
-                                        <span className="f-right">at <a href="#">london</a></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-xl-4 col-lg-4 col-md-6">
-                            <div className="causes white-bg mb-30">
-                                <div className="causes__img">
-                                    <img src="assets/img/causes/project5.jpg" alt="" />
-                                    <div className="causes-heart">
-                                        <a href="#"><i className="far fa-heart" /></a>
-                                    </div>
-                                </div>
-                                <div className="causes__caption">
-                                    <div className="causes-tag mb-20">
-                                        <a href="#">Craft</a>
-                                    </div>
-                                    <h4><a href="fund-details.html">Alice's Curiously Mixed Bag of
-                                        Enamel Pins</a></h4>
-                                    <div className="causes-progress mb-25">
-                                        <div className="progress">
-                                            <div className="progress-bar w-75" role="progressbar" aria-valuenow={60} aria-valuemin={0} aria-valuemax={100} />
-                                        </div>
-                                        <div className="causes-count mt-15 fix">
-                                            <div className="count-number f-left text-left">
-                                                <h2>$32,678</h2>
-                                                <span>Pledged</span>
-                                            </div>
-                                            <div className="count-number f-right text-right">
-                                                <h2>$33,467</h2>
-                                                <span>Target</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="causes-meta fix">
-                                        <span className="f-left">by <a href="#">romada D.</a></span>
-                                        <span className="f-right">at <a href="#">london</a></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-xl-4 col-lg-4 col-md-6">
-                            <div className="causes white-bg mb-30">
-                                <div className="causes__img">
-                                    <img src="assets/img/causes/money.jpg" alt="" />
-                                    <div className="causes-heart">
-                                        <a href="#"><i className="far fa-heart" /></a>
-                                    </div>
-                                </div>
-                                <div className="causes__caption">
-                                    <div className="causes-tag mb-20">
-                                        <a href="#">art, design</a>
-                                    </div>
-                                    <h4><a href="fund-details.html">Galaxy Girls: Illustrated Constel
-                                        lations Romalo.</a></h4>
-                                    <div className="causes-progress mb-25">
-                                        <div className="progress">
-                                            <div className="progress-bar w-75" role="progressbar" aria-valuenow={60} aria-valuemin={0} aria-valuemax={100} />
-                                        </div>
-                                        <div className="causes-count mt-15 fix">
-                                            <div className="count-number f-left text-left">
-                                                <h2>$32,678</h2>
-                                                <span>Pledged</span>
-                                            </div>
-                                            <div className="count-number f-right text-right">
-                                                <h2>$33,467</h2>
-                                                <span>Target</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="causes-meta fix">
-                                        <span className="f-left">by <a href="#">romada D.</a></span>
-                                        <span className="f-right">at <a href="#">london</a></span>
-                                    </div>
-                                </div>
-                            </div>
+                        {
+                            (currentProjects) ? currentProjects.map((element) => {
+
+                                console.log(element);
+                                // <SingleProject/>
+
+                                return (
+
+                                    (element.status === 1) ?
+                                        <SingleProjectForUser project={element}></SingleProjectForUser>
+                                        : <></>
+
+
+                                )
+                            }
+                            ) : <></>
+                        }
+
+                        <Pagination
+                            postsPerPage={postsPerPage}
+                            totalPosts={projects.length}
+                            paginate={paginate}
+                            currentPage={currentPage}
+                        />
+
+
+
+                        <div class="basic-pagination basic-pagination-2 text-center mb-40">
+
                         </div>
                     </div>
-                    <div className="row mt-30">
-                        <div className="col-xl-12">
-                            <div className="section-link text-center">
-                                <a className="btn-border" href="#">more projects</a>
-                            </div>
-                        </div>
-                    </div>
+                
                 </div>
             </section>
+
             <section className="big-team-area">
                 <div className="big-image">
                     <img src="assets/img/bg/colleagues.jpg" alt="" />
@@ -313,8 +201,8 @@ export default function Home() {
                         </div>
                     </div>
                 </div>
-               
-        
+
+
             </section>
         </body>
     )

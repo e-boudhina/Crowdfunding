@@ -29,6 +29,7 @@ module.exports = function(app) {
 
 
 app.get("/api/project/all",controller.Project);
+// app.get("/api/project/all",controller.getProjects);
 //  app.post("/api/test/add",controller.ProjectAdd);
  app.post("/api/project/add",upload.single('image'),(req, res) => {  
  console.log(req.file);
@@ -39,7 +40,9 @@ app.get("/api/project/all",controller.Project);
 
      fundcollected: 0,
      status: 0,
-     Image :req.file.originalname
+     Image :req.file.originalname,
+     dateCreation:req.body.dateCreation,
+     LieuCreation:req.body.LieuCreation
  });
  project.save((err, project) => {
    if (err) {
@@ -87,7 +90,9 @@ organisation.save();
     projectdescriptiob: req.body.projectdescriptiob,
     fundneeded: req.body.fundneeded,
     fundcollected: req.body.fundcollected,
-    Image :req.file.originalname
+    Image :req.file.originalname,
+    dateCreation:req.body.dateCreation,
+    LieuCreation:req.body.LieuCreation
   
   
   }
@@ -108,6 +113,7 @@ organisation.save();
 app.get("/api/project/get/:id",controller.getProjectByid);
 app.get("/api/project/getProjectOfOrg/:id",controller.getProjectOfOrg);
 app.post("/api/project/addProjectToId/:id/:idProject",controller.addProjectToOrg);
+app.post("/api/project/updateProjectFundRaised/:id",controller.updateProjectFundRaised);
 app.get("/api/project/searchProjects/:keyword",controller.searchProjects);
 app.get("/api/project/getFollowersOfOrg/:id",controller.geyFollowersOfOrg);
 app.post("/api/project/validateProject/:id",controller.validateProject);

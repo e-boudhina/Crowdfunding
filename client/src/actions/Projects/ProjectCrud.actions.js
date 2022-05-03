@@ -8,7 +8,8 @@ import {
      GET_PROJECTS_ORG,
      GET_PROJECTS_TO_VALIDATE,
      Validate_Project_SUCCESS,
-     Ignore_Project_SUCCESS
+     Ignore_Project_SUCCESS,
+     UPDATE_PROJECT_FUNDRAISING
   } from "./Type";
 //   import ProjectService from "../services/auth.service";
   import ProjectService from "../../services/Projects/project.service";
@@ -21,7 +22,7 @@ import {
                 type: GET_PROjECT,
                 payload: result.data,
             });
-            console.log(result.data);
+             console.log(result.data);
             return Promise.resolve();   
           },
           (error) => {
@@ -232,6 +233,19 @@ import {
       const res = await ProjectService.update(id, data);
       dispatch({
         type: UPDATE_PROJECT,
+        payload: data,
+      });
+      return Promise.resolve(res.data);
+    } catch (err) {
+      return Promise.reject(err);
+    }
+  };
+  export const updateProjectFundRaised = (id, data) => async (dispatch) => {
+    try {
+      const res = await ProjectService.updateProjectFundRaised(id, data);
+      console.log(data);
+      dispatch({
+        type: UPDATE_PROJECT_FUNDRAISING,
         payload: data,
       });
       return Promise.resolve(res.data);

@@ -18,5 +18,6 @@ export const GET_PROJECTS_ORG="GET_PROJECTS_ORG";
 export const GET_PROJECTS_TO_VALIDATE="GET_PROJECTS_TO_VALIDATE";
 export const Validate_Project_SUCCESS ="Validate_Project_SUCCESS";
 export const Ignore_Project_SUCCESS ="Ignore_Project_SUCCESS";
+export const  UPDATE_PROJECT_FUNDRAISING =" UPDATE_PROJECT_FUNDRAISING";
 
 

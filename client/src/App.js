@@ -13,6 +13,7 @@ import Footer from "./components/Footer";
 import ProjectDetails from "./components/Projects/ProjectDetails"
 import ListPProject from "./components/Projects/ListProject"
 import ListProjectsOfUser from "./components/Projects/ListProjectsOfUser"
+import CryptoPaymentsForm from "./components/Projects/CryptoPaymentForm"
 import UpdateProject from "./components/Projects/UpdateProject"
 import ListProjectToValidate from "./components/Projects/ListProjectToValidate"
 import OrganisationAdd from "./components/Organisation/AddOrganisation"
@@ -105,6 +106,7 @@ const App = () => {
             <Route path={"/login"} element={<Login />} />
             <Route path={"/register"} element={<Register />} />
             <Route path={"/addOrganisation1"} element={<AddOrganisation1 />} />
+            <Route path={"/CryptoPaymentsForm"} element={<CryptoPaymentsForm />} />
             <Route path={"/reset-password"} element={<Reset_password />} />
             <Route path={"/new-password/:token"} element={<New_password />} />
             <Route path={"/verify-email/:token"} element={<Verify_email />} />

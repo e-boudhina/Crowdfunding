@@ -80,6 +80,7 @@ require('./routes/User/user.routes')(app);
 
 //Project routes
 require('./routes/Project/Project.routes')(app);
+require('./routes/Donation/Donation.routes')(app);
 require('./routes/Organization/Organization.routes')(app);
 
 require('./routes/Learning/learning.routes')(app);

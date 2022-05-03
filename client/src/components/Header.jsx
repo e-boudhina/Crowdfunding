@@ -223,6 +223,17 @@ function Header() {
                             <li>
                               {" "}
                               <Link
+                                to={"/ListProjectsOfUser"}
+                                className="nav-link"
+                              >
+                                {" "}
+                                List of projects{" "}
+                              </Link>{" "}
+                            </li>
+
+                            <li>
+                              {" "}
+                              <Link
                                 to={"/login"}
                                 className="nav-link"
                                 onClick={logOut}

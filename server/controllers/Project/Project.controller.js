@@ -1,14 +1,39 @@
 const db = require("../../models");
 var fs = require('fs');
 const uploader = require("../../ImageUploader");
+const paginationPipeline = require("../../helpers/paginationPipeline");
+// const convert = require("crypto-convert");
 const Image = require("../../models/Image/image.model");
 const Project = db.Project;
 const User = db.user;
 const organization = db.organization;
 var arrayList = require('array-list')
+const ethPrice = require('eth-price');
+const convert = require("crypto-convert");
 
+// exports.getProjects = async (req, res) => {
+//   const {page = "1", keyword = "", ...restOfQuery} = req.query;
 
+//   if (keyword !== "")
+//     restOfQuery.labelproject = new RegExp(
+//       keyword.text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&") || "",
+//       "gi"
+//     );
 
+//   try {
+//     const projects = await Project.aggregate(
+//       paginationPipeline({
+//         page,
+//         filter: restOfQuery,
+//         pageLimit: 1,
+//       })
+//     );
+//     console.log(projects);
+//     res.send(projects?.[0] || emptyPaginationPayload);
+//   } catch (error) {
+//     res.status(500).send({message: error.message, stack: error.stack});
+//   }
+// };
 
 
 exports.Project = (req, res) => {
@@ -253,6 +278,39 @@ res.json(list)
 // res.json(list)
 
 }
+
+
+exports.updateProjectFundRaised =(req, res) => {
+  
+  Project.findOne({ _id: req.params.id }, (err, project) => {
+    if (err) {
+      res.json(err);
+    }
+    else {
+      // console.log(result);
+      console.log(req.body.priceETH);
+      console.log(req.params.id);
+      console.log(req.body.project);
+       
+        
+     	//Cache is not yet loaded on application start
+
+
+	var a =convert.BTC.USD(1);
+	var pricInEth =convert.ETH.USD(1);
+  var c =	convert.LINK.LTC(5);
+	var d =convert.USD.CRO(100);
+  
+  project.fundcollected+= req.body.priceETH*pricInEth  
+
+  //More readable syntax
+
+        
+        project.save();
+      res.json(project)
+    }
+  });
+};
 
 
 

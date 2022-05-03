@@ -30,21 +30,19 @@ export default function ListProjectsOfUser(){
   }
     // console.log(projects.projects[0]._id); 
     return (
-        <body>
-      <div className="container">
-      <div>
-      <br></br>
-      <div className="tab-content" id="myTabContent">
-          {/* <h3>
-          <strong>{currentUser.firstName}</strong> Profile
-        </h3> */}
+        <section className="causes-area grey-bg pt-120 pb-120">
+        <div className="container">
 
+        
+            <div className="row align-items-center">
+                <div className="col-xl-12">
+                    <div className="section-title text-center mb-60">
+                        <p><span /> List of projects</p>
+                        <h1>You can donate to a project whenever you like</h1>
+                    </div>
+                </div>
 
-        <h3>
-         List of Projects:
-        </h3>
-        <div className="col-lg-8">
-        <div className="widget mb-40">
+                  <div className="widget mb-40">
             <div className="widget-title-box mb-30">
               <span className="animate-border" />
               <h3 className="widget-title">Search Projects</h3>
@@ -54,12 +52,9 @@ export default function ListProjectsOfUser(){
               <button type="submit"><i className="fas fa-search" /></button>
             </form>
           </div>
-        </div>
-        
-      <div className="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-        <div className="row">
-
-          {
+            </div>
+            <div className="row">
+            {
 projects.projects.map((element)=>{
   
   console.log(element);
@@ -75,16 +70,19 @@ projects.projects.map((element)=>{
   }
     )
   }
-
-  
-
-</div>
+            </div>
+            <div className="row mt-30">
+                <div className="col-xl-12">
+                    <div className="section-link text-center">
+                        <a className="btn-border" href="#">more projects</a>
+                    </div>
+                </div>
+            </div>
         </div>
- </div>
-      </div>
+        
+    </section>
+
       
-      </div>
-      </body>
     )
 
 }

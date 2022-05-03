@@ -13,7 +13,10 @@ var ProjectSchema = new mongoose.Schema({
     fundneeded: Number,
     fundcollected: Number,
   Image:String,
-  status:Number
+  status:Number,
+  dateCreation:Date,
+  LieuCreation:String,
+  
     // incubator: {
     //     type: mongoose.Schema.Types.ObjectId,
     //     ref: "incubator"

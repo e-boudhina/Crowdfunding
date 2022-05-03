@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router';
 import { useDispatch, useSelector } from "react-redux";
 import { allorganisation,FollowOrganisation,IsFollowed} from "../../actions/Organisations/OrganisationCrud.actions";
 // import SuccessPopup from 'react-success-popup'
+import './aaa.css'
 
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Navigate } from "react-router-dom";
@@ -74,7 +75,7 @@ const [status, setStatus] = useState(false)
         
           {/* <button type="button"   onClick={() => {
                 dispatch(RetrieveProject(project._id)); navigate('/ProjectDetails/'+project._id);}}class="btn btn-outline-info btn-rounded" data-mdb-ripple-color="dark" >Info</button> */}
-          <img src={`Uploads/${organisation.Image}`} alt="" />
+          <img src={`Uploads/${organisation.Image}`} className='photo' alt="" />
           <div className="causes-heart">
             
             <a href="#" onClick={followOrg} ><i className="far fa-heart" /></a>
@@ -102,11 +103,9 @@ const [status, setStatus] = useState(false)
           
           
           <div className="causes-tag mb-20">
-          Adress : <h4 href="/"> {organisation.adress}</h4>
+          <h4 href="/"> {organisation.adress}</h4>
           </div>
          
-         
-          <p>{organisation.description}</p>
         
           <br></br><br></br>
 
