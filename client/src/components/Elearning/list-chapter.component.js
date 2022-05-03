@@ -78,7 +78,7 @@ function Listchapter({ props }) {
                         to={`/admin/chapter/${tutorial._id}`}
                         className="btn btn-primary waves-effect waves-light">
                         {" "}
-                        click here
+                        View chapter
                       </Link>
                       <button className="btn btn-danger" onClick={(e) => submitDelete(tutorial._id)}>Delete</button>  
                     </div>

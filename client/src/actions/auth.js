@@ -30,6 +30,10 @@ export const deleteUser = (id) => async (dispatch) => {
       type: DELETE_USER,
       payload: { id },
     });
+    dispatch({
+      type: SET_MESSAGE,
+      payload: "You have successfully deleted your account",
+    });
   } catch (err) {
     console.log("DeleteUser -action  error " + err + " id user = " + id);
   }

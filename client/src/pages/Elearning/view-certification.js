@@ -56,16 +56,31 @@ const ViewCertification = (props) => {
     currentChapter,
   ]);
 
-  const beginCertif = async () => {
+  const beginCertif =  () => {
     //this will update the progress in the DB
-    await LearningService.progressCertif(
-      currentUser.id,
-      progress.certif._id,
-      progress.certif.chapters[0]._id
-    ).then(
-      //this will feftch the progress intro the store
-      dispatch(getProgress(currentUser.id, id))
-    );
+    confirmAlert({
+      title: 'Confirm',
+      message: 'Are you sure to progress ?',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: async () => { 
+            await LearningService.progressCertif(
+              currentUser.id,
+              progress.certif._id,
+              progress.certif.chapters[0]._id
+            ).then(
+              //this will feftch the progress intro the store
+              dispatch(getProgress(currentUser.id, id))
+            );
+        }
+           },
+        {
+          label: 'No',
+          onClick: () => alert('Click No')
+        }
+      ]
+    });
   };
 
 const progressCertif = (isCompleted,chapter) => {
@@ -80,6 +95,11 @@ chapter._id ,
     console.log("Setting next now ");
     dispatch(getProgress(currentUser.id, id))
   }
+
+
+
+
+ 
 
 
   const ConfirmProgressCertif = () => {
@@ -252,7 +272,7 @@ chapter._id ,
                   <img src="assets/img/blog/details/author.png" alt="" />
                 </div>
                 <div className="author-text text-center">
-                  <h3>MD. Salim Rana</h3>
+                  <h3>  {progress.certif.tutor ? progress.certif.tutor : " " }</h3>
                   <div className="author-icon">
                     <a href="#">
                       <i className="fab fa-facebook-f" />
@@ -271,11 +291,7 @@ chapter._id ,
                     </a>
                   </div>
                   <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequa aute
-                    irure dolor.{" "}
+         {progress.certif.description ? progress.certif.description : " " }
                   </p>
                 </div>
               </div>

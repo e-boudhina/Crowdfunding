@@ -11,9 +11,10 @@ import {
   SET_PREVIOUS_CHAPTER,
   CLEAR_CHAPTERS,
   SET_CERTIF,
+  SET_CERTIFS
 } from "../type";
 import LearningService from "../../services/Learning.service";
-
+import { getCertificates } from "../../services/Learning.service";
 export const setCertif = ( certif ) => ( dispatch ) => {
   console.log("Called action set certif "+ certif);
   dispatch({
@@ -112,3 +113,33 @@ export const getProgress = (user, certif) => (dispatch) => {
     }
   );
 };
+
+export const setCertifs = (  ) => ( dispatch ) => {
+  return LearningService.getCertificates().then(
+    (data) => {
+      if (data.status === 200) {
+   //     console.log("200" + JSON.stringify(data.data[0]));
+        dispatch({
+          type: SET_CERTIFS,
+          payload: data.data,
+        });
+        return Promise.resolve();
+      } else if (data.status === 404) {
+        console.log("404");
+        return Promise.resolve();
+      }
+    },
+    (error) => {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      dispatch({
+        type: RESET_PROGRESS,
+      });
+      return Promise.reject();
+    }
+  );
+}

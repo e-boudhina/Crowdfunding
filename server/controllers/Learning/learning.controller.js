@@ -69,6 +69,7 @@ exports.addCertificate = (req, res) => {
   console.log(req.body);
   const certificate = new Certificate({
     name: req.body.name,
+    description : req.body.description ,
     published : false ,
     category: req.body.category,
     tutor: req.body.tutor,
@@ -234,7 +235,7 @@ const getPagination = (page, size) => {
 };
 // Retrieve all Tutorials from the database.
 exports.getCertificatePagination = (req, res) => {
-  const { page, size, name , categoriesFilter } = req.query;
+  const { page, size, name , categoriesFilter ,user } = req.query;
   var condition_cat = categoriesFilter 
   ? { category : { $in: categoriesFilter.split(",") } }
   : {};
@@ -399,3 +400,82 @@ exports.addImage = (req, res) => {
    return res.send(req.file) ;
    
  }; 
+
+ exports.deleteCertificate = (req, res) => {
+  const {id} = req.params;
+  if (!id) {
+    res.status(400);
+    throw Error("certif Id is required");
+  } 
+  Certificate.findByIdAndRemove(id)
+    .then((data) => {
+      if (!data) {
+        console.log("controller : 404 chapter not found " + id);
+        res.status(404).send({
+          message: `Cannot delete certif  with id=${id}. Maybe certif  was not found!`,
+        });
+      } else {
+        res.send({
+          message: "certif was deleted successfully!",
+        });
+      }
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: "Could not delete certif with id=" + id,
+      });
+    });
+};
+
+
+exports.getUserProgressions = asyncHandler(async (req, res) => {
+  console.log("Called controller with data "+ req.query.user);
+  Progression.find({user:req.query.user}).populate(
+{
+    path: 'certificate',
+    populate: [
+        {
+            path: 'chapters',
+            model: 'Chapter',
+        }
+    ]
+}
+  )
+    .then((data) => {
+      if (!data || data.length === 0)
+        res
+          .status(404)
+          .send({ message: "Not found Progressions " });
+      else {
+        console.log("Get progressions data : " + data);
+        res.send(data); }
+    })
+    .catch((err) => {
+      res
+        .status(500)
+        .send({ message: "Error retrieving Progressions  "});
+    });
+})
+
+
+exports.userProgressionsPagination = (req, res) => {
+  const { page, size, name  ,user } = req.query;
+
+  const { limit, offset } = getPagination(page, size);
+  Progression.paginate({user : user}, { offset, limit , populate:"certificate" })
+    .then((data) => {
+      console.log(data);
+      res.send({
+        totalItems: data.totalDocs,
+        certificates: data.docs,
+        totalPages: data.totalPages,
+        currentPage: data.page - 1,
+      });
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving certificates.",
+      });
+    });
+};
