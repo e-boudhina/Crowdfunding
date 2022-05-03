@@ -61,11 +61,11 @@ const AddFurniture = () => {
     return(
         <div className="container">
             <div className="card-body">
-                <h4 className="card-title mb-4">Add Furniture</h4>
+                <h4 className="card-title mb-3">Add Furniture</h4>
                 <Form onSubmit={handleAdd} ref={form}>
                     <div className="row">
                         <div className="col">
-                            <label htmlFor="type">Type</label>
+                            <label className="mb-2" htmlFor="type">Type</label>
                             <Input
                                 id="type"
                                 type="text"
@@ -76,9 +76,9 @@ const AddFurniture = () => {
 
                         </div>
 
-                        <div className="form-group">
-                            <button className="btn btn-primary btn-block" >
-                                <span>Update</span>
+                        <div className="form-group" style={{display: 'flex',  justifyContent:'center', alignItems:'center', marginTop:'10px'}}>
+                            <button className="btn btn-outline-dark btn-block" >
+                                <span>Save</span>
                             </button>
                         </div>
 

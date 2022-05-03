@@ -12,11 +12,10 @@
     "colors": "^1.4.0",
     "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",
-    "qrcode": "^1.5.0",
     "crypto": "^1.0.1",
     "debug": "~2.6.9",
     "dotenv": "^16.0.0",
-    "ejs": "^3.1.6",
+    "ejs": "^3.1.7",
     "express": "~4.16.1",
     "express-async-handler": "^1.2.0",
     "fs": "0.0.1-security",
@@ -31,6 +30,7 @@
     "multer-gridfs-storage": "^5.0.2",
     "nodemailer": "^6.7.3",
     "nodemon": "^2.0.15",
+    "qrcode": "^1.5.0",
     "uuid": "^8.3.2"
   }
 }

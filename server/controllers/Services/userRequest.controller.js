@@ -104,10 +104,21 @@ const createUserRequest = asyncHandler(async (req, res) =>{
     //     throw new Error('Please provide primary fields')
     // }
     //Only one of these should exist but not both XOR logical comparison
-    if(!((!furniture && furnished_Requirement) || (furniture && !furnished_Requirement)))
+    //console.log(req.body)
+    if(!(( furnished_Requirement === true || furnished_Requirement ===false && furniture=== undefined) || (furniture !== undefined &&  furnished_Requirement === undefined)))
     {
         res.status(400)
-        throw new Error('Please provide primary fields - Either furniture or furnished_Requirement is required but NOT both')
+        //throw new Error('Please provide primary critical fields - Select the type of office your like')
+         throw new Error('Please provide primary fields - Either furniture or furnished_Requirement is required but NOT both')
+    }
+    //preventing empty furniture from proceeding
+    if(furniture !== undefined)
+    {
+        if(furniture.length ===0)
+        {
+            res.status(400)
+             throw new Error('Please select at least one furniture with a minimum quantity of 1')
+        }
     }
     if(!userid || !desired_Location || !preferred_Starting_Date || !expected_Ending_Date || !number_Of_Employees){
         res.status(400)

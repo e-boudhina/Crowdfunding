@@ -24,10 +24,7 @@ useEffect(() => {
   document.body.appendChild(document.createElement("script")).src = "../../../public/assets-back/js/app.js";
     if  ((!currentUser) || (!currentUser.roles.includes("ROLE_ADMIN"))){
         navigate("/")
-    
  }
-
-
  }) 
   
 
@@ -45,12 +42,21 @@ useEffect(() => {
         <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
         <meta content="Themesbrand" name="author" />
         {/* App favicon */}
+
+
+    <link rel="stylesheet" href={process.env.PUBLIC_URL+'/assets-back/libs/jquery/jquery.min.js'} />
+    <link rel="stylesheet" href={process.env.PUBLIC_URL+'/assets-back/libs/bootstrap/js/bootstrap.bundle.min.js'} />
+    <link rel="stylesheet" href={process.env.PUBLIC_URL+'/assets-back/libs/metismenu/metisMenu.min.js'} />
+    <link rel="stylesheet" href={process.env.PUBLIC_URL+'/assets-back/libs/simplebar/simplebar.min.js'} />
+    <link rel="stylesheet" href={process.env.PUBLIC_URL+'/assets-back/libs/node-waves/waves.min.js'} />
+    <link rel="stylesheet" href={process.env.PUBLIC_URL+'/assets-back/js/app.js'} />
+
         <link rel="shortcut icon" href={`/assets-back/images/favicon.ico`} />
 
         {/* Bootstrap Css */}
-        <link href={`/assets-back/css/bootstrap.min.css`}  id="bootstrap-style" rel="stylesheet" type="text/css" />
+        <link href={process.env.PUBLIC_URL+'/assets-back/css/bootstrap.min.css'}  id="bootstrap-style" rel="stylesheet" type="text/css" />
         {/* Icons Css */}
-        <link href={`/assets-back/css/icons.min.cs`} rel="stylesheet" type="text/css" />
+        <link href={process.env.PUBLIC_URL+'/assets-back/css/icons.min.css'} rel="stylesheet" type="text/html" />
         {/* App Css*/}
 
         <link href={`/assets-back/css/app.min.css`} id="app-style" rel="stylesheet" type="text/css" />
@@ -69,18 +75,18 @@ useEffect(() => {
                 <div className="navbar-brand-box">
                 <a href="/" className="logo logo-dark">
                     <span className="logo-sm">
-                      <img src={`/assets-back/images/logo-sm.png`} alt="" height={22} />
+                      <img src={process.env.PUBLIC_URL+'/assets-back/images/logo-sm.png'} alt="" height={22} />
                     </span>
                     <span className="logo-lg">
-                      <img src={`/assets-back/images/logo-dark.png`} alt="" height={17} />
+                      <img src={process.env.PUBLIC_URL+'/assets-back/images/logo-dark.png'} alt="" height={17} />
                     </span>
                   </a>
                   <a href="index.html" className="logo logo-light">
                     <span className="logo-sm">
-                      <img src={`/assets-back/images/logo-sm.png`} alt="" height={22} />
+                      <img src={process.env.PUBLIC_URL+'/assets-back/images/logo-sm.png'} alt="" height={22} />
                     </span>
                     <span className="logo-lg">
-                      <img src={`/assets-back/images/logo-light.png`} alt="" height={18} />
+                      <img src={process.env.PUBLIC_URL+'/assets-back/images/logo-light.png'} alt="" height={18} />
                     </span>
                   </a>
                 </div>
@@ -142,7 +148,7 @@ useEffect(() => {
                   <li>
                     <Link to="/admin/addcertificate" className="waves-effect">
                       <i className="ti-home" /><span className="badge rounded-pill bg-primary float-end">2</span>
-                      <span>add  certificate</span>
+                      <span>Add  certificate</span>
                     </Link>
                   </li>
                   <li>
