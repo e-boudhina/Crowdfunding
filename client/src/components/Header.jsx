@@ -213,7 +213,7 @@ const goDashboard = () => {
                         <Autocomplete
                       
                           id="asynchronous-demo"
-                          style={{ width: 300 , height : 100}}
+                          style={{ width: 300 , height : 10}}
                           open={open}
                           onOpen={() => {
                             setOpen(true);
