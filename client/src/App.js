@@ -81,10 +81,14 @@ import "./App.css";
 import Chat from "./components/Chat";
 import Stripetest from "./pages/Projects/test-stripe-static.component";
 import Cryptotest from "./pages/Projects/test-crypto-static.component";
+import { Navigate } from "react-router-dom";
+
+import "./App.css"
+
 
 const App = () => {
   const redirect = () => {
-    //navigate('/')
+    Navigate('/home')
     // window.location.reload()
   };
   //const navigate = useNavigate();
@@ -173,6 +177,8 @@ const App = () => {
             <Route path={"/home"} element={<Home />} />
             <Route exact path={"/ListProject"} element={<ListPProject />} />
             <Route exact path={"/addProject"} element={<ProjectAdd />} />
+            <Route exact path={"/pay"} element={<Payment />} />
+
             <Route
               exact
               path={"/addOrganisation"}
@@ -231,14 +237,14 @@ const App = () => {
 
 
             <Route path={"/payment"} element={<Payment />}>
-                <Route
-              path={"/payment/stripe"}
-              element={<Stripetest />}
-            />
-                    <Route
-              path={"/payment/crypto"}
-              element={<Cryptotest />}
-            />
+              <Route
+                path={"/payment/stripe"}
+                element={<Stripetest />}
+              />
+              <Route
+                path={"/payment/crypto"}
+                element={<Cryptotest />}
+              />
             </Route>
             <Route path={"/*"} element={<Notfound />} />
           </Route>
@@ -278,10 +284,10 @@ const App = () => {
               element={<EditFurniture />}
             />
           </Route>
-         
+
         </Routes>
       </Router>
-     
+
 
       <ToastContainer />
     </>

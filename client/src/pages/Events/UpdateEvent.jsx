@@ -8,9 +8,7 @@ import EventForm from "../../components/Events/EventForm";
 const UpdateEvent = () => {
   let { id } = useParams();
   const { user: currentUser } = useSelector((state) => state.auth);
-  if (!currentUser) {
-    return <Navigate to="/login" />;
-  }
+
   return (
     <section className="contact-form-area">
       <div className="container">
