@@ -12,7 +12,7 @@ const Stripetest = (props) => {
     return (
     <>   
    <div className="container">
-    STRIPE FORM
+    <payment></payment>
 </div>
 
         </>
