@@ -191,7 +191,10 @@ exports.makeAdmin = asyncHandler(async (req, res) => {
           //else
           User.findByIdAndUpdate(
             { _id: id },
-            { $push: { roles: role._id } }
+              //if you want to keep the old role uncomment this line
+              // { $push: { roles: role._id } }
+              //Replacing the old role with the new without keep the history
+             { $set: { roles: role._id } }
           ).then((user) => {
             console.log(user);
             return res.status(202).send({

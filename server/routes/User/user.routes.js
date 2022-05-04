@@ -41,7 +41,7 @@ module.exports = function(app) {
 
     app.get("/api/user/:username",controller.FindSingleProfile);
     //Become admin
-    app.post("/api/user/makeAdmin/:id", [authJwt.verifyToken, authJwt.isAdmin],controller.makeAdmin);
+    app.get("/api/user/makeAdmin/:id", [authJwt.verifyToken, authJwt.isAdmin],controller.makeAdmin);
 
     //Admin can not become incubator? - Verify admin middleware missing admin role verification
     app.get("/api/user/makeIncubator/:id", [authJwt.verifyToken, authJwt.isAdmin],controller.makeIncubator);

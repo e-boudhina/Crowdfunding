@@ -117,43 +117,52 @@ const goDashboard = () => {
                               Courses {" "}
                             </Link>{" "}
                           </li>
-                          <If condition={currentUser && currentUser.roles.includes("ROLE_ADMIN")}>
-                              <Then>
-                      <li>
-                        <a href="#">Services</a>
-                        <ul className="submenu">
-                          <If condition={currentUser && currentUser.roles.includes("ROLE_ADMIN")}>
+
+
+
+                          <If condition={currentUser}>
                               <Then>
                                 <li>
-                                  <a href="team.html">Manage furniture</a>
+                                      <a href="#">Services</a>
+                                      {/*Start Sub menu*/}
+                                      <ul className="submenu">
+
+                                        <If condition={currentUser && currentUser.roles.includes("ROLE_ADMIN")}>
+                                            <Then>
+                                              <li>
+                                                <Link to={'./admin/furniture'}>Manage furniture</Link>
+                                              </li>
+                                            </Then>
+                                        </If>
+
+                                        <If condition={currentUser && currentUser.roles.includes("ROLE_INCUBATOR")}>
+                                          <Then>
+                                            <li>
+                                              <Link to={'./services/userRequests'}>Manage All UserRequests </Link>
+                                            </li>
+                                            <li>
+                                              <Link to={'./services/userRequests/incubator'}>Manage Your UserRequests</Link>
+                                            </li>
+                                          </Then>
+                                        </If>
+                                        {/*I added this condition since a user can become an incubator and still gets to keep his previous default role "User" + "Incubator"*/}
+                                        {/*We need to test if the user only has one role to show this or else that means he uses to be a user and he got upgraded into an incubator => meaning roles.length =2*/}
+                                        <If condition={currentUser && currentUser.roles.includes("ROLE_USER") && currentUser.roles.length ===1}>
+                                          <Then>
+                                            <li>
+                                              <Link to={'./services/userRequests/user'}>View submitted requests</Link>
+                                            </li>
+                                            <li>
+                                              <Link to={'./services/userRequests/add'}>Submit a New Request</Link>
+                                            </li>
+                                          </Then>
+                                        </If>
+
+                                      </ul>
+                                      {/*End Sub menu*/}
+
                                 </li>
                               </Then>
-                          </If>
-
-                          <If condition={currentUser && currentUser.roles.includes("ROLE_INCUBATOR")}>
-                            <Then>
-                              <li>
-                                <Link to={'./services/userRequests'}>Manage All UserRequests</Link>
-                                <Link to={'./services/userRequests/incubator'}>Manage Your UserRequests</Link>
-                              </li>
-                            </Then>
-                          </If>
-
-                          <If condition={currentUser && currentUser.roles.includes("ROLE_USER")}>
-                            <Then>
-                              <li>
-                                <Link to={'./services/userRequests/user'}>View submitted requests</Link>
-                              </li>
-                              <li>
-                                <Link to={'./services/userRequests/add'}>Submit a New Request</Link>
-                              </li>
-                            </Then>
-                          </If>
-
-
-                        </ul>
-                      </li>
-                      </Then>
                           </If>
 
                    {   
@@ -196,6 +205,7 @@ const goDashboard = () => {
                               Projects{" "}
                             </Link>{" "}
                           </li>
+
                           <li>
                             {" "}
                             <Link
