@@ -12,7 +12,6 @@
     "colors": "^1.4.0",
     "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",
-    "qrcode": "^1.5.0",
     "crypto": "^1.0.1",
     "debug": "~2.6.9",
     "dotenv": "^16.0.0",
@@ -30,6 +29,8 @@
     "multer-gridfs-storage": "^5.0.2",
     "nodemailer": "^6.7.3",
     "nodemon": "^2.0.15",
+    "qrcode": "^1.5.0",
+    "stripe": "^8.220.0",
     "uuid": "^8.3.2"
   }
 }

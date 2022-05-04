@@ -8,7 +8,7 @@ const dotenv = require('dotenv').config();
 const init_functions = require('./utils/init_functions')
 var imgModel = require('./models/Image/image.model');
 var fs = require('fs');
-
+const striperoutes = require('./routes/stripe-route');
 const connectDB = require('./config/db')
 const color = require('colors')
 const { errorHandler } = require('./middlewares/Error/error_Middleware')
@@ -73,8 +73,8 @@ var test;
 // Accepting only body type format (Content-type: json)
 app.use(express.json());
 //We will only accept form url encoded ( NOT raw/binary/form-data)
-app.use(express.urlencoded({ extended: false }));
-
+app.use(express.urlencoded({ extended: true }));
+app.use('/api/stripe', striperoutes);
 require('./routes/User/auth.routes')(app);
 require('./routes/User/user.routes')(app);
 

@@ -64,6 +64,7 @@ import { Navigate } from "react-router-dom";
 import "./App.css"
 
 import Chat from "./components/Chat";
+import Payment from "./pages/Payment";
 
 const App = () => {
 
@@ -150,6 +151,8 @@ const App = () => {
             <Route path={"/home"} element={<Home />} />
             <Route exact path={"/ListProject"} element={<ListPProject />} />
             <Route exact path={"/addProject"} element={<ProjectAdd />} />
+            <Route exact path={"/pay"} element={<Payment />} />
+
             <Route
               exact
               path={"/addOrganisation"}
