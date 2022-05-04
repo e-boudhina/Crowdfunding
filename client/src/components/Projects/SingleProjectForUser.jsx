@@ -82,7 +82,7 @@ var barsize=0;
                         <div className="col-xl-12">
                             <div className="section-link text-center">
                                 <a className="btn-border"    style={{ cursor: "pointer" }} onClick={() => {
-                                    navigate('/CryptoPaymentsForm/', { state: { id: project._id, labelproject: project.labelproject, fundcollected: project.fundcollected, fundneeded: project.fundneeded, projectdescriptiob: project.projectdescriptiob, image: project.Image } });
+                                    navigate('/payment/crypto', { state: { id: project._id, labelproject: project.labelproject, fundcollected: project.fundcollected, fundneeded: project.fundneeded, projectdescriptiob: project.projectdescriptiob,adresseCrypto:project.adresseCrypto, image: project.Image } });
                                 }}>Donate</a>
                             </div>
                         </div>

@@ -14,8 +14,8 @@ import Box from '@material-ui/core/Box';
 const Payment = (props) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const [stripeSelected , setStripeSelected ] = useState(true);
-    const [cryptoSelected , setCryptoSelected ] = useState(false);
+    const [stripeSelected , setStripeSelected ] = useState(false);
+    const [cryptoSelected , setCryptoSelected ] = useState(true);
 
 const selectCrypto = () => {
     setStripeSelected(false);
