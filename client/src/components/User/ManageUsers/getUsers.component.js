@@ -52,8 +52,8 @@ const Users = () => {
     useEffect( () => {
         dispatch(get_Users())
         if (message)
-        toast.success(message).then(dispatch(clearMessage()))
-       // return () => {dispatch(clearMessage())}
+             toast.success(message)
+        return () => {dispatch(clearMessage())}
     }, [message]);
 
     //there is no need to execute fetch user method since we arelad have all the users | 2 method possible either props or modular
