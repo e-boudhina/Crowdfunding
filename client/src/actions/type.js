@@ -60,3 +60,16 @@ export const FETCH_EVENTS = "FETCH_EVENTS";
 export const UPDATE_Event = "UPDATE_Event";
 export const DELETE_Event = "DELETE_Event";
 
+export const GET_PROGRESS = "GET_PROGRESS" 
+export const UPDATE_PROGRESS = "UPDATE_PROGRESS"
+export const RESET_PROGRESS= "RESET_PROGRESS"
+export const ENGAGED = "ENGAGED"
+export const NOT_ENGAGED = "NOT_ENGAGED"
+
+export const SET_CHAPTERS = "SET_CHAPTERS"
+export const SET_CURRENT_CHAPTER = "SET_CURRENT_CHAPTER"
+export const SET_PREVIOUS_CHAPTER = "SET_PREVIOUS_CHAPTER"
+export const SET_NEXT_CHAPTER = "SET_NEXT_CHAPTER"
+export const CLEAR_CHAPTERS = "CLEAR_CHAPTERS"
+export const SET_CERTIF = "SET_CERTIF"
+export const SET_CERTIFS= "SET_CERTIFS"

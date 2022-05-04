@@ -9,7 +9,7 @@ import message from "./message";
 import navigation from "./navigation";
 import postReducer from "./postReducer";
 import events from "./event";
-
+import progress from "./Learning/learning.reducer"
 export default combineReducers({   //t'importi el reducers li bech  yetaamlou maa l store 
   auth,
   message,
@@ -20,8 +20,6 @@ export default combineReducers({   //t'importi el reducers li bech  yetaamlou ma
   users,
   followers,
   owner  ,
-
-
-
-  events
+   events ,
+   progress,
 });

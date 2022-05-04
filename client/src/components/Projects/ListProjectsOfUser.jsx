@@ -37,7 +37,7 @@ export default function ListProjectsOfUser(){
             <div className="row align-items-center">
                 <div className="col-xl-12">
                     <div className="section-title text-center mb-60">
-                        <p><span /> List of projects</p>
+                        <p><span /> List of organisations</p>
                         <h1>You can donate to a project whenever you like</h1>
                     </div>
                 </div>

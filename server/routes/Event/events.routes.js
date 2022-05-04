@@ -11,6 +11,7 @@ module.exports = function (router) {
 
   router.post(
     API_ROUTE_HEADER,
+    [authJwt.verifyToken],
     upload.single("picture"),
     uploaderMiddleware("picture", "event"),
     EventsController.createEvent
@@ -29,4 +30,6 @@ module.exports = function (router) {
     uploaderMiddleware("picture", "event"),
     EventsController.updateEvent
   );
+
+  router.get(`${API_ROUTE_HEADER}/:id`, [authJwt.verifyToken], EventsController.JoinEvent)
 };

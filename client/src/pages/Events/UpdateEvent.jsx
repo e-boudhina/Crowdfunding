@@ -1,11 +1,16 @@
 import React from "react";
-import {useParams} from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
 
 import EventForm from "../../components/Events/EventForm";
 
 const UpdateEvent = () => {
-  let {id} = useParams();
-
+  let { id } = useParams();
+  const { user: currentUser } = useSelector((state) => state.auth);
+  if (!currentUser) {
+    return <Navigate to="/login" />;
+  }
   return (
     <section className="contact-form-area">
       <div className="container">

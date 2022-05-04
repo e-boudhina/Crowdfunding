@@ -7,7 +7,7 @@ import Pagination from "../components/Projects/Pagination";
 import React, { useState, useEffect, useCallback } from "react";
 
 
-
+import Chat from "../components/Chat"
 export default function Home() {
     const dispatch = useDispatch();
     const location = useLocation();
@@ -70,6 +70,7 @@ export default function Home() {
 
 
         <body>
+            <Chat></Chat>
             <section className="hero-area ">
                 <div className="hero-height" data-background="assets/img/slider/slider-bg-shape.png" style={{ backgroundImage: 'url("assets/img/slider/slider-bg-shape.png")' }}>
                     <div className="container">
@@ -100,6 +101,7 @@ export default function Home() {
                         </div>
                     </div>
                 </div>
+
                 <div className="hero-img-area">
                     <div className="container">
                         <div className="row">

@@ -33,23 +33,7 @@ app.get("/api/project/all",controller.Project);
 //  app.post("/api/test/add",controller.ProjectAdd);
  app.post("/api/project/add",upload.single('image'),(req, res) => {  
  console.log(req.file);
-  const project = new Project({
-     labelproject: req.body.labelproject,
-     projectdescriptiob: req.body.projectdescriptiob,
-     fundneeded: req.body.fundneeded,
-
-     fundcollected: 0,
-     status: 0,
-     Image :req.file.originalname,
-     dateCreation:req.body.dateCreation,
-     LieuCreation:req.body.LieuCreation
- });
- project.save((err, project) => {
-   if (err) {
-     res.status(500).send({ message: err });
-     
-   }
-   else {
+ 
     
     
 
@@ -58,11 +42,33 @@ app.get("/api/project/all",controller.Project);
       res.json(err);
       }
       else {
+
+
+        const project = new Project({
+          labelproject: req.body.labelproject,
+          projectdescriptiob: req.body.projectdescriptiob,
+          fundneeded: req.body.fundneeded,
+     
+          fundcollected: 0,
+          status: 0,
+          Image :req.file.originalname,
+          dateCreation:req.body.dateCreation,
+          LieuCreation:req.body.LieuCreation,
+          adresseCrypto:organisation.adresseCrypto
+      });
+      project.save((err, project) => {
+        if (err) {
+          res.status(500).send({ message: err });
+          
+        }
+       
+  
+ 
        
 organisation.projects.push(project);
 organisation.save();
             res.json({ message: 'project  added to an anorganization ' });
-      }
+      
 
     
      

@@ -4,7 +4,7 @@ import { useDispatch, useSelector  } from "react-redux";
 import { useNavigate  } from "react-router-dom";
 import ListOrganisationForUser from "../Organisation/ListOrganisationForUser"
 import {Buffer} from 'buffer';
-
+import Userprofilecertificates from "../Elearning/user-profile-certificates.component"
 const Profile = (props) => {
   const navigate = useNavigate();
 
@@ -20,7 +20,7 @@ const Profile = (props) => {
   const [phone, setPhone]= useState("")
   const [image,setImage]=useState("")
   const [imgData,setImgData] = useState("")
- // const { user: currentUser } = useSelector((state) => state.auth);
+  const { user: currentUser } = useSelector((state) => state.auth);
  const { message } = useSelector((state) => state.message);
   const { infos: currentInfos } = useSelector((state) => state.auth);
   const { isLoggedIn: IsLoggedIn } = useSelector((state) => state.auth);
@@ -33,7 +33,7 @@ const Profile = (props) => {
 
 useEffect(() => {
   console.log("is mounted ");
-  if (!IsLoggedIn) {  
+  if (!IsLoggedIn || !currentInfos || !currentUser)  {  
     navigate("/login"); 
   } else {   
     setFirstName(currentInfos.firstName)
@@ -67,7 +67,7 @@ useEffect(() => {
               <div className="team mb-50">
                 <div className="team__thumb">
   
-                <img src={`/profile-uploads/${image}`} alt="" />
+                <img src={`/profile-uploads/${image}`} alt={`/profile-uploads/alternative-profile.png`} />
                 </div>
                 <button onClick={navigateToEdit} type="button" className="btn btn-black w-100" > Edit profile </button>
               </div>
@@ -105,13 +105,14 @@ useEffect(() => {
                 </div>
               </div>
             </div>
-               <div className="col-12">
+              
+       
+<Userprofilecertificates/>
+<div className="col-12">
            <div className="text-right my-2 pr-1">
              <i style={{fontSize: '2rem', cursor: 'pointer', color: '#4bb543'}} onClick={() => {navigate('/addOrganisation')}} className="fas fa-plus-circle mx-auto" />
            </div>
          </div>
-       
-
 <ListOrganisationForUser/>
           </div>
         </div>

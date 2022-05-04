@@ -1,5 +1,6 @@
 import axios from "axios";
-import {getFormData} from "../helpers/getFormData";
+import { getFormData } from "../helpers/getFormData";
+import authHeader from "./auth-header";
 
 const API_URL = "http://localhost:5000/api/event/";
 
@@ -8,7 +9,7 @@ const add = async (form) => {
 
   getFormData(reqBody, form);
 
-  const response = await axios.post(API_URL, reqBody);
+  const response = await axios.post(API_URL, reqBody, { headers: authHeader() });
 
   return response;
 };
@@ -23,11 +24,17 @@ const update = (id, form) => {
 const getevent = (id) => {
   return axios.get(API_URL + id);
 };
-const allEvents = ({page, keyword}) => {
-  return axios.get(API_URL, {params: {page, keyword}});
+const allEvents = ({ page, keyword }) => {
+  return axios.get(API_URL, { params: { page, keyword } });
 };
 const getEventById = (id) => {
   return axios.get(API_URL + id);
+};
+const allEventsForUser = (id) => {
+  return axios.get(API_URL + "allForUser/" + id);
+};
+const JoinEvent = () => {
+  return axios.get(API_URL);
 };
 export default {
   add,
@@ -36,4 +43,6 @@ export default {
   getevent,
   allEvents,
   getEventById,
+  allEventsForUser,
+  JoinEvent
 };

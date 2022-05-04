@@ -36,6 +36,7 @@ const OrganisationAdd = (props) => {
     const [description, setDescription] = useState("");
     const [Secteur, setSecteur] = useState("");
     const [Image, setImage] = useState(null);
+    const [adresseCrypto, setAdresseCrypto] = useState("");
 
 
     const navigate = useNavigate();
@@ -105,6 +106,10 @@ const OrganisationAdd = (props) => {
         const phone = e.target.value;
         setPhone(phone);
     };
+    const onAdresseCrypto = (e) => {
+        const adresseCrypto = e.target.value;
+        setAdresseCrypto(adresseCrypto);
+    };
 
 
 
@@ -124,6 +129,7 @@ const OrganisationAdd = (props) => {
         formData.append('adress', adress);
         formData.append('description', description);
         formData.append('Secteur', Secteur);
+        formData.append('adresseCrypto', adresseCrypto);
         formData.append('ownerName', currentUser.username);
         formData.append('email', email);
 
@@ -214,7 +220,7 @@ const OrganisationAdd = (props) => {
                                     onChange={onChangeFax}
                                     validations={[required]}
                                 />
-                                <label for="adress">Address <span>**</span></label>
+                                <label for="adress">Home address <span>**</span></label>
                                 <Input
                                     type="text"
                                     className="form-control"
@@ -223,6 +229,7 @@ const OrganisationAdd = (props) => {
                                     onChange={onChangeAdress}
                                     validations={[required]}
                                 />
+                                
 
                                 <label for="description">Description <span>**</span></label>
                                 <Input
@@ -252,6 +259,15 @@ const OrganisationAdd = (props) => {
                                     value={currentUser.username}
                                     // onChange={onChangeOwnerName}
                                     validations={[required]}
+                                />
+
+                                <label for="adresseCrypto">Eth Crypto Adress <span>**</span></label>
+                                <Input
+                                    type="text"
+                                    className="form-control"
+                                    name="adresseCrypto"
+                                    value={adresseCrypto}
+                                     onChange={onAdresseCrypto}
                                 />
 
                                 <label for="image">Image uploader: <span>**</span> <span className="material-icons">

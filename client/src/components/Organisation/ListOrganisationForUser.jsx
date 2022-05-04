@@ -58,10 +58,13 @@ window.location.reload();
     
 
 useEffect(() => {
+  if (currentUser) {
   dispatch(allOrganisationForUser(currentUser.id));
-  
+  } else {
+    navigate("/login");
+  }
 
-}, [currentUser.id])
+}, [currentUser])
 
   
   

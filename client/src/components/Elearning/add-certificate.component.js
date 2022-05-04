@@ -24,6 +24,8 @@ function AddChapter() {
   const [categories, setCategories] = useState([]);
   const [name, setName] = useState("");
   const [catCertif, setCatCertif] = useState("");
+  const [tutor, setTutor] = useState("");
+  const [description, setDescription] = useState("");
   const form = useRef();
   const checkBtn = useRef();
   const { message } = useSelector((state) => state.message);
@@ -43,10 +45,22 @@ function AddChapter() {
     formData.append("name", name);
     formData.append("category", catCertif);
     formData.append("image", image);
+    formData.append("tutor", tutor);
+    formData.append("description", description);
     form.current.validateAll();
     if (checkBtn.current.context._errors.length === 0) {
       console.log("NAME " + name + "CERTIF " + catCertif);
       AddCertificate(formData).then((data) => {
+        if (data.status === 200) {
+          dispatch({
+            type: "ADD_MESSAGE",
+            payload: {
+              message: "Certificate added successfully",
+              status: "success",
+            },
+          });
+          navigate("/admin/listcertificates");
+        }
       });
     }
   };
@@ -54,6 +68,15 @@ function AddChapter() {
     console.log(e.target.value);
     setCatCertif(e.target.value);
   };
+  const HandleDescriptionChange = (e) => {
+    setDescription(e.target.value);
+    console.log(description);
+  };
+  const HandleTutorChange = (e) => {
+    setTutor(e.target.value);
+    console.log(tutor);
+  };
+
   const HandleChangeName = (e) => {
     setName(e.target.value);
     console.log(name);
@@ -75,7 +98,29 @@ function AddChapter() {
           </div>
         </div>
         <div className=" row mb-3">
+
+        <label
+            htmlFor="example-text-input"
+            className="col-sm-2 col-form-label">
+            Tutor{" "}
+          </label>
+          <div className="col-sm-10">
+            <Input className="form-control" onChange={HandleTutorChange} />
+          </div>
+        </div>
+        <div className=" row mb-3">
        
+        <label
+            htmlFor="example-text-input"
+            className="col-sm-2 col-form-label">
+            description{" "}
+          </label>
+          <div className="col-sm-10">
+            <Input className="form-control" onChange={HandleDescriptionChange} />
+          </div>
+        </div>
+        <div className=" row mb-3">
+
           <label className="col-sm-2 col-form-label">Category </label>
           <div className="col-sm-10">
             <select

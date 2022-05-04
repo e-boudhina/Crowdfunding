@@ -39,6 +39,7 @@ app.post("/api/organization/add", upload.single('image'),(req, res) => {
     organization1.adress=req.body.adress
     organization1.description=req.body.description
     organization1.Secteur=req.body.Secteur
+    organization1.adresseCrypto=req.body.adresseCrypto
     organization1.Image=req.file.originalname
     organization1.save()
       .then((result) => {
@@ -85,6 +86,7 @@ app.put("/api/organization/update/:id",upload.single('image'),(req, res) => {
     description:req.body.description,
     Secteur:req.body.Secteur,
     Image:req.file.originalname,
+    adresseCrypto:req.body.adresseCrypto,
   
   
   }

@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {getETHPrice} from "./getETHPrice";
 import { updateProjectFundRaised } from "../../actions/Projects/ProjectCrud.actions";
 
-const default_ADDRESS = "0xCa3EF78aCa4cEB19Ac8A2572B92233836fcafDEf"
+// const default_ADDRESS = "0xCa3EF78aCa4cEB19Ac8A2572B92233836fcafDEf"
 const CryptoPaymentsForm = (props) => {
   const [amount, setAmount] = useState(0) // new line
   const location = useLocation();
@@ -16,7 +16,7 @@ const CryptoPaymentsForm = (props) => {
 
   const [transaction, setTransaction] = useState(null) // new line
 
-  // const [fundneeded, setFundneeded] = useState(location.state.fundneeded);
+   const [default_ADDRESS, setFundneeded] = useState(location.state.fundneeded);
   // const [fundcollected, setFundcollected] = useState(location.state.fundcollected);
   let transactionUrl = ""
 
@@ -75,6 +75,9 @@ if(transaction){
   const formData = new FormData();
 
   formData.append('priceETH',amount );
+  // formData.append('adresseDonateur',adresseDonateur );
+  formData.append('adresseCrypto', default_ADDRESS);
+  
 
 console.log(amount);
   console.log(formData);
@@ -85,7 +88,7 @@ console.log(amount);
 
 console.log(location.state.labelproject);
 console.log(location.state.id);
-          dispatch(updateProjectFundRaised(location.state.id,formData))
+          dispatch(updateProjectFundRaised(location.state.id,location.state.idProject,formData))
 
 
 }

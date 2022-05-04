@@ -9,7 +9,6 @@ const config ={
 }}
 
 const registerr = (form) => {
-  console.log("AUTH SERVICE image"+JSON.stringify(form));
   return axios.post(API_URL + "/auth/signup", form,config);
 };
 
@@ -90,7 +89,7 @@ const logout = () => {
 
 const deleteUser = id => {
   console.log("service react , id user : " + id);
-  return  axios.delete("http://localhost:5000/api/user/delete/", { data: { id : id}});
+  return  axios.delete("http://localhost:5000/api/user/"+id, { data: { id : id}});
 };
 
 

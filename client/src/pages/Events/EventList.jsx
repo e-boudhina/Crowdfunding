@@ -1,11 +1,11 @@
 import React from "react";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import useEventList from "./useEventList";
 import EventsHeader from "./EventsHeader";
 
 const EventList = (props) => {
   const {
-    events: {page, hasNextPage, items, totalItems, totalPages},
+    events: { page, hasNextPage, items, totalItems, totalPages },
     removeEvent,
     handlePageChange,
   } = useEventList();
@@ -57,30 +57,8 @@ const EventList = (props) => {
                   id="eventTab"
                   role="tablist"
                 >
-                  <li className="nav-item">
-                    <a
-                      className="nav-link"
-                      id="home-tabe"
-                      data-toggle="tab"
-                      href="#contacte"
-                      role="tab"
-                      aria-selected="false"
-                    >
-                      day 01
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a
-                      className="nav-link"
-                      id="profile-tabe"
-                      data-toggle="tab"
-                      href="#contacte"
-                      role="tab"
-                      aria-selected="false"
-                    >
-                      day 02
-                    </a>
-                  </li>
+                  <li className="nav-item"></li>
+                  <li className="nav-item"></li>
                   <li className="nav-item">
                     <a
                       className="nav-link active show"
@@ -90,7 +68,7 @@ const EventList = (props) => {
                       role="tab"
                       aria-selected="true"
                     >
-                      day 03
+                      Howdy!
                     </a>
                   </li>
                 </ul>
@@ -110,7 +88,6 @@ const EventList = (props) => {
                             <h4>
                               {el.StartDate} {el.EndDate}
                             </h4>
-                            <span>Communication</span>
                           </div>
                         </div>
                       </div>

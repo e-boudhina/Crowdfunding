@@ -49,13 +49,6 @@ const signup = asyncHandler(async (req, res, next) => {
     res.status(400);
     throw Error("Please add all fields");
   }
-  //console.log("AUTH CONTROLLER file "+req.file);
-  //console.log("AUTH CONTROLLER file.filename "+req.file.filename);
-  //console.log("AUTH CONTROLLER files[0] "+req.files[0]);
-  // console.log("AUTH CONTROLLER body.file "+req.body.file);
-
-  //console.log("AUTH CONTROLLER body.image "+JSON.stringify(req.body.image));
-  //console.log("AUTH CONTROLLER body.image "+(req.body.image.File));
   const user = new User({
     firstName: req.body.firstName,
     lastName: req.body.lastName,
@@ -67,15 +60,23 @@ const signup = asyncHandler(async (req, res, next) => {
     email: req.body.email,
     password: bcrypt.hashSync(req.body.password, 8),
      verifyEmailToken: await generate_custom_token(),
-     img: {
+     img: 
+     req.file ? 
+     {
       data: req.file.filename,
       contentType: 'image/png'
-  }
+  } :
+  {
+    data: "alternative-profile.png",
+    contentType: 'image/png'
+}
+
     // verifyEmailToken: crypto.randomBytes(32).toString("hex") // this function can be either used synchronously or asynchronously
     //Read more about transforming an async function to a normal function
     // it had an error and a buffer as return callback
-  });
-console.log('/uploads/'+req.file.filename);
+
+}
+  );
   user.save(async (err, user) => {
     if (err) {
       res.status(500).send({ message: err });
@@ -117,14 +118,13 @@ console.log('/uploads/'+req.file.filename);
 
           //sending email
           //if you remove the await the rest of the code will continue and a success message will be returned even though and error can be raised
-          // However if you remove it the request will be much faster
-          console.log("Sending VerificationEmail Email...");
-          await transport
-            .sendMail(VerificationEmailTemplateTemplate(user))
-            .then(() => console.log("Verification Email Sent Successfully!"))
-            .catch((error) => {
-              console.log(error);
-            });
+          // you can however  remove it to make the request will be much faster
+          console.log("Sending VerificationEmail Email...")
+          await transport.sendMail(VerificationEmailTemplateTemplate(user))
+              .then(() => console.log('Verification Email Sent Successfully!'))
+              .catch(error => {
+                console.log(error)
+              });
 
           res.send({
             message:

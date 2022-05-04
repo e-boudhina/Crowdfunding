@@ -81,7 +81,10 @@ const AddEvent = (props) => {
         console.log(e);
       });
   };
-
+  const { user: currentUser } = useSelector((state) => state.auth);
+  if (!currentUser) {
+    return <Navigate to="/login" />;
+  }
   return (
     <section className="contact-form-area">
       <div className="container">

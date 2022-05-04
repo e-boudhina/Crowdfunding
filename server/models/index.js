@@ -15,4 +15,5 @@ db.certificate = require("./Learning/certificate.model")
 db.donation = require("./Donation/donation.model")
 db.chapter = require("./Learning/chapter.model")
 db.categorylearning = require("./Learning/category-learning.model")
+db.progression = require("./Learning/progression.model")
 module.exports = db;

@@ -16,6 +16,8 @@ var ProjectSchema = new mongoose.Schema({
   status:Number,
   dateCreation:Date,
   LieuCreation:String,
+  adresseCrypto:String,
+
   
     // incubator: {
     //     type: mongoose.Schema.Types.ObjectId,

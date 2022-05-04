@@ -30,45 +30,21 @@ export const deleteUser = (id) => async (dispatch) => {
       type: DELETE_USER,
       payload: { id },
     });
+    dispatch({
+      type: SET_MESSAGE,
+      payload: "You have successfully deleted your account",
+    });
   } catch (err) {
     console.log("DeleteUser -action  error " + err + " id user = " + id);
   }
 };
 
-export const updateProfile =
-  (
-    id,
-    email,
-    password,
-    firstName,
-    lastName,
-    address,
-    phone,
-    birthdate,
-    token
-  ) =>
-    async (dispatch, getState) => {
-      const user = {
-        id,
-        email,
-        password,
-        firstName,
-        lastName,
-        address,
-        phone,
-        birthdate,
-      };
+export const updateProfile = (form) => async (dispatch, getState) => {
       try {
-        dispatch({ type: USER_UPDATE_REQUEST }); //esm fnct
-        const config = {
-          headers: {
-            "Content-Type": "application/json",
-            "x-access-token": `${token}`,
-          },
-        };
-        //  const { data } = await axios.post(API_URL+"/user/update", user, config)
-        const { data } = await updateUser(user);
-        localStorage.setItem("infos", JSON.stringify(data.infos));
+        console.log("Entered updateProfile in Actions");
+        dispatch({ type: USER_UPDATE_REQUEST }); 
+        const { data } = await updateUser(form);
+       localStorage.setItem("infos", JSON.stringify(data.infos)); 
         localStorage.setItem("user", JSON.stringify(data.user));
         dispatch({ type: USER_UPDATE_SUCCESS, payload: data });
       } catch (error) {
@@ -87,10 +63,9 @@ export const updateProfile =
     export const registerr =
     (form) =>
       (dispatch) => {
-        return AuthService.registerr(
-          form
-        ).then(
+        return AuthService.registerr(  form ).then(
           (response) => {
+            console.log(form)
             dispatch({
               type: REGISTER_SUCCESS,
             });
