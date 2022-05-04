@@ -7,6 +7,11 @@ import {
 import {Else, If, Then} from "react-if-elseif-else-render";
 import Pagination from "../../../Pagination";
 
+import TimeAgo from 'javascript-time-ago'
+import en from 'javascript-time-ago/locale/en.json'
+import ReactTimeAgo from "react-time-ago";
+TimeAgo.addDefaultLocale(en)
+TimeAgo.addLocale(en)
 
 
 const ListIncubatorUserRequests = () =>{
@@ -53,24 +58,22 @@ const ListIncubatorUserRequests = () =>{
                             <thead>
                             <tr>
                                 <th scope="col">(#) Request Id</th>
-                                <th scope="col">Submitted At</th>
+                                <th scope="col">Submitted </th>
                                 <th scope="col">Status</th>
                                 <th scope="col">ApprovedBy</th>
                                 <th scope="col" >Actions</th>
                             </tr>
                             </thead>
                             <tbody>
-
                             {userRequests &&
                             currentItems.map((uR, index) => (
-                                <tr>
+                                <tr key={index}>
                                     <th scope="row">{uR._id}</th>
-                                    <td>{uR.createdAt}</td>
+                                    <td><ReactTimeAgo date={Date.parse(uR.createdAt)}/></td>
                                     <td>
                                         <If condition={uR.status ===undefined}>
                                             <Then>
                                                 <button className="btn-secondary" disabled >Pending</button>
-
                                             </Then>
                                             <Else>
                                                 <If condition={uR.status ===true}>
@@ -79,7 +82,6 @@ const ListIncubatorUserRequests = () =>{
                                                     </Then>
                                                     <Else>
                                                         <button className="btn-danger" disabled > Rejected</button>
-
                                                     </Else>
                                                 </If>
                                             </Else>
@@ -88,21 +90,15 @@ const ListIncubatorUserRequests = () =>{
                                     <td>{uR.incubatorId?uR.incubatorId.username:'...'}</td>
                                     <td>
                                         <div>
-
                                             <a  onClick={()=>view(uR)} className="btn btn-info ">View details</a>
                                         </div>
                                     </td>
                                 </tr>
-
-
                             ))}
-                            {userRequests.length ===0 ?<h3 className="blog-title" >You have not approved or rejected any userRequests Yet</h3>:""}
-
-                            {/*{ users ?'':'There are no user yer'}*/}
-
-
                             </tbody>
                         </table>
+                        {userRequests.length ===0 ?<h3 className="blog-title">You have not approved or rejected any userRequests Yet</h3>:""}
+
                         <Pagination itemsPerPage={itemsPerPage} totalItems={userRequests.length} paginate={paginate}/>
 
                     </div>

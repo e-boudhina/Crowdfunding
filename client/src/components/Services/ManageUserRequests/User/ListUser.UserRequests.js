@@ -1,11 +1,16 @@
-import {ban_User, delete_User, make_Admin, make_Incubator, make_User, unban_User} from "../../../../actions/User/user";
 import React, {useEffect, useState} from "react";
 import {useLocation, useNavigate} from "react-router-dom";
 import {getUser_UserRequests, getUserRequests} from "../../../../services/UserRequests.js/UserRequest.service";
 import { If, Then, ElseIf, Else } from 'react-if-elseif-else-render';
 import Pagination from "../../../Pagination";
+import TimeAgo from 'javascript-time-ago'
 
+import en from 'javascript-time-ago/locale/en.json'
 
+import ReactTimeAgo from "react-time-ago";
+
+TimeAgo.addDefaultLocale(en)
+TimeAgo.addLocale(en)
 const ListUser_UserRequests = () =>{
 
     //Setting state
@@ -49,7 +54,7 @@ const ListUser_UserRequests = () =>{
                     <thead>
                     <tr>
                         <th scope="col">(#) Request Id</th>
-                        <th scope="col">Submitted At</th>
+                        <th scope="col">Submitted</th>
                         <th scope="col">Status</th>
                         <th scope="col">ApprovedBy</th>
                         <th scope="col" >Actions</th>
@@ -59,9 +64,9 @@ const ListUser_UserRequests = () =>{
 
                     {userRequests &&
                     currentItems.map((uR, index) => (
-                        <tr>
+                        <tr key={index}>
                             <th scope="row">{uR._id}</th>
-                            <td>{uR.createdAt}</td>
+                            <td><ReactTimeAgo date={ Date.parse(uR.createdAt)} /></td>
                             <td>
                                 <If condition={uR.status ===undefined}>
                                         <Then>
@@ -92,11 +97,11 @@ const ListUser_UserRequests = () =>{
 
 
                     ))}
-                    {userRequests.length ===0 ?<h3 className="blog-title" style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>You have not submitted any Requests Yet</h3>:""}
-
 
                     </tbody>
                 </table>
+                {userRequests.length ===0 ?<h3 className="blog-title" style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>You have not submitted any Requests Yet</h3>:""}
+
                 <Pagination itemsPerPage={itemsPerPage} totalItems={userRequests.length} paginate={paginate}/>
 
             </div>

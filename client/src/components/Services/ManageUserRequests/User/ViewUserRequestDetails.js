@@ -64,7 +64,13 @@ const ViewUser_UserRequestDetails = () =>{
                         {/*    <div className="features text-center mb-40">*/}
                         <div className="postbox__text p-50 m-5">
                             <div className="post-meta mb-15">
-                                <span><i className="far fa-calendar-check" /> Received on "{currentRequest.createdAt}" </span>
+                                <span><i className="far fa-calendar-check" /> Received on "
+                                    {new Intl.DateTimeFormat("en-Us", {
+                                        year: "numeric",
+                                        month: "long",
+                                        day: "2-digit"
+                                    }).format(Date.parse(currentRequest.createdAt))}
+                                    " </span>
                                 <span><a href="#"><i className="far fa-user" />Approved By "{currentRequest.incubatorId?currentRequest.incubatorId.username:'Your request is still Pending'}" </a></span>
                             </div>
                             <div className="table-responsive">
@@ -72,16 +78,42 @@ const ViewUser_UserRequestDetails = () =>{
                                 <table className="table">
                                     <tbody>
                                     <tr>
+                                        <th>Request exact reception date</th>
+                                        <td >
+                                            {new Intl.DateTimeFormat("en-Us", {
+                                                weekday: 'long',
+                                                year: "numeric",
+                                                month: "long",
+                                                day: "2-digit",
+                                                hour: 'numeric',
+                                                minute: 'numeric',
+                                                second: 'numeric',
+                                                hour12: false,
+                                                //timeZone:''
+                                            }).format(Date.parse(currentRequest.createdAt))}
+                                        </td>
+                                    </tr>
+                                    <tr>
                                         <th>Desired Location</th>
                                         <td >{currentRequest.desired_Location}</td>
                                     </tr>
                                     <tr>
-                                        <th>Prefered starting date</th>
-                                        <td >{currentRequest.preferred_Starting_Date}</td>
+                                        <th>Preferred starting date</th>
+                                        <td >{new Intl.DateTimeFormat("en-Us", {
+                                            year: "numeric",
+                                            month: "long",
+                                            day: "2-digit"
+                                        }).format(Date.parse(currentRequest.preferred_Starting_Date))}</td>
                                     </tr>
                                     <tr>
                                         <th>Expected ending Date</th>
-                                        <td >{currentRequest.expected_Ending_Date}</td>
+                                        <td >
+                                            {new Intl.DateTimeFormat("en-Us", {
+                                                year: "numeric",
+                                                month: "long",
+                                                day: "2-digit"
+                                            }).format(Date.parse(currentRequest.expected_Ending_Date))}
+                                        </td>
                                     </tr>
                                     <tr>
                                         <th>Number of employees</th>
@@ -107,7 +139,7 @@ const ViewUser_UserRequestDetails = () =>{
                                     </thead>
                                     <tbody>
                                     {currentRequest.furniture && currentRequest.furniture.map((f, index) => (
-                                    <tr>
+                                    <tr key={index}>
                                         <td className="product-thumbnail">{f._id._id}</td>
 
                                         <td className="product-wis-btn"> {f._id.type}</td>

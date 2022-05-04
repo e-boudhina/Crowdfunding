@@ -218,9 +218,13 @@ const AddUserRequest = () => {
     };
 
     return (
+        <div className="login-area pt-120 pb-120">
         <div className="container">
-            <div className="card-body">
-                <h4 className="card-title mb-4">Submit New User Request</h4>
+            <div className="row">
+                <div className="col-lg-8 offset-lg-2">
+
+            <div className="card-body ">
+                <h4 className="card-title mb-4 text-center" >Submit A New User Request</h4>
                 <Form onSubmit={handleAdd} ref={form}>
                     <div className="row">
                         <div className="col">
@@ -398,7 +402,10 @@ const AddUserRequest = () => {
                     <CheckButton style={{ display: "none" }} ref={checkBtn} />
                 </Form>
             </div>
+            </div>
         </div>
+    </div>
+</div>
     );
 };
 export default AddUserRequest;

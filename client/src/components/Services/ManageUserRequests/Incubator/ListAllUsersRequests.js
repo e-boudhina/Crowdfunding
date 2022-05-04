@@ -2,6 +2,15 @@ import React, {useEffect, useState} from "react";
 import {useLocation, useNavigate} from "react-router-dom";
 import {getUserRequests} from "../../../../services/UserRequests.js/UserRequest.service";
 import { If, Then, ElseIf, Else } from 'react-if-elseif-else-render';
+import TimeAgo from 'javascript-time-ago'
+
+import en from 'javascript-time-ago/locale/en.json'
+
+import ReactTimeAgo from "react-time-ago";
+
+TimeAgo.addDefaultLocale(en)
+TimeAgo.addLocale(en)
+
 const ListUserRequests = () =>{
 
     //Setting state
@@ -39,12 +48,12 @@ const ListUserRequests = () =>{
                     </div>
                 </div>
                 {userRequests && userRequests.map((uR, index) => (
-                <div className="row">
+                <div className="row" key={index}>
                     {/*<div className="col-xl-4 col-lg-4 col-md-6">*/}
                     {/*    <div className="features text-center mb-40">*/}
                     <div className="postbox__text p-50 m-5">
                         <div className="post-meta mb-15">
-                            <span><i className="far fa-calendar-check" /> {uR.createdAt} </span>
+                            <span><i className="far fa-calendar-check" /> Received <ReactTimeAgo date={ Date.parse(uR.createdAt)} /></span>
                             <span><a href="#"><i className="far fa-user" />{uR.userId.username}</a></span>
                         </div>
                         <h3 className="blog-title">
