@@ -79,12 +79,14 @@ import AddUserRequest from "./components/Services/ManageUserRequests/User/AddUse
 import ListUser_UserRequests from "./components/Services/ManageUserRequests/User/ListUser.UserRequests";
 import ViewUser_UserRequestDetails from "./components/Services/ManageUserRequests/User/ViewUserRequestDetails";
 import ListIncubatorUserRequests from "./components/Services/ManageUserRequests/Incubator/ListIncubator.UserRequests";
-
+import Payment from "./pages/Projects/payment"
 // const dotenv = require('')
 
 import "./App.css";
 
 import Chat from "./components/Chat";
+import Stripetest from "./pages/Projects/test-stripe-static.component";
+import Cryptotest from "./pages/Projects/test-crypto-static.component";
 
 const App = () => {
   const redirect = () => {
@@ -234,6 +236,17 @@ const App = () => {
               element={<ViewUser_UserRequestDetails />}
             />
 
+
+            <Route path={"/payment"} element={<Payment />}>
+                <Route
+              path={"/payment/stripe"}
+              element={<Stripetest />}
+            />
+                    <Route
+              path={"/payment/crypto"}
+              element={<Cryptotest />}
+            />
+            </Route>
             <Route path={"/*"} element={<Notfound />} />
           </Route>
 
@@ -272,8 +285,11 @@ const App = () => {
               element={<EditFurniture />}
             />
           </Route>
+         
         </Routes>
       </Router>
+     
+
       <ToastContainer />
     </>
   );
