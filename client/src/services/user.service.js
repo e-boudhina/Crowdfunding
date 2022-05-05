@@ -48,7 +48,7 @@ const unbanUser = (username)=> {
 }
 
 const makeAdmin = (id)=> {
-  return  axios.post(API_URL+`makeAdmin/${id}`, { headers: authHeader()   })
+  return  axios.get(API_URL+`makeAdmin/${id}`, { headers: authHeader()   })
 }
 
 const makeIncubator = (id)=> {

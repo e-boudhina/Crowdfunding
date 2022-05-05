@@ -1,5 +1,5 @@
 import React from 'react'
-import './404.css'
+//import './404.css'
 function Notfound () {
   return (
     <div className='container'>
