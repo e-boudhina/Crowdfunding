@@ -67,19 +67,19 @@ function ListCertificates(props) {
                 src={`/profile-uploads/${certif.img.data}`}
                 alt="Card image cap"
               />
-              <div className="card-body">
-                <h4 className="card-title">{certif.name}</h4>
-                <p className="card-text">{certif.createdAt}</p>
+              <div className="card-body ">
+                <h4 className="card-title ">{certif.name}</h4>
+                <p className="card-text ">{certif.createdAt}</p>
                 <Link
                   to={"/admin/listchapters"}
                   state={{
                     chapters: certif.chapters,
                     test: "test",
                   }}
-                  className="btn btn-primary waves-effect waves-light pr-4">
+                  className="btn btn-primary waves-effect waves-light me-1 ">
                   View certificate
                 </Link>
-                <button className="btn btn-danger" onClick={(e) => submitDelete(certif._id)}>Delete</button>  
+                <button className="btn btn-danger " onClick={(e) => submitDelete(certif._id)}>Delete</button>  
               </div>
             </div>
           </div>
