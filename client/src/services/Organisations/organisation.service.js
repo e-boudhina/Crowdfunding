@@ -39,6 +39,11 @@ const remove = (id)=> {
   
   return axios.delete(API_URL+"delete/"+id);
 };
+const sami = (id)=> {
+
+  
+  return axios.delete(API_URL+"delete/"+id);
+};
 const update = (id,form)=> {
   return axios.put(API_URL+"update/"+id,form,config);
 };
@@ -55,6 +60,7 @@ export default  {
   allOrganisationForUser,
   getSingle,
   remove,
+  sami,
   update,
   FollowOrganisation,
   IsFollowed,
