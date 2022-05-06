@@ -14,7 +14,6 @@ const color = require('colors')
 const { errorHandler } = require('./middlewares/Error/error_Middleware')
 connectDB()
 
-
 const port = process.env.PORT || 5001;
 
 var app = express();
@@ -22,7 +21,7 @@ var corsOptions = {
     origin: "*"
 };
 app.use(cors(corsOptions));
-
+ 
 app.set("view engine", "ejs");
 let reqPath = path.join(__dirname, '../client/public');
 
@@ -33,42 +32,7 @@ app.use(express.static("public"));
 
 
 var bodyParser = require('body-parser');
-// app.get('/image', (req, res) => {
-//   imgModel.find({}, (err, items) => {
-//       if (err) {
-//           console.log(err);
-//           res.status(500).send('An error occurred', err);
-//       }
-//       else {
-//           res.render('imagesPage', { items: items });
-//       }
-//   });
-// });
 
-
-// app.post('/images', upload.single('image'), (req, res, next) => {
-
-//   var obj = {
-
-//       name: req.body.name,
-//       desc: req.body.desc,
-//       img: {
-//           data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
-//           contentType: 'image/png'
-//       }
-//   }
-//   imgModel.create(obj, (err, item) => {
-//       if (err) {
-//           console.log(err);
-//       }
-//       else {
-//           // item.save();
-//           // res.send({ id: item.id})
-//           res.redirect(307,'/api/test/add');
-
-//       }
-//   });
-// });
 var test;
 // The 2 following line are called middlewares
 // Accepting only body type format (Content-type: json)
