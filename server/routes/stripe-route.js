@@ -15,6 +15,7 @@ router.get('/', (req, res, next) => {
 router.post("/pay", (req, res, next) => {
     console.log(req.body.email);
     const { token, amount } = req.body;
+
     const idempotencyKey = uuidv4();
     return stripe.customers.create({
         email: token.email,
@@ -25,7 +26,9 @@ router.post("/pay", (req, res, next) => {
             amount: amount * 100,
             currency: 'usd',
             customer: customer.id,
-            receipt_email: token.email
+            receipt_email: token.email,
+
+
         }, { idempotencyKey })
     }).then(result => {
         console.log(JSON.stringify(result));
