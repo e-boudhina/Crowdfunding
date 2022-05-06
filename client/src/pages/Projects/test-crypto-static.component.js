@@ -32,7 +32,7 @@ const Cryptotest = (props) => {
          : transaction.network?.name + "."
      }etherscan.io/tx/${transaction.hash}`
    }
- 
+
    const startPayment = async event => {
      // new line
      // varvalue = await getETHPrice();
