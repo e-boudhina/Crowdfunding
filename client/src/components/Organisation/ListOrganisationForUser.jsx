@@ -42,7 +42,15 @@ const { user: currentUser } = useSelector((state) => state.auth);
 const deletee=(id)=>{
   
   
-  // sami(id)
+  // sami(id).then(
+  //   (res)=> {
+  //       toast.success(res.data.message)
+  //       // console.log(res.data.message)
+  //   })
+  //   .catch((error)=>
+  //       console.log(error)
+  //   )
+
 // if (error) {
 //   console.log("Problem with the api");
 // } else {
