@@ -90,6 +90,8 @@ import Cryptotest from "./pages/Projects/test-crypto-static.component";
 import { Navigate } from "react-router-dom";
 
 import "./App.css"
+import CheckUserIsLoggedInAndVerified from "./components/PrivateRoute/CheckUserIsLoggedInAndVerified";
+import VerifyEmailStaticComponent from "./components/User/verify-email-static.component";
 
 
 const App = () => {
@@ -140,6 +142,8 @@ const App = () => {
             <Route path={"/reset-password"} element={<Reset_password />} />
             <Route path={"/new-password/:token"} element={<New_password />} />
             <Route path={"/verify-email/:token"} element={<Verify_email />} />
+            <Route path={"/verify-email"} element={<VerifyEmailStaticComponent />} />
+
             <Route
               path={"/ListProjectsOfUser"}
               element={<ListProjectsOfUser />}
@@ -211,6 +215,7 @@ const App = () => {
             {/* <Route exact path={'/ListOrganisationForAdmin'} element={<ListOrganisationForAdmin />} /> */}
 
             {/*/!*UserRequests routes* for the incubator/}*/}
+            <Route element={<CheckUserIsLoggedInAndVerified/>}>
             <Route
               path={"/services/userRequests"}
               element={<ListUserRequests />}
@@ -241,7 +246,7 @@ const App = () => {
               path={"/services/userRequests/user/view/:id"}
               element={<ViewUser_UserRequestDetails />}
             />
-
+            </Route>
 
             <Route path={"/payment"} element={<Payment />}>
               <Route

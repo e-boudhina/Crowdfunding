@@ -399,9 +399,7 @@ const Register = () => {
                       ) : (
                         <button className="btn btn-black w-100">Update </button>
                       )}
-                      <div className="or-divide">
-                        <span>or</span>
-                      </div>
+
                     </div>
                   </div>
                 )}
