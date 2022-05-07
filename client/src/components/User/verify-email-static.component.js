@@ -1,10 +1,23 @@
 import React from "react";
-
+import {toast} from "react-toastify";
+import {useNavigate} from "react-router-dom";
+import AuthService from "../../services/auth.service";
+import {refreshUser} from "../../actions/auth";
+import { useDispatch, useSelector } from "react-redux";
 
 const VerifyEmailStaticComponent = () =>{
 
+    const dispatch = useDispatch()
+    const navigate = useNavigate
     const requestNewVerificationEmail = ()=> {
-
+        AuthService.resend_Verify_Email_Token().then(
+            (res) => {
+                toast.success(res.data.message)
+                navigate('/')
+            })
+            .catch((error) =>
+            console.log(error)
+        )
     }
 
     return(

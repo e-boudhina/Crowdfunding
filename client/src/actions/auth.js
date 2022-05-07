@@ -298,12 +298,20 @@ export const  verify_email =  (token) =>   (dispatch) => {
     );
   };
 
-
-
-
   export const logout = () => (dispatch) => {
     AuthService.logout();
     dispatch({
       type: LOGOUT,
     });
   };
+
+export const refresh_User_Verified_Infos = (currentInfos) => (dispatch) => {
+
+    currentInfos.verified = true;
+    localStorage.setItem("infos", JSON.stringify(currentInfos));
+    dispatch({
+        type: "ACCOUNT_VERIFIED_SUCCESS",
+         payload: currentInfos,
+    });
+
+};

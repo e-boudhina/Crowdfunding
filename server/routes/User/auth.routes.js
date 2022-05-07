@@ -1,4 +1,4 @@
-const { verifySignUp } = require("../../middlewares");
+const { verifySignUp, authJwt} = require("../../middlewares");
 const controller = require("../../controllers/User/auth.controller");
 const controller2 = require("../../controllers/User/user.controller");
 var path = require('path');
@@ -34,6 +34,7 @@ module.exports = function(app) {
     app.post("/api/auth/verify-email/:verify_email_token", controller.verify_email);
     app.post("/api/auth/reset-password", controller.reset_password);
     app.post("/api/auth/new-password", controller.new_password);
+    app.get("/api/auth/verify-email", [authJwt.verifyToken], controller.resend_EmailToken);
     app.post("/api/user/update", upload.single('image') ,controller2.updateUserProfile);
 
 
