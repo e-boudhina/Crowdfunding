@@ -3,6 +3,11 @@ import axios from "axios";
 import Stripe from "react-stripe-checkout";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
+import { useLocation } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
+import { useDispatch, useSelector  } from "react-redux";
+
+
 import { isEmail } from "validator";
 import { useState } from "react";
 import { Button } from "reactstrap";
@@ -27,14 +32,27 @@ const validEmail = (value) => {
   };
 
 
-const StripeWrapper = () => {
-   // const email = "iheboues@gmail.com"  //t7ott email houni
+const StripeWrapper = (props) => {
+
+  const location = useLocation();
+  const dispatch=useDispatch();
+  
+  // const email = "iheboues@gmail.com"  //t7ott email houni
+  
+      const { user: currentUser } = useSelector((state) => state.auth);
+   const id = useSelector((state) => state.projects.id);
+   console.log(currentUser.id);
+console.log(id.id);
     const [isFilled , setIsFilled] = React.useState(false);
     const [email, setEmail] = useState("");
     const [amount , setAmount ] = useState(0);
     const handleToken = (totalAmount, token) => {
-        try {
-            axios.post("http://localhost:5000/api/project/donation/stripe/payment-intent", {
+     
+      
+  
+      try {
+          
+            axios.post("http://localhost:5000/api/project/donation/stripe/payment-intent/"+currentUser.id+"/"+id.id, {
                 token: token.id,
                 amount: totalAmount,
                 email : email
@@ -96,7 +114,7 @@ setIsFilled(true)}
             {isFilled?      
                       <div className="form-group mt-5">
                      <Stripe 
-                stripeKey="pk_test_51KwPH7L7Lpb9x7yHOnAuzuByoFV29HmZQa0EigNUKbNP7YP6STce0SdHet9zdr08Lq2BZ5ZvDuBPH4HS3ydSG67Z00bsrQpbT6"
+                stripeKey="pk_test_51KvTxVAOhnpchTYEpyfhHVAEBvX442cJQeBSJg4jukxdxmd7zEuz1NI1ZHFwhbtgXBX9lymH2AD4x77z9kyaz3YH003Luidc8f"
                 token={tokenHandler}
             /> 
             </div> : <></> }

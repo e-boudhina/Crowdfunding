@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { allProjects, RetrieveProject } from "../../actions/Projects/ProjectCrud.actions";
 
 import { Navigate, useLocation } from 'react-router-dom';
+import {CHANGE_ID,post_adresse} from "../../actions/Projects/Type";
 import '../Organisation/aaa.css'
 function SingleProject(props) {
 
@@ -12,7 +13,9 @@ function SingleProject(props) {
     const [project, setProject] = useState(props.project);
 
     const navigate = useNavigate();
-    const { user: currentUser } = useSelector((state) => state.auth);
+    const dispatch = useDispatch();
+    const id= useSelector((state) => state.projects.id);
+
     const date = new Date(project.dateCreation)
 
     console.log(date);
@@ -82,7 +85,15 @@ var barsize=0;
                         <div className="col-xl-12">
                             <div className="section-link text-center">
                                 <a className="btn-border"    style={{ cursor: "pointer" }} onClick={() => {
-                                    navigate('/payment/crypto', { state: { id: project._id, labelproject: project.labelproject, fundcollected: project.fundcollected, fundneeded: project.fundneeded, projectdescriptiob: project.projectdescriptiob,adresseCrypto:project.adresseCrypto, image: project.Image } });
+                                     dispatch({
+                                        type: CHANGE_ID,
+                                        payload: { id: project._id },
+                                      });
+                                     dispatch({
+                                        type: post_adresse,
+                                        payload: { adresse: project.adresseCrypto },
+                                      });
+                                    navigate('/payment', { state: { id: project._id, labelproject: project.labelproject, fundcollected: project.fundcollected, fundneeded: project.fundneeded, projectdescriptiob: project.projectdescriptiob,adresseCrypto:project.adresseCrypto, image: project.Image } });
                                 }}>Donate</a>
                             </div>
                         </div>

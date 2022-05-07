@@ -4,8 +4,9 @@ const db = require("../../models");
 const Project = db.Project;
 const organization = db.organization;
 var path = require('path');
-const stripe = require("stripe")("sk_test_51KwPH7L7Lpb9x7yHYGN1lCPYJmRy8HgzTVSYKFlCGWEZjEQukrFSoJGB4g6IwKK3AIkROeggw3QDi8d0SBW7mnTt00YUM3YIPt");
+const stripe = require("stripe")("sk_test_51KvTxVAOhnpchTYEG6joLmvW8nf7QlzUFXr81JIvILTOnUpt8wl4mNygn42qhsfNICtEEvSH94ShDY4UvqjD7sVt00EYK5x5m3");
 const { v4: uuidv4 } = require('uuid');
+const Donation = db.donation;
 
 
 
@@ -18,26 +19,53 @@ module.exports = function(app) {
 //app.post("/api/project/donation/cash/:id/:idProject",controller.donateCash;
 app.post("/api/project/donation/crypto/:id/:idProject",controller.donateCrypto);
 
-app.post("/api/project/donation/stripe/payment-intent", async(req,res)=>{
+app.post("/api/project/donation/stripe/payment-intent/:id/:idProject", async(req,res)=>{
   console.log("EL REQ : " + JSON.stringify(req.body));
   const { token, amount } = req.body;
   const idempotencyKey = uuidv4();
+console.log("entered customers.creacte");
+console.log(req.params.idProject);
+console.log(req.params.id);
   return stripe.customers.create({
       email: token.email,
       source: token
   }).then(customer => {
-      console.log("EL CUSTOMER : ="+ JSON.stringify(customer));
-      stripe.charges.create({
-          amount: amount * 100,
-          currency: 'usd',
-          customer: customer.id,
-          receipt_email: token.email
-    //receipt_email: req.body.email
-      }, { idempotencyKey })
+
+console.log("entered then customer");
+    
+    
+    
+    console.log("EL CUSTOMER : ="+ JSON.stringify(customer));
+console.log("entered customer");
+
+    stripe.charges.create({
+      amount: amount * 100,
+      currency: 'usd',
+      customer: customer.id,
+      receipt_email: token.email
+      //receipt_email: req.body.email
+    }, { idempotencyKey })
+console.log("entered charges");
+
   }).then(result => {
       console.log("EL RESULT : ="+ JSON.stringify(result));
+      const donation = new Donation({
+        user: req.params.id,
+        project: req.params.idProject,
+        money: amount,
+        email:token.email,
+        operation: 1,
+      
+  
+    
+      })
+console.log("left  donation");
+
+      donation.save()
+console.log("left donation save");
+
       res.status(200)
-  }).catch(err => {
+    }).catch(err => {
       console.log(err);
   });
 });

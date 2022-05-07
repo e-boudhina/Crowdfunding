@@ -65,9 +65,17 @@ exports.donateCrypto = (req, res) => {
           console.log(req.params.idProject);
 
 
-      
+          Project.find({ _id: req.params.idProject }, (err, project) => {
+            if (err) {
+              project.fundcollected+= req.body.priceETH*pricInEth  
+            }
+            else {
+              console.log(result);
+              res.json(result)
+            }
+          });  
 
-          project.fundcollected+= req.body.priceETH*pricInEth  
+          // project.fundcollected+= req.body.priceETH*pricInEth  
       
         }
       
