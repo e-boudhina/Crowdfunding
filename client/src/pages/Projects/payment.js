@@ -5,6 +5,8 @@ import { useDispatch, useSelector  } from "react-redux";
 import { useNavigate  } from "react-router-dom";
 import { BrowserRouter as Router, Routes, Route , Outlet} from "react-router-dom";
 import PropTypes from 'prop-types';
+import { useLocation} from 'react-router';
+
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
@@ -14,18 +16,25 @@ import Box from '@material-ui/core/Box';
 const Payment = (props) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const location = useLocation();
     const [stripeSelected , setStripeSelected ] = useState(false);
     const [cryptoSelected , setCryptoSelected ] = useState(true);
 
+
+
 const selectCrypto = () => {
+  setCryptoSelected(true);
     setStripeSelected(false);
-    setCryptoSelected(true);
-    navigate("/payment/crypto");
+   
+    // navigate("/payment/crypto", { state: { id:location.state.id} });
+    navigate("/payment/crypto")
 }
 const selectStripe = () => {
     setStripeSelected(true);
     setCryptoSelected(false);
     navigate("/payment/stripe");
+    
+
 }
     return (
     <>   
@@ -36,6 +45,7 @@ const selectStripe = () => {
             <ul className="nav text-center justify-content-center pb-30 mb-50" id="myTab" role="tablist">
               <li className="nav-item">
                 <a className={"nav-link   " + (cryptoSelected ? 'active show' : '')} id="profile-tab1" 
+                
                 data-toggle="tab" onClick={()=> selectCrypto()} href="#" role="tab" aria-controls="profile" aria-selected={cryptoSelected ? 'true' : 'false'}>Crypto</a>
               </li>
               <li className="nav-item"> 

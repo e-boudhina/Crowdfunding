@@ -4,6 +4,7 @@ import {
     AddProject_SUCCESS,
      DELETE_PROJECT,
      UPDATE_PROJECT,
+     CHANGE_ID,
      GET_SINGLE_PROJECT,
      GET_PROJECTS_ORG,
      GET_PROJECTS_TO_VALIDATE,
@@ -39,6 +40,20 @@ import {
             return Promise.reject();
           }
 
+    );
+  };
+
+  export const idChange = (id) => (dispatch) => {
+    return ProjectService.allProjects(id).then(
+        (result) => {
+            console.log(result);
+            dispatch({
+                type:CHANGE_ID ,
+                payload: id,
+            });
+             console.log(result.data);
+            return Promise.resolve();   
+          }
     );
   };
 

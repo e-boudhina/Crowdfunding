@@ -6,6 +6,7 @@ var donationSchema = new mongoose.Schema({
     project: { type: mongoose.Schema.Types.ObjectId, ref: 'Projects' },
 
     money: Number,
+    email:String,
     operation: Number ,
     adresseCryptoDonateur:String,
     adresseCryptoProject: String

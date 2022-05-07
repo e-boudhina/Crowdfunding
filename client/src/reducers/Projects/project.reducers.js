@@ -2,14 +2,18 @@ import {
  
     GET_PROjECT,
     DELETE_PROJECT,
+    CHANGE_ID,
     UPDATE_PROJECT,
     GET_SINGLE_PROJECT,
+    post_adresse,
     GET_PROJECTS_ORG,
     GET_PROJECTS_TO_VALIDATE
   } from "../../actions/Projects/Type";
 
 const initialState={
-projects:[]
+projects:[],
+id:0,
+adresse:""
 }
 
 
@@ -22,6 +26,17 @@ projects:[]
           ...state,
           projects: action.payload,
         };
+        case CHANGE_ID:
+          return {
+            ...state,
+            id: action.payload,
+          };
+
+          case post_adresse:
+            return {
+              ...state,
+              adresse: action.payload,
+            };
       case GET_PROJECTS_ORG:
         return {
           ...state,
