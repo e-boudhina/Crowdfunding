@@ -38,10 +38,18 @@ const convert = require("crypto-convert");
 
 
 exports.donateCrypto = (req, res) => {
+
+
+  console.log("hellllllloooo");
   if (!req.body.adresseCrypto) {
     res.status(400).send({ message: "Donate field cannot be empty   can not be empty!" });
     return;
   }
+  console.log(req.params.id);
+  console.log("hellllllloooo");
+  console.log(req.params.idProject);
+  console.log("hellllllloooo"); 
+      // console.log( );
   var a =convert.BTC.USD(1);
   var pricInEth =convert.ETH.USD(1);
   var c =	convert.LINK.LTC(5);
@@ -54,7 +62,7 @@ exports.donateCrypto = (req, res) => {
             money: req.body.priceETH*pricInEth,
             operation: 0 ,
             adresseCryptoProject:req.body.adresseCrypto,
-            adresseCryptoDonateur:req.body.adresseDonateur,
+            // adresseCryptoDonateur:req.body.adresseDonateur,
 
         
           });
@@ -63,15 +71,21 @@ exports.donateCrypto = (req, res) => {
           console.log(req.body.priceETH);
           console.log(req.params.id);
           console.log(req.params.idProject);
+          
+      
 
 
-          Project.find({ _id: req.params.idProject }, (err, project) => {
+          Project.findOne({ _id: req.params.idProject }, (err, project) => {
             if (err) {
-              project.fundcollected+= req.body.priceETH*pricInEth  
+           res.json(err)
+              
             }
             else {
-              console.log(result);
-              res.json(result)
+         
+              project.fundcollected+= req.body.priceETH*pricInEth  
+              console.log( project.fundcollected);
+              project.save()
+              res.json(project)
             }
           });  
 

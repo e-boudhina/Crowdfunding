@@ -18,6 +18,7 @@ module.exports = function(app) {
 
 //app.post("/api/project/donation/cash/:id/:idProject",controller.donateCash;
 app.post("/api/project/donation/crypto/:id/:idProject",controller.donateCrypto);
+app.post("/api/project/donation/crypto/:id/:idProject",controller.donateCrypto);
 
 app.post("/api/project/donation/stripe/payment-intent/:id/:idProject", async(req,res)=>{
   console.log("EL REQ : " + JSON.stringify(req.body));
@@ -63,6 +64,23 @@ console.log("left  donation");
 
       donation.save()
 console.log("left donation save");
+
+
+Project.findOne({ _id: req.params.idProject }, (err, project) => {
+  if (err) {
+ res.json(err)
+    
+  }
+  else {
+
+    project.fundcollected+= donation.money
+    console.log( project.fundcollected);
+    project.save()
+    res.json(project)
+  }
+});  
+
+
 
       res.status(200)
     }).catch(err => {

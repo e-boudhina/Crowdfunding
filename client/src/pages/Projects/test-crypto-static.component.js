@@ -94,16 +94,25 @@ const Cryptotest = (props) => {
  
  
  
- console.log(location.state.labelproject);
- console.log(location.state.id);
- try {
- console.log(location.state.idProject);
- console.log(currentUser.id);
+      try {
           
-   axios.post("/api/project/donation/crypto/"+currentUser.id+"/"+location.state.idProject, formData);
-} catch (error) {
-   console.log(error);
-};
+         axios.post("http://localhost:5000/api/project/donation/crypto/"+currentUser.id+"/"+id.id, {
+            priceETH: amount,
+            adresseCrypto: destinationAddress,
+       
+         });
+     } catch (error) {
+         console.log(error);
+     };
+ 
+//  try {
+ 
+//  console.log(currentUser.id);
+
+//    axios.post(""+currentUser.id+"/"+id.id, formData);
+// } catch (error) {
+//    console.log(error);
+// };
 
  
  
