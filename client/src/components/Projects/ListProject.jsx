@@ -7,6 +7,7 @@ import { allProjects,RetrieveProjectsByOrg } from "../../actions/Projects/Projec
 import  SingleProject  from "./SingleProjectForUser";
 import React, { useState, useEffect } from "react";
 import { deleteProject } from "../../actions/Projects/ProjectCrud.actions";
+import {toast} from "react-toastify";
 
 
 
@@ -22,8 +23,16 @@ function ListProject(){
  const ownerName=location.state.ownerName
 
 const deletee=(id)=>{
-  dispatch(deleteProject(id))
-
+ 
+  deleteProject(id).then(
+    (res)=> {
+        toast.success(res.data.message)
+        // console.log(res.data.message)
+    })
+    .catch((error)=>
+        console.log(error)
+    )
+  
 // if (error) {
 //   console.log("Problem with the api");
 // } else {

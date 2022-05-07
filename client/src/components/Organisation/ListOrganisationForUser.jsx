@@ -8,7 +8,9 @@ import { allOrganisationForUser } from "../../actions/Organisations/Organisation
 import  SingleOranisationForUser  from "./SingleOrganisationForUser";
 import React, { useState, useEffect } from "react";
 import { deleteOrganization } from "../../actions/Organisations/OrganisationCrud.actions";
+import sami  from "../../services/Organisations/organisation.service";
 
+import {toast} from "react-toastify";
 
 
 
@@ -38,7 +40,16 @@ const { user: currentUser } = useSelector((state) => state.auth);
 //   return <Navigate to="/login" />;
 // }
 const deletee=(id)=>{
-  dispatch(deleteOrganization(id))
+  
+  
+  // sami(id).then(
+  //   (res)=> {
+  //       toast.success(res.data.message)
+  //       // console.log(res.data.message)
+  //   })
+  //   .catch((error)=>
+  //       console.log(error)
+  //   )
 
 // if (error) {
 //   console.log("Problem with the api");
