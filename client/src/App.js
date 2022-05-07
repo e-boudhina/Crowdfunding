@@ -244,9 +244,10 @@ const App = () => {
 
 
             <Route path={"/payment"} element={<Payment />}>
+         
               <Route
                 path={"/payment/stripe"}
-                element={<Stripetest />}
+                element={<StripeWrapper />}
               />
               <Route
                 path={"/payment/crypto"}

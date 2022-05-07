@@ -307,3 +307,6 @@ export const  verify_email =  (token) =>   (dispatch) => {
       type: LOGOUT,
     });
   };
+
+
+ 

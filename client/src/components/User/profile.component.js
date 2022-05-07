@@ -82,26 +82,13 @@ useEffect(() => {
                 <div className="team-info">
                   <div className="row">
                     <div className="col-lg-6 col-md-6">
-                      <div className="team-cta mb-35">
+                      <div className="team-cta mb-3">
                         <h5 className="team-ph"> {email} </h5>
                         <h5 className="team-mail"> P : +   {phone} </h5>
-                        <h5 className="team-mail">  {birthDate} </h5>
-                      </div>
-                    </div>
-                    <div className="col-lg-6 col-md-6">
-                      <div className="team-social  text-md-right mb-35">
-                        <a href="#"><i className="fab fa-facebook-f" /></a>
-                        <a href="#"><i className="fab fa-twitter" /></a>
-                        <a href="#"><i className="fab fa-behance" /></a>
-                        <a href="#"><i className="fab fa-linkedin-in" /></a>
-                        <a href="#"><i className="fab fa-youtube" /></a>
+                        <h5 className="team-mail"> BIRTHDATE :  {birthDate.slice(0, 10)} </h5>
                       </div>
                     </div>
                   </div>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur sint occaecat
-                    cupidatat.</p>
                 </div>
               </div>
             </div>

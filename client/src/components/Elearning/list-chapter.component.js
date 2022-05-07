@@ -76,7 +76,7 @@ function Listchapter({ props }) {
                     <div>
                       <Link
                         to={`/admin/chapter/${tutorial._id}`}
-                        className="btn btn-primary waves-effect waves-light">
+                        className="btn btn-primary waves-effect waves-light me-1">
                         {" "}
                         View chapter
                       </Link>

@@ -1,4 +1,5 @@
 .box {
+  vertical-align: middle;
   position: relative;
   height: 250px;
   width: auto;

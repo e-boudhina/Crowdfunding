@@ -10,7 +10,7 @@ import { Row, Col, Form, Input, Button, notification } from "antd";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { getCertificates } from "../../services/Learning.service";
 import axios from "axios";
-
+import { useNavigate } from "react-router-dom";
 
 function Add(props) {
   const dispatch = useDispatch();
@@ -25,13 +25,14 @@ function Add(props) {
   const [certificates, setCertificates] = useState([]);
   const [certifId,setCertifID] = useState(0);
   var certifs = [];
-
+const navigate = useNavigate();
   const handleEditorChange = (editorState) => {
     setEditorState({ editorState });
     console.log(editorState);
   };
 
   const onSubmit = () => {
+    if ( certifId !== 0 ) { 
     const newPost = {
       //id,
       name,
@@ -41,8 +42,12 @@ function Add(props) {
       certifId,
     };
     console.log(newPost);
-    dispatch(addPost(newPost));
-  };
+    dispatch(addPost(newPost))
+    navigate("/admin/listcertificates");
+  } else {
+ console.log("Please select a category");
+  }
+}
 
   useEffect(() => {
     retrieveCertificates();
