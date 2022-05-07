@@ -1,5 +1,6 @@
 /* eslint-disable import/no-anonymous-default-export */
 import axios from "axios";
+import authHeader from "./auth-header";
 
 const API_URL = "http://localhost:5000/api";
 
@@ -78,9 +79,9 @@ const verify_email = (token) => {
       });
 };
 
-
-
-
+const resend_Verify_Email_Token = () => {
+    return axios.get(API_URL + "/auth/verify-email/", { headers: authHeader()})
+};
 
 const logout = () => {
   localStorage.removeItem("user");
@@ -101,5 +102,6 @@ export default  {
   deleteUser,
   reset_password,
   new_password,
-  verify_email
+  verify_email,
+  resend_Verify_Email_Token
 };

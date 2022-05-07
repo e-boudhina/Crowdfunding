@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {useNavigate, useParams} from "react-router-dom";
 
 import "react-phone-input-2/lib/style.css";
-import {verify_email} from "../../actions/auth";
+import {refresh_User_Verified_Infos, verify_email} from "../../actions/auth";
 import Spinner from "../Spinner";
 import {clearMessage} from "../../actions/message";
 
@@ -13,6 +13,7 @@ const Verify_email = (props) => {
     const {token} = useParams()
     // console.log(token)
 
+    const { infos: currentInfos } = useSelector((state) => state.auth);
 
 
     const [isLoading, setIsLoading] = useState(true);
@@ -26,7 +27,10 @@ const Verify_email = (props) => {
 
     useEffect(() => {
         runFunction()
-        return () => {dispatch(clearMessage())}
+        return () => {
+            dispatch(refresh_User_Verified_Infos(currentInfos))
+            dispatch(clearMessage())
+        }
     }, []);
 
     const runFunction = () => {
