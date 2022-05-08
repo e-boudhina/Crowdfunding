@@ -14,6 +14,7 @@ const Verify_email = (props) => {
     // console.log(token)
 
     const { infos: currentInfos } = useSelector((state) => state.auth);
+    const { isLoggedIn } = useSelector((state) => state.auth);
 
 
     const [isLoading, setIsLoading] = useState(true);
@@ -28,7 +29,9 @@ const Verify_email = (props) => {
     useEffect(() => {
         runFunction()
         return () => {
+            if (isLoggedIn){
             dispatch(refresh_User_Verified_Infos(currentInfos))
+            }
             dispatch(clearMessage())
         }
     }, []);
@@ -40,7 +43,11 @@ const Verify_email = (props) => {
             setSuccessful(true);
             setTimeout(()=>{
                     //dispatch(clearMessage())
-                        navigate('/login');
+                        if (isLoggedIn){
+                            navigate('/profile');
+                        }else {
+                            navigate('/login');
+                        }
                 }
                 ,5000)
 

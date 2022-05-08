@@ -91,8 +91,9 @@ import Cryptotest from "./pages/Projects/test-crypto-static.component";
 import { Navigate } from "react-router-dom";
 
 import "./App.css"
-import CheckUserIsLoggedInAndVerified from "./components/PrivateRoute/CheckUserIsLoggedInAndVerified";
+import CheckUserIsLoggedInAndVerified from "./components/PrivateRoutes/CheckUserIsLoggedInAndVerified";
 import VerifyEmailStaticComponent from "./components/User/verify-email-static.component";
+import CheckUserIsIncubator from "./components/PrivateRoutes/CheckUserIsIncubator";
 
 
 const App = () => {
@@ -217,7 +218,8 @@ const App = () => {
 
             {/*/!*UserRequests routes* for the incubator/}*/}
             <Route element={<CheckUserIsLoggedInAndVerified/>}>
-            <Route
+              <Route element={<CheckUserIsIncubator/>}>
+              <Route
               path={"/services/userRequests"}
               element={<ListUserRequests />}
             />
@@ -229,10 +231,12 @@ const App = () => {
               path={"/services/userRequests/incubator/view/:id"}
               element={<ViewUserRequestDetails />}
             />
+
             <Route
               path={"/services/userRequests/incubator"}
               element={<ListIncubatorUserRequests />}
             />
+              </Route>
 
             {/*User requests routes for user*/}
             <Route
