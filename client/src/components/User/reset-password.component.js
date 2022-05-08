@@ -51,40 +51,41 @@ const Reset_password = () => {
 
     useEffect(() => {
         console.log('change detected')
-    },[])
+    },[message])
 
     const handleReset = (e) => {
         e.preventDefault();
         form.current.validateAll();
-        console.log('before')
-        console.log("is message exists? "+message)
-        dispatch(reset_password(username)).then(() => {
-           console.log("after")
-           console.log("is message exists? "+message)
-            //I added ? to see if it exists else you'll get "TypeError: message is undefined"
-            console.log("Message: "+message)
-            console.log("Message starts with reset ?  "+message.startsWith("Reset"))
-            console.log("1"+successful)
+        // console.log('before')
+        // console.log("is message exists? " + message)
+         dispatch(reset_password(username)).then(() => {
+             console.log("after")
+             console.log("is message exists? " + message !==undefined)
+             console.log("The message " + message)
 
-             if (message.startsWith("Reset"))
-             {
-                console.log("2"+successful)
-                setSuccessful(true);
-               console.log("3"+successful)
-                // setTimeout(()=>{
-                //         clearMessage()
-                //         navigate('/login');
-                //     }
-                //     ,5000)
-             }
+            //I added ? to see if it exists else you'll get "TypeError: message is undefined"
+            // console.log("Message: " + message)
+            // console.log("Message starts with reset ?  " + message.startsWith("Reset"))
+            // console.log("1" + successful)
+            //
+            // if (message.includes("Reset")) {
+            //     console.log("2" + successful)
+            //     setSuccessful(true);
+            //     console.log("3" + successful)
+            //     // setTimeout(()=>{
+            //     //         clearMessage()
+            //     //         navigate('/login');
+            //     //     }
+            //     //     ,5000)
+            // }
 
             //you must first clear the message
 
-        }).catch((error)=>{
-             setSuccessful(false);
-           console.log("Catching error")
-           console.log(error)
-        }
+        }).catch((error) => {
+                setSuccessful(false);
+                console.log("Catching error")
+                console.log(error)
+            }
         )
     };
 
@@ -125,7 +126,7 @@ const Reset_password = () => {
                                 )}
                                 {message && (
                                     <div className="form-group">
-                                        <div className={ successful ? "alert alert-success" : "alert alert-danger" } role="alert">
+                                        <div className={ message.includes("Reset") ? "alert alert-success" : "alert alert-danger" } role="alert">
                                             {message}
                                         </div>
                                     </div>

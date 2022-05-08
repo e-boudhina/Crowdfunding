@@ -370,7 +370,7 @@ const AddUserRequest = () => {
                                                         <input
                                                             id={"requested_Quantity_" + index}
                                                             type="number"
-                                                            className="form-control col-2"
+                                                            className="form-control col-3"
                                                              onChange={(e)=>handleFurniture(e.target.value,f._id)}
                                                             value={data.furniture.find(item => item._id === f._id)?.quantity || 0}
                                                         />

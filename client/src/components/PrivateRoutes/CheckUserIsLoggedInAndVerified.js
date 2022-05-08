@@ -7,7 +7,7 @@ const CheckUserIsLoggedInAndVerified = () => {
     //Checking if his email is verified
     const {verified} = useSelector((state)=> state.auth.infos)
 
-    //console.log("user is verified?"+verified)
+    //console.log("verified"+verified)
 
     if (currentUser && verified === true){
         //Outlet is like a middleware saying proceed to your route
