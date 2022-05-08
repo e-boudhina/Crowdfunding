@@ -3,7 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from 'react-router';
 import { allProjects, RetrieveProject } from "../actions/Projects/ProjectCrud.actions";
 import SingleProjectForUser from "../components/Projects/SingleProjectForUser";
-import Pagination from "../components/Projects/Pagination";
+// import Pagination from "../components/Projects/Pagination";
+import Pagination from "../components/Pagination";
+
 import React, { useState, useEffect, useCallback } from "react";
 
 
@@ -13,16 +15,18 @@ export default function Home() {
     const location = useLocation();
 
 
-    const [currentPage, setCurrentPage] = useState(1);
-    const [postsPerPage] = useState(3);
+    // const [currentPage, setCurrentPage] = useState(1);
+    // const [postsPerPage] = useState(3);
 
 
 
 
 
     const [keyword, setKeyword] = useState("");
+    // const [projects, setProjects] = useState([])
 
 
+     
 
 
     // const handlePageChange = useCallback(
@@ -39,23 +43,23 @@ export default function Home() {
 
     }, []);
 
+ const currentProjects = useSelector((state) => state.projects);
+console.log(currentProjects.projects);
+const projects=currentProjects.projects
+// setProjects(currentProjects.projects)
+//   Pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(3);
+  const indexOfLastItem = currentPage* itemsPerPage
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage
+  const currentItems = projects.slice(indexOfFirstItem, indexOfLastItem)
+console.log(currentItems);
+//   Change page
+  const paginate = (pageNumber)=>setCurrentPage(pageNumber)
+ 
 
 
-    //   console.log(projects);
-    const essaie = useSelector((state) => state.projects);
-    const projects = essaie.projects
-    const indexOfLastPost = currentPage * postsPerPage;
-    const indexOfFirstPost = indexOfLastPost - postsPerPage;
-    const currentProjects = projects.slice(indexOfFirstPost, indexOfLastPost);
-    console.log(currentProjects);
 
-
-    // Change page
-    const paginate = (pageNumber) => {
-        // window.location.reload(false);
-        setCurrentPage(pageNumber);
-       
-    };
 
 
 
@@ -139,9 +143,9 @@ export default function Home() {
                     </div>
                     <div className="row">
                         {
-                            (currentProjects) ? currentProjects.map((element) => {
+                            projects && currentItems.map((element) => {
 
-                                console.log(element);
+                                // console.log(element);
                                 // <SingleProject/>
 
                                 return (
@@ -153,15 +157,10 @@ export default function Home() {
 
                                 )
                             }
-                            ) : <></>
+                            ) 
                         }
 
-                        <Pagination
-                            postsPerPage={postsPerPage}
-                            totalPosts={projects.length}
-                            paginate={paginate}
-                            currentPage={currentPage}
-                        />
+<Pagination itemsPerPage={itemsPerPage} totalItems={projects.length} paginate={paginate}/>
 
 
 

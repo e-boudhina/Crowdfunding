@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router';
 import axios from 'axios';
 // import { login } from "../../actions/auth";
 import { AddOrganisation } from "../../actions/Organisations/OrganisationCrud.actions";
+import { clearMessage } from "../../actions/message";
 
 
 const required = (value) => {
@@ -134,19 +135,19 @@ const OrganisationAdd = (props) => {
         formData.append('email', email);
 
 
-        // if (checkBtn.current.context._errors.length === 0) {
+        if (checkBtn.current.context._errors.length === 0) {
             dispatch(AddOrganisation(formData))
             .then(() => {
       
               console.log(formData);
             //   props.history.push("/profile");
 
-            setTimeout(()=>
-                //dispatch(clearMessage())
+            
+                dispatch(clearMessage())
               
                     navigate("/profile")
             
-            ,200)
+            
 
             
              
@@ -155,9 +156,10 @@ const OrganisationAdd = (props) => {
             .catch((e) => {
               setLoading(false);
             });
-        //    else {
-        //     setLoading(false);
-        //   }
+        }
+           else {
+            setLoading(false);
+          }
 
         //  formData.current.validateAll();
         // if (checkBtn.current.context._errors.length === 0) {

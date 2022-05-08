@@ -21,7 +21,8 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 
 import ProjectDetails from "./components/Projects/ProjectDetails"
-import ListPProject from "./components/Projects/ListProject"
+import ListPProject from "./components/Projects/ListProject" 
+import Tracking from "./components/Projects/Tracking" 
 import ListProjectsOfUser from "./components/Projects/ListProjectsOfUser"
 import CryptoPaymentsForm from "./components/Projects/CryptoPaymentForm"
 import UpdateProject from "./components/Projects/UpdateProject"
@@ -262,6 +263,7 @@ const App = () => {
           </Route>
 
           <Route path={"/admin"} element={<Adminboard />}>
+          <Route path={"/admin/tracking"} element={<Tracking />} />
             <Route
               path={"/admin/ListOrganisation"}
               element={<ListOrganisationForAdmin />}
@@ -290,6 +292,7 @@ const App = () => {
 
             {/*ListFurniture routes*/}
             <Route path={"/admin/furniture"} element={<ListFurniture />} />
+        
             <Route path={"/admin/furniture/add"} element={<AddFurniture />} />
             <Route
               path={"/admin/furniture/edit/:id"}

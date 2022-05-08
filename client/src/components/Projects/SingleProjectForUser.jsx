@@ -93,7 +93,7 @@ var barsize=0;
                                         type: post_adresse,
                                         payload: { adresse: project.adresseCrypto },
                                       });
-                                    navigate('/payment', { state: { id: project._id, labelproject: project.labelproject, fundcollected: project.fundcollected, fundneeded: project.fundneeded, projectdescriptiob: project.projectdescriptiob,adresseCrypto:project.adresseCrypto, image: project.Image } });
+                                    navigate('/payment/crypto', { state: { id: project._id, labelproject: project.labelproject, fundcollected: project.fundcollected, fundneeded: project.fundneeded, projectdescriptiob: project.projectdescriptiob,adresseCrypto:project.adresseCrypto, image: project.Image } });
                                 }}>Donate</a>
                             </div>
                         </div>

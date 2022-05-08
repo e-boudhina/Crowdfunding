@@ -4,7 +4,8 @@ import { Link, useParams } from 'react-router-dom';
 import { Navigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-
+import Form from "react-validation/build/form";
+import Input from "react-validation/build/input";
 // import {getETHPrice} from "./getETHPrice";
 import { updateProjectFundRaised } from "../../actions/Projects/ProjectCrud.actions";
 
@@ -130,27 +131,41 @@ const Cryptotest = (props) => {
      <>
        <div className="container">
        {/* added onChange and onClick attributes */}
- 
-       <input
-         type="number"
-         placeholder="Amount"
-         value={amount}
-         className="col-12 form-control mb-3"
-         onChange={event => {
-           setAmount(Number.parseFloat(event.target.value))
-         }}
-       />
- 
-       <input
-         placeholder="Destination address"
-         value={destinationAddress}
-         className="col-12 form-control mb-3"
-     disabled
-       />
- 
-       <button className="col-12 btn btn-primary" onClick={startPayment}>
+       <div className="login-area pt-120 pb-120">
+            <div className="container">
+                  <div className="basic-login">
+              <h3 className="text-center mb-60">Please enter how much you will donate</h3>
+              <Form>
+              <div className="form-group">
+                      <label htmlFor="email">Amount</label>
+                      <Input
+                        type="number"
+                        placeholder="Amount"
+                        value={amount}
+                        className="col-12 form-control mb-3"
+                        onChange={event => {
+                          setAmount(Number.parseFloat(event.target.value))
+                        }}
+                      />
+                    </div>
+
+                    <div className="form-group">
+                      <label htmlFor="amount">Crypto adress </label>
+                      <Input
+                       placeholder="Destination address"
+                       value={destinationAddress}
+                       className="col-12 form-control mb-3"
+                   disabled
+                      />
+                    </div>
+                    <button className="btn-border "  onClick={startPayment}>
          Send Payment
        </button>
+
+               
+            </Form>
+
+        
  
        {transaction && (
          <div className="alert alert-success mt-3" role="alert">
@@ -168,6 +183,13 @@ const Cryptotest = (props) => {
            {JSON.stringify(error)}
          </div>
        )}
+   
+               </div>
+            </div>
+        </div>
+
+ 
+      
      </div>
      </>
 

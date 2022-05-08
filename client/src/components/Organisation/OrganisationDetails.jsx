@@ -10,6 +10,8 @@ import { Link, useParams } from 'react-router-dom';
 import './OD.css'
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Autocomplete from "@material-ui/lab/Autocomplete";
+import {getUser_UserRequests, getUserRequests} from "../../services/UserRequests.js/UserRequest.service";
+
 
 import {
   EmailShareButton,
@@ -55,6 +57,7 @@ function OrrganisationDetails(props) {
   // const [fundneeded, setFundneeded] = useState(project.project[0].fundneeded);
   // const [fundcollected, setFundcollected] = useState(project.project[0].fundcollected);
   // const [image, setImage] = useState(project.project[0].Image);
+  const [userRequests, setUserRequests] = useState([])
 
   const [name, setName] = useState(location.state.name);
   const [email, setEmail] = useState(location.state.email);
@@ -68,17 +71,36 @@ function OrrganisationDetails(props) {
 
   console.log(ownerName);
 
+
+
+  
   useEffect(() => {
 
     dispatch(getFollowers(location.state.id));
     dispatch(getOwner(location.state.ownerName));
+    retrieveUserRequests();
 
 
   }, [])
 
+
+
+
   const projects = useSelector(state => state.projects);
   const followers = useSelector(state => state.followers);
   const owner = useSelector(state => state.owner);
+  // const owner = useSelector(state => state.owner);
+  
+
+  const retrieveUserRequests = () => {
+    getUser_UserRequests().then(res=>{
+        console.log(res.data)
+        setUserRequests(res.data)
+   })
+}
+
+
+
 
   console.log(projects.projects);
   // console.log(followers.followers);
@@ -329,6 +351,7 @@ function OrrganisationDetails(props) {
                 <span className="animate-border" />
                 <h3 className="widget-title">Popular Events</h3>
               </div>
+
               <ul className="recent-posts">
                 <li>
                   <div className="widget-posts-image">
@@ -361,29 +384,29 @@ function OrrganisationDetails(props) {
                   </div>
                 </li>
               </ul>
+             
             </div>
             <div className="widget mb-40">
               <div className="widget-title-box mb-30">
                 <span className="animate-border" />
-                <h3 className="widget-title">Categories</h3>
+                <h3 className="widget-title">Services</h3>
               </div>
               <ul className="cat">
-                <li>
-                  <a href="#">Lifestyle <span className="f-right">78</span></a>
-                </li>
-                <li>
-                  <a href="#">Travel <span className="f-right">42</span></a>
-                </li>
-                <li>
-                  <a href="#">Fashion <span className="f-right">32</span></a>
-                </li>
-                <li>
-                  <a href="#">Music <span className="f-right">85</span></a>
-                </li>
-                <li>
-                  <a href="#">Branding <span className="f-right">05</span></a>
-                </li>
-              </ul>
+            {  userRequests.map((uR, index) => (
+<>
+<li>
+<a href="#">Location :{uR.desired_Location} <span className="f-right">Number :{uR.number_Of_Employees}</span></a>
+</li>
+
+</>
+                    )
+                    )
+  
+}
+</ul>
+            
+         
+          
             </div>
             <div className="widget mb-40">
               <div className="widget-title-box mb-30">

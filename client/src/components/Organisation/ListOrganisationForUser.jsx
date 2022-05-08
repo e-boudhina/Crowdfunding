@@ -75,7 +75,7 @@ useEffect(() => {
     navigate("/login");
   }
 
-}, [currentUser])
+}, [])
 
   
   

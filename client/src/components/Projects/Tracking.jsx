@@ -75,32 +75,45 @@ return (
               <table className="table">
                 <thead>
                   <tr>
-                    <th className="product-thumbnail">Image</th>
-                    <th className="cart-product-name">Label project</th>
-                    <th className="product-price">Budget goal</th>
-                    <th className="product-subtotal">Description</th>
-                    <th className="product-remove">Ignore</th>
-                    <th className="product-remove">Validate</th>
+                    <th className="product-thumbnail">User</th>
+                    <th className="cart-product-name">Project label</th>
+                    <th className="product-price">Donation</th>
+                    <th className="product-price">Type of operation</th>
+                    <th className="product-subtotal">Crypto adress</th>
+                    <th className="product-remove">Mail adress</th>
+                    
                   </tr>
                 </thead>
                 <tbody>
-                {projects &&
-            projects.projects.map((project, index) => (
+           
                   <tr>
-                    <td className="product-thumbnail"><a href="#"><img src="assets/img/shop/cart/img1.jpg" alt="" /></a></td>
-                    <td className="product-name"><a href="#">{project.labelproject}</a></td>
-                    <td className="product-price"><span className="amount">{project.fundneeded}</span></td>
                   
-                    <td className="product-name"><a href="#">{project.projectdescriptiob}</a></td>
+                    <td className="product-name"><a href="#">Sami123456</a></td>
+                    <td className="product-name"><a href="#">dzdz</a></td>
+                    <td className="product-price"><span className="amount">128,2575</span></td>
                   
-                    <td className="product-remove"><a onClick={()=>{Ignore(project._id)}} className="btn btn-danger btn-sm" >Ignore</a></td>
-                    <td className="product-remove"><a onClick={()=>{validate(project._id)}} className="btn btn-primary btn-sm" >Validate</a></td>
-                    {/* <td className="product-remove"><a onClick={()=>{validate(project._id)}}><span className="material-icons"></span></a></td> */}
-
+                    <td className="product-name"><a href="#">Crypto payment</a></td>
+                    <td className="product-name"><a href="#">0x9907a0cf64ec9fbf6ed8fd4971090de88222a9ac</a></td>
+                    <td className="product-name"><a href="#">-------</a></td>
+                  
+                   
+                
+                  </tr>
+                  <tr>
+                  
+                    <td className="product-name"><a href="#">Sami123456</a></td>
+                    <td className="product-name"><a href="#">hkj</a></td>
+                    <td className="product-price"><span className="amount">100</span></td>
+                  
+                    <td className="product-name"><a href="#">Stripe payment</a></td>
+                    <td className="product-name"><a href="#">-------</a></td>
+                    <td className="product-name"><a href="#">arij.zitouni@gmail.com</a></td>
+                  
+                   
                 
                   </tr>
                   
-            ))}
+      
                 </tbody>
 
               </table>

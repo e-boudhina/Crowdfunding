@@ -36,6 +36,128 @@ const convert = require("crypto-convert");
 //   }
 // };
 
+exports.tracking = (req, res) => {
+
+  
+  var list = arrayList();
+
+  var usernameOOOO=''
+  var    projectLabeloooo=''
+  var operation=0
+
+  var obj={
+    username:"",
+    projectLabel:"",
+    operation:""
+  
+  
+  
+    
+  };
+
+  // console.log( );
+  var a = convert.BTC.USD(1);
+  var pricInEth = convert.ETH.USD(1);
+  var c = convert.LINK.LTC(5);
+  var d = convert.USD.CRO(100);
+ 
+
+
+
+
+
+  Donation.find({}, (err, result) => {
+   
+    if (err) {
+      res.json(err);
+    }
+    else {
+      // console.log(result);
+      result.forEach(element => {
+      
+
+        User.findOne({ _id: element.user }, (err, userr) => {
+
+          if (err) {
+            res.json(err);
+          }
+          
+          else {
+             usernameOOOO = userr.username;
+            // obj["username"]=username;
+            // console.log(username);
+            
+            Project.findOne({ _id: element.project }, (err, projectt) => {
+              
+              if (err) {
+                res.json(err);
+              }
+              
+              else {
+                 projectLabeloooo = projectt.labelproject;
+                 
+
+                // console.log(projectLabel);
+                
+
+                // if(element.operation==0){
+                //   // var operation="Etherieum"
+                  
+                //   console.log("eth");
+                // }
+                
+                // if(element.operation==1){
+                //   // var operation="Stripe"
+                //   console.log("Stripe");
+                  
+
+                // }
+
+              }
+
+
+
+
+            }
+
+
+
+            )
+
+          };
+          list.unshift({
+            username:userr.username,
+            projectLabel: projectt.labelproject,
+            operation:element.operation
+    
+    
+          }); 
+      
+      })
+
+   
+     
+        
+    
+  });
+
+  // project.fundcollected+= req.body.priceETH*pricInEth  
+
+}
+console.log(list);
+
+console.log("List");
+res.json(list)
+  })
+
+ 
+
+}
+
+
+
+
+
 
 exports.donateCrypto = (req, res) => {
 
@@ -48,74 +170,49 @@ exports.donateCrypto = (req, res) => {
   console.log(req.params.id);
   console.log("hellllllloooo");
   console.log(req.params.idProject);
-  console.log("hellllllloooo"); 
-      // console.log( );
-  var a =convert.BTC.USD(1);
-  var pricInEth =convert.ETH.USD(1);
-  var c =	convert.LINK.LTC(5);
-  var d =convert.USD.CRO(100);
+  console.log("hellllllloooo");
+  // console.log( );
+  var a = convert.BTC.USD(1);
+  var pricInEth = convert.ETH.USD(1);
+  var c = convert.LINK.LTC(5);
+  var d = convert.USD.CRO(100);
 
 
-          const donation = new Donation({
-            user: req.params.id,
-            project: req.params.idProject,
-            money: req.body.priceETH*pricInEth,
-            operation: 0 ,
-            adresseCryptoProject:req.body.adresseCrypto,
-            // adresseCryptoDonateur:req.body.adresseDonateur,
-
-        
-          });
-
-          donation.save()
-          console.log(req.body.priceETH);
-          console.log(req.params.id);
-          console.log(req.params.idProject);
-          
-      
+  const donation = new Donation({
+    user: req.params.id,
+    project: req.params.idProject,
+    money: req.body.priceETH * pricInEth,
+    operation: 0,
+    adresseCryptoProject: req.body.adresseCrypto,
+    // adresseCryptoDonateur:req.body.adresseDonateur,
 
 
-          Project.findOne({ _id: req.params.idProject }, (err, project) => {
-            if (err) {
-           res.json(err)
-              
-            }
-            else {
-         
-              project.fundcollected+= req.body.priceETH*pricInEth  
-              console.log( project.fundcollected);
-              project.save()
-              res.json(project)
-            }
-          });  
+  });
 
-          // project.fundcollected+= req.body.priceETH*pricInEth  
-      
-        }
-      
+  donation.save()
+  console.log(req.body.priceETH);
+  console.log(req.params.id);
+  console.log(req.params.idProject);
 
-// exports.getChapter = (req, res) => {
-//   const id = req.params.id;
-//   Chapter.findById(id)
-//     .then((data) => {
-//       if (!data) {
-//         res.status(404).send({ message: "Not found Chapter with id " + id });
-//       } else {
-//         console.log(data);
-//         res.send(data);
-//       }
-//     })
-//     .catch((err) => {
-//       res
-//         .status(500)
-//         .send({ message: "Error retrieving Chapter with id=" + id });
-//     });
-// };
-// exports.getAllChapters = asyncHandler(async (req, res) => {
-//   try {
-//     const chapters = await Chapter.find();
-//     return res.json(chapters);
-//   } catch (error) {
-//     res.json({ message: error });
-//   }
-// });
+
+
+
+  Project.findOne({ _id: req.params.idProject }, (err, project) => {
+    if (err) {
+      res.json(err)
+
+    }
+    else {
+
+      project.fundcollected += req.body.priceETH * pricInEth
+      console.log(project.fundcollected);
+      project.save()
+      res.json(project)
+    }
+  });
+
+  // project.fundcollected+= req.body.priceETH*pricInEth  
+
+}
+
+  

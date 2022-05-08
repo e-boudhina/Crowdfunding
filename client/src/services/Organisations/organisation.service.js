@@ -29,6 +29,14 @@ const  FollowOrganisation= (id,idOrganization) => {
 // const  AddProject= (labelproject,projectdescriptiob,fundneeded,image) => {
   return axios.post(API_URL + "follow/"+idOrganization+"/"+id);
 };
+const  fillow= (id,idOrganization) => {
+// const  AddProject= (labelproject,projectdescriptiob,fundneeded,image) => {
+  return axios.post(API_URL + "follow/"+idOrganization+"/"+id);
+};
+const  elyes= (id,idOrganization) => {
+// const  AddProject= (labelproject,projectdescriptiob,fundneeded,image) => {
+  return axios.post(API_URL + "follow/"+idOrganization+"/"+id);
+};
 const  IsFollowed= (id,idOrganization) => {
 // const  AddProject= (labelproject,projectdescriptiob,fundneeded,image) => {
   return axios.post(API_URL + "isFollowed/"+idOrganization+"/"+id);
@@ -64,7 +72,9 @@ export default  {
   update,
   FollowOrganisation,
   IsFollowed,
-  getUser
+  getUser,
+  fillow,
+  elyes
   // ,
   // login,
   // logout,
