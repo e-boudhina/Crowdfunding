@@ -183,7 +183,7 @@ useEffect(() => {
 
                   <li>
                     <Link to="/admin/tracking" className="waves-effect">
-                      <i className="ti-home" /><span className="badge rounded-pill bg-primary float-end">2</span>
+                    
                       <span>Transactions</span>
                     </Link>
                   </li>
