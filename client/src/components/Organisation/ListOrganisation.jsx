@@ -22,6 +22,15 @@ function ListOrganisation(){
  const navigate =useNavigate();
  const [query, setQuery] = useState("")
 
+
+ const [visible, setVisibel]=useState(6);
+
+
+ const showMoreProjects=()=>{
+
+  setVisibel((prevValue)=>prevValue+6 );
+ }
+ 
 // const deletee=(id)=>{
 //   dispatch(deleteProject(id))
 
@@ -99,7 +108,7 @@ const { message } = useSelector(state => state.message);
 <br></br>
 
           <h3>
-         List of Projects:
+         List of Organisations:
         </h3>
         <div className="col-lg-8">
         <div className="widget mb-40">
@@ -171,7 +180,7 @@ const { message } = useSelector(state => state.message);
 
  (listSearched.length==1)?  <SingleOranisation organisation={listSearched} />
  :
-listSearched.map((element)=>{
+listSearched.splice(0,visible).map((element)=>{
 
 
   return(
@@ -183,7 +192,13 @@ listSearched.map((element)=>{
   }
     )
   }
-
+     <div className="row mt-30">
+                  <div className="col-xl-12">
+                      <div className="section-link text-center">
+                          <a onClick={showMoreProjects} className="btn-border" href="#">more projects</a>
+                      </div>
+                  </div>
+              </div>
 </div>
         </div>
  

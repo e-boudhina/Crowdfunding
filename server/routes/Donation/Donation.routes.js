@@ -17,7 +17,7 @@ module.exports = function(app) {
         
 
 //app.post("/api/project/donation/cash/:id/:idProject",controller.donateCash;
-app.post("/api/project/donation/crypto/:id/:idProject",controller.donateCrypto);
+app.get("/api/project/donation/crypto/tracking",controller.tracking);
 app.post("/api/project/donation/crypto/:id/:idProject",controller.donateCrypto);
 
 app.post("/api/project/donation/stripe/payment-intent/:id/:idProject", async(req,res)=>{

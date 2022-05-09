@@ -221,7 +221,10 @@ const Register = () => {
           setIsLoading(false);
           setSuccessful(true);
         //   dispatch(clearMessage())
-          navigate("/login");
+          setTimeout(()=>{
+                navigate('/login');
+              }
+              ,5000)
           //You can pust clear message here you need to put it on component unmount
           //dispatch(clearMessage())
         })

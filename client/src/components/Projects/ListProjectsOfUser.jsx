@@ -18,6 +18,15 @@ export default function ListProjectsOfUser(){
 
  const dispatch = useDispatch();
  const navigate =useNavigate();
+
+
+ const [visible, setVisibel]=useState(3);
+
+
+ const showMoreProjects=()=>{
+
+  setVisibel((prevValue)=>prevValue+3 );
+ }
  
     useEffect(() => {
       dispatch(allProjects());
@@ -37,7 +46,7 @@ export default function ListProjectsOfUser(){
             <div className="row align-items-center">
                 <div className="col-xl-12">
                     <div className="section-title text-center mb-60">
-                        <p><span /> List of organisations</p>
+                        <p><span /> List of projects</p>
                         <h1>You can donate to a project whenever you like</h1>
                     </div>
                 </div>
@@ -55,7 +64,7 @@ export default function ListProjectsOfUser(){
             </div>
             <div className="row">
             {
-projects.projects.map((element)=>{
+projects.projects.slice(0,visible).map((element)=>{
   
   console.log(element);
   // <SingleProject/>
@@ -71,13 +80,13 @@ projects.projects.map((element)=>{
     )
   }
             </div>
-            <div className="row mt-30">
-                <div className="col-xl-12">
-                    <div className="section-link text-center">
-                        <a className="btn-border" href="#">more projects</a>
-                    </div>
-                </div>
-            </div>
+              <div className="row mt-30">
+                  <div className="col-xl-12">
+                      <div className="section-link text-center">
+                          <a onClick={showMoreProjects} className="btn-border" href="#">more projects</a>
+                      </div>
+                  </div>
+              </div>
         </div>
         
     </section>
