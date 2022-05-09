@@ -8,7 +8,7 @@ import {
 } from "../../services/Learning.service";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
-
+import { setCertifs } from "../../actions/Learning/Learning";
 const required = (value) => {
   if (!value) {
     return (
@@ -40,7 +40,7 @@ function AddChapter() {
   }, []);
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault(); 
     const formData = new FormData();
     formData.append("name", name);
     formData.append("category", catCertif);
@@ -49,7 +49,7 @@ function AddChapter() {
     formData.append("description", description);
     form.current.validateAll();
     if (checkBtn.current.context._errors.length === 0) {
-      console.log("NAME " + name + "CERTIF " + catCertif);
+      console.log("NAME " + name + "CERTIF " + catCertif); 
       AddCertificate(formData).then((data) => {
         if (data.status === 200) {
           dispatch({
@@ -59,6 +59,7 @@ function AddChapter() {
               status: "success",
             },
           });
+          dispatch(setCertifs)
           navigate("/admin/listcertificates");
         }
       });
@@ -144,14 +145,18 @@ function AddChapter() {
                           console.log(e.target.files[0]);
                       }}
                       />
-         
             <CheckButton style={{ display: "none" }} ref={checkBtn} />
             <button
               type="primary"
               htmlType="submit"
-              className="btn btn-success waves-effect waves-light ">
+              className={catCertif ==="" ? 'btn btn-success waves-effect waves-light disabled' :' btn btn-success waves-effect waves-light'}>
               Add Certif
             </button>
+            {catCertif ==="" ? 
+           <> Please Select a valid category *** </>
+            :
+            <></>
+                    }
           </div>
         </div>
       </Form>

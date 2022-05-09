@@ -10,6 +10,7 @@ const connectDB = async () => {
             { useNewUrlParser: true, useUnifiedTopology: true });
         console.log(`MongoDB connected to => ${conn.connection.host.toUpperCase().bold} <=`.cyan.underline) //from colors dependency
     }catch (error){
+        console.log("SARET ERREUR");
         console.log(error);
         process.exit(1)
     }

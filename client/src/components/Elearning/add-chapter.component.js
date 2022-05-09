@@ -23,8 +23,7 @@ function Add(props) {
   });
   const [name, setName] = useState(post.name);
   const [certificates, setCertificates] = useState([]);
-  const [certifId,setCertifID] = useState(0);
-  var certifs = [];
+  const [certifId,setCertifID] = useState(certificates[0] ? certificates[0]._id : 0);
 const navigate = useNavigate();
   const handleEditorChange = (editorState) => {
     setEditorState({ editorState });
@@ -49,8 +48,8 @@ const navigate = useNavigate();
   }
 }
 
-  useEffect(() => {
-    retrieveCertificates();
+  useEffect(() =>  {
+    retrieveCertificates()
     console.log("COMPO " + certificates);
     if (message.type) {
       notification[message.type]({
@@ -64,6 +63,7 @@ const navigate = useNavigate();
     getCertificates()
       .then((response) => {
         setCertificates(response.data);
+        setCertifID(response.data[0]._id);
         console.log(response.data);
       })
       .catch((e) => {
