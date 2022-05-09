@@ -11,7 +11,7 @@ import {
   USER_UPDATE_FAIL,
   USER_UPDATE_SUCCESS,
   USER_UPDATE_REQUEST,
-  DELETE_USER
+  DELETE_USER, ACCOUNT_VERIFIED_FAILED, ACCOUNT_VERIFIED_SUCCESS
 } from "../actions/type";
 
 const user = JSON.parse(localStorage.getItem("user"));
@@ -69,7 +69,11 @@ export default function (state = initialState, action) {
     case DELETE_USER:
      // return tutorials.filter(({ id }) => id !== payload.id);
     return { id: payload.id}
-     default:
+
+    case ACCOUNT_VERIFIED_SUCCESS:
+      return { ...state , infos : payload};
+
+    default:
       return state;
   }
 }

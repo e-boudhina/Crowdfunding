@@ -148,7 +148,7 @@ exports.Projectdelete = (req, res) => {
     (err, result) => {
       if (result) {
         console.log('got deleted');
-        res.send("got deleted successfully")
+        res.send("Project deleted successfully")
       } else {
 
         res.send(err)

@@ -283,7 +283,8 @@ const Register = () => {
                       <label htmlFor="username">Username</label>
                       <Input
                         type="text"
-                        className="form-control"
+                        disabled={!registerForm}
+                        className={registerForm ? 'form-control' : 'form-control disabled'}
                         name="username"
                         value={username}
                         onChange={onChangeUsername}
@@ -399,9 +400,7 @@ const Register = () => {
                       ) : (
                         <button className="btn btn-black w-100">Update </button>
                       )}
-                      <div className="or-divide">
-                        <span>or</span>
-                      </div>
+
                     </div>
                   </div>
                 )}

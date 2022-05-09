@@ -141,26 +141,22 @@ useEffect(() => {
                   <li className="menu-title">Main</li>
                   <li>
                     <Link to="/admin/add" className="waves-effect">
-                      <i className="ti-home" />
                       <span>Add chapter</span>
                     </Link>
                   </li>
                   <li>
                     <Link to="/admin/addcertificate" className="waves-effect">
-                      <i className="ti-home" />
                       <span>Add  certificate</span>
                     </Link>
                   </li>
                   <li>
                     <Link to="/admin/listcertificates" onClick={navigateToCertifs} className="waves-effect">
-                      <i className="ti-home" />
                       <span>List  certificates</span>
                     </Link>
                   </li>
                   <li>
 
                     <Link to="/admin/users" className="waves-effect">
-                      <i className="ti-home" />
                       <span>List  Users</span>
                     </Link>
                   </li>
@@ -170,20 +166,17 @@ useEffect(() => {
 
                   <li>
                     <Link to="/admin/ListOrganisation" className="waves-effect">
-                      <i className="ti-home" />
                       <span>List  of organisation</span>
                     </Link>
                   </li>
                   <li>
                     <Link to="/admin/ListProjectToValidate" className="waves-effect">
-                      <i className="ti-home" />
                       <span>Validate new projects</span>
                     </Link>
                   </li>
 
                   <li>
                     <Link to="/admin/furniture" className="waves-effect">
-                      <i className="ti-home" />
                       <span>List furniture</span>
                     </Link>
                   </li>

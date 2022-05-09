@@ -193,6 +193,7 @@ const signin = asyncHandler(async (req, res) => {
           password: user.password,
           phone: user.phone,
           image: user.img,
+          birthdate: user.birthdate,
         },
       });
     });
@@ -349,6 +350,35 @@ const generate_custom_token = async () => {
   });
 };
 
+const resend_EmailToken = asyncHandler(async (req, res) => {
+
+  const {userId} = req;
+   if (!userId) {
+    res.status(400);
+    throw Error("Please provide a valid userId");
+  }
+   //Fetching the suer
+  user = await User.findById(userId);
+  //Checking if the user is already verified
+   if (user.verified === true){
+    return res.send({
+      message:  `${user.username}, Your account is already verified!`,
+    });
+  }
+   //else
+  console.log("Resending VerificationEmail...")
+  await transport.sendMail(VerificationEmailTemplateTemplate(user))
+      .then(() => console.log('Resending Verification Email Sent Successful!'))
+      .catch(error => {
+        console.log(error)
+      });
+
+    res.send({
+      message:
+          "Please check your inbox again for email verification",
+    });
+
+});
 //Defining the functions as consts than exporting them as an array like this is much easier than exporting them one by one
 // you can simply look into module.export and see what are you exporting without scanning the entire file
 module.exports = {
@@ -357,5 +387,6 @@ module.exports = {
   reset_password,
   new_password,
   verify_email,
+  resend_EmailToken,
   makeAdmin,
 };

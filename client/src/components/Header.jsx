@@ -103,12 +103,10 @@ const goDashboard = () => {
               </div>
               <div className="col-xl-10 col-lg-10 col-7 col-md-9">
                 <div className="header__menu f-right">
-                  <nav id="mobile-menu" style={{ display: "block" }}>
+                  <nav id="mobile-menu d-flex" style={{ display: "block" }}>
                     <ul>
                      
-                      <li>
-                        <a href="progress.html">Explore</a>
-                      </li>
+                   
                      
                       <li>
                             {" "}
@@ -226,11 +224,11 @@ const goDashboard = () => {
                           </Link>{" "}
                         </li>
                       )}
-                      <li>
+                      <li >
                         <Autocomplete
                       
                           id="asynchronous-demo"
-                          style={{ width: 300 , height : 10}}
+                          style={{ width: 200 , height : '10%'}}
                           open={open}
                           onOpen={() => {
                             setOpen(true);

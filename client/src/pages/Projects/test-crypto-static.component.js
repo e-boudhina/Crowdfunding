@@ -3,6 +3,8 @@ import { ethers } from "ethers"
 import { Link, useParams } from 'react-router-dom';
 import { Navigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+
 // import {getETHPrice} from "./getETHPrice";
 import { updateProjectFundRaised } from "../../actions/Projects/ProjectCrud.actions";
 
@@ -10,15 +12,16 @@ const Cryptotest = (props) => {
    const [amount, setAmount] = useState(0) // new line
    const location = useLocation();
    const dispatch=useDispatch();
+   const id = useSelector((state) => state.projects.id);
+   const adresse = useSelector((state) => state.projects.adresse);
 
-   console.log(location.state.id);
-   console.log(location.state.adresseCrypto);
-   console.log(location.state.id);
+   console.log(id);
    // const [default_ADDRESS, setFundneeded] = useState(location.state.fundneeded);
-   const [destinationAddress, setDestinationAddress] = useState(location.state.adresseCrypto) ;// new line
+   const [destinationAddress, setDestinationAddress] = useState(adresse.adresse) ;// new line
    // const [destinationAddress, setDestinationAddress] = useState(location.state.adresseCrypto) ;// new line
    const [error, setError] = useState("") //newline
- 
+   const { user: currentUser } = useSelector((state) => state.auth);
+
    const [transaction, setTransaction] = useState(null) // new line
  
  
@@ -91,9 +94,26 @@ const Cryptotest = (props) => {
  
  
  
- console.log(location.state.labelproject);
- console.log(location.state.id);
-           dispatch(updateProjectFundRaised(location.state.id,location.state.idProject,formData))
+      try {
+          
+         axios.post("http://localhost:5000/api/project/donation/crypto/"+currentUser.id+"/"+id.id, {
+            priceETH: amount,
+            adresseCrypto: destinationAddress,
+       
+         });
+     } catch (error) {
+         console.log(error);
+     };
+ 
+//  try {
+ 
+//  console.log(currentUser.id);
+
+//    axios.post(""+currentUser.id+"/"+id.id, formData);
+// } catch (error) {
+//    console.log(error);
+// };
+
  
  
  }

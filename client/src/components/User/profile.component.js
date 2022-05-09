@@ -93,8 +93,12 @@ useEffect(() => {
               </div>
             </div>
               
-       
-<Userprofilecertificates/>
+       { 
+       IsLoggedIn ?
+ <Userprofilecertificates/>
+        : 
+        <></>
+       }
 <div className="col-12">
            <div className="text-right my-2 pr-1">
              <i style={{fontSize: '2rem', cursor: 'pointer', color: '#4bb543'}} onClick={() => {navigate('/addOrganisation')}} className="fas fa-plus-circle mx-auto" />
