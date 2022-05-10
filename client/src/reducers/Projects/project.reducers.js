@@ -7,13 +7,15 @@ import {
     GET_SINGLE_PROJECT,
     post_adresse,
     GET_PROJECTS_ORG,
+    PROJECT_TRACKING,
     GET_PROJECTS_TO_VALIDATE
   } from "../../actions/Projects/Type";
 
 const initialState={
 projects:[],
 id:0,
-adresse:""
+adresse:"",
+donations:[]
 }
 
 
@@ -25,6 +27,11 @@ adresse:""
         return {
           ...state,
           projects: action.payload,
+        };
+      case PROJECT_TRACKING:
+        return {
+          ...state,
+          donations: action.payload,
         };
         case CHANGE_ID:
           return {

@@ -14,6 +14,9 @@ const config ={
 const  allProjects= () => {
   return axios.get(API_URL + "all");
 };
+const  tracking= () => {
+  return axios.get(API_URL + "donation/crypto/tracking");
+};
 
 
 
@@ -52,8 +55,8 @@ const remove = (id)=> {
 const update = (id,form)=> {
   return axios.put(API_URL+"update/"+id,form,config);
 };
-const updateProjectFundRaised = (id,form)=> {
-  return axios.post(API_URL+"updateProjectFundRaised/"+id,form,config);
+const updateProjectFundRaised = (id,idProject,form)=> {
+  return axios.post(API_URL+"donation/crypto/"+id+"/"+idProject,form,config);
 };
 
 const getSingle = (id)=> {
@@ -76,7 +79,8 @@ export default  {
   ProjectsToValidate,
   ValidateProject,
   IgnoreProject,
-  updateProjectFundRaised
+  updateProjectFundRaised,
+  tracking
   // ,
   // login,
   // logout,

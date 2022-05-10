@@ -2,10 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from 'react-router';
 import { useDispatch, useSelector } from "react-redux";
 import { allorganisation,FollowOrganisation,IsFollowed} from "../../actions/Organisations/OrganisationCrud.actions";
-import {elyes} from "../../services/Organisations/organisation.service";
-import {toast} from "react-toastify";
-import {axios} from "axios";
-
 // import SuccessPopup from 'react-success-popup'
 import './aaa.css'
 
@@ -29,22 +25,11 @@ const [status, setStatus] = useState(false)
     return <Navigate to="/login" />;
   }
   
-  const API_URL ="http://localhost:5000/api/organization/"
+
   const followOrg=()=>{
   console.log(currentUser.id);
   console.log(organisation._id);
-    // dispatch(FollowOrganisation(currentUser.id,props.organisation._id));
- 
-    axios.post(API_URL + "isFollowed/"+currentUser.id+"/"+organisation._id).then(
-      (res)=> {
-        console.log(res.data.message)
-          toast.success(res.data.message)
-         
-         
-      })
-      .catch((error)=>
-          console.log(error)
-      )
+    dispatch(FollowOrganisation(currentUser.id,props.organisation._id));
 
     setStatus(true);
   // currentUser._id

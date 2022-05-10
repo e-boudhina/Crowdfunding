@@ -21,5 +21,6 @@ export const Ignore_Project_SUCCESS ="Ignore_Project_SUCCESS";
 export const  UPDATE_PROJECT_FUNDRAISING =" UPDATE_PROJECT_FUNDRAISING";
 export const  CHANGE_ID=" CHANGE_ID";
 export const  post_adresse=" post_adresse";
+export const  PROJECT_TRACKING=" PROJECT_TRACKING";
 
 

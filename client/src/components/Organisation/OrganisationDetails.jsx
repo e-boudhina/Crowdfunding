@@ -116,7 +116,7 @@ function OrrganisationDetails(props) {
           <div className="col-lg-8">
             <article className="postbox post format-image mb-40">
               <div className="postbox__thumb mb-35">
-                <img src={`Uploads/${image}`} className="photo" sizes alt="blog image" />
+                <img src={`Uploads/${image}`}  width={600} height={250} sizes alt="blog image" />
               </div>
               <div className="postbox__text bg-none">
                 <div className="post-meta mb-15">

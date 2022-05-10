@@ -195,7 +195,7 @@ listSearched.splice(0,visible).map((element)=>{
      <div className="row mt-30">
                   <div className="col-xl-12">
                       <div className="section-link text-center">
-                          <a onClick={showMoreProjects} className="btn-border" href="#">more projects</a>
+                          <a onClick={showMoreProjects} className="btn-border" href="#">more organisations</a>
                       </div>
                   </div>
               </div>

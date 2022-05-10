@@ -263,6 +263,10 @@ const App = () => {
                 path={"/payment/crypto"}
                 element={<Cryptotest />}
               />
+              <Route
+                path={"/payment/stripe"}
+                element={<Stripetest />}
+              />
             </Route>
             <Route path={"/*"} element={<Notfound />} />
           </Route>

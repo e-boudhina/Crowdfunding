@@ -46,7 +46,7 @@ function SingleProject(props) {
           <h4><a href="fund-details.html"> {project.projectdescriptiob}</a></h4>
           <div className="causes-progress">
             <div className="progress">
-              <div className="progress-bar w-50 " role="progressbar" aria-valuenow={60} aria-valuemin={0} aria-valuemax={100} />
+              <div className="progress-bar w-100 " role="progressbar" aria-valuenow={60} aria-valuemin={0} aria-valuemax={100} />
             </div>
             <div className="causes-count mt-15 fix">
               <div className="count-number f-left text-left">

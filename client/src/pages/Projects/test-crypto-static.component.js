@@ -79,42 +79,21 @@ const Cryptotest = (props) => {
        setTransaction(transactionResponse) // new line
  
  
- if(transaction){
  
+if(transactionResponse){
+console.log("entered after if ");
+console.log("entered after if ");
+console.log("entered after if ");
    const formData = new FormData();
  
    formData.append('priceETH',amount );
-   // formData.append('adresseDonateur',adresseDonateur );
-   formData.append('adresseCrypto', destinationAddress);
-   
- 
- console.log(amount);
-   console.log(formData);
-   //  formData.current.validateAll();
-   // if (checkBtn.current.context._errors.length === 0) {
- 
- 
- 
-      try {
-          
-         axios.post("http://localhost:5000/api/project/donation/crypto/"+currentUser.id+"/"+id.id, {
-            priceETH: amount,
-            adresseCrypto: destinationAddress,
-       
-         });
-     } catch (error) {
-         console.log(error);
-     };
- 
-//  try {
- 
-//  console.log(currentUser.id);
+console.log("amount",amount);
+formData.append('adresseCrypto',destinationAddress );
+console.log("adressecrypto",destinationAddress);
 
-//    axios.post(""+currentUser.id+"/"+id.id, formData);
-// } catch (error) {
-//    console.log(error);
-// };
+ 
 
+           dispatch(updateProjectFundRaised(currentUser.id,id.id,formData))
  
  
  }
@@ -145,6 +124,7 @@ const Cryptotest = (props) => {
                         className="col-12 form-control mb-3"
                         onChange={event => {
                           setAmount(Number.parseFloat(event.target.value))
+                          console.log(amount);
                         }}
                       />
                     </div>

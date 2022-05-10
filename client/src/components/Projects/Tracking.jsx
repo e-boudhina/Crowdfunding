@@ -6,7 +6,7 @@ import { useLocation, useNavigate } from 'react-router';
 import { allOrganisation } from "../../actions/Organisations/OrganisationCrud.actions";
 // import  SingleOranisation  from "./SingleOrganisation";
 import React, { useState, useEffect } from "react";
-import { deleteProject,ProjectsToValidate,ValidateProject } from "../../actions/Projects/ProjectCrud.actions";
+import { tracking } from "../../actions/Projects/ProjectCrud.actions";
 
 
 
@@ -22,45 +22,18 @@ function ListProjectToValidate(){
 
 
  useEffect(() => {
-    dispatch(ProjectsToValidate());
+    dispatch(tracking());
 
  
 }, []);
-const Ignore=(id)=>{
-    dispatch(Ignore(id))
-  
-  // if (error) {
-  //   console.log("Problem with the api");
-  // } else {
-  //   console.log("good job");
-    
-  // navigate("/ListProject");
-  window.location.reload();
-  }
+
 
 const projects = useSelector((state) => state.projects);
-console.log(projects.projects); 
+console.log(projects); 
+console.log(projects.donations); 
 
 
 
-
-const validate=(id)=>{
-    dispatch(ValidateProject(id))
-  
-  // if (error) {
-  //   console.log("Problem with the api");
-  // } else {
-  //   console.log("good job");
-    
-  // navigate("/ListProject");
-  window.location.reload();
-  }
-
-
-const { user: currentUser } = useSelector((state) => state.auth);
-if (!currentUser) {
-return <Navigate to="/login" />;
-}
 
 
 return (
@@ -75,8 +48,8 @@ return (
               <table className="table">
                 <thead>
                   <tr>
-                    <th className="product-thumbnail">User</th>
-                    <th className="cart-product-name">Project label</th>
+                    <th className="product-thumbnail">User id </th>
+                    <th className="cart-product-name">Project id</th>
                     <th className="product-price">Donation</th>
                     <th className="product-price">Type of operation</th>
                     <th className="product-subtotal">Crypto adress</th>
@@ -85,33 +58,52 @@ return (
                   </tr>
                 </thead>
                 <tbody>
-           
-                  <tr>
+                {
+projects.donations.map((element)=>{
+  
+  console.log(element);
+  // <SingleProject/>
+
+  return(
+
+(element.adresseCrypto)?
+          <tr>
                   
-                    <td className="product-name"><a href="#">Sami123456</a></td>
-                    <td className="product-name"><a href="#">dzdz</a></td>
-                    <td className="product-price"><span className="amount">128,2575</span></td>
+          <td className="product-name"><a href="#">{element.user}</a></td>
+          <td className="product-name"><a href="#">{element.project}</a></td>
+         <td className="product-price"><span className="amount">{element.money}</span></td>
+       
+         <td className="product-name"><a href="#">{element.operation} payment</a></td>
+         <td className="product-name"><a href="#">{element.adresseCrypto}</a></td>
+         <td className="product-name"><a href="#">-------</a></td>
+       
+        
+     
+       </tr>
+
+       :
+
+
+       <tr>
                   
-                    <td className="product-name"><a href="#">Crypto payment</a></td>
-                    <td className="product-name"><a href="#">0x9907a0cf64ec9fbf6ed8fd4971090de88222a9ac</a></td>
-                    <td className="product-name"><a href="#">-------</a></td>
-                  
-                   
-                
-                  </tr>
-                  <tr>
-                  
-                    <td className="product-name"><a href="#">Sami123456</a></td>
-                    <td className="product-name"><a href="#">hkj</a></td>
-                    <td className="product-price"><span className="amount">100</span></td>
-                  
-                    <td className="product-name"><a href="#">Stripe payment</a></td>
-                    <td className="product-name"><a href="#">-------</a></td>
-                    <td className="product-name"><a href="#">arij.zitouni@gmail.com</a></td>
-                  
-                   
-                
-                  </tr>
+       <td className="product-name"><a href="#">{element.user}</a></td>
+       <td className="product-name"><a href="#">{element.project}</a></td>
+      <td className="product-price"><span className="amount">{element.money}</span></td>
+    
+      <td className="product-name"><a href="#">{element.operation} payment</a></td>
+      <td className="product-name"><a href="#">-------</a></td>
+      <td className="product-name"><a href="#">{element.adressemail}</a></td>
+    
+     
+  
+    </tr>
+    )  
+  }
+    )
+  }
+
+                 
+             
                   
       
                 </tbody>

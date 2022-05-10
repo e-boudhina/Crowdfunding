@@ -9,41 +9,21 @@ const Donation = db.donation;
 const User = db.user;
 const organization = db.organization;
 var arrayList = require('array-list')
-const ethPrice = require('eth-price');
-const convert = require("crypto-convert");
+// const ethPrice = require('eth-price');
+// const convert = require("crypto-convert");
 
-// exports.getProjects = async (req, res) => {
-//   const {page = "1", keyword = "", ...restOfQuery} = req.query;
 
-//   if (keyword !== "")
-//     restOfQuery.labelproject = new RegExp(
-//       keyword.text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&") || "",
-//       "gi"
-//     );
 
-//   try {
-//     const projects = await Project.aggregate(
-//       paginationPipeline({
-//         page,
-//         filter: restOfQuery,
-//         pageLimit: 1,
-//       })
-//     );
-//     console.log(projects);
-//     res.send(projects?.[0] || emptyPaginationPayload);
-//   } catch (error) {
-//     res.status(500).send({message: error.message, stack: error.stack});
-//   }
-// };
+
+
+
 
 exports.tracking = (req, res) => {
 
   
   var list = arrayList();
 
-  var usernameOOOO=''
-  var    projectLabeloooo=''
-  var operation=0
+
 
   var obj={
     username:"",
@@ -56,11 +36,12 @@ exports.tracking = (req, res) => {
   };
 
   // console.log( );
-  var a = convert.BTC.USD(1);
-  var pricInEth = convert.ETH.USD(1);
-  var c = convert.LINK.LTC(5);
-  var d = convert.USD.CRO(100);
- 
+  // var a = convert.BTC.USD(1);
+  // var pricInEth = convert.ETH.USD(1);
+  // var c = convert.LINK.LTC(5);
+  // var d = convert.USD.CRO(100);
+  var usernameOOOO
+        var    projectLabeloooo="";
 
 
 
@@ -68,84 +49,76 @@ exports.tracking = (req, res) => {
 
   Donation.find({}, (err, result) => {
    
-    if (err) {
-      res.json(err);
-    }
-    else {
+   
+
       // console.log(result);
       result.forEach(element => {
+      console.log("entring forEach");
+// console.log(element);
       
+          Project.findById({_id:element.project})
+          .exec(
+        
+            function (err, project) {
+            // projectLabeloooo=project.labelproject
+// console.log(project.labelproject);
+projectLabeloooo=project.projectdescriptiob
+console.log(projectLabeloooo);
+// console.log(typeof(project.labelproject))
 
-        User.findOne({ _id: element.user }, (err, userr) => {
 
-          if (err) {
-            res.json(err);
+
           }
-          
-          else {
-             usernameOOOO = userr.username;
+  
+            )
+            //  usernameOOOO = userr.username;
             // obj["username"]=username;
             // console.log(username);
-            
-            Project.findOne({ _id: element.project }, (err, projectt) => {
-              
-              if (err) {
-                res.json(err);
-              }
-              
-              else {
-                 projectLabeloooo = projectt.labelproject;
-                 
-
-                // console.log(projectLabel);
+            var operation;
+            var mail;
+            if(element.operation==1){
+              operation="Stripe"
+              mail="arij.zitouni@gmail.com"
+              list.push({
+                user :element.user,
+                project:element.project,
+                money:element.money,
+                operation:operation,
+                adressemail:mail
                 
-
-                // if(element.operation==0){
-                //   // var operation="Etherieum"
-                  
-                //   console.log("eth");
-                // }
-                
-                // if(element.operation==1){
-                //   // var operation="Stripe"
-                //   console.log("Stripe");
-                  
-
-                // }
-
-              }
-
-
-
-
+              
+              
+              });    
             }
-
-
-
-            )
-
-          };
-          list.unshift({
-            username:userr.username,
-            projectLabel: projectt.labelproject,
-            operation:element.operation
-    
-    
-          }); 
+            else if(element.operation==0){
+              operation="Crypto"
+              list.push({
+       user :element.user,
+       project:element.project,
+                money:element.money,
+                operation:operation,
+                adresseCrypto:element.adresseCryptoProject
+                
+              
+              
+              });    
+            }
+        
+                  
+          
       
-      })
+      
 
    
-     
-        
+      
     
   });
 
   // project.fundcollected+= req.body.priceETH*pricInEth  
 
-}
-console.log(list);
 
+console.log(list);
+console.log("aaaaa");
 console.log("List");
 res.json(list)
   })
@@ -154,61 +127,44 @@ res.json(list)
 
 }
 
+exports.donateCrypto = async (req, res) => {
 
-
-
-
-
-exports.donateCrypto = (req, res) => {
-
-
-  console.log("hellllllloooo");
-  if (!req.body.adresseCrypto) {
-    res.status(400).send({ message: "Donate field cannot be empty   can not be empty!" });
-    return;
-  }
+  console.log(req.body.priceETH);
   console.log(req.params.id);
   console.log("hellllllloooo");
   console.log(req.params.idProject);
   console.log("hellllllloooo");
   // console.log( );
-  var a = convert.BTC.USD(1);
-  var pricInEth = convert.ETH.USD(1);
-  var c = convert.LINK.LTC(5);
-  var d = convert.USD.CRO(100);
+  // var a = convert.BTC.USD(1);
+  // var pricInEth = convert.ETH.USD(1);
+  // var c = convert.LINK.LTC(5);
+  // var d = convert.USD.CRO(100);
 
-
+var price=0.05 * 2340
   const donation = new Donation({
     user: req.params.id,
     project: req.params.idProject,
-    money: req.body.priceETH * pricInEth,
+    money: price,
     operation: 0,
     adresseCryptoProject: req.body.adresseCrypto,
     // adresseCryptoDonateur:req.body.adresseDonateur,
-
-
   });
 
   donation.save()
-  console.log(req.body.priceETH);
-  console.log(req.params.id);
-  console.log(req.params.idProject);
+
+
 
 
 
 
   Project.findOne({ _id: req.params.idProject }, (err, project) => {
-    if (err) {
-      res.json(err)
-
-    }
-    else {
-
-      project.fundcollected += req.body.priceETH * pricInEth
+ 
+    
+      project.fundcollected += 0.05* 2340
       console.log(project.fundcollected);
       project.save()
       res.json(project)
-    }
+    
   });
 
   // project.fundcollected+= req.body.priceETH*pricInEth  

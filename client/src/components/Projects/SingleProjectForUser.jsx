@@ -54,7 +54,7 @@ var barsize=0;
                             {barsize=project.fundcollected/project.fundneeded*100}
                             {    (project.fundcollected>project.fundneeded)? <div className="progress-bar"  role="progressbar"  style={{"width" : 100+ '%'}}aria-valuemin={0} aria-valuemax={100} />
 :
-                            <div className="progress-bar" role="progressbar" aria-valuenow={75} style={{"width" : 50+ '%'}} aria-valuemin={0} aria-valuemax={100} />
+                            <div className="progress-bar" role="progressbar" aria-valuenow={75} style={{"width" : 100+ '%'}} aria-valuemin={0} aria-valuemax={100} />
                 }
                         </div>
                         <div className="causes-count mt-15 fix">

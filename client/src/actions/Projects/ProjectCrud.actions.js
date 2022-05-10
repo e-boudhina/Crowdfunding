@@ -10,6 +10,7 @@ import {
      GET_PROJECTS_TO_VALIDATE,
      Validate_Project_SUCCESS,
      Ignore_Project_SUCCESS,
+     PROJECT_TRACKING,
      UPDATE_PROJECT_FUNDRAISING
   } from "./Type";
 //   import ProjectService from "../services/auth.service";
@@ -255,9 +256,9 @@ import {
       return Promise.reject(err);
     }
   };
-  export const updateProjectFundRaised = (id, data) => async (dispatch) => {
+  export const updateProjectFundRaised = (id,idProject, data) => async (dispatch) => {
     try {
-      const res = await ProjectService.updateProjectFundRaised(id, data);
+      const res = await ProjectService.updateProjectFundRaised(id,idProject ,data);
       console.log(data);
       dispatch({
         type: UPDATE_PROJECT_FUNDRAISING,
@@ -268,7 +269,34 @@ import {
       return Promise.reject(err);
     }
   };
- 
+
+  export const tracking = () => (dispatch) => {
+    return ProjectService.tracking().then(
+        (result) => {
+            console.log(result);
+            dispatch({
+                type: PROJECT_TRACKING,
+                payload: result.data,
+            });
+             console.log(result.data);
+            return Promise.resolve();   
+          },
+          (error) => {
+            const message =
+              (error.response &&
+                error.response.result &&
+                error.response.result.message) ||
+              error.message ||
+              error.toString();
+            dispatch({
+              type: SET_MESSAGE,
+              payload: message,
+            });
+            return Promise.reject();
+          }
+
+    );
+  };
 
 
 
