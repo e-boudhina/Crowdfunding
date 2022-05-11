@@ -8,8 +8,8 @@ const Project = db.Project;
 const User = db.user;
 const organization = db.organization;
 var arrayList = require('array-list')
-const ethPrice = require('eth-price');
-const convert = require("crypto-convert");
+// const ethPrice = require('eth-price');
+// const convert = require("crypto-convert");
 
 // exports.getProjects = async (req, res) => {
 //   const {page = "1", keyword = "", ...restOfQuery} = req.query;
